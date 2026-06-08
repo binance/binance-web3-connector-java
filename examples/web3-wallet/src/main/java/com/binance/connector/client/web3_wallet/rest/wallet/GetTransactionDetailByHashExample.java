@@ -1,16 +1,16 @@
-package com.binance.connector.client.web3_wallet.rest.market;
+package com.binance.connector.client.web3_wallet.rest.wallet;
 
 import com.binance.connector.client.common.ApiException;
 import com.binance.connector.client.common.ApiResponse;
 import com.binance.connector.client.common.configuration.ClientConfiguration;
 import com.binance.connector.client.common.configuration.SignatureConfiguration;
 import com.binance.connector.client.web3_wallet.rest.Web3WalletRestApiUtil;
-import com.binance.connector.client.web3_wallet.rest.api.MarketApi;
+import com.binance.connector.client.web3_wallet.rest.api.WalletApi;
 import com.binance.connector.client.web3_wallet.rest.api.Web3WalletRestApi;
-import com.binance.connector.client.web3_wallet.rest.model.GetTokenPriceResponse;
+import com.binance.connector.client.web3_wallet.rest.model.GetTransactionDetailByHashResponse;
 
-/** API examples for MarketApi */
-public class GetTokenPriceExample {
+/** API examples for WalletApi */
+public class GetTransactionDetailByHashExample {
     private Web3WalletRestApi api;
 
     public Web3WalletRestApi getApi() {
@@ -27,17 +27,24 @@ public class GetTokenPriceExample {
     }
 
     /**
-     * Get Token Price
+     * Get Transaction Detail by Hash
      *
-     * <p>Get the latest price for tokens. Supports batch queries, up to 100 tokens per request.
+     * <p>Look up the full on-chain transaction detail by &#x60;binanceChainId&#x60; +
+     * &#x60;txHash&#x60;. Returns one or more entries describing transaction inputs, outputs,
+     * internal calls, and token transfers.
      *
      * @throws ApiException if the Api call fails
      */
-    public void getTokenPriceExample() throws ApiException {
+    public void getTransactionDetailByHashExample() throws ApiException {
         Long recvWindow = 5000L;
         String nonce = "unique-nonce-string";
-        MarketApi.GetTokenPriceRequest request = new MarketApi.GetTokenPriceRequest();
-        ApiResponse<GetTokenPriceResponse> response = getApi().getTokenPrice(request);
+        String binanceChainId = "1";
+        String txHash = "0xabc123def4567890abc123def4567890abc123def4567890abc123def4567890";
+        String itype = "0";
+        WalletApi.GetTransactionDetailByHashRequest request =
+                new WalletApi.GetTransactionDetailByHashRequest();
+        ApiResponse<GetTransactionDetailByHashResponse> response =
+                getApi().getTransactionDetailByHash(request);
         System.out.println(response.getData());
     }
 }

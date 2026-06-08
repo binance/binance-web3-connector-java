@@ -19,7 +19,7 @@ public class GetTokenTradesExample {
                     Web3WalletRestApiUtil.getClientConfiguration();
             SignatureConfiguration signatureConfiguration = new SignatureConfiguration();
             signatureConfiguration.setApiKey("apiKey");
-            signatureConfiguration.setPrivateKey("path/to/private.key");
+            signatureConfiguration.setSecretKey("secretKey");
             clientConfiguration.setSignatureConfiguration(signatureConfiguration);
             api = new Web3WalletRestApi(clientConfiguration);
         }
