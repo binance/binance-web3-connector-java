@@ -1,16 +1,16 @@
-package com.binance.connector.client.web3_wallet.rest.transaction;
+package com.binance.connector.client.web3_wallet.rest.wallet;
 
 import com.binance.connector.client.common.ApiException;
 import com.binance.connector.client.common.ApiResponse;
 import com.binance.connector.client.common.configuration.ClientConfiguration;
 import com.binance.connector.client.common.configuration.SignatureConfiguration;
 import com.binance.connector.client.web3_wallet.rest.Web3WalletRestApiUtil;
-import com.binance.connector.client.web3_wallet.rest.api.TransactionApi;
+import com.binance.connector.client.web3_wallet.rest.api.WalletApi;
 import com.binance.connector.client.web3_wallet.rest.api.Web3WalletRestApi;
-import com.binance.connector.client.web3_wallet.rest.model.GetBroadcastOrdersResponse;
+import com.binance.connector.client.web3_wallet.rest.model.GetTransactionsByAddressResponse;
 
-/** API examples for TransactionApi */
-public class GetBroadcastOrdersExample {
+/** API examples for WalletApi */
+public class GetTransactionsByAddressExample {
     private Web3WalletRestApi api;
 
     public Web3WalletRestApi getApi() {
@@ -27,26 +27,28 @@ public class GetBroadcastOrdersExample {
     }
 
     /**
-     * Get Broadcast Orders
+     * Get Transactions by Address
      *
-     * <p>Look up broadcast orders previously submitted via
-     * &#x60;/pre-transaction/broadcast-transaction&#x60;. Filter by &#x60;txStatus&#x60; or
-     * &#x60;orderId&#x60;, paginate with &#x60;cursor&#x60;.
+     * <p>Return on-chain transaction history for a wallet address across one or more chains.
+     * Results are limited to the most recent 6 months and sorted by time (descending). Supports
+     * cursor pagination, time-range filtering, and token-contract filtering.
      *
      * @throws ApiException if the Api call fails
      */
-    public void getBroadcastOrdersExample() throws ApiException {
+    public void getTransactionsByAddressExample() throws ApiException {
         String address = "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045";
-        String binanceChainId = "1";
+        String chains = "1,56";
         Long recvWindow = 5000L;
         String nonce = "unique-nonce-string";
-        String txStatus = "success";
-        String orderId = "1812345678901234567";
+        String tokenContractAddress = "0xdAC17F958D2ee523a2206206994597C13D831ec7";
+        Long begin = 1746000000000L;
+        Long end = 1748601600000L;
         String cursor = "eyJ0aW1lIjoxNzQ4NjAwMDAwMDAwLCJpZCI6MTIzfQ==";
         Integer limit = 20;
-        TransactionApi.GetBroadcastOrdersRequest request =
-                new TransactionApi.GetBroadcastOrdersRequest(address, binanceChainId);
-        ApiResponse<GetBroadcastOrdersResponse> response = getApi().getBroadcastOrders(request);
+        WalletApi.GetTransactionsByAddressRequest request =
+                new WalletApi.GetTransactionsByAddressRequest(address, chains);
+        ApiResponse<GetTransactionsByAddressResponse> response =
+                getApi().getTransactionsByAddress(request);
         System.out.println(response.getData());
     }
 }
