@@ -5,9 +5,13 @@ import com.binance.connector.client.common.ApiResponse;
 import com.binance.connector.client.common.configuration.ClientConfiguration;
 import com.binance.connector.client.web3.common.ApiClient;
 import com.binance.connector.client.web3_wallet.rest.Web3WalletRestApiUtil;
+import com.binance.connector.client.web3_wallet.rest.model.ApproveTransaction;
+import com.binance.connector.client.web3_wallet.rest.model.AutoSlippage;
+import com.binance.connector.client.web3_wallet.rest.model.Bar;
 import com.binance.connector.client.web3_wallet.rest.model.BroadcastTransactionsRequest;
 import com.binance.connector.client.web3_wallet.rest.model.BroadcastTransactionsResponse;
 import com.binance.connector.client.web3_wallet.rest.model.BuildSwapTransactionResponse;
+import com.binance.connector.client.web3_wallet.rest.model.GasLevel;
 import com.binance.connector.client.web3_wallet.rest.model.GetAggregatedQuoteResponse;
 import com.binance.connector.client.web3_wallet.rest.model.GetAggregatorSupportedChainsResponse;
 import com.binance.connector.client.web3_wallet.rest.model.GetAllTokenBalancesByAddressResponse;
@@ -34,9 +38,12 @@ import com.binance.connector.client.web3_wallet.rest.model.GetTransactionStatusR
 import com.binance.connector.client.web3_wallet.rest.model.GetTransactionSupportedChainsResponse;
 import com.binance.connector.client.web3_wallet.rest.model.GetTransactionsByAddressResponse;
 import com.binance.connector.client.web3_wallet.rest.model.GetWalletSupportedChainsResponse;
+import com.binance.connector.client.web3_wallet.rest.model.RankBy;
+import com.binance.connector.client.web3_wallet.rest.model.RankingTimeFrame;
 import com.binance.connector.client.web3_wallet.rest.model.SearchTokenResponse;
 import com.binance.connector.client.web3_wallet.rest.model.SimulateTransactionsRequest;
 import com.binance.connector.client.web3_wallet.rest.model.SimulateTransactionsResponse;
+import com.binance.connector.client.web3_wallet.rest.model.TagFilter;
 
 public class Web3WalletRestApi {
 
@@ -79,7 +86,7 @@ public class Web3WalletRestApi {
      *     this time (exclusive). (optional)
      * @param before Start time for the query, Unix millisecond timestamp. Returns candles later
      *     than this time (exclusive). (optional)
-     * @param limit Number of candles to return. Defaults to 100. (optional, default to 100)
+     * @param limit Number of candles to return. Defaults to 100. (optional)
      * @return ApiResponse&lt;GetCandlesResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the
      *     response body
@@ -102,7 +109,7 @@ public class Web3WalletRestApi {
             String tokenContractAddress,
             Long recvWindow,
             String nonce,
-            String bar,
+            Bar bar,
             Long after,
             Long before,
             Integer limit)
@@ -153,7 +160,7 @@ public class Web3WalletRestApi {
             String tokenContractAddress,
             Long recvWindow,
             String nonce,
-            Integer tagFilter)
+            TagFilter tagFilter)
             throws ApiException {
         return marketApi.getHoldersRanking(
                 binanceChainId, tokenContractAddress, recvWindow, nonce, tagFilter);
@@ -247,18 +254,18 @@ public class Web3WalletRestApi {
      * @param isDevBurned When set to true, returns only tokens where the developer has burned
      *     tokens. Not filtered when omitted or false. (optional)
      * @param isMint When set to true, excludes tokens with minting capability. Default false.
-     *     (optional, default to false)
+     *     (optional)
      * @param isFreeze When set to true, excludes tokens with freeze capability. Default false.
-     *     (optional, default to false)
+     *     (optional)
      * @param isHideWashTradingTokens When set to true, excludes tokens with wash trading behavior.
-     *     Default true. (optional, default to true)
+     *     Default true. (optional)
      * @param isHideDevWashTradingTokens When set to true, excludes tokens where the developer has
-     *     wash trading behavior. Default true. (optional, default to true)
+     *     wash trading behavior. Default true. (optional)
      * @param isHideInternalWashTradingTokens When set to true, excludes tokens where insiders have
-     *     wash trading behavior. Default true. (optional, default to true)
+     *     wash trading behavior. Default true. (optional)
      * @param pageId Pagination identifier. Do not pass on the first request; pass the page value
-     *     from the previous response to get the next page. (optional, default to 1)
-     * @param size Page size. Maximum 100. Defaults to 100. (optional, default to 100)
+     *     from the previous response to get the next page. (optional)
+     * @param size Page size. Maximum 100. Defaults to 100. (optional)
      * @return ApiResponse&lt;GetHotTokenListResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the
      *     response body
@@ -280,8 +287,8 @@ public class Web3WalletRestApi {
             Long recvWindow,
             String nonce,
             String binanceChainId,
-            Integer rankBy,
-            Integer rankingTimeFrame,
+            RankBy rankBy,
+            RankingTimeFrame rankingTimeFrame,
             String priceChangePercentMin,
             String priceChangePercentMax,
             String volumeMin,
@@ -555,8 +562,7 @@ public class Web3WalletRestApi {
      *     (optional)
      * @param cursor Pagination cursor. Do not pass on the first request; pass the cursor value from
      *     the previous response to get the next page. (optional)
-     * @param limit Number of results per page, maximum 500, defaults to 100. (optional, default to
-     *     100)
+     * @param limit Number of results per page, maximum 500, defaults to 100. (optional)
      * @param tagFilter Address tag filter, single selection only. Returns all trades with
      *     pagination when omitted; returns only the latest 100 trades for the specified tag&#39;s
      *     addresses when provided (cursor and limit are ignored). Mapping: 1&#x3D;KOL,
@@ -588,7 +594,7 @@ public class Web3WalletRestApi {
             String nonce,
             String cursor,
             Integer limit,
-            Integer tagFilter,
+            TagFilter tagFilter,
             String walletAddressFilter)
             throws ApiException {
         return marketApi.getTokenTrades(
@@ -719,7 +725,7 @@ public class Web3WalletRestApi {
             String tokenContractAddress,
             Long recvWindow,
             String nonce,
-            Integer tagFilter)
+            TagFilter tagFilter)
             throws ApiException {
         return marketApi.getTopTraders(
                 binanceChainId, tokenContractAddress, recvWindow, nonce, tagFilter);
@@ -836,12 +842,12 @@ public class Web3WalletRestApi {
             String quoteId,
             Long recvWindow,
             String nonce,
-            String approveTransaction,
+            ApproveTransaction approveTransaction,
             String approveAmount,
             String gasLimit,
-            String gasLevel,
+            GasLevel gasLevel,
             String priceImpactProtectionPercent,
-            String autoSlippage,
+            AutoSlippage autoSlippage,
             String maxAutoSlippagePercent,
             String computeUnitLimit,
             String computeUnitPrice,
@@ -1053,11 +1059,11 @@ public class Web3WalletRestApi {
     }
 
     /**
-     * Broadcast Transactions Broadcast a client-signed transaction to the chain via the OnchainOS
-     * relay. Returns the transaction hash and an internal &#x60;orderId&#x60; you can use to track
-     * on-chain status via the post-transaction service. Optional MEV protection (EVM chains only)
-     * routes the transaction through a private mempool to mitigate front-running and sandwich
-     * attacks.
+     * Broadcast Transactions Broadcast a client-signed transaction to the chain via the Binance
+     * Web3 API relay. Returns the transaction hash and an internal &#x60;orderId&#x60; you can use
+     * to track on-chain status via the post-transaction service. Optional MEV protection (EVM
+     * chains only) routes the transaction through a private mempool to mitigate front-running and
+     * sandwich attacks.
      *
      * @param broadcastTransactionsRequest (required)
      * @param recvWindow Allowed time deviation in milliseconds (default: 5000, max: 60000).
@@ -1112,7 +1118,7 @@ public class Web3WalletRestApi {
      * @param orderId Optional filter to fetch a single order by its internal order ID. (optional)
      * @param cursor Pagination cursor returned by the previous page. Omit on the first request.
      *     (optional)
-     * @param limit Page size. Defaults to 20. (optional, default to 20)
+     * @param limit Page size. Defaults to 20. (optional)
      * @return ApiResponse&lt;GetBroadcastOrdersResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the
      *     response body
@@ -1305,8 +1311,8 @@ public class Web3WalletRestApi {
      * @param address Wallet address to query. (optional)
      * @param chains Comma-separated list of chain identifiers. (optional)
      * @param excludeRiskToken Whether to exclude risk-flagged tokens. (optional)
-     * @param page Page number. Defaults to 1. (optional, default to 1)
-     * @param pageSize Page size. Range 1–100. Defaults to 20. (optional, default to 20)
+     * @param page Page number. Defaults to 1. (optional)
+     * @param pageSize Page size. Range 1–100. Defaults to 20. (optional)
      * @return ApiResponse&lt;GetAllTokenBalancesByAddressResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the
      *     response body
@@ -1438,7 +1444,7 @@ public class Web3WalletRestApi {
      * @param begin Optional start timestamp (Unix milliseconds, inclusive). (optional)
      * @param end Optional end timestamp (Unix milliseconds, inclusive). (optional)
      * @param cursor Pagination cursor returned by the previous page. (optional)
-     * @param limit Page size. Range 1–100. Defaults to 20. (optional, default to 20)
+     * @param limit Page size. Range 1–100. Defaults to 20. (optional)
      * @return ApiResponse&lt;GetTransactionsByAddressResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the
      *     response body

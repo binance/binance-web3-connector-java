@@ -7,7 +7,10 @@ import com.binance.connector.client.common.configuration.SignatureConfiguration;
 import com.binance.connector.client.web3_wallet.rest.Web3WalletRestApiUtil;
 import com.binance.connector.client.web3_wallet.rest.api.TradingApi;
 import com.binance.connector.client.web3_wallet.rest.api.Web3WalletRestApi;
+import com.binance.connector.client.web3_wallet.rest.model.ApproveTransaction;
+import com.binance.connector.client.web3_wallet.rest.model.AutoSlippage;
 import com.binance.connector.client.web3_wallet.rest.model.BuildSwapTransactionResponse;
+import com.binance.connector.client.web3_wallet.rest.model.GasLevel;
 
 /** API examples for TradingApi */
 public class BuildSwapTransactionExample {
@@ -46,12 +49,12 @@ public class BuildSwapTransactionExample {
         String quoteId = "a1b2c3d4e5f64a8b9c0d1e2f3a4b5c6d";
         Long recvWindow = 5000L;
         String nonce = "unique-nonce-string";
-        String approveTransaction = "false";
+        ApproveTransaction approveTransaction = ApproveTransaction.TRUE;
         String approveAmount = "1000000";
         String gasLimit = "200000";
-        String gasLevel = "average";
+        GasLevel gasLevel = GasLevel.slow;
         String priceImpactProtectionPercent = "90";
-        String autoSlippage = "false";
+        AutoSlippage autoSlippage = AutoSlippage.TRUE;
         String maxAutoSlippagePercent = "3";
         String computeUnitLimit = "1400000";
         String computeUnitPrice = "1000";

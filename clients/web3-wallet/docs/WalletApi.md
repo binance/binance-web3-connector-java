@@ -72,8 +72,8 @@ public class Example {
 | **address** | **String**| Wallet address to query. | [optional] |
 | **chains** | **String**| Comma-separated list of chain identifiers. | [optional] |
 | **excludeRiskToken** | **Boolean**| Whether to exclude risk-flagged tokens. | [optional] |
-| **page** | **Long**| Page number. Defaults to 1. | [optional] [default to 1] |
-| **pageSize** | **Integer**| Page size. Range 1–100. Defaults to 20. | [optional] [default to 20] |
+| **page** | **Long**| Page number. Defaults to 1. | [optional] |
+| **pageSize** | **Integer**| Page size. Range 1–100. Defaults to 20. | [optional] |
 
 ### Return type
 
@@ -314,7 +314,7 @@ public class Example {
 | **begin** | **Long**| Optional start timestamp (Unix milliseconds, inclusive). | [optional] |
 | **end** | **Long**| Optional end timestamp (Unix milliseconds, inclusive). | [optional] |
 | **cursor** | **String**| Pagination cursor returned by the previous page. | [optional] |
-| **limit** | **Integer**| Page size. Range 1–100. Defaults to 20. | [optional] [default to 20] |
+| **limit** | **Integer**| Page size. Range 1–100. Defaults to 20. | [optional] |
 
 ### Return type
 

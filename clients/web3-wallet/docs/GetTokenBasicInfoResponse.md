@@ -9,7 +9,7 @@
 |------------ | ------------- | ------------- | -------------|
 |**code** | **Integer** |  |  [optional] |
 |**msg** | **String** |  |  [optional] |
-|**data** | [**GetTokenBasicInfoResponseData**](GetTokenBasicInfoResponseData.md) |  |  [optional] |
+|**data** | [**TokenBasicInfo**](TokenBasicInfo.md) |  |  [optional] |
 |**timestamp** | **Long** |  |  [optional] |
 |**success** | **Boolean** |  |  [optional] |
 

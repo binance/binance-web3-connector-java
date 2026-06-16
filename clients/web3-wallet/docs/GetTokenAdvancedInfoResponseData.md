@@ -29,7 +29,7 @@
 |**holders** | **Long** | Number of holding addresses. |  [optional] |
 |**bnHolderCount** | **Long** | Number of Binance MPC wallets holding this token. |  [optional] |
 |**bnTraderCount7D** | **Long** | Number of Binance MPC wallets that traded via Binance Web3 DEX in the last 7 days. |  [optional] |
-|**tokenTags** | **List&lt;String&gt;** | Token tags. |  [optional] |
+|**tokenTags** | **List&lt;String&gt;** | Token tags. Returns tags matched by the token. Possible values:  - &#x60;alpha&#x60; — Binance Alpha - &#x60;tge&#x60; — Binance TGE - &#x60;communityRecognized&#x60; — Highly recognized by community - &#x60;devSellAll&#x60; — Developer sold entire holding - &#x60;devSell&#x60; — Developer sold partial holding - &#x60;devBuy&#x60; — Developer bought tokens - &#x60;smartMoneyBuy&#x60; — Smart money buying - &#x60;smartMoneySell&#x60; — Smart money selling - &#x60;devRemoveLiquidity&#x60; — Developer removed liquidity - &#x60;devAddLiquidity&#x60; — Developer added liquidity - &#x60;devBurnToken&#x60; — Developer burned tokens - &#x60;dexScreenerPaid&#x60; — DexScreener paid - &#x60;volumeSurge&#x60; — Volume surge - &#x60;volumePlunge&#x60; — Volume plunge - &#x60;lowLiquidity&#x60; — Low liquidity - &#x60;washTrading&#x60; — Wash trading detected - &#x60;devWashTrading&#x60; — Developer wash trading detected - &#x60;insiderWashTrading&#x60; — Insider wash trading detected  |  [optional] |
 
 
 

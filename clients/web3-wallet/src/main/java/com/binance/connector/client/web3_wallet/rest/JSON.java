@@ -1,6 +1,6 @@
 /*
- * Binance Web3 Wallet REST API
- * Cross-chain wallet, market, trading, and transaction APIs for the OnchainOS platform.
+ * Binance Web3 API
+ * Cross-chain wallet, market, trading, and transaction APIs for the Binance Web3 API platform.
  *
  * The version of the OpenAPI document: 1.0.0
  *
@@ -297,9 +297,6 @@ public class JSON {
                 new com.binance.connector.client.web3_wallet.rest.model.GetTokenBasicInfoResponse
                         .CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(
-                new com.binance.connector.client.web3_wallet.rest.model
-                        .GetTokenBasicInfoResponseData.CustomTypeAdapterFactory());
-        gsonBuilder.registerTypeAdapterFactory(
                 new com.binance.connector.client.web3_wallet.rest.model.GetTokenPriceResponse
                         .CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(
@@ -413,9 +410,6 @@ public class JSON {
                 new com.binance.connector.client.web3_wallet.rest.model.SearchTokenResponseDataInner
                         .CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(
-                new com.binance.connector.client.web3_wallet.rest.model
-                        .SearchTokenResponseDataInnerTagList.CustomTypeAdapterFactory());
-        gsonBuilder.registerTypeAdapterFactory(
                 new com.binance.connector.client.web3_wallet.rest.model.SimulateTransactionsRequest
                         .CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(
@@ -437,6 +431,15 @@ public class JSON {
         gsonBuilder.registerTypeAdapterFactory(
                 new com.binance.connector.client.web3_wallet.rest.model
                         .SimulateTransactionsResponseDataBalanceChangesInner
+                        .CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(
+                new com.binance.connector.client.web3_wallet.rest.model.TagInfo
+                        .CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(
+                new com.binance.connector.client.web3_wallet.rest.model.TokenBasicInfo
+                        .CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(
+                new com.binance.connector.client.web3_wallet.rest.model.TokenTagInformation
                         .CustomTypeAdapterFactory());
         gson = gsonBuilder.create();
     }

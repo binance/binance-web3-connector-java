@@ -102,8 +102,6 @@ public class WalletApiTest {
         Call captorValue = callArgumentCaptor.getValue();
         Request actualRequest = captorValue.request();
 
-        System.out.println("@@@%" + WalletApiTest.class.getCanonicalName() + "53668e00dc92eb93de0b253c301e9fc0c20042b13db384a0ad94b38688a5a84c|" + actualRequest.url().queryParameter("signature"));
-        System.out.println("@@@%" + WalletApiTest.class.getCanonicalName() + "/api/v1/dex/balance/all-token-balances-by-address|" + actualRequest.url().encodedPath());
         assertEquals("timestamp=1736393892000", signInputCaptor.getValue());
         assertEquals("53668e00dc92eb93de0b253c301e9fc0c20042b13db384a0ad94b38688a5a84c", actualRequest.url().queryParameter("signature"));
         assertEquals("/api/v1/dex/balance/all-token-balances-by-address", actualRequest.url().encodedPath());
@@ -143,8 +141,6 @@ public class WalletApiTest {
         Call captorValue = callArgumentCaptor.getValue();
         Request actualRequest = captorValue.request();
 
-        System.out.println("@@@%" + WalletApiTest.class.getCanonicalName() + "7d9d5a78a341ecd7ec35e884de59ef908d4d8efbe8e266d775253f546c1cb8d7|" + actualRequest.url().queryParameter("signature"));
-        System.out.println("@@@%" + WalletApiTest.class.getCanonicalName() + "/api/v1/dex/balance/token-balances-by-address|" + actualRequest.url().encodedPath());
         assertEquals("timestamp=1736393892000tokenContractAddresses=%5B%7B%22binanceChainId%22%3A%221%22%2C%22tokenContractAddress%22%3A%220x2260fac5e5542a773aa44fbcfedf7c193bc2c599%22%7D%5D&address=0x50c476a139aab23fdaf9bca12614cdd54a4244e3", signInputCaptor.getValue());
         assertEquals("7d9d5a78a341ecd7ec35e884de59ef908d4d8efbe8e266d775253f546c1cb8d7", actualRequest.url().queryParameter("signature"));
         assertEquals("/api/v1/dex/balance/token-balances-by-address", actualRequest.url().encodedPath());
@@ -176,8 +172,6 @@ public class WalletApiTest {
         Call captorValue = callArgumentCaptor.getValue();
         Request actualRequest = captorValue.request();
 
-        System.out.println("@@@%" + WalletApiTest.class.getCanonicalName() + "53668e00dc92eb93de0b253c301e9fc0c20042b13db384a0ad94b38688a5a84c|" + actualRequest.url().queryParameter("signature"));
-        System.out.println("@@@%" + WalletApiTest.class.getCanonicalName() + "/api/v1/dex/post-transaction/transaction-detail-by-txhash|" + actualRequest.url().encodedPath());
         assertEquals("timestamp=1736393892000", signInputCaptor.getValue());
         assertEquals("53668e00dc92eb93de0b253c301e9fc0c20042b13db384a0ad94b38688a5a84c", actualRequest.url().queryParameter("signature"));
         assertEquals("/api/v1/dex/post-transaction/transaction-detail-by-txhash", actualRequest.url().encodedPath());
@@ -213,8 +207,6 @@ public class WalletApiTest {
         Call captorValue = callArgumentCaptor.getValue();
         Request actualRequest = captorValue.request();
 
-        System.out.println("@@@%" + WalletApiTest.class.getCanonicalName() + "c0a375402fd67e2747587e85bf8e613b4e3676aef99298bcecb2e6078ddf486e|" + actualRequest.url().queryParameter("signature"));
-        System.out.println("@@@%" + WalletApiTest.class.getCanonicalName() + "/api/v1/dex/post-transaction/transactions-by-address|" + actualRequest.url().encodedPath());
         assertEquals("address=0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045&chains=1%2C56&timestamp=1736393892000", signInputCaptor.getValue());
         assertEquals("c0a375402fd67e2747587e85bf8e613b4e3676aef99298bcecb2e6078ddf486e", actualRequest.url().queryParameter("signature"));
         assertEquals("/api/v1/dex/post-transaction/transactions-by-address", actualRequest.url().encodedPath());
@@ -244,8 +236,6 @@ public class WalletApiTest {
         Call captorValue = callArgumentCaptor.getValue();
         Request actualRequest = captorValue.request();
 
-        System.out.println("@@@%" + WalletApiTest.class.getCanonicalName() + "53668e00dc92eb93de0b253c301e9fc0c20042b13db384a0ad94b38688a5a84c|" + actualRequest.url().queryParameter("signature"));
-        System.out.println("@@@%" + WalletApiTest.class.getCanonicalName() + "/api/v1/dex/balance/supported/chain|" + actualRequest.url().encodedPath());
         assertEquals("timestamp=1736393892000", signInputCaptor.getValue());
         assertEquals("53668e00dc92eb93de0b253c301e9fc0c20042b13db384a0ad94b38688a5a84c", actualRequest.url().queryParameter("signature"));
         assertEquals("/api/v1/dex/balance/supported/chain", actualRequest.url().encodedPath());

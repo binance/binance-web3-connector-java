@@ -19,7 +19,7 @@
 |**liquidity** | **String** | Token liquidity, denominated in USD. |  [optional] |
 |**marketCap** | **String** | Token market cap, denominated in USD. |  [optional] |
 |**price** | **String** | Latest token price, denominated in USD. |  [optional] |
-|**tagList** | [**SearchTokenResponseDataInnerTagList**](SearchTokenResponseDataInnerTagList.md) |  |  [optional] |
+|**tagList** | [**TagInfo**](TagInfo.md) |  |  [optional] |
 
 
 

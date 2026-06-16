@@ -1,6 +1,6 @@
 /*
- * Binance Web3 Wallet REST API
- * Cross-chain wallet, market, trading, and transaction APIs for the OnchainOS platform.
+ * Binance Web3 API
+ * Cross-chain wallet, market, trading, and transaction APIs for the Binance Web3 API platform.
  *
  * The version of the OpenAPI document: 1.0.0
  *
@@ -40,7 +40,7 @@ import org.openapitools.jackson.nullable.JsonNullable;
 /** GetTokenAdvancedInfoResponseData */
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
-        comments = "Generator version: 7.12.0")
+        comments = "Generator version: 7.22.0")
 public class GetTokenAdvancedInfoResponseData {
     public static final String SERIALIZED_NAME_BINANCE_CHAIN_ID = "binanceChainId";
 
@@ -643,7 +643,18 @@ public class GetTokenAdvancedInfoResponseData {
     }
 
     /**
-     * Token tags.
+     * Token tags. Returns tags matched by the token. Possible values: - &#x60;alpha&#x60; — Binance
+     * Alpha - &#x60;tge&#x60; — Binance TGE - &#x60;communityRecognized&#x60; — Highly recognized
+     * by community - &#x60;devSellAll&#x60; — Developer sold entire holding - &#x60;devSell&#x60; —
+     * Developer sold partial holding - &#x60;devBuy&#x60; — Developer bought tokens -
+     * &#x60;smartMoneyBuy&#x60; — Smart money buying - &#x60;smartMoneySell&#x60; — Smart money
+     * selling - &#x60;devRemoveLiquidity&#x60; — Developer removed liquidity -
+     * &#x60;devAddLiquidity&#x60; — Developer added liquidity - &#x60;devBurnToken&#x60; —
+     * Developer burned tokens - &#x60;dexScreenerPaid&#x60; — DexScreener paid -
+     * &#x60;volumeSurge&#x60; — Volume surge - &#x60;volumePlunge&#x60; — Volume plunge -
+     * &#x60;lowLiquidity&#x60; — Low liquidity - &#x60;washTrading&#x60; — Wash trading detected -
+     * &#x60;devWashTrading&#x60; — Developer wash trading detected - &#x60;insiderWashTrading&#x60;
+     * — Insider wash trading detected
      *
      * @return tokenTags
      */

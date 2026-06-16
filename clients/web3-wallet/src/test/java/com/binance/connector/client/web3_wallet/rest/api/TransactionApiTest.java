@@ -99,8 +99,6 @@ public class TransactionApiTest {
         Call captorValue = callArgumentCaptor.getValue();
         Request actualRequest = captorValue.request();
 
-        System.out.println("@@@%" + TransactionApiTest.class.getCanonicalName() + "66b7a8a0ef786de8ddd3f218bf9ba196221f60fbfcdb12926a2f1cbc624f84bb|" + actualRequest.url().queryParameter("signature"));
-        System.out.println("@@@%" + TransactionApiTest.class.getCanonicalName() + "/api/v1/dex/pre-transaction/broadcast-transaction|" + actualRequest.url().encodedPath());
         assertEquals("timestamp=1736393892000address=0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045&signedTransaction=0xf86c808504a817c80082520894d8da6bf26964af9d7eed9e03e53415d37aa96045880de0b6b3a76400008025a0...&binanceChainId=1", signInputCaptor.getValue());
         assertEquals("66b7a8a0ef786de8ddd3f218bf9ba196221f60fbfcdb12926a2f1cbc624f84bb", actualRequest.url().queryParameter("signature"));
         assertEquals("/api/v1/dex/pre-transaction/broadcast-transaction", actualRequest.url().encodedPath());
@@ -135,8 +133,6 @@ public class TransactionApiTest {
         Call captorValue = callArgumentCaptor.getValue();
         Request actualRequest = captorValue.request();
 
-        System.out.println("@@@%" + TransactionApiTest.class.getCanonicalName() + "f4b74092bfc5611f8d25f362db6a4633a58f952a500f2a98c173e5f439bab6e9|" + actualRequest.url().queryParameter("signature"));
-        System.out.println("@@@%" + TransactionApiTest.class.getCanonicalName() + "/api/v1/dex/post-transaction/orders|" + actualRequest.url().encodedPath());
         assertEquals("address=0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045&binanceChainId=1&timestamp=1736393892000", signInputCaptor.getValue());
         assertEquals("f4b74092bfc5611f8d25f362db6a4633a58f952a500f2a98c173e5f439bab6e9", actualRequest.url().queryParameter("signature"));
         assertEquals("/api/v1/dex/post-transaction/orders", actualRequest.url().encodedPath());
@@ -167,8 +163,6 @@ public class TransactionApiTest {
         Call captorValue = callArgumentCaptor.getValue();
         Request actualRequest = captorValue.request();
 
-        System.out.println("@@@%" + TransactionApiTest.class.getCanonicalName() + "0708456ff0bebe4504a390eba1cdb4a23e3d7efc004bbc03345597b275ce0a21|" + actualRequest.url().queryParameter("signature"));
-        System.out.println("@@@%" + TransactionApiTest.class.getCanonicalName() + "/api/v1/dex/pre-transaction/gas-limit|" + actualRequest.url().encodedPath());
         assertEquals("timestamp=1736393892000binanceChainId=1", signInputCaptor.getValue());
         assertEquals("0708456ff0bebe4504a390eba1cdb4a23e3d7efc004bbc03345597b275ce0a21", actualRequest.url().queryParameter("signature"));
         assertEquals("/api/v1/dex/pre-transaction/gas-limit", actualRequest.url().encodedPath());
@@ -198,8 +192,6 @@ public class TransactionApiTest {
         Call captorValue = callArgumentCaptor.getValue();
         Request actualRequest = captorValue.request();
 
-        System.out.println("@@@%" + TransactionApiTest.class.getCanonicalName() + "c36923d9a327f1bd1ee2057e16c68ce0db69c823fc0df9cff959266fc9bebce6|" + actualRequest.url().queryParameter("signature"));
-        System.out.println("@@@%" + TransactionApiTest.class.getCanonicalName() + "/api/v1/dex/pre-transaction/gas-price|" + actualRequest.url().encodedPath());
         assertEquals("binanceChainId=1&timestamp=1736393892000", signInputCaptor.getValue());
         assertEquals("c36923d9a327f1bd1ee2057e16c68ce0db69c823fc0df9cff959266fc9bebce6", actualRequest.url().queryParameter("signature"));
         assertEquals("/api/v1/dex/pre-transaction/gas-price", actualRequest.url().encodedPath());
@@ -228,8 +220,6 @@ public class TransactionApiTest {
         Call captorValue = callArgumentCaptor.getValue();
         Request actualRequest = captorValue.request();
 
-        System.out.println("@@@%" + TransactionApiTest.class.getCanonicalName() + "53668e00dc92eb93de0b253c301e9fc0c20042b13db384a0ad94b38688a5a84c|" + actualRequest.url().queryParameter("signature"));
-        System.out.println("@@@%" + TransactionApiTest.class.getCanonicalName() + "/api/v1/dex/pre-transaction/supported/chain|" + actualRequest.url().encodedPath());
         assertEquals("timestamp=1736393892000", signInputCaptor.getValue());
         assertEquals("53668e00dc92eb93de0b253c301e9fc0c20042b13db384a0ad94b38688a5a84c", actualRequest.url().queryParameter("signature"));
         assertEquals("/api/v1/dex/pre-transaction/supported/chain", actualRequest.url().encodedPath());
@@ -260,8 +250,6 @@ public class TransactionApiTest {
         Call captorValue = callArgumentCaptor.getValue();
         Request actualRequest = captorValue.request();
 
-        System.out.println("@@@%" + TransactionApiTest.class.getCanonicalName() + "0708456ff0bebe4504a390eba1cdb4a23e3d7efc004bbc03345597b275ce0a21|" + actualRequest.url().queryParameter("signature"));
-        System.out.println("@@@%" + TransactionApiTest.class.getCanonicalName() + "/api/v1/dex/pre-transaction/simulate|" + actualRequest.url().encodedPath());
         assertEquals("timestamp=1736393892000binanceChainId=1", signInputCaptor.getValue());
         assertEquals("0708456ff0bebe4504a390eba1cdb4a23e3d7efc004bbc03345597b275ce0a21", actualRequest.url().queryParameter("signature"));
         assertEquals("/api/v1/dex/pre-transaction/simulate", actualRequest.url().encodedPath());

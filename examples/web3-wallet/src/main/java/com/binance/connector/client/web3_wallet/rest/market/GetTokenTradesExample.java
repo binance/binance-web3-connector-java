@@ -8,6 +8,7 @@ import com.binance.connector.client.web3_wallet.rest.Web3WalletRestApiUtil;
 import com.binance.connector.client.web3_wallet.rest.api.MarketApi;
 import com.binance.connector.client.web3_wallet.rest.api.Web3WalletRestApi;
 import com.binance.connector.client.web3_wallet.rest.model.GetTokenTradesResponse;
+import com.binance.connector.client.web3_wallet.rest.model.TagFilter;
 
 /** API examples for MarketApi */
 public class GetTokenTradesExample {
@@ -41,7 +42,7 @@ public class GetTokenTradesExample {
         String nonce = "unique-nonce-string";
         String cursor = "eyJ0aW1lIjoxNzQ4NjAwMDAwMDAwLCJpZCI6MTIzfQ==";
         Integer limit = 100;
-        Integer tagFilter = null;
+        TagFilter tagFilter = TagFilter.TAG_FILTER_1;
         String walletAddressFilter = "0x28c6c06298d514db089934071355e5743bf21d60";
         MarketApi.GetTokenTradesRequest request =
                 new MarketApi.GetTokenTradesRequest(binanceChainId, tokenContractAddress);

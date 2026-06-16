@@ -1,6 +1,6 @@
 /*
- * Binance Web3 Wallet REST API
- * Cross-chain wallet, market, trading, and transaction APIs for the OnchainOS platform.
+ * Binance Web3 API
+ * Cross-chain wallet, market, trading, and transaction APIs for the Binance Web3 API platform.
  *
  * The version of the OpenAPI document: 1.0.0
  *
@@ -33,21 +33,20 @@ import java.util.Objects;
 import org.hibernate.validator.constraints.*;
 import org.openapitools.jackson.nullable.JsonNullable;
 
-/** SearchTokenResponseDataInnerTagList */
+/** TokenTagInformation */
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
-        comments = "Generator version: 7.12.0")
-public class SearchTokenResponseDataInnerTagList {
+        comments = "Generator version: 7.22.0")
+public class TokenTagInformation {
     public static final String SERIALIZED_NAME_IS_RECOGNIZED = "isRecognized";
 
     @SerializedName(SERIALIZED_NAME_IS_RECOGNIZED)
     @jakarta.annotation.Nullable
     private Boolean isRecognized;
 
-    public SearchTokenResponseDataInnerTagList() {}
+    public TokenTagInformation() {}
 
-    public SearchTokenResponseDataInnerTagList isRecognized(
-            @jakarta.annotation.Nullable Boolean isRecognized) {
+    public TokenTagInformation isRecognized(@jakarta.annotation.Nullable Boolean isRecognized) {
         this.isRecognized = isRecognized;
         return this;
     }
@@ -75,9 +74,8 @@ public class SearchTokenResponseDataInnerTagList {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        SearchTokenResponseDataInnerTagList searchTokenResponseDataInnerTagList =
-                (SearchTokenResponseDataInnerTagList) o;
-        return Objects.equals(this.isRecognized, searchTokenResponseDataInnerTagList.isRecognized);
+        TokenTagInformation tokenTagInformation = (TokenTagInformation) o;
+        return Objects.equals(this.isRecognized, tokenTagInformation.isRecognized);
     }
 
     private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
@@ -104,7 +102,7 @@ public class SearchTokenResponseDataInnerTagList {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("class SearchTokenResponseDataInnerTagList {\n");
+        sb.append("class TokenTagInformation {\n");
         sb.append("		isRecognized: ").append(toIndentedString(isRecognized)).append("\n");
         sb.append("}");
         return sb.toString();
@@ -155,19 +153,17 @@ public class SearchTokenResponseDataInnerTagList {
      * Validates the JSON Element and throws an exception if issues found
      *
      * @param jsonElement JSON Element
-     * @throws IOException if the JSON Element is invalid with respect to
-     *     SearchTokenResponseDataInnerTagList
+     * @throws IOException if the JSON Element is invalid with respect to TokenTagInformation
      */
     public static void validateJsonElement(JsonElement jsonElement) throws IOException {
         if (jsonElement == null) {
-            if (!SearchTokenResponseDataInnerTagList.openapiRequiredFields
+            if (!TokenTagInformation.openapiRequiredFields
                     .isEmpty()) { // has required fields but JSON element is null
                 throw new IllegalArgumentException(
                         String.format(
-                                "The required field(s) %s in SearchTokenResponseDataInnerTagList is"
-                                        + " not found in the empty JSON string",
-                                SearchTokenResponseDataInnerTagList.openapiRequiredFields
-                                        .toString()));
+                                "The required field(s) %s in TokenTagInformation is not found in"
+                                        + " the empty JSON string",
+                                TokenTagInformation.openapiRequiredFields.toString()));
             }
         }
         JsonObject jsonObj = jsonElement.getAsJsonObject();
@@ -177,27 +173,24 @@ public class SearchTokenResponseDataInnerTagList {
         @SuppressWarnings("unchecked")
         @Override
         public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
-            if (!SearchTokenResponseDataInnerTagList.class.isAssignableFrom(type.getRawType())) {
-                return null; // this class only serializes 'SearchTokenResponseDataInnerTagList' and
-                // its subtypes
+            if (!TokenTagInformation.class.isAssignableFrom(type.getRawType())) {
+                return null; // this class only serializes 'TokenTagInformation' and its subtypes
             }
             final TypeAdapter<JsonElement> elementAdapter = gson.getAdapter(JsonElement.class);
-            final TypeAdapter<SearchTokenResponseDataInnerTagList> thisAdapter =
-                    gson.getDelegateAdapter(
-                            this, TypeToken.get(SearchTokenResponseDataInnerTagList.class));
+            final TypeAdapter<TokenTagInformation> thisAdapter =
+                    gson.getDelegateAdapter(this, TypeToken.get(TokenTagInformation.class));
 
             return (TypeAdapter<T>)
-                    new TypeAdapter<SearchTokenResponseDataInnerTagList>() {
+                    new TypeAdapter<TokenTagInformation>() {
                         @Override
-                        public void write(JsonWriter out, SearchTokenResponseDataInnerTagList value)
+                        public void write(JsonWriter out, TokenTagInformation value)
                                 throws IOException {
                             JsonElement obj = thisAdapter.toJsonTree(value).getAsJsonObject();
                             elementAdapter.write(out, obj);
                         }
 
                         @Override
-                        public SearchTokenResponseDataInnerTagList read(JsonReader in)
-                                throws IOException {
+                        public TokenTagInformation read(JsonReader in) throws IOException {
                             JsonElement jsonElement = elementAdapter.read(in);
                             // validateJsonElement(jsonElement);
                             return thisAdapter.fromJsonTree(jsonElement);
@@ -207,20 +200,18 @@ public class SearchTokenResponseDataInnerTagList {
     }
 
     /**
-     * Create an instance of SearchTokenResponseDataInnerTagList given an JSON string
+     * Create an instance of TokenTagInformation given an JSON string
      *
      * @param jsonString JSON string
-     * @return An instance of SearchTokenResponseDataInnerTagList
-     * @throws IOException if the JSON string is invalid with respect to
-     *     SearchTokenResponseDataInnerTagList
+     * @return An instance of TokenTagInformation
+     * @throws IOException if the JSON string is invalid with respect to TokenTagInformation
      */
-    public static SearchTokenResponseDataInnerTagList fromJson(String jsonString)
-            throws IOException {
-        return JSON.getGson().fromJson(jsonString, SearchTokenResponseDataInnerTagList.class);
+    public static TokenTagInformation fromJson(String jsonString) throws IOException {
+        return JSON.getGson().fromJson(jsonString, TokenTagInformation.class);
     }
 
     /**
-     * Convert an instance of SearchTokenResponseDataInnerTagList to an JSON string
+     * Convert an instance of TokenTagInformation to an JSON string
      *
      * @return JSON string
      */

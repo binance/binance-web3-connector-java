@@ -1,6 +1,6 @@
 /*
- * Binance Web3 Wallet REST API
- * Cross-chain wallet, market, trading, and transaction APIs for the OnchainOS platform.
+ * Binance Web3 API
+ * Cross-chain wallet, market, trading, and transaction APIs for the Binance Web3 API platform.
  *
  * The version of the OpenAPI document: 1.0.0
  *
@@ -37,7 +37,7 @@ import org.openapitools.jackson.nullable.JsonNullable;
 /** SearchTokenResponseDataInner */
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
-        comments = "Generator version: 7.12.0")
+        comments = "Generator version: 7.22.0")
 public class SearchTokenResponseDataInner {
     public static final String SERIALIZED_NAME_BINANCE_CHAIN_ID = "binanceChainId";
 
@@ -115,7 +115,7 @@ public class SearchTokenResponseDataInner {
 
     @SerializedName(SERIALIZED_NAME_TAG_LIST)
     @jakarta.annotation.Nullable
-    private SearchTokenResponseDataInnerTagList tagList;
+    private TagInfo tagList;
 
     public SearchTokenResponseDataInner() {}
 
@@ -352,8 +352,7 @@ public class SearchTokenResponseDataInner {
         this.price = price;
     }
 
-    public SearchTokenResponseDataInner tagList(
-            @jakarta.annotation.Nullable SearchTokenResponseDataInnerTagList tagList) {
+    public SearchTokenResponseDataInner tagList(@jakarta.annotation.Nullable TagInfo tagList) {
         this.tagList = tagList;
         return this;
     }
@@ -365,12 +364,11 @@ public class SearchTokenResponseDataInner {
      */
     @jakarta.annotation.Nullable
     @Valid
-    public SearchTokenResponseDataInnerTagList getTagList() {
+    public TagInfo getTagList() {
         return tagList;
     }
 
-    public void setTagList(
-            @jakarta.annotation.Nullable SearchTokenResponseDataInnerTagList tagList) {
+    public void setTagList(@jakarta.annotation.Nullable TagInfo tagList) {
         this.tagList = tagList;
     }
 
@@ -671,7 +669,7 @@ public class SearchTokenResponseDataInner {
         }
         // validate the optional field `tagList`
         if (jsonObj.get("tagList") != null && !jsonObj.get("tagList").isJsonNull()) {
-            SearchTokenResponseDataInnerTagList.validateJsonElement(jsonObj.get("tagList"));
+            TagInfo.validateJsonElement(jsonObj.get("tagList"));
         }
     }
 

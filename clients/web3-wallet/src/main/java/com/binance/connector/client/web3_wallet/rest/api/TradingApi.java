@@ -1,6 +1,6 @@
 /*
- * Binance Web3 Wallet REST API
- * Cross-chain wallet, market, trading, and transaction APIs for the OnchainOS platform.
+ * Binance Web3 API
+ * Cross-chain wallet, market, trading, and transaction APIs for the Binance Web3 API platform.
  *
  * The version of the OpenAPI document: 1.0.0
  *
@@ -19,7 +19,10 @@ import com.binance.connector.client.common.SystemUtil;
 import com.binance.connector.client.common.configuration.ClientConfiguration;
 import com.binance.connector.client.common.exception.ConstraintViolationException;
 import com.binance.connector.client.web3.common.ApiClient;
+import com.binance.connector.client.web3_wallet.rest.model.ApproveTransaction;
+import com.binance.connector.client.web3_wallet.rest.model.AutoSlippage;
 import com.binance.connector.client.web3_wallet.rest.model.BuildSwapTransactionResponse;
+import com.binance.connector.client.web3_wallet.rest.model.GasLevel;
 import com.binance.connector.client.web3_wallet.rest.model.GetAggregatedQuoteResponse;
 import com.binance.connector.client.web3_wallet.rest.model.GetAggregatorSupportedChainsResponse;
 import com.binance.connector.client.web3_wallet.rest.model.GetErc20ApproveTransactionResponse;
@@ -46,7 +49,7 @@ public class TradingApi {
 
     private static final String USER_AGENT =
             String.format(
-                    "binance-web3-wallet/1.0.0 (Java/%s; %s; %s)",
+                    "binance-web3-wallet/2.0.0 (Java/%s; %s; %s)",
                     SystemUtil.getJavaVersion(), SystemUtil.getOs(), SystemUtil.getArch());
     private static final boolean HAS_TIME_UNIT = false;
 
@@ -93,12 +96,12 @@ public class TradingApi {
             String quoteId,
             Long recvWindow,
             String nonce,
-            String approveTransaction,
+            ApproveTransaction approveTransaction,
             String approveAmount,
             String gasLimit,
-            String gasLevel,
+            GasLevel gasLevel,
             String priceImpactProtectionPercent,
-            String autoSlippage,
+            AutoSlippage autoSlippage,
             String maxAutoSlippagePercent,
             String computeUnitLimit,
             String computeUnitPrice,
@@ -260,12 +263,12 @@ public class TradingApi {
             String quoteId,
             Long recvWindow,
             String nonce,
-            String approveTransaction,
+            ApproveTransaction approveTransaction,
             String approveAmount,
             String gasLimit,
-            String gasLevel,
+            GasLevel gasLevel,
             String priceImpactProtectionPercent,
-            String autoSlippage,
+            AutoSlippage autoSlippage,
             String maxAutoSlippagePercent,
             String computeUnitLimit,
             String computeUnitPrice,
@@ -314,12 +317,12 @@ public class TradingApi {
                                     String.class,
                                     Long.class,
                                     String.class,
+                                    ApproveTransaction.class,
                                     String.class,
                                     String.class,
+                                    GasLevel.class,
                                     String.class,
-                                    String.class,
-                                    String.class,
-                                    String.class,
+                                    AutoSlippage.class,
                                     String.class,
                                     String.class,
                                     String.class,
@@ -370,12 +373,12 @@ public class TradingApi {
             @NotNull String quoteId,
             Long recvWindow,
             String nonce,
-            String approveTransaction,
+            ApproveTransaction approveTransaction,
             String approveAmount,
             String gasLimit,
-            String gasLevel,
+            GasLevel gasLevel,
             String priceImpactProtectionPercent,
-            String autoSlippage,
+            AutoSlippage autoSlippage,
             String maxAutoSlippagePercent,
             String computeUnitLimit,
             String computeUnitPrice,
@@ -441,12 +444,12 @@ public class TradingApi {
         private final String quoteId;
         private Long recvWindow;
         private String nonce;
-        private String approveTransaction;
+        private ApproveTransaction approveTransaction;
         private String approveAmount;
         private String gasLimit;
-        private String gasLevel;
+        private GasLevel gasLevel;
         private String priceImpactProtectionPercent;
-        private String autoSlippage;
+        private AutoSlippage autoSlippage;
         private String maxAutoSlippagePercent;
         private String computeUnitLimit;
         private String computeUnitPrice;
@@ -488,7 +491,7 @@ public class TradingApi {
             return nonce;
         }
 
-        public String getApproveTransaction() {
+        public ApproveTransaction getApproveTransaction() {
             return approveTransaction;
         }
 
@@ -500,7 +503,7 @@ public class TradingApi {
             return gasLimit;
         }
 
-        public String getGasLevel() {
+        public GasLevel getGasLevel() {
             return gasLevel;
         }
 
@@ -508,7 +511,7 @@ public class TradingApi {
             return priceImpactProtectionPercent;
         }
 
-        public String getAutoSlippage() {
+        public AutoSlippage getAutoSlippage() {
             return autoSlippage;
         }
 
@@ -577,7 +580,8 @@ public class TradingApi {
          *     Defaults to false. (optional)
          * @return BuildSwapTransactionRequest
          */
-        public BuildSwapTransactionRequest approveTransaction(String approveTransaction) {
+        public BuildSwapTransactionRequest approveTransaction(
+                ApproveTransaction approveTransaction) {
             this.approveTransaction = approveTransaction;
             return this;
         }
@@ -611,7 +615,7 @@ public class TradingApi {
          * @param gasLevel Gas price tier. Defaults to \&quot;average\&quot;. (optional)
          * @return BuildSwapTransactionRequest
          */
-        public BuildSwapTransactionRequest gasLevel(String gasLevel) {
+        public BuildSwapTransactionRequest gasLevel(GasLevel gasLevel) {
             this.gasLevel = gasLevel;
             return this;
         }
@@ -636,7 +640,7 @@ public class TradingApi {
          *     and overrides &#x60;slippagePercent&#x60;. Defaults to false. (optional)
          * @return BuildSwapTransactionRequest
          */
-        public BuildSwapTransactionRequest autoSlippage(String autoSlippage) {
+        public BuildSwapTransactionRequest autoSlippage(AutoSlippage autoSlippage) {
             this.autoSlippage = autoSlippage;
             return this;
         }

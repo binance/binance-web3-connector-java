@@ -18,7 +18,7 @@ All URIs are relative to *https://web3.binance.com/build*
 
 Broadcast Transactions
 
-Broadcast a client-signed transaction to the chain via the OnchainOS relay. Returns the transaction hash and an internal &#x60;orderId&#x60; you can use to track on-chain status via the post-transaction service. Optional MEV protection (EVM chains only) routes the transaction through a private mempool to mitigate front-running and sandwich attacks.
+Broadcast a client-signed transaction to the chain via the Binance Web3 API relay. Returns the transaction hash and an internal &#x60;orderId&#x60; you can use to track on-chain status via the post-transaction service. Optional MEV protection (EVM chains only) routes the transaction through a private mempool to mitigate front-running and sandwich attacks.
 
 ### Example
 ```java
@@ -147,7 +147,7 @@ public class Example {
 | **txStatus** | **String**| Optional filter on transaction status (server-defined string, e.g. \&quot;pending\&quot;, \&quot;success\&quot;, \&quot;fail\&quot;). | [optional] |
 | **orderId** | **String**| Optional filter to fetch a single order by its internal order ID. | [optional] |
 | **cursor** | **String**| Pagination cursor returned by the previous page. Omit on the first request. | [optional] |
-| **limit** | **Integer**| Page size. Defaults to 20. | [optional] [default to 20] |
+| **limit** | **Integer**| Page size. Defaults to 20. | [optional] |
 
 ### Return type
 

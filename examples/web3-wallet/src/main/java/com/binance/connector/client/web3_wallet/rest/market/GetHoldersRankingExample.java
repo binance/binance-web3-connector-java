@@ -8,6 +8,7 @@ import com.binance.connector.client.web3_wallet.rest.Web3WalletRestApiUtil;
 import com.binance.connector.client.web3_wallet.rest.api.MarketApi;
 import com.binance.connector.client.web3_wallet.rest.api.Web3WalletRestApi;
 import com.binance.connector.client.web3_wallet.rest.model.GetHoldersRankingResponse;
+import com.binance.connector.client.web3_wallet.rest.model.TagFilter;
 
 /** API examples for MarketApi */
 public class GetHoldersRankingExample {
@@ -40,7 +41,7 @@ public class GetHoldersRankingExample {
         String tokenContractAddress = "0x6982508145454ce325ddbe47a25d4ec3d2311933";
         Long recvWindow = 5000L;
         String nonce = "unique-nonce-string";
-        Integer tagFilter = null;
+        TagFilter tagFilter = TagFilter.TAG_FILTER_1;
         MarketApi.GetHoldersRankingRequest request =
                 new MarketApi.GetHoldersRankingRequest(binanceChainId, tokenContractAddress);
         ApiResponse<GetHoldersRankingResponse> response = getApi().getHoldersRanking(request);

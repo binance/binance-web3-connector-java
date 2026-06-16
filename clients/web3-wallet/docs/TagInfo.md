@@ -1,6 +1,6 @@
 
 
-# SearchTokenResponseDataInnerTagList
+# TagInfo
 
 
 ## Properties
