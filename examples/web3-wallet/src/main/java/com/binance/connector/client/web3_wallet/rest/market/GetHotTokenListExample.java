@@ -8,6 +8,8 @@ import com.binance.connector.client.web3_wallet.rest.Web3WalletRestApiUtil;
 import com.binance.connector.client.web3_wallet.rest.api.MarketApi;
 import com.binance.connector.client.web3_wallet.rest.api.Web3WalletRestApi;
 import com.binance.connector.client.web3_wallet.rest.model.GetHotTokenListResponse;
+import com.binance.connector.client.web3_wallet.rest.model.RankBy;
+import com.binance.connector.client.web3_wallet.rest.model.RankingTimeFrame;
 
 /** API examples for MarketApi */
 public class GetHotTokenListExample {
@@ -38,8 +40,8 @@ public class GetHotTokenListExample {
         Long recvWindow = 5000L;
         String nonce = "unique-nonce-string";
         String binanceChainId = "1";
-        Integer rankBy = null;
-        Integer rankingTimeFrame = null;
+        RankBy rankBy = RankBy.RANK_BY_1;
+        RankingTimeFrame rankingTimeFrame = RankingTimeFrame.RANKING_TIME_FRAME_1;
         String priceChangePercentMin = "5";
         String priceChangePercentMax = "100";
         String volumeMin = "10000";

@@ -1,6 +1,6 @@
 /*
- * Binance Web3 Wallet REST API
- * Cross-chain wallet, market, trading, and transaction APIs for the OnchainOS platform.
+ * Binance Web3 API
+ * Cross-chain wallet, market, trading, and transaction APIs for the Binance Web3 API platform.
  *
  * The version of the OpenAPI document: 1.0.0
  *
@@ -35,7 +35,7 @@ import org.hibernate.validator.constraints.*;
 /** GetTokenBasicInfoResponse */
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
-        comments = "Generator version: 7.12.0")
+        comments = "Generator version: 7.22.0")
 public class GetTokenBasicInfoResponse {
     public static final String SERIALIZED_NAME_CODE = "code";
 
@@ -53,7 +53,7 @@ public class GetTokenBasicInfoResponse {
 
     @SerializedName(SERIALIZED_NAME_DATA)
     @jakarta.annotation.Nullable
-    private GetTokenBasicInfoResponseData data;
+    private TokenBasicInfo data;
 
     public static final String SERIALIZED_NAME_TIMESTAMP = "timestamp";
 
@@ -107,8 +107,7 @@ public class GetTokenBasicInfoResponse {
         this.msg = msg;
     }
 
-    public GetTokenBasicInfoResponse data(
-            @jakarta.annotation.Nullable GetTokenBasicInfoResponseData data) {
+    public GetTokenBasicInfoResponse data(@jakarta.annotation.Nullable TokenBasicInfo data) {
         this.data = data;
         return this;
     }
@@ -120,11 +119,11 @@ public class GetTokenBasicInfoResponse {
      */
     @jakarta.annotation.Nullable
     @Valid
-    public GetTokenBasicInfoResponseData getData() {
+    public TokenBasicInfo getData() {
         return data;
     }
 
-    public void setData(@jakarta.annotation.Nullable GetTokenBasicInfoResponseData data) {
+    public void setData(@jakarta.annotation.Nullable TokenBasicInfo data) {
         this.data = data;
     }
 
@@ -289,7 +288,7 @@ public class GetTokenBasicInfoResponse {
         }
         // validate the optional field `data`
         if (jsonObj.get("data") != null && !jsonObj.get("data").isJsonNull()) {
-            GetTokenBasicInfoResponseData.validateJsonElement(jsonObj.get("data"));
+            TokenBasicInfo.validateJsonElement(jsonObj.get("data"));
         }
     }
 

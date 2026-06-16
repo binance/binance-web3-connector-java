@@ -7,6 +7,7 @@ import com.binance.connector.client.common.configuration.SignatureConfiguration;
 import com.binance.connector.client.web3_wallet.rest.Web3WalletRestApiUtil;
 import com.binance.connector.client.web3_wallet.rest.api.MarketApi;
 import com.binance.connector.client.web3_wallet.rest.api.Web3WalletRestApi;
+import com.binance.connector.client.web3_wallet.rest.model.Bar;
 import com.binance.connector.client.web3_wallet.rest.model.GetCandlesResponse;
 
 /** API examples for MarketApi */
@@ -38,7 +39,7 @@ public class GetCandlesExample {
         String tokenContractAddress = "0xdac17f958d2ee523a2206206994597c13d831ec7";
         Long recvWindow = 5000L;
         String nonce = "unique-nonce-string";
-        String bar = "BAR_1s";
+        Bar bar = Bar.BAR_1s;
         Long after = 1748600000000L;
         Long before = 1748000000000L;
         Integer limit = 100;

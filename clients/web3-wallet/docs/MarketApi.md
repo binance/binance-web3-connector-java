@@ -45,7 +45,7 @@ public class Example {
     String tokenContractAddress = "0xdac17f958d2ee523a2206206994597c13d831ec7"; // String | Token contract address.
     Long recvWindow = 5000L; // Long | Allowed time deviation in milliseconds (default: 5000, max: 60000).
     String nonce = "unique-nonce-string"; // String | Unique request identifier for anti-replay; falls back to X-OC-SIGN if omitted.
-    String bar = "1s"; // String | Candlestick time granularity, default \"1m\" (1 minute). Available values: 1s (1 second), 5s (5 seconds), 30s (30 seconds), 1m (1 minute), 3m (3 minutes), 5m (5 minutes), 15m (15 minutes), 30m (30 minutes), 1h (1 hour), 2h (2 hours), 4h (4 hours), 6h (6 hours), 8h (8 hours), 12h (12 hours), 1d (1 day), 3d (3 days), 1w (1 week), 1M (1 month).
+    Bar bar = Bar.fromValue("1s"); // Bar | Candlestick time granularity, default \"1m\" (1 minute). Available values: 1s (1 second), 5s (5 seconds), 30s (30 seconds), 1m (1 minute), 3m (3 minutes), 5m (5 minutes), 15m (15 minutes), 30m (30 minutes), 1h (1 hour), 2h (2 hours), 4h (4 hours), 6h (6 hours), 8h (8 hours), 12h (12 hours), 1d (1 day), 3d (3 days), 1w (1 week), 1M (1 month).
     Long after = 1748600000000L; // Long | End time for the query, Unix millisecond timestamp. Returns candles earlier than this time (exclusive).
     Long before = 1748000000000L; // Long | Start time for the query, Unix millisecond timestamp. Returns candles later than this time (exclusive).
     Integer limit = 100; // Integer | Number of candles to return. Defaults to 100.
@@ -78,10 +78,10 @@ public class Example {
 | **tokenContractAddress** | **String**| Token contract address. | |
 | **recvWindow** | **Long**| Allowed time deviation in milliseconds (default: 5000, max: 60000). | [optional] |
 | **nonce** | **String**| Unique request identifier for anti-replay; falls back to X-OC-SIGN if omitted. | [optional] |
-| **bar** | **String**| Candlestick time granularity, default \&quot;1m\&quot; (1 minute). Available values: 1s (1 second), 5s (5 seconds), 30s (30 seconds), 1m (1 minute), 3m (3 minutes), 5m (5 minutes), 15m (15 minutes), 30m (30 minutes), 1h (1 hour), 2h (2 hours), 4h (4 hours), 6h (6 hours), 8h (8 hours), 12h (12 hours), 1d (1 day), 3d (3 days), 1w (1 week), 1M (1 month). | [optional] [default to 1m] [enum: 1s, 5s, 30s, 1m, 3m, 5m, 15m, 30m, 1h, 2h, 4h, 6h, 8h, 12h, 1d, 3d, 1w, 1M] |
+| **bar** | [**Bar**](.md)| Candlestick time granularity, default \&quot;1m\&quot; (1 minute). Available values: 1s (1 second), 5s (5 seconds), 30s (30 seconds), 1m (1 minute), 3m (3 minutes), 5m (5 minutes), 15m (15 minutes), 30m (30 minutes), 1h (1 hour), 2h (2 hours), 4h (4 hours), 6h (6 hours), 8h (8 hours), 12h (12 hours), 1d (1 day), 3d (3 days), 1w (1 week), 1M (1 month). | [optional] [default to 1m] [enum: 1s, 5s, 30s, 1m, 3m, 5m, 15m, 30m, 1h, 2h, 4h, 6h, 8h, 12h, 1d, 3d, 1w, 1M] |
 | **after** | **Long**| End time for the query, Unix millisecond timestamp. Returns candles earlier than this time (exclusive). | [optional] |
 | **before** | **Long**| Start time for the query, Unix millisecond timestamp. Returns candles later than this time (exclusive). | [optional] |
-| **limit** | **Integer**| Number of candles to return. Defaults to 100. | [optional] [default to 100] |
+| **limit** | **Integer**| Number of candles to return. Defaults to 100. | [optional] |
 
 ### Return type
 
@@ -131,7 +131,7 @@ public class Example {
     String tokenContractAddress = "0x6982508145454ce325ddbe47a25d4ec3d2311933"; // String | Token contract address.
     Long recvWindow = 5000L; // Long | Allowed time deviation in milliseconds (default: 5000, max: 60000).
     String nonce = "unique-nonce-string"; // String | Unique request identifier for anti-replay; falls back to X-OC-SIGN if omitted.
-    Integer tagFilter = 1; // Integer | Address tag filter, single selection only. Returns all holder addresses (by holding amount descending) when omitted; returns addresses matching the specified tag when provided. Mapping: 1=KOL, 2=Developer, 3=Smart Money, 4=Insider, 5=Sniper, 6=Bundler.
+    TagFilter tagFilter = TagFilter.fromValue("1"); // TagFilter | Address tag filter, single selection only. Returns all holder addresses (by holding amount descending) when omitted; returns addresses matching the specified tag when provided. Mapping: 1=KOL, 2=Developer, 3=Smart Money, 4=Insider, 5=Sniper, 6=Bundler.
     try {
       GetHoldersRankingResponse result = apiInstance.getHoldersRanking(binanceChainId, tokenContractAddress)
             .recvWindow(recvWindow)
@@ -158,7 +158,7 @@ public class Example {
 | **tokenContractAddress** | **String**| Token contract address. | |
 | **recvWindow** | **Long**| Allowed time deviation in milliseconds (default: 5000, max: 60000). | [optional] |
 | **nonce** | **String**| Unique request identifier for anti-replay; falls back to X-OC-SIGN if omitted. | [optional] |
-| **tagFilter** | **Integer**| Address tag filter, single selection only. Returns all holder addresses (by holding amount descending) when omitted; returns addresses matching the specified tag when provided. Mapping: 1&#x3D;KOL, 2&#x3D;Developer, 3&#x3D;Smart Money, 4&#x3D;Insider, 5&#x3D;Sniper, 6&#x3D;Bundler. | [optional] [enum: 1, 2, 3, 4, 5, 6] |
+| **tagFilter** | [**TagFilter**](.md)| Address tag filter, single selection only. Returns all holder addresses (by holding amount descending) when omitted; returns addresses matching the specified tag when provided. Mapping: 1&#x3D;KOL, 2&#x3D;Developer, 3&#x3D;Smart Money, 4&#x3D;Insider, 5&#x3D;Sniper, 6&#x3D;Bundler. | [optional] [enum: 1, 2, 3, 4, 5, 6, 7] |
 
 ### Return type
 
@@ -207,8 +207,8 @@ public class Example {
     Long recvWindow = 5000L; // Long | Allowed time deviation in milliseconds (default: 5000, max: 60000).
     String nonce = "unique-nonce-string"; // String | Unique request identifier for anti-replay; falls back to X-OC-SIGN if omitted.
     String binanceChainId = "1"; // String | Chain identifier. Single value only. Omit to return mixed results across all chains.
-    Integer rankBy = 1; // Integer | Ranking field. 1=price, 2=price change, 3=transactions, 4=volume, 5=market cap, 6=liquidity, 7=creation time, 8=holders, 9=Binance MPC wallet holders, 10=net inflow.
-    Integer rankingTimeFrame = 1; // Integer | Data time range. 1=1 min, 2=5 min, 3=1 hour, 4=4 hours, 5=24 hours. Default 1 hour.
+    RankBy rankBy = RankBy.fromValue("1"); // RankBy | Ranking field. 1=price, 2=price change, 3=transactions, 4=volume, 5=market cap, 6=liquidity, 7=creation time, 8=holders, 9=Binance MPC wallet holders, 10=net inflow.
+    RankingTimeFrame rankingTimeFrame = RankingTimeFrame.fromValue("1"); // RankingTimeFrame | Data time range. 1=1 min, 2=5 min, 3=1 hour, 4=4 hours, 5=24 hours. Default 1 hour.
     String priceChangePercentMin = "5"; // String | Minimum price change filter. \"5\" means 5%.
     String priceChangePercentMax = "100"; // String | Maximum price change filter. \"100\" means 100%.
     String volumeMin = "10000"; // String | Minimum volume filter, denominated in USD.
@@ -334,8 +334,8 @@ public class Example {
 | **recvWindow** | **Long**| Allowed time deviation in milliseconds (default: 5000, max: 60000). | [optional] |
 | **nonce** | **String**| Unique request identifier for anti-replay; falls back to X-OC-SIGN if omitted. | [optional] |
 | **binanceChainId** | **String**| Chain identifier. Single value only. Omit to return mixed results across all chains. | [optional] |
-| **rankBy** | **Integer**| Ranking field. 1&#x3D;price, 2&#x3D;price change, 3&#x3D;transactions, 4&#x3D;volume, 5&#x3D;market cap, 6&#x3D;liquidity, 7&#x3D;creation time, 8&#x3D;holders, 9&#x3D;Binance MPC wallet holders, 10&#x3D;net inflow. | [optional] [enum: 1, 2, 3, 4, 5, 6, 7, 8, 9, 10] |
-| **rankingTimeFrame** | **Integer**| Data time range. 1&#x3D;1 min, 2&#x3D;5 min, 3&#x3D;1 hour, 4&#x3D;4 hours, 5&#x3D;24 hours. Default 1 hour. | [optional] [default to 3] [enum: 1, 2, 3, 4, 5] |
+| **rankBy** | [**RankBy**](.md)| Ranking field. 1&#x3D;price, 2&#x3D;price change, 3&#x3D;transactions, 4&#x3D;volume, 5&#x3D;market cap, 6&#x3D;liquidity, 7&#x3D;creation time, 8&#x3D;holders, 9&#x3D;Binance MPC wallet holders, 10&#x3D;net inflow. | [optional] [enum: 1, 2, 3, 4, 5, 6, 7, 8, 9, 10] |
+| **rankingTimeFrame** | [**RankingTimeFrame**](.md)| Data time range. 1&#x3D;1 min, 2&#x3D;5 min, 3&#x3D;1 hour, 4&#x3D;4 hours, 5&#x3D;24 hours. Default 1 hour. | [optional] [default to 3] [enum: 1, 2, 3, 4, 5] |
 | **priceChangePercentMin** | **String**| Minimum price change filter. \&quot;5\&quot; means 5%. | [optional] |
 | **priceChangePercentMax** | **String**| Maximum price change filter. \&quot;100\&quot; means 100%. | [optional] |
 | **volumeMin** | **String**| Minimum volume filter, denominated in USD. | [optional] |
@@ -378,13 +378,13 @@ public class Example {
 | **devMigratedTokenPercentMax** | **String**| Maximum developer-migrated token percentage. \&quot;5\&quot; means 5%. | [optional] |
 | **isDevSoldAll** | **Boolean**| When set to true, returns only tokens where the developer has sold all holdings. Not filtered when omitted or false. | [optional] |
 | **isDevBurned** | **Boolean**| When set to true, returns only tokens where the developer has burned tokens. Not filtered when omitted or false. | [optional] |
-| **isMint** | **Boolean**| When set to true, excludes tokens with minting capability. Default false. | [optional] [default to false] |
-| **isFreeze** | **Boolean**| When set to true, excludes tokens with freeze capability. Default false. | [optional] [default to false] |
-| **isHideWashTradingTokens** | **Boolean**| When set to true, excludes tokens with wash trading behavior. Default true. | [optional] [default to true] |
-| **isHideDevWashTradingTokens** | **Boolean**| When set to true, excludes tokens where the developer has wash trading behavior. Default true. | [optional] [default to true] |
-| **isHideInternalWashTradingTokens** | **Boolean**| When set to true, excludes tokens where insiders have wash trading behavior. Default true. | [optional] [default to true] |
-| **pageId** | **Integer**| Pagination identifier. Do not pass on the first request; pass the page value from the previous response to get the next page. | [optional] [default to 1] |
-| **size** | **Integer**| Page size. Maximum 100. Defaults to 100. | [optional] [default to 100] |
+| **isMint** | **Boolean**| When set to true, excludes tokens with minting capability. Default false. | [optional] |
+| **isFreeze** | **Boolean**| When set to true, excludes tokens with freeze capability. Default false. | [optional] |
+| **isHideWashTradingTokens** | **Boolean**| When set to true, excludes tokens with wash trading behavior. Default true. | [optional] |
+| **isHideDevWashTradingTokens** | **Boolean**| When set to true, excludes tokens where the developer has wash trading behavior. Default true. | [optional] |
+| **isHideInternalWashTradingTokens** | **Boolean**| When set to true, excludes tokens where insiders have wash trading behavior. Default true. | [optional] |
+| **pageId** | **Integer**| Pagination identifier. Do not pass on the first request; pass the page value from the previous response to get the next page. | [optional] |
+| **size** | **Integer**| Page size. Maximum 100. Defaults to 100. | [optional] |
 
 ### Return type
 
@@ -726,7 +726,7 @@ public class Example {
     String nonce = "unique-nonce-string"; // String | Unique request identifier for anti-replay; falls back to X-OC-SIGN if omitted.
     String cursor = "eyJ0aW1lIjoxNzQ4NjAwMDAwMDAwLCJpZCI6MTIzfQ=="; // String | Pagination cursor. Do not pass on the first request; pass the cursor value from the previous response to get the next page.
     Integer limit = 100; // Integer | Number of results per page, maximum 500, defaults to 100.
-    Integer tagFilter = 1; // Integer | Address tag filter, single selection only. Returns all trades with pagination when omitted; returns only the latest 100 trades for the specified tag's addresses when provided (cursor and limit are ignored). Mapping: 1=KOL, 2=Developer, 3=Smart Money, 4=Insider, 5=Sniper, 6=Bundler, 7=Whale Holder.
+    TagFilter tagFilter = TagFilter.fromValue("1"); // TagFilter | Address tag filter, single selection only. Returns all trades with pagination when omitted; returns only the latest 100 trades for the specified tag's addresses when provided (cursor and limit are ignored). Mapping: 1=KOL, 2=Developer, 3=Smart Money, 4=Insider, 5=Sniper, 6=Bundler, 7=Whale Holder.
     String walletAddressFilter = "0x28c6c06298d514db089934071355e5743bf21d60"; // String | Filter by specific wallet addresses. Separate multiple addresses with commas. Up to 2 addresses.
     try {
       GetTokenTradesResponse result = apiInstance.getTokenTrades(binanceChainId, tokenContractAddress)
@@ -758,8 +758,8 @@ public class Example {
 | **recvWindow** | **Long**| Allowed time deviation in milliseconds (default: 5000, max: 60000). | [optional] |
 | **nonce** | **String**| Unique request identifier for anti-replay; falls back to X-OC-SIGN if omitted. | [optional] |
 | **cursor** | **String**| Pagination cursor. Do not pass on the first request; pass the cursor value from the previous response to get the next page. | [optional] |
-| **limit** | **Integer**| Number of results per page, maximum 500, defaults to 100. | [optional] [default to 100] |
-| **tagFilter** | **Integer**| Address tag filter, single selection only. Returns all trades with pagination when omitted; returns only the latest 100 trades for the specified tag&#39;s addresses when provided (cursor and limit are ignored). Mapping: 1&#x3D;KOL, 2&#x3D;Developer, 3&#x3D;Smart Money, 4&#x3D;Insider, 5&#x3D;Sniper, 6&#x3D;Bundler, 7&#x3D;Whale Holder. | [optional] [enum: 1, 2, 3, 4, 5, 6, 7] |
+| **limit** | **Integer**| Number of results per page, maximum 500, defaults to 100. | [optional] |
+| **tagFilter** | [**TagFilter**](.md)| Address tag filter, single selection only. Returns all trades with pagination when omitted; returns only the latest 100 trades for the specified tag&#39;s addresses when provided (cursor and limit are ignored). Mapping: 1&#x3D;KOL, 2&#x3D;Developer, 3&#x3D;Smart Money, 4&#x3D;Insider, 5&#x3D;Sniper, 6&#x3D;Bundler, 7&#x3D;Whale Holder. | [optional] [enum: 1, 2, 3, 4, 5, 6, 7] |
 | **walletAddressFilter** | **String**| Filter by specific wallet addresses. Separate multiple addresses with commas. Up to 2 addresses. | [optional] |
 
 ### Return type
@@ -955,7 +955,7 @@ public class Example {
     String tokenContractAddress = "0x6982508145454ce325ddbe47a25d4ec3d2311933"; // String | Token contract address.
     Long recvWindow = 5000L; // Long | Allowed time deviation in milliseconds (default: 5000, max: 60000).
     String nonce = "unique-nonce-string"; // String | Unique request identifier for anti-replay; falls back to X-OC-SIGN if omitted.
-    Integer tagFilter = 1; // Integer | Address tag filter, single selection only. Returns all top profit addresses (by realized PnL descending) when omitted; returns addresses matching the specified tag when provided. Mapping: 1=KOL, 2=Developer, 3=Smart Money, 4=Insider, 5=Sniper, 6=Bundler, 7=Whale Holder.
+    TagFilter tagFilter = TagFilter.fromValue("1"); // TagFilter | Address tag filter, single selection only. Returns all top profit addresses (by realized PnL descending) when omitted; returns addresses matching the specified tag when provided. Mapping: 1=KOL, 2=Developer, 3=Smart Money, 4=Insider, 5=Sniper, 6=Bundler, 7=Whale Holder.
     try {
       GetTopTradersResponse result = apiInstance.getTopTraders(binanceChainId, tokenContractAddress)
             .recvWindow(recvWindow)
@@ -982,7 +982,7 @@ public class Example {
 | **tokenContractAddress** | **String**| Token contract address. | |
 | **recvWindow** | **Long**| Allowed time deviation in milliseconds (default: 5000, max: 60000). | [optional] |
 | **nonce** | **String**| Unique request identifier for anti-replay; falls back to X-OC-SIGN if omitted. | [optional] |
-| **tagFilter** | **Integer**| Address tag filter, single selection only. Returns all top profit addresses (by realized PnL descending) when omitted; returns addresses matching the specified tag when provided. Mapping: 1&#x3D;KOL, 2&#x3D;Developer, 3&#x3D;Smart Money, 4&#x3D;Insider, 5&#x3D;Sniper, 6&#x3D;Bundler, 7&#x3D;Whale Holder. | [optional] [enum: 1, 2, 3, 4, 5, 6, 7] |
+| **tagFilter** | [**TagFilter**](.md)| Address tag filter, single selection only. Returns all top profit addresses (by realized PnL descending) when omitted; returns addresses matching the specified tag when provided. Mapping: 1&#x3D;KOL, 2&#x3D;Developer, 3&#x3D;Smart Money, 4&#x3D;Insider, 5&#x3D;Sniper, 6&#x3D;Bundler, 7&#x3D;Whale Holder. | [optional] [enum: 1, 2, 3, 4, 5, 6, 7] |
 
 ### Return type
 

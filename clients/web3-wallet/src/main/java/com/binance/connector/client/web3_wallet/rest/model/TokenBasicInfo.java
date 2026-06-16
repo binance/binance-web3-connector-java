@@ -1,6 +1,6 @@
 /*
- * Binance Web3 Wallet REST API
- * Cross-chain wallet, market, trading, and transaction APIs for the OnchainOS platform.
+ * Binance Web3 API
+ * Cross-chain wallet, market, trading, and transaction APIs for the Binance Web3 API platform.
  *
  * The version of the OpenAPI document: 1.0.0
  *
@@ -34,11 +34,11 @@ import java.util.Objects;
 import org.hibernate.validator.constraints.*;
 import org.openapitools.jackson.nullable.JsonNullable;
 
-/** GetTokenBasicInfoResponseData */
+/** TokenBasicInfo */
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
-        comments = "Generator version: 7.12.0")
-public class GetTokenBasicInfoResponseData {
+        comments = "Generator version: 7.22.0")
+public class TokenBasicInfo {
     public static final String SERIALIZED_NAME_BINANCE_CHAIN_ID = "binanceChainId";
 
     @SerializedName(SERIALIZED_NAME_BINANCE_CHAIN_ID)
@@ -91,12 +91,11 @@ public class GetTokenBasicInfoResponseData {
 
     @SerializedName(SERIALIZED_NAME_TAG_LIST)
     @jakarta.annotation.Nullable
-    private SearchTokenResponseDataInnerTagList tagList;
+    private TokenTagInformation tagList;
 
-    public GetTokenBasicInfoResponseData() {}
+    public TokenBasicInfo() {}
 
-    public GetTokenBasicInfoResponseData binanceChainId(
-            @jakarta.annotation.Nullable String binanceChainId) {
+    public TokenBasicInfo binanceChainId(@jakarta.annotation.Nullable String binanceChainId) {
         this.binanceChainId = binanceChainId;
         return this;
     }
@@ -115,7 +114,7 @@ public class GetTokenBasicInfoResponseData {
         this.binanceChainId = binanceChainId;
     }
 
-    public GetTokenBasicInfoResponseData tokenContractAddress(
+    public TokenBasicInfo tokenContractAddress(
             @jakarta.annotation.Nullable String tokenContractAddress) {
         this.tokenContractAddress = tokenContractAddress;
         return this;
@@ -135,7 +134,7 @@ public class GetTokenBasicInfoResponseData {
         this.tokenContractAddress = tokenContractAddress;
     }
 
-    public GetTokenBasicInfoResponseData tokenName(@jakarta.annotation.Nullable String tokenName) {
+    public TokenBasicInfo tokenName(@jakarta.annotation.Nullable String tokenName) {
         this.tokenName = tokenName;
         return this;
     }
@@ -154,8 +153,7 @@ public class GetTokenBasicInfoResponseData {
         this.tokenName = tokenName;
     }
 
-    public GetTokenBasicInfoResponseData tokenSymbol(
-            @jakarta.annotation.Nullable String tokenSymbol) {
+    public TokenBasicInfo tokenSymbol(@jakarta.annotation.Nullable String tokenSymbol) {
         this.tokenSymbol = tokenSymbol;
         return this;
     }
@@ -174,8 +172,7 @@ public class GetTokenBasicInfoResponseData {
         this.tokenSymbol = tokenSymbol;
     }
 
-    public GetTokenBasicInfoResponseData tokenLogoUrl(
-            @jakarta.annotation.Nullable String tokenLogoUrl) {
+    public TokenBasicInfo tokenLogoUrl(@jakarta.annotation.Nullable String tokenLogoUrl) {
         this.tokenLogoUrl = tokenLogoUrl;
         return this;
     }
@@ -194,7 +191,7 @@ public class GetTokenBasicInfoResponseData {
         this.tokenLogoUrl = tokenLogoUrl;
     }
 
-    public GetTokenBasicInfoResponseData decimals(@jakarta.annotation.Nullable Integer decimals) {
+    public TokenBasicInfo decimals(@jakarta.annotation.Nullable Integer decimals) {
         this.decimals = decimals;
         return this;
     }
@@ -213,8 +210,7 @@ public class GetTokenBasicInfoResponseData {
         this.decimals = decimals;
     }
 
-    public GetTokenBasicInfoResponseData creatorAddress(
-            @jakarta.annotation.Nullable String creatorAddress) {
+    public TokenBasicInfo creatorAddress(@jakarta.annotation.Nullable String creatorAddress) {
         this.creatorAddress = creatorAddress;
         return this;
     }
@@ -233,7 +229,7 @@ public class GetTokenBasicInfoResponseData {
         this.creatorAddress = creatorAddress;
     }
 
-    public GetTokenBasicInfoResponseData createTime(@jakarta.annotation.Nullable Long createTime) {
+    public TokenBasicInfo createTime(@jakarta.annotation.Nullable Long createTime) {
         this.createTime = createTime;
         return this;
     }
@@ -252,8 +248,7 @@ public class GetTokenBasicInfoResponseData {
         this.createTime = createTime;
     }
 
-    public GetTokenBasicInfoResponseData tagList(
-            @jakarta.annotation.Nullable SearchTokenResponseDataInnerTagList tagList) {
+    public TokenBasicInfo tagList(@jakarta.annotation.Nullable TokenTagInformation tagList) {
         this.tagList = tagList;
         return this;
     }
@@ -265,12 +260,11 @@ public class GetTokenBasicInfoResponseData {
      */
     @jakarta.annotation.Nullable
     @Valid
-    public SearchTokenResponseDataInnerTagList getTagList() {
+    public TokenTagInformation getTagList() {
         return tagList;
     }
 
-    public void setTagList(
-            @jakarta.annotation.Nullable SearchTokenResponseDataInnerTagList tagList) {
+    public void setTagList(@jakarta.annotation.Nullable TokenTagInformation tagList) {
         this.tagList = tagList;
     }
 
@@ -282,19 +276,16 @@ public class GetTokenBasicInfoResponseData {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        GetTokenBasicInfoResponseData getTokenBasicInfoResponseData =
-                (GetTokenBasicInfoResponseData) o;
-        return Objects.equals(this.binanceChainId, getTokenBasicInfoResponseData.binanceChainId)
-                && Objects.equals(
-                        this.tokenContractAddress,
-                        getTokenBasicInfoResponseData.tokenContractAddress)
-                && Objects.equals(this.tokenName, getTokenBasicInfoResponseData.tokenName)
-                && Objects.equals(this.tokenSymbol, getTokenBasicInfoResponseData.tokenSymbol)
-                && Objects.equals(this.tokenLogoUrl, getTokenBasicInfoResponseData.tokenLogoUrl)
-                && Objects.equals(this.decimals, getTokenBasicInfoResponseData.decimals)
-                && Objects.equals(this.creatorAddress, getTokenBasicInfoResponseData.creatorAddress)
-                && Objects.equals(this.createTime, getTokenBasicInfoResponseData.createTime)
-                && Objects.equals(this.tagList, getTokenBasicInfoResponseData.tagList);
+        TokenBasicInfo tokenBasicInfo = (TokenBasicInfo) o;
+        return Objects.equals(this.binanceChainId, tokenBasicInfo.binanceChainId)
+                && Objects.equals(this.tokenContractAddress, tokenBasicInfo.tokenContractAddress)
+                && Objects.equals(this.tokenName, tokenBasicInfo.tokenName)
+                && Objects.equals(this.tokenSymbol, tokenBasicInfo.tokenSymbol)
+                && Objects.equals(this.tokenLogoUrl, tokenBasicInfo.tokenLogoUrl)
+                && Objects.equals(this.decimals, tokenBasicInfo.decimals)
+                && Objects.equals(this.creatorAddress, tokenBasicInfo.creatorAddress)
+                && Objects.equals(this.createTime, tokenBasicInfo.createTime)
+                && Objects.equals(this.tagList, tokenBasicInfo.tagList);
     }
 
     private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
@@ -330,7 +321,7 @@ public class GetTokenBasicInfoResponseData {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("class GetTokenBasicInfoResponseData {\n");
+        sb.append("class TokenBasicInfo {\n");
         sb.append("		binanceChainId: ").append(toIndentedString(binanceChainId)).append("\n");
         sb.append("		tokenContractAddress: ")
                 .append(toIndentedString(tokenContractAddress))
@@ -433,18 +424,17 @@ public class GetTokenBasicInfoResponseData {
      * Validates the JSON Element and throws an exception if issues found
      *
      * @param jsonElement JSON Element
-     * @throws IOException if the JSON Element is invalid with respect to
-     *     GetTokenBasicInfoResponseData
+     * @throws IOException if the JSON Element is invalid with respect to TokenBasicInfo
      */
     public static void validateJsonElement(JsonElement jsonElement) throws IOException {
         if (jsonElement == null) {
-            if (!GetTokenBasicInfoResponseData.openapiRequiredFields
+            if (!TokenBasicInfo.openapiRequiredFields
                     .isEmpty()) { // has required fields but JSON element is null
                 throw new IllegalArgumentException(
                         String.format(
-                                "The required field(s) %s in GetTokenBasicInfoResponseData is not"
-                                        + " found in the empty JSON string",
-                                GetTokenBasicInfoResponseData.openapiRequiredFields.toString()));
+                                "The required field(s) %s in TokenBasicInfo is not found in the"
+                                        + " empty JSON string",
+                                TokenBasicInfo.openapiRequiredFields.toString()));
             }
         }
         JsonObject jsonObj = jsonElement.getAsJsonObject();
@@ -499,7 +489,7 @@ public class GetTokenBasicInfoResponseData {
         }
         // validate the optional field `tagList`
         if (jsonObj.get("tagList") != null && !jsonObj.get("tagList").isJsonNull()) {
-            SearchTokenResponseDataInnerTagList.validateJsonElement(jsonObj.get("tagList"));
+            TokenTagInformation.validateJsonElement(jsonObj.get("tagList"));
         }
     }
 
@@ -507,27 +497,23 @@ public class GetTokenBasicInfoResponseData {
         @SuppressWarnings("unchecked")
         @Override
         public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
-            if (!GetTokenBasicInfoResponseData.class.isAssignableFrom(type.getRawType())) {
-                return null; // this class only serializes 'GetTokenBasicInfoResponseData' and its
-                // subtypes
+            if (!TokenBasicInfo.class.isAssignableFrom(type.getRawType())) {
+                return null; // this class only serializes 'TokenBasicInfo' and its subtypes
             }
             final TypeAdapter<JsonElement> elementAdapter = gson.getAdapter(JsonElement.class);
-            final TypeAdapter<GetTokenBasicInfoResponseData> thisAdapter =
-                    gson.getDelegateAdapter(
-                            this, TypeToken.get(GetTokenBasicInfoResponseData.class));
+            final TypeAdapter<TokenBasicInfo> thisAdapter =
+                    gson.getDelegateAdapter(this, TypeToken.get(TokenBasicInfo.class));
 
             return (TypeAdapter<T>)
-                    new TypeAdapter<GetTokenBasicInfoResponseData>() {
+                    new TypeAdapter<TokenBasicInfo>() {
                         @Override
-                        public void write(JsonWriter out, GetTokenBasicInfoResponseData value)
-                                throws IOException {
+                        public void write(JsonWriter out, TokenBasicInfo value) throws IOException {
                             JsonElement obj = thisAdapter.toJsonTree(value).getAsJsonObject();
                             elementAdapter.write(out, obj);
                         }
 
                         @Override
-                        public GetTokenBasicInfoResponseData read(JsonReader in)
-                                throws IOException {
+                        public TokenBasicInfo read(JsonReader in) throws IOException {
                             JsonElement jsonElement = elementAdapter.read(in);
                             // validateJsonElement(jsonElement);
                             return thisAdapter.fromJsonTree(jsonElement);
@@ -537,19 +523,18 @@ public class GetTokenBasicInfoResponseData {
     }
 
     /**
-     * Create an instance of GetTokenBasicInfoResponseData given an JSON string
+     * Create an instance of TokenBasicInfo given an JSON string
      *
      * @param jsonString JSON string
-     * @return An instance of GetTokenBasicInfoResponseData
-     * @throws IOException if the JSON string is invalid with respect to
-     *     GetTokenBasicInfoResponseData
+     * @return An instance of TokenBasicInfo
+     * @throws IOException if the JSON string is invalid with respect to TokenBasicInfo
      */
-    public static GetTokenBasicInfoResponseData fromJson(String jsonString) throws IOException {
-        return JSON.getGson().fromJson(jsonString, GetTokenBasicInfoResponseData.class);
+    public static TokenBasicInfo fromJson(String jsonString) throws IOException {
+        return JSON.getGson().fromJson(jsonString, TokenBasicInfo.class);
     }
 
     /**
-     * Convert an instance of GetTokenBasicInfoResponseData to an JSON string
+     * Convert an instance of TokenBasicInfo to an JSON string
      *
      * @return JSON string
      */

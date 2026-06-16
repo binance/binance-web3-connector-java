@@ -1,6 +1,6 @@
 /*
- * Binance Web3 Wallet REST API
- * Cross-chain wallet, market, trading, and transaction APIs for the OnchainOS platform.
+ * Binance Web3 API
+ * Cross-chain wallet, market, trading, and transaction APIs for the Binance Web3 API platform.
  *
  * The version of the OpenAPI document: 1.0.0
  *
@@ -19,6 +19,7 @@ import com.binance.connector.client.common.SystemUtil;
 import com.binance.connector.client.common.configuration.ClientConfiguration;
 import com.binance.connector.client.common.exception.ConstraintViolationException;
 import com.binance.connector.client.web3.common.ApiClient;
+import com.binance.connector.client.web3_wallet.rest.model.Bar;
 import com.binance.connector.client.web3_wallet.rest.model.GetCandlesResponse;
 import com.binance.connector.client.web3_wallet.rest.model.GetHoldersRankingResponse;
 import com.binance.connector.client.web3_wallet.rest.model.GetHotTokenListResponse;
@@ -30,7 +31,10 @@ import com.binance.connector.client.web3_wallet.rest.model.GetTokenTradesRespons
 import com.binance.connector.client.web3_wallet.rest.model.GetTokenTradingInfoResponse;
 import com.binance.connector.client.web3_wallet.rest.model.GetTopLiquidityPoolsResponse;
 import com.binance.connector.client.web3_wallet.rest.model.GetTopTradersResponse;
+import com.binance.connector.client.web3_wallet.rest.model.RankBy;
+import com.binance.connector.client.web3_wallet.rest.model.RankingTimeFrame;
 import com.binance.connector.client.web3_wallet.rest.model.SearchTokenResponse;
+import com.binance.connector.client.web3_wallet.rest.model.TagFilter;
 import com.google.gson.reflect.TypeToken;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;
@@ -53,7 +57,7 @@ public class MarketApi {
 
     private static final String USER_AGENT =
             String.format(
-                    "binance-web3-wallet/1.0.0 (Java/%s; %s; %s)",
+                    "binance-web3-wallet/2.0.0 (Java/%s; %s; %s)",
                     SystemUtil.getJavaVersion(), SystemUtil.getOs(), SystemUtil.getArch());
     private static final boolean HAS_TIME_UNIT = false;
 
@@ -95,7 +99,7 @@ public class MarketApi {
             String tokenContractAddress,
             Long recvWindow,
             String nonce,
-            String bar,
+            Bar bar,
             Long after,
             Long before,
             Integer limit)
@@ -196,7 +200,7 @@ public class MarketApi {
             String tokenContractAddress,
             Long recvWindow,
             String nonce,
-            String bar,
+            Bar bar,
             Long after,
             Long before,
             Integer limit)
@@ -221,7 +225,7 @@ public class MarketApi {
                                     String.class,
                                     Long.class,
                                     String.class,
-                                    String.class,
+                                    Bar.class,
                                     Long.class,
                                     Long.class,
                                     Integer.class);
@@ -255,7 +259,7 @@ public class MarketApi {
             @NotNull String tokenContractAddress,
             Long recvWindow,
             String nonce,
-            String bar,
+            Bar bar,
             Long after,
             Long before,
             Integer limit)
@@ -292,7 +296,7 @@ public class MarketApi {
         private final String tokenContractAddress;
         private Long recvWindow;
         private String nonce;
-        private String bar;
+        private Bar bar;
         private Long after;
         private Long before;
         private Integer limit;
@@ -313,7 +317,7 @@ public class MarketApi {
             return nonce;
         }
 
-        public String getBar() {
+        public Bar getBar() {
             return bar;
         }
 
@@ -368,7 +372,7 @@ public class MarketApi {
          *     days), 1w (1 week), 1M (1 month). (optional, default to 1m)
          * @return GetCandlesRequest
          */
-        public GetCandlesRequest bar(String bar) {
+        public GetCandlesRequest bar(Bar bar) {
             this.bar = bar;
             return this;
         }
@@ -400,7 +404,7 @@ public class MarketApi {
         /**
          * Set limit
          *
-         * @param limit Number of candles to return. Defaults to 100. (optional, default to 100)
+         * @param limit Number of candles to return. Defaults to 100. (optional)
          * @return GetCandlesRequest
          */
         public GetCandlesRequest limit(Integer limit) {
@@ -414,7 +418,7 @@ public class MarketApi {
             String tokenContractAddress,
             Long recvWindow,
             String nonce,
-            Integer tagFilter)
+            TagFilter tagFilter)
             throws ApiException {
         String basePath = null;
         // Operation Servers
@@ -500,7 +504,7 @@ public class MarketApi {
             String tokenContractAddress,
             Long recvWindow,
             String nonce,
-            Integer tagFilter)
+            TagFilter tagFilter)
             throws ApiException {
         try {
             Validator validator =
@@ -522,7 +526,7 @@ public class MarketApi {
                                     String.class,
                                     Long.class,
                                     String.class,
-                                    Integer.class);
+                                    TagFilter.class);
             Set<ConstraintViolation<MarketApi>> violations =
                     executableValidator.validateParameters(this, method, parameterValues);
 
@@ -546,7 +550,7 @@ public class MarketApi {
             @NotNull String tokenContractAddress,
             Long recvWindow,
             String nonce,
-            Integer tagFilter)
+            TagFilter tagFilter)
             throws ApiException {
         okhttp3.Call localVarCall =
                 getHoldersRankingValidateBeforeCall(
@@ -571,7 +575,7 @@ public class MarketApi {
         private final String tokenContractAddress;
         private Long recvWindow;
         private String nonce;
-        private Integer tagFilter;
+        private TagFilter tagFilter;
 
         public String getBinanceChainId() {
             return binanceChainId;
@@ -589,7 +593,7 @@ public class MarketApi {
             return nonce;
         }
 
-        public Integer getTagFilter() {
+        public TagFilter getTagFilter() {
             return tagFilter;
         }
 
@@ -631,7 +635,7 @@ public class MarketApi {
          *     4&#x3D;Insider, 5&#x3D;Sniper, 6&#x3D;Bundler. (optional)
          * @return GetHoldersRankingRequest
          */
-        public GetHoldersRankingRequest tagFilter(Integer tagFilter) {
+        public GetHoldersRankingRequest tagFilter(TagFilter tagFilter) {
             this.tagFilter = tagFilter;
             return this;
         }
@@ -641,8 +645,8 @@ public class MarketApi {
             Long recvWindow,
             String nonce,
             String binanceChainId,
-            Integer rankBy,
-            Integer rankingTimeFrame,
+            RankBy rankBy,
+            RankingTimeFrame rankingTimeFrame,
             String priceChangePercentMin,
             String priceChangePercentMax,
             String volumeMin,
@@ -1039,8 +1043,8 @@ public class MarketApi {
             Long recvWindow,
             String nonce,
             String binanceChainId,
-            Integer rankBy,
-            Integer rankingTimeFrame,
+            RankBy rankBy,
+            RankingTimeFrame rankingTimeFrame,
             String priceChangePercentMin,
             String priceChangePercentMax,
             String volumeMin,
@@ -1163,8 +1167,8 @@ public class MarketApi {
                                     Long.class,
                                     String.class,
                                     String.class,
-                                    Integer.class,
-                                    Integer.class,
+                                    RankBy.class,
+                                    RankingTimeFrame.class,
                                     String.class,
                                     String.class,
                                     String.class,
@@ -1289,8 +1293,8 @@ public class MarketApi {
             Long recvWindow,
             String nonce,
             String binanceChainId,
-            Integer rankBy,
-            Integer rankingTimeFrame,
+            RankBy rankBy,
+            RankingTimeFrame rankingTimeFrame,
             String priceChangePercentMin,
             String priceChangePercentMax,
             String volumeMin,
@@ -1464,8 +1468,8 @@ public class MarketApi {
         private Long recvWindow;
         private String nonce;
         private String binanceChainId;
-        private Integer rankBy;
-        private Integer rankingTimeFrame;
+        private RankBy rankBy;
+        private RankingTimeFrame rankingTimeFrame;
         private String priceChangePercentMin;
         private String priceChangePercentMax;
         private String volumeMin;
@@ -1528,11 +1532,11 @@ public class MarketApi {
             return binanceChainId;
         }
 
-        public Integer getRankBy() {
+        public RankBy getRankBy() {
             return rankBy;
         }
 
-        public Integer getRankingTimeFrame() {
+        public RankingTimeFrame getRankingTimeFrame() {
             return rankingTimeFrame;
         }
 
@@ -1778,7 +1782,7 @@ public class MarketApi {
          *     8&#x3D;holders, 9&#x3D;Binance MPC wallet holders, 10&#x3D;net inflow. (optional)
          * @return GetHotTokenListRequest
          */
-        public GetHotTokenListRequest rankBy(Integer rankBy) {
+        public GetHotTokenListRequest rankBy(RankBy rankBy) {
             this.rankBy = rankBy;
             return this;
         }
@@ -1790,7 +1794,7 @@ public class MarketApi {
          *     4&#x3D;4 hours, 5&#x3D;24 hours. Default 1 hour. (optional, default to 3)
          * @return GetHotTokenListRequest
          */
-        public GetHotTokenListRequest rankingTimeFrame(Integer rankingTimeFrame) {
+        public GetHotTokenListRequest rankingTimeFrame(RankingTimeFrame rankingTimeFrame) {
             this.rankingTimeFrame = rankingTimeFrame;
             return this;
         }
@@ -2291,7 +2295,7 @@ public class MarketApi {
          * Set isMint
          *
          * @param isMint When set to true, excludes tokens with minting capability. Default false.
-         *     (optional, default to false)
+         *     (optional)
          * @return GetHotTokenListRequest
          */
         public GetHotTokenListRequest isMint(Boolean isMint) {
@@ -2303,7 +2307,7 @@ public class MarketApi {
          * Set isFreeze
          *
          * @param isFreeze When set to true, excludes tokens with freeze capability. Default false.
-         *     (optional, default to false)
+         *     (optional)
          * @return GetHotTokenListRequest
          */
         public GetHotTokenListRequest isFreeze(Boolean isFreeze) {
@@ -2315,7 +2319,7 @@ public class MarketApi {
          * Set isHideWashTradingTokens
          *
          * @param isHideWashTradingTokens When set to true, excludes tokens with wash trading
-         *     behavior. Default true. (optional, default to true)
+         *     behavior. Default true. (optional)
          * @return GetHotTokenListRequest
          */
         public GetHotTokenListRequest isHideWashTradingTokens(Boolean isHideWashTradingTokens) {
@@ -2327,7 +2331,7 @@ public class MarketApi {
          * Set isHideDevWashTradingTokens
          *
          * @param isHideDevWashTradingTokens When set to true, excludes tokens where the developer
-         *     has wash trading behavior. Default true. (optional, default to true)
+         *     has wash trading behavior. Default true. (optional)
          * @return GetHotTokenListRequest
          */
         public GetHotTokenListRequest isHideDevWashTradingTokens(
@@ -2340,7 +2344,7 @@ public class MarketApi {
          * Set isHideInternalWashTradingTokens
          *
          * @param isHideInternalWashTradingTokens When set to true, excludes tokens where insiders
-         *     have wash trading behavior. Default true. (optional, default to true)
+         *     have wash trading behavior. Default true. (optional)
          * @return GetHotTokenListRequest
          */
         public GetHotTokenListRequest isHideInternalWashTradingTokens(
@@ -2353,7 +2357,7 @@ public class MarketApi {
          * Set pageId
          *
          * @param pageId Pagination identifier. Do not pass on the first request; pass the page
-         *     value from the previous response to get the next page. (optional, default to 1)
+         *     value from the previous response to get the next page. (optional)
          * @return GetHotTokenListRequest
          */
         public GetHotTokenListRequest pageId(Integer pageId) {
@@ -2364,7 +2368,7 @@ public class MarketApi {
         /**
          * Set size
          *
-         * @param size Page size. Maximum 100. Defaults to 100. (optional, default to 100)
+         * @param size Page size. Maximum 100. Defaults to 100. (optional)
          * @return GetHotTokenListRequest
          */
         public GetHotTokenListRequest size(Integer size) {
@@ -3058,7 +3062,7 @@ public class MarketApi {
             String nonce,
             String cursor,
             Integer limit,
-            Integer tagFilter,
+            TagFilter tagFilter,
             String walletAddressFilter)
             throws ApiException {
         String basePath = null;
@@ -3160,7 +3164,7 @@ public class MarketApi {
             String nonce,
             String cursor,
             Integer limit,
-            Integer tagFilter,
+            TagFilter tagFilter,
             String walletAddressFilter)
             throws ApiException {
         try {
@@ -3192,7 +3196,7 @@ public class MarketApi {
                                     String.class,
                                     String.class,
                                     Integer.class,
-                                    Integer.class,
+                                    TagFilter.class,
                                     String.class);
             Set<ConstraintViolation<MarketApi>> violations =
                     executableValidator.validateParameters(this, method, parameterValues);
@@ -3226,7 +3230,7 @@ public class MarketApi {
             String nonce,
             String cursor,
             @Min(1) @Max(500) Integer limit,
-            Integer tagFilter,
+            TagFilter tagFilter,
             String walletAddressFilter)
             throws ApiException {
         okhttp3.Call localVarCall =
@@ -3263,7 +3267,7 @@ public class MarketApi {
         private String nonce;
         private String cursor;
         private Integer limit;
-        private Integer tagFilter;
+        private TagFilter tagFilter;
         private String walletAddressFilter;
 
         public String getBinanceChainId() {
@@ -3290,7 +3294,7 @@ public class MarketApi {
             return limit;
         }
 
-        public Integer getTagFilter() {
+        public TagFilter getTagFilter() {
             return tagFilter;
         }
 
@@ -3342,8 +3346,7 @@ public class MarketApi {
         /**
          * Set limit
          *
-         * @param limit Number of results per page, maximum 500, defaults to 100. (optional, default
-         *     to 100)
+         * @param limit Number of results per page, maximum 500, defaults to 100. (optional)
          * @return GetTokenTradesRequest
          */
         public GetTokenTradesRequest limit(Integer limit) {
@@ -3361,7 +3364,7 @@ public class MarketApi {
          *     6&#x3D;Bundler, 7&#x3D;Whale Holder. (optional)
          * @return GetTokenTradesRequest
          */
-        public GetTokenTradesRequest tagFilter(Integer tagFilter) {
+        public GetTokenTradesRequest tagFilter(TagFilter tagFilter) {
             this.tagFilter = tagFilter;
             return this;
         }
@@ -3725,7 +3728,7 @@ public class MarketApi {
             String tokenContractAddress,
             Long recvWindow,
             String nonce,
-            Integer tagFilter)
+            TagFilter tagFilter)
             throws ApiException {
         String basePath = null;
         // Operation Servers
@@ -3811,7 +3814,7 @@ public class MarketApi {
             String tokenContractAddress,
             Long recvWindow,
             String nonce,
-            Integer tagFilter)
+            TagFilter tagFilter)
             throws ApiException {
         try {
             Validator validator =
@@ -3833,7 +3836,7 @@ public class MarketApi {
                                     String.class,
                                     Long.class,
                                     String.class,
-                                    Integer.class);
+                                    TagFilter.class);
             Set<ConstraintViolation<MarketApi>> violations =
                     executableValidator.validateParameters(this, method, parameterValues);
 
@@ -3857,7 +3860,7 @@ public class MarketApi {
             @NotNull String tokenContractAddress,
             Long recvWindow,
             String nonce,
-            Integer tagFilter)
+            TagFilter tagFilter)
             throws ApiException {
         okhttp3.Call localVarCall =
                 getTopTradersValidateBeforeCall(
@@ -3881,7 +3884,7 @@ public class MarketApi {
         private final String tokenContractAddress;
         private Long recvWindow;
         private String nonce;
-        private Integer tagFilter;
+        private TagFilter tagFilter;
 
         public String getBinanceChainId() {
             return binanceChainId;
@@ -3899,7 +3902,7 @@ public class MarketApi {
             return nonce;
         }
 
-        public Integer getTagFilter() {
+        public TagFilter getTagFilter() {
             return tagFilter;
         }
 
@@ -3941,7 +3944,7 @@ public class MarketApi {
          *     Money, 4&#x3D;Insider, 5&#x3D;Sniper, 6&#x3D;Bundler, 7&#x3D;Whale Holder. (optional)
          * @return GetTopTradersRequest
          */
-        public GetTopTradersRequest tagFilter(Integer tagFilter) {
+        public GetTopTradersRequest tagFilter(TagFilter tagFilter) {
             this.tagFilter = tagFilter;
             return this;
         }

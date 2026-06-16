@@ -1,6 +1,6 @@
 /*
- * Binance Web3 Wallet REST API
- * Cross-chain wallet, market, trading, and transaction APIs for the OnchainOS platform.
+ * Binance Web3 API
+ * Cross-chain wallet, market, trading, and transaction APIs for the Binance Web3 API platform.
  *
  * The version of the OpenAPI document: 1.0.0
  *
@@ -34,7 +34,7 @@ import org.hibernate.validator.constraints.*;
 /** Segment&#39;s sell-token info. Same shape as the top-level &#x60;fromToken&#x60;. */
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
-        comments = "Generator version: 7.12.0")
+        comments = "Generator version: 7.22.0")
 public class GetAggregatedQuoteResponseDataInnerDexRouterListInnerFromToken {
     public static final String SERIALIZED_NAME_TOKEN_CONTRACT_ADDRESS = "tokenContractAddress";
 

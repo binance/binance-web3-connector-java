@@ -1,6 +1,6 @@
 /*
- * Binance Web3 Wallet REST API
- * Cross-chain wallet, market, trading, and transaction APIs for the OnchainOS platform.
+ * Binance Web3 API
+ * Cross-chain wallet, market, trading, and transaction APIs for the Binance Web3 API platform.
  *
  * The version of the OpenAPI document: 1.0.0
  *
@@ -52,7 +52,7 @@ public class TransactionApi {
 
     private static final String USER_AGENT =
             String.format(
-                    "binance-web3-wallet/1.0.0 (Java/%s; %s; %s)",
+                    "binance-web3-wallet/2.0.0 (Java/%s; %s; %s)",
                     SystemUtil.getJavaVersion(), SystemUtil.getOs(), SystemUtil.getArch());
     private static final boolean HAS_TIME_UNIT = false;
 
@@ -535,7 +535,7 @@ public class TransactionApi {
         /**
          * Set limit
          *
-         * @param limit Page size. Defaults to 20. (optional, default to 20)
+         * @param limit Page size. Defaults to 20. (optional)
          * @return GetBroadcastOrdersRequest
          */
         public GetBroadcastOrdersRequest limit(Integer limit) {

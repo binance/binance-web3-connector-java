@@ -43,12 +43,12 @@ public class Example {
     String quoteId = "a1b2c3d4e5f64a8b9c0d1e2f3a4b5c6d"; // String | quoteId returned from `/quote` for the route to execute. TTL ~30s; expired entries return `QUOTE_EXPIRED` (40401).
     Long recvWindow = 5000L; // Long | Allowed time deviation in milliseconds (default: 5000, max: 60000).
     String nonce = "unique-nonce-string"; // String | Unique request identifier for anti-replay; falls back to X-OC-SIGN if omitted.
-    String approveTransaction = "true"; // String | When \"true\", `signatureData` includes the spender address and approve calldata so the client can submit it before the swap. Defaults to false.
+    ApproveTransaction approveTransaction = ApproveTransaction.fromValue("true"); // ApproveTransaction | When \"true\", `signatureData` includes the spender address and approve calldata so the client can submit it before the swap. Defaults to false.
     String approveAmount = "1000000"; // String | Override approve amount (smallest unit, positive integer string). Defaults to the swap amount.
     String gasLimit = "200000"; // String | Gas limit override (positive integer string). EVM only.
-    String gasLevel = "slow"; // String | Gas price tier. Defaults to \"average\".
+    GasLevel gasLevel = GasLevel.fromValue("slow"); // GasLevel | Gas price tier. Defaults to \"average\".
     String priceImpactProtectionPercent = "90"; // String | Maximum allowed price impact percentage (0–100). Defaults to 90; set to 100 to disable.
-    String autoSlippage = "true"; // String | When \"true\", slippage is auto-derived from market data and overrides `slippagePercent`. Defaults to false.
+    AutoSlippage autoSlippage = AutoSlippage.fromValue("true"); // AutoSlippage | When \"true\", slippage is auto-derived from market data and overrides `slippagePercent`. Defaults to false.
     String maxAutoSlippagePercent = "3"; // String | Cap on auto-derived slippage (only applies when `autoSlippage=true`).
     String computeUnitLimit = "1400000"; // String | Solana only — maximum compute units the transaction may consume (analogous to EVM gasLimit). Applies only when `binanceChainId=CT_501`.
     String computeUnitPrice = "1000"; // String | Solana only — priority fee per compute unit (micro-lamports), analogous to EVM gasPrice. When omitted, the platform computes a value dynamically. Applies only when `binanceChainId=CT_501`.
@@ -93,12 +93,12 @@ public class Example {
 | **quoteId** | **String**| quoteId returned from &#x60;/quote&#x60; for the route to execute. TTL ~30s; expired entries return &#x60;QUOTE_EXPIRED&#x60; (40401). | |
 | **recvWindow** | **Long**| Allowed time deviation in milliseconds (default: 5000, max: 60000). | [optional] |
 | **nonce** | **String**| Unique request identifier for anti-replay; falls back to X-OC-SIGN if omitted. | [optional] |
-| **approveTransaction** | **String**| When \&quot;true\&quot;, &#x60;signatureData&#x60; includes the spender address and approve calldata so the client can submit it before the swap. Defaults to false. | [optional] [enum: true, false] |
+| **approveTransaction** | [**ApproveTransaction**](.md)| When \&quot;true\&quot;, &#x60;signatureData&#x60; includes the spender address and approve calldata so the client can submit it before the swap. Defaults to false. | [optional] [enum: true, false] |
 | **approveAmount** | **String**| Override approve amount (smallest unit, positive integer string). Defaults to the swap amount. | [optional] |
 | **gasLimit** | **String**| Gas limit override (positive integer string). EVM only. | [optional] |
-| **gasLevel** | **String**| Gas price tier. Defaults to \&quot;average\&quot;. | [optional] [enum: slow, average, fast] |
+| **gasLevel** | [**GasLevel**](.md)| Gas price tier. Defaults to \&quot;average\&quot;. | [optional] [enum: slow, average, fast] |
 | **priceImpactProtectionPercent** | **String**| Maximum allowed price impact percentage (0–100). Defaults to 90; set to 100 to disable. | [optional] |
-| **autoSlippage** | **String**| When \&quot;true\&quot;, slippage is auto-derived from market data and overrides &#x60;slippagePercent&#x60;. Defaults to false. | [optional] [enum: true, false] |
+| **autoSlippage** | [**AutoSlippage**](.md)| When \&quot;true\&quot;, slippage is auto-derived from market data and overrides &#x60;slippagePercent&#x60;. Defaults to false. | [optional] [enum: true, false] |
 | **maxAutoSlippagePercent** | **String**| Cap on auto-derived slippage (only applies when &#x60;autoSlippage&#x3D;true&#x60;). | [optional] |
 | **computeUnitLimit** | **String**| Solana only — maximum compute units the transaction may consume (analogous to EVM gasLimit). Applies only when &#x60;binanceChainId&#x3D;CT_501&#x60;. | [optional] |
 | **computeUnitPrice** | **String**| Solana only — priority fee per compute unit (micro-lamports), analogous to EVM gasPrice. When omitted, the platform computes a value dynamically. Applies only when &#x60;binanceChainId&#x3D;CT_501&#x60;. | [optional] |

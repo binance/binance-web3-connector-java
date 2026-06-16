@@ -29,9 +29,9 @@ public class BroadcastTransactionsExample {
     /**
      * Broadcast Transactions
      *
-     * <p>Broadcast a client-signed transaction to the chain via the OnchainOS relay. Returns the
-     * transaction hash and an internal &#x60;orderId&#x60; you can use to track on-chain status via
-     * the post-transaction service. Optional MEV protection (EVM chains only) routes the
+     * <p>Broadcast a client-signed transaction to the chain via the Binance Web3 API relay. Returns
+     * the transaction hash and an internal &#x60;orderId&#x60; you can use to track on-chain status
+     * via the post-transaction service. Optional MEV protection (EVM chains only) routes the
      * transaction through a private mempool to mitigate front-running and sandwich attacks.
      *
      * @throws ApiException if the Api call fails

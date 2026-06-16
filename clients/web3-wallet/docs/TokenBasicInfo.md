@@ -1,6 +1,6 @@
 
 
-# GetTokenBasicInfoResponseData
+# TokenBasicInfo
 
 
 ## Properties
@@ -15,7 +15,7 @@
 |**decimals** | **Integer** | Token decimals. |  [optional] |
 |**creatorAddress** | **String** | Token creator wallet address. |  [optional] |
 |**createTime** | **Long** | Token creation time, Unix millisecond timestamp. |  [optional] |
-|**tagList** | [**SearchTokenResponseDataInnerTagList**](SearchTokenResponseDataInnerTagList.md) |  |  [optional] |
+|**tagList** | [**TokenTagInformation**](TokenTagInformation.md) |  |  [optional] |
 
 
 

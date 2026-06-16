@@ -1,6 +1,6 @@
 /*
- * Binance Web3 Wallet REST API
- * Cross-chain wallet, market, trading, and transaction APIs for the OnchainOS platform.
+ * Binance Web3 API
+ * Cross-chain wallet, market, trading, and transaction APIs for the Binance Web3 API platform.
  *
  * The version of the OpenAPI document: 1.0.0
  *
@@ -49,7 +49,7 @@ public class WalletApi {
 
     private static final String USER_AGENT =
             String.format(
-                    "binance-web3-wallet/1.0.0 (Java/%s; %s; %s)",
+                    "binance-web3-wallet/2.0.0 (Java/%s; %s; %s)",
                     SystemUtil.getJavaVersion(), SystemUtil.getOs(), SystemUtil.getArch());
     private static final boolean HAS_TIME_UNIT = false;
 
@@ -358,7 +358,7 @@ public class WalletApi {
         /**
          * Set page
          *
-         * @param page Page number. Defaults to 1. (optional, default to 1)
+         * @param page Page number. Defaults to 1. (optional)
          * @return GetAllTokenBalancesByAddressRequest
          */
         public GetAllTokenBalancesByAddressRequest page(Long page) {
@@ -369,7 +369,7 @@ public class WalletApi {
         /**
          * Set pageSize
          *
-         * @param pageSize Page size. Range 1–100. Defaults to 20. (optional, default to 20)
+         * @param pageSize Page size. Range 1–100. Defaults to 20. (optional)
          * @return GetAllTokenBalancesByAddressRequest
          */
         public GetAllTokenBalancesByAddressRequest pageSize(Integer pageSize) {
@@ -1078,7 +1078,7 @@ public class WalletApi {
         /**
          * Set limit
          *
-         * @param limit Page size. Range 1–100. Defaults to 20. (optional, default to 20)
+         * @param limit Page size. Range 1–100. Defaults to 20. (optional)
          * @return GetTransactionsByAddressRequest
          */
         public GetTransactionsByAddressRequest limit(Integer limit) {
