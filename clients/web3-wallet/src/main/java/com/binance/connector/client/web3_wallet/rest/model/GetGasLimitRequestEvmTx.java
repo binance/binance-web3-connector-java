@@ -57,7 +57,7 @@ public class GetGasLimitRequestEvmTx {
     public static final String SERIALIZED_NAME_DATA = "data";
 
     @SerializedName(SERIALIZED_NAME_DATA)
-    @jakarta.annotation.Nullable
+    @jakarta.annotation.Nonnull
     private String data;
 
     public GetGasLimitRequestEvmTx() {}
@@ -122,7 +122,7 @@ public class GetGasLimitRequestEvmTx {
         this.value = value;
     }
 
-    public GetGasLimitRequestEvmTx data(@jakarta.annotation.Nullable String data) {
+    public GetGasLimitRequestEvmTx data(@jakarta.annotation.Nonnull String data) {
         this.data = data;
         return this;
     }
@@ -132,12 +132,13 @@ public class GetGasLimitRequestEvmTx {
      *
      * @return data
      */
-    @jakarta.annotation.Nullable
+    @jakarta.annotation.Nonnull
+    @NotNull
     public String getData() {
         return data;
     }
 
-    public void setData(@jakarta.annotation.Nullable String data) {
+    public void setData(@jakarta.annotation.Nonnull String data) {
         this.data = data;
     }
 
@@ -230,6 +231,7 @@ public class GetGasLimitRequestEvmTx {
         openapiRequiredFields.add("from");
         openapiRequiredFields.add("to");
         openapiRequiredFields.add("value");
+        openapiRequiredFields.add("data");
     }
 
     /**
@@ -281,8 +283,7 @@ public class GetGasLimitRequestEvmTx {
                                     + " but got `%s`",
                             jsonObj.get("value").toString()));
         }
-        if ((jsonObj.get("data") != null && !jsonObj.get("data").isJsonNull())
-                && !jsonObj.get("data").isJsonPrimitive()) {
+        if (!jsonObj.get("data").isJsonPrimitive()) {
             throw new IllegalArgumentException(
                     String.format(
                             "Expected the field `data` to be a primitive type in the JSON string"

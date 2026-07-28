@@ -118,11 +118,59 @@ public class JSON {
                 new com.binance.connector.client.web3_wallet.rest.model
                         .BroadcastTransactionsResponseData.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(
+                new com.binance.connector.client.web3_wallet.rest.model
+                        .BuildSolanaSwapInstructionsResponse.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(
+                new com.binance.connector.client.web3_wallet.rest.model
+                        .BuildSolanaSwapInstructionsResponseData.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(
+                new com.binance.connector.client.web3_wallet.rest.model
+                        .BuildSolanaSwapInstructionsResponseDataInstructionListsInner
+                        .CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(
+                new com.binance.connector.client.web3_wallet.rest.model
+                        .BuildSolanaSwapInstructionsResponseDataInstructionListsInnerAccountsInner
+                        .CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(
+                new com.binance.connector.client.web3_wallet.rest.model
+                        .BuildSolanaSwapInstructionsResponseDataRouterResult
+                        .CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(
+                new com.binance.connector.client.web3_wallet.rest.model
+                        .BuildSolanaSwapInstructionsResponseDataRouterResultDexRouterListInner
+                        .CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(
+                new com.binance.connector.client.web3_wallet.rest.model
+                        .BuildSolanaSwapInstructionsResponseDataRouterResultDexRouterListInnerDexProtocol
+                        .CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(
+                new com.binance.connector.client.web3_wallet.rest.model
+                        .BuildSolanaSwapInstructionsResponseDataRouterResultDexRouterListInnerFromToken
+                        .CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(
+                new com.binance.connector.client.web3_wallet.rest.model
+                        .BuildSolanaSwapInstructionsResponseDataRouterResultDexRouterListInnerToToken
+                        .CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(
+                new com.binance.connector.client.web3_wallet.rest.model
+                        .BuildSolanaSwapInstructionsResponseDataRouterResultFromToken
+                        .CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(
+                new com.binance.connector.client.web3_wallet.rest.model
+                        .BuildSolanaSwapInstructionsResponseDataRouterResultToToken
+                        .CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(
+                new com.binance.connector.client.web3_wallet.rest.model
+                        .BuildSolanaSwapInstructionsResponseDataTx.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(
                 new com.binance.connector.client.web3_wallet.rest.model.BuildSwapTransactionResponse
                         .CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(
                 new com.binance.connector.client.web3_wallet.rest.model
                         .BuildSwapTransactionResponseData.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(
+                new com.binance.connector.client.web3_wallet.rest.model
+                        .BuildSwapTransactionResponseDataRfq.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(
                 new com.binance.connector.client.web3_wallet.rest.model
                         .BuildSwapTransactionResponseDataRouterResult.CustomTypeAdapterFactory());
@@ -153,6 +201,43 @@ public class JSON {
         gsonBuilder.registerTypeAdapterFactory(
                 new com.binance.connector.client.web3_wallet.rest.model
                         .BuildSwapTransactionResponseDataTx.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(
+                new com.binance.connector.client.web3_wallet.rest.model
+                        .GetAddressPnLForSpecificTokenResponse.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(
+                new com.binance.connector.client.web3_wallet.rest.model
+                        .GetAddressPnLForSpecificTokenResponseData.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(
+                new com.binance.connector.client.web3_wallet.rest.model
+                        .GetAddressPortfolioOverviewResponse.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(
+                new com.binance.connector.client.web3_wallet.rest.model
+                        .GetAddressPortfolioOverviewResponseData.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(
+                new com.binance.connector.client.web3_wallet.rest.model
+                        .GetAddressPortfolioOverviewResponseDataDailyPnlInner
+                        .CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(
+                new com.binance.connector.client.web3_wallet.rest.model
+                        .GetAddressPortfolioOverviewResponseDataTokenCountByPnlPercent
+                        .CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(
+                new com.binance.connector.client.web3_wallet.rest.model
+                        .GetAddressPortfolioOverviewResponseDataTopPnlTokenListInner
+                        .CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(
+                new com.binance.connector.client.web3_wallet.rest.model.GetAddressRecentPnLResponse
+                        .CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(
+                new com.binance.connector.client.web3_wallet.rest.model
+                        .GetAddressRecentPnLResponseData.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(
+                new com.binance.connector.client.web3_wallet.rest.model
+                        .GetAddressRecentPnLResponseDataPnlListInner.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(
+                new com.binance.connector.client.web3_wallet.rest.model
+                        .GetAddressRecentPnLResponseDataPnlListInnerTokenPositionDuration
+                        .CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(
                 new com.binance.connector.client.web3_wallet.rest.model.GetAggregatedQuoteResponse
                         .CustomTypeAdapterFactory());
@@ -210,6 +295,16 @@ public class JSON {
                 new com.binance.connector.client.web3_wallet.rest.model.GetCandlesResponse
                         .CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(
+                new com.binance.connector.client.web3_wallet.rest.model.GetDexTradeHistoryResponse
+                        .CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(
+                new com.binance.connector.client.web3_wallet.rest.model
+                        .GetDexTradeHistoryResponseData.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(
+                new com.binance.connector.client.web3_wallet.rest.model
+                        .GetDexTradeHistoryResponseDataTransactionListInner
+                        .CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(
                 new com.binance.connector.client.web3_wallet.rest.model
                         .GetErc20ApproveTransactionResponse.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(
@@ -223,6 +318,16 @@ public class JSON {
                         .CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(
                 new com.binance.connector.client.web3_wallet.rest.model.GetGasLimitRequestSolTx
+                        .CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(
+                new com.binance.connector.client.web3_wallet.rest.model.GetGasLimitRequestTronTx
+                        .CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(
+                new com.binance.connector.client.web3_wallet.rest.model
+                        .GetGasLimitRequestTronTxTransferContractParams.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(
+                new com.binance.connector.client.web3_wallet.rest.model
+                        .GetGasLimitRequestTronTxTriggerSmartContractParams
                         .CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(
                 new com.binance.connector.client.web3_wallet.rest.model.GetGasLimitResponse
@@ -265,6 +370,91 @@ public class JSON {
                 new com.binance.connector.client.web3_wallet.rest.model
                         .GetHotTokenListResponseDataItemsInner.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(
+                new com.binance.connector.client.web3_wallet.rest.model.GetLeaderboardResponse
+                        .CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(
+                new com.binance.connector.client.web3_wallet.rest.model.GetLeaderboardResponseData
+                        .CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(
+                new com.binance.connector.client.web3_wallet.rest.model
+                        .GetLeaderboardResponseDataItemsInner.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(
+                new com.binance.connector.client.web3_wallet.rest.model
+                        .GetLeaderboardResponseDataItemsInnerDailyPnlInner
+                        .CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(
+                new com.binance.connector.client.web3_wallet.rest.model
+                        .GetLeaderboardResponseDataItemsInnerTokenCountByPnlPercent
+                        .CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(
+                new com.binance.connector.client.web3_wallet.rest.model
+                        .GetLeaderboardResponseDataItemsInnerTopPnlTokenListInner
+                        .CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(
+                new com.binance.connector.client.web3_wallet.rest.model
+                        .GetPortfolioSupportedChainsResponse.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(
+                new com.binance.connector.client.web3_wallet.rest.model
+                        .GetPortfolioSupportedChainsResponseDataInner.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(
+                new com.binance.connector.client.web3_wallet.rest.model.GetRfqOrderStatusResponse
+                        .CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(
+                new com.binance.connector.client.web3_wallet.rest.model
+                        .GetRfqOrderStatusResponseData.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(
+                new com.binance.connector.client.web3_wallet.rest.model
+                        .GetRwaTokenIssuancePlatformsResponse.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(
+                new com.binance.connector.client.web3_wallet.rest.model
+                        .GetRwaTokenIssuancePlatformsResponseDataInner.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(
+                new com.binance.connector.client.web3_wallet.rest.model
+                        .GetRwaTokenIssuancePlatformsResponseDataInnerChainDistributionInner
+                        .CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(
+                new com.binance.connector.client.web3_wallet.rest.model.GetRwaTokenListResponse
+                        .CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(
+                new com.binance.connector.client.web3_wallet.rest.model
+                        .GetRwaTokenListResponseDataInner.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(
+                new com.binance.connector.client.web3_wallet.rest.model
+                        .GetRwaTokenListResponseDataInnerStatusInfo.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(
+                new com.binance.connector.client.web3_wallet.rest.model.GetRwaTokenPriceResponse
+                        .CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(
+                new com.binance.connector.client.web3_wallet.rest.model
+                        .GetRwaTokenPriceResponseDataInner.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(
+                new com.binance.connector.client.web3_wallet.rest.model.GetRwaUnderlyingInfoResponse
+                        .CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(
+                new com.binance.connector.client.web3_wallet.rest.model
+                        .GetRwaUnderlyingInfoResponseData.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(
+                new com.binance.connector.client.web3_wallet.rest.model
+                        .GetRwaUnderlyingInfoResponseDataCompanyInfo.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(
+                new com.binance.connector.client.web3_wallet.rest.model
+                        .GetRwaUnderlyingInfoResponseDataProtectionsValue
+                        .CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(
+                new com.binance.connector.client.web3_wallet.rest.model
+                        .GetRwaUnderlyingMarketDataResponse.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(
+                new com.binance.connector.client.web3_wallet.rest.model
+                        .GetRwaUnderlyingMarketDataResponseData.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(
+                new com.binance.connector.client.web3_wallet.rest.model
+                        .GetRwaUnderlyingMarketDataResponseDataMarketData
+                        .CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(
+                new com.binance.connector.client.web3_wallet.rest.model
+                        .GetRwaUnderlyingMarketDataResponseDataStatusInfo
+                        .CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(
                 new com.binance.connector.client.web3_wallet.rest.model.GetSupportedChainsResponse
                         .CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(
@@ -296,6 +486,18 @@ public class JSON {
         gsonBuilder.registerTypeAdapterFactory(
                 new com.binance.connector.client.web3_wallet.rest.model.GetTokenBasicInfoResponse
                         .CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(
+                new com.binance.connector.client.web3_wallet.rest.model.GetTokenDevInfoResponse
+                        .CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(
+                new com.binance.connector.client.web3_wallet.rest.model.GetTokenDevInfoResponseData
+                        .CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(
+                new com.binance.connector.client.web3_wallet.rest.model
+                        .GetTokenDevInfoResponseDataDevHoldingInfo.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(
+                new com.binance.connector.client.web3_wallet.rest.model
+                        .GetTokenDevInfoResponseDataDevLaunchedInfo.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(
                 new com.binance.connector.client.web3_wallet.rest.model.GetTokenPriceResponse
                         .CustomTypeAdapterFactory());
@@ -337,6 +539,15 @@ public class JSON {
         gsonBuilder.registerTypeAdapterFactory(
                 new com.binance.connector.client.web3_wallet.rest.model
                         .GetTopTradersResponseDataInner.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(
+                new com.binance.connector.client.web3_wallet.rest.model.GetTrackedTradesResponse
+                        .CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(
+                new com.binance.connector.client.web3_wallet.rest.model.GetTrackedTradesResponseData
+                        .CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(
+                new com.binance.connector.client.web3_wallet.rest.model
+                        .GetTrackedTradesResponseDataTradesInner.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(
                 new com.binance.connector.client.web3_wallet.rest.model
                         .GetTransactionDetailByHashResponse.CustomTypeAdapterFactory());
@@ -404,6 +615,24 @@ public class JSON {
                 new com.binance.connector.client.web3_wallet.rest.model
                         .GetWalletSupportedChainsResponseDataInner.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(
+                new com.binance.connector.client.web3_wallet.rest.model
+                        .QuoteAndBuildSwapTransactionResponse.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(
+                new com.binance.connector.client.web3_wallet.rest.model
+                        .QuoteAndBuildSwapTransactionResponseData.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(
+                new com.binance.connector.client.web3_wallet.rest.model
+                        .QuoteAndBuildSwapTransactionResponseDataRfq.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(
+                new com.binance.connector.client.web3_wallet.rest.model.SearchRwaTokenResponse
+                        .CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(
+                new com.binance.connector.client.web3_wallet.rest.model
+                        .SearchRwaTokenResponseDataInner.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(
+                new com.binance.connector.client.web3_wallet.rest.model
+                        .SearchRwaTokenResponseDataInnerAssetsInner.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(
                 new com.binance.connector.client.web3_wallet.rest.model.SearchTokenResponse
                         .CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(
@@ -419,6 +648,9 @@ public class JSON {
                 new com.binance.connector.client.web3_wallet.rest.model
                         .SimulateTransactionsRequestSolTx.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(
+                new com.binance.connector.client.web3_wallet.rest.model
+                        .SimulateTransactionsRequestTronTx.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(
                 new com.binance.connector.client.web3_wallet.rest.model.SimulateTransactionsResponse
                         .CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(
@@ -431,6 +663,15 @@ public class JSON {
         gsonBuilder.registerTypeAdapterFactory(
                 new com.binance.connector.client.web3_wallet.rest.model
                         .SimulateTransactionsResponseDataBalanceChangesInner
+                        .CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(
+                new com.binance.connector.client.web3_wallet.rest.model.SubmitRfqOrderRequest
+                        .CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(
+                new com.binance.connector.client.web3_wallet.rest.model.SubmitRfqOrderResponse
+                        .CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(
+                new com.binance.connector.client.web3_wallet.rest.model.SubmitRfqOrderResponseData
                         .CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(
                 new com.binance.connector.client.web3_wallet.rest.model.TagInfo

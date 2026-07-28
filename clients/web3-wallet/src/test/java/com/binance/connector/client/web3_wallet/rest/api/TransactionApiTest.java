@@ -149,6 +149,20 @@ public class TransactionApiTest {
     public void getGasLimitTest() throws ApiException, CryptoException {
         GetGasLimitRequest getGasLimitRequest = new GetGasLimitRequest();
         getGasLimitRequest.binanceChainId("1");
+        GetGasLimitRequestEvmTx getGasLimitRequestEvmTx = new GetGasLimitRequestEvmTx();
+        getGasLimitRequestEvmTx.data("123");
+        getGasLimitRequestEvmTx.value("abc");
+        getGasLimitRequestEvmTx.to("to");
+        getGasLimitRequestEvmTx.from("from");
+        getGasLimitRequest.evmTx(getGasLimitRequestEvmTx);
+        GetGasLimitRequestSolTx getGasLimitRequestSolTx = new GetGasLimitRequestSolTx();
+        getGasLimitRequestSolTx.base64Tx("abc123");
+        getGasLimitRequest.solTx(getGasLimitRequestSolTx);
+        GetGasLimitRequestTronTx getGasLimitRequestTronTx = new GetGasLimitRequestTronTx();
+        getGasLimitRequestTronTx.setFrom("from");
+        getGasLimitRequestTronTx.setTxType(GetGasLimitRequestTronTx.TxTypeEnum.TRANSFER_CONTRACT);
+
+        getGasLimitRequest.tronTx(getGasLimitRequestTronTx);
 
         Long recvWindow = 5000L;
         String nonce = "unique-nonce-string";
@@ -163,8 +177,8 @@ public class TransactionApiTest {
         Call captorValue = callArgumentCaptor.getValue();
         Request actualRequest = captorValue.request();
 
-        assertEquals("timestamp=1736393892000binanceChainId=1", signInputCaptor.getValue());
-        assertEquals("0708456ff0bebe4504a390eba1cdb4a23e3d7efc004bbc03345597b275ce0a21", actualRequest.url().queryParameter("signature"));
+        assertEquals("timestamp=1736393892000evmTx=%7B%22from%22%3A%22from%22%2C%22to%22%3A%22to%22%2C%22value%22%3A%22abc%22%2C%22data%22%3A%22123%22%7D&binanceChainId=1&solTx=%7B%22base64Tx%22%3A%22abc123%22%7D&tronTx=%7B%22from%22%3A%22from%22%2C%22txType%22%3A%22TRANSFER_CONTRACT%22%7D", signInputCaptor.getValue());
+        assertEquals("c6047dad58e8404a6da4dc7e017f55d93039aae17515da45beabf88cc8a99f12", actualRequest.url().queryParameter("signature"));
         assertEquals("/api/v1/dex/pre-transaction/gas-limit", actualRequest.url().encodedPath());
     }
 
@@ -236,7 +250,21 @@ public class TransactionApiTest {
     public void simulateTransactionsTest() throws ApiException, CryptoException {
         SimulateTransactionsRequest simulateTransactionsRequest = new SimulateTransactionsRequest();
         simulateTransactionsRequest.binanceChainId("1");
+        SimulateTransactionsRequestSolTx simulateTransactionsRequestSolTx = new SimulateTransactionsRequestSolTx();
+        simulateTransactionsRequestSolTx.address("abc");
+        simulateTransactionsRequestSolTx.base64Tx("abc123");
 
+        simulateTransactionsRequest.solTx(simulateTransactionsRequestSolTx);
+        SimulateTransactionsRequestTronTx transactionsRequestTronTx = new SimulateTransactionsRequestTronTx();
+        transactionsRequestTronTx.setFrom("from");
+        transactionsRequestTronTx.setTxType(SimulateTransactionsRequestTronTx.TxTypeEnum.TRANSFER_CONTRACT);
+        simulateTransactionsRequest.tronTx(transactionsRequestTronTx);
+        SimulateTransactionsRequestEvmTx transactionsRequestEvmTx = new SimulateTransactionsRequestEvmTx();
+        transactionsRequestEvmTx.data("abc");
+        transactionsRequestEvmTx.value("abc");
+        transactionsRequestEvmTx.to("to");
+        transactionsRequestEvmTx.from("from");
+        simulateTransactionsRequest.evmTx(transactionsRequestEvmTx);
         Long recvWindow = 5000L;
         String nonce = "unique-nonce-string";
         ApiResponse<SimulateTransactionsResponse> response = api.simulateTransactions(simulateTransactionsRequest, recvWindow, nonce);
@@ -250,8 +278,8 @@ public class TransactionApiTest {
         Call captorValue = callArgumentCaptor.getValue();
         Request actualRequest = captorValue.request();
 
-        assertEquals("timestamp=1736393892000binanceChainId=1", signInputCaptor.getValue());
-        assertEquals("0708456ff0bebe4504a390eba1cdb4a23e3d7efc004bbc03345597b275ce0a21", actualRequest.url().queryParameter("signature"));
+        assertEquals("timestamp=1736393892000evmTx=%7B%22from%22%3A%22from%22%2C%22to%22%3A%22to%22%2C%22value%22%3A%22abc%22%2C%22data%22%3A%22abc%22%7D&binanceChainId=1&solTx=%7B%22base64Tx%22%3A%22abc123%22%2C%22address%22%3A%22abc%22%7D&tronTx=%7B%22from%22%3A%22from%22%2C%22txType%22%3A%22TRANSFER_CONTRACT%22%7D", signInputCaptor.getValue());
+        assertEquals("9a0ffaede39a39b82fdd291003ca0a590d637706a55fdc2303c4cfed80e2ade2", actualRequest.url().queryParameter("signature"));
         assertEquals("/api/v1/dex/pre-transaction/simulate", actualRequest.url().encodedPath());
     }
 

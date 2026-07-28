@@ -18,7 +18,7 @@ All URIs are relative to *https://web3.binance.com/build*
 
 Broadcast Transactions
 
-Broadcast a client-signed transaction to the chain via the Binance Web3 API relay. Returns the transaction hash and an internal &#x60;orderId&#x60; you can use to track on-chain status via the post-transaction service. Optional MEV protection (EVM chains only) routes the transaction through a private mempool to mitigate front-running and sandwich attacks.
+Broadcast a client-signed transaction to the chain via the Binance Web3 API relay. Returns the transaction hash and an internal &#x60;orderId&#x60; you can use to track on-chain status via the post-transaction service. Optional MEV protection (EVM chains only) routes the transaction through a private mempool to mitigate front-running and sandwich attacks. Tron and Solana do not support MEV protection; the flag is ignored on these chains.
 
 ### Example
 ```java
@@ -176,7 +176,7 @@ No authorization required
 
 Get Gas Limit
 
-Estimate the gas limit (or compute-unit ceiling on Solana) for an unsigned transaction. Provide either &#x60;evmTx&#x60; for EVM chains or &#x60;solTx&#x60; for Solana, matching the value of &#x60;binanceChainId&#x60;.
+Estimate the gas limit (or compute-unit ceiling on Solana) for an unsigned transaction. Provide either &#x60;evmTx&#x60; for EVM chains, &#x60;solTx&#x60; for Solana, or &#x60;tronTx&#x60; for Tron (\&quot;CT_195\&quot;), matching the value of &#x60;binanceChainId&#x60;. On Tron the response carries energy/bandwidth fields instead of a single gas limit; &#x60;gasLimit&#x60; is the fee limit (in sun) and the energy/bandwidth fields describe resource consumption and pricing.
 
 ### Example
 ```java
@@ -248,7 +248,7 @@ No authorization required
 
 Get Gas Price
 
-Query the current network gas price for the specified chain. The response shape varies by chain family: - EVM chains return both &#x60;evmLegacyGasPrice&#x60; (legacy gasPrice) and   &#x60;eip1559GasPrice&#x60; (baseFee + priority/max fees) when EIP-1559 is supported. - Solana returns &#x60;solanaGasPrice&#x60; (compute-unit prices and Jito tips). Fields not applicable to the chain family are returned as &#x60;null&#x60;.
+Query the current network gas price for the specified chain. The response shape varies by chain family: - EVM chains return both &#x60;evmLegacyGasPrice&#x60; (legacy gasPrice) and   &#x60;eip1559GasPrice&#x60; (baseFee + priority/max fees) when EIP-1559 is supported. - Solana returns &#x60;solanaGasPrice&#x60; (compute-unit prices and Jito tips). - Tron (\&quot;CT_195\&quot;) returns an empty &#x60;data&#x60; object because Tron has no   on-chain gas-price concept; use the gas-limit endpoint instead.  Fields not applicable to the chain family are returned as &#x60;null&#x60;.
 
 ### Example
 ```java
@@ -265,7 +265,7 @@ public class Example {
     defaultClient.setBasePath("https://web3.binance.com/build");
 
     TransactionApi apiInstance = new TransactionApi(defaultClient);
-    String binanceChainId = "1"; // String | Unique chain identifier (e.g. \"1\"=Ethereum, \"56\"=BSC, \"CT_501\"=Solana).
+    String binanceChainId = "1"; // String | Unique chain identifier (e.g. \"1\"=Ethereum, \"56\"=BSC, \"CT_501\"=Solana, \"CT_195\"=Tron).
     Long recvWindow = 5000L; // Long | Allowed time deviation in milliseconds (default: 5000, max: 60000).
     String nonce = "unique-nonce-string"; // String | Unique request identifier for anti-replay; falls back to X-OC-SIGN if omitted.
     try {
@@ -289,7 +289,7 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **binanceChainId** | **String**| Unique chain identifier (e.g. \&quot;1\&quot;&#x3D;Ethereum, \&quot;56\&quot;&#x3D;BSC, \&quot;CT_501\&quot;&#x3D;Solana). | |
+| **binanceChainId** | **String**| Unique chain identifier (e.g. \&quot;1\&quot;&#x3D;Ethereum, \&quot;56\&quot;&#x3D;BSC, \&quot;CT_501\&quot;&#x3D;Solana, \&quot;CT_195\&quot;&#x3D;Tron). | |
 | **recvWindow** | **Long**| Allowed time deviation in milliseconds (default: 5000, max: 60000). | [optional] |
 | **nonce** | **String**| Unique request identifier for anti-replay; falls back to X-OC-SIGN if omitted. | [optional] |
 
@@ -390,7 +390,7 @@ No authorization required
 
 Simulate Transactions
 
-Simulate transaction execution off-chain to predict its outcome before broadcasting. The response includes the predicted execution status, balance changes per affected account/token, and ERC-20 allowance changes (EVM chains). Provide either &#x60;evmTx&#x60; (EVM chains) or &#x60;solTx&#x60; (Solana) matching &#x60;binanceChainId&#x60;.
+Simulate transaction execution off-chain to predict its outcome before broadcasting. The response includes the predicted execution status, balance changes per affected account/token, and ERC-20 allowance changes (EVM chains). Provide either &#x60;evmTx&#x60; (EVM chains), &#x60;solTx&#x60; (Solana), or &#x60;tronTx&#x60; (Tron \&quot;CT_195\&quot;) matching &#x60;binanceChainId&#x60;. On Tron, &#x60;allowanceChanges&#x60; is returned as an empty array. Note: Metis (chainId 1088) is not supported by this endpoint.
 
 ### Example
 ```java

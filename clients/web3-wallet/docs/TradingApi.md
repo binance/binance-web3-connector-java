@@ -4,16 +4,125 @@ All URIs are relative to *https://web3.binance.com/build*
 
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
+| [**buildSolanaSwapInstructions**](TradingApi.md#buildSolanaSwapInstructions) | **GET** /api/v1/dex/aggregator/swap-instruction | Build Solana Swap Instructions |
 | [**buildSwapTransaction**](TradingApi.md#buildSwapTransaction) | **GET** /api/v1/dex/aggregator/swap | Build Swap Transaction |
 | [**getAggregatedQuote**](TradingApi.md#getAggregatedQuote) | **GET** /api/v1/dex/aggregator/quote | Get Aggregated Quote |
 | [**getAggregatorSupportedChains**](TradingApi.md#getAggregatorSupportedChains) | **GET** /api/v1/dex/aggregator/supported/chain | Get Aggregator Supported Chains |
 | [**getErc20ApproveTransaction**](TradingApi.md#getErc20ApproveTransaction) | **GET** /api/v1/dex/aggregator/approve-transaction | Get ERC-20 Approve Transaction |
+| [**getRfqOrderStatus**](TradingApi.md#getRfqOrderStatus) | **GET** /api/v1/dex/aggregator/order/{orderId} | Get RFQ Order Status |
 | [**getTransactionStatus**](TradingApi.md#getTransactionStatus) | **GET** /api/v1/dex/aggregator/history | Get Transaction Status |
+| [**quoteAndBuildSwapTransaction**](TradingApi.md#quoteAndBuildSwapTransaction) | **GET** /api/v1/dex/aggregator/quote-and-swap | Quote and Build Swap Transaction (Flash API) |
+| [**submitRfqOrder**](TradingApi.md#submitRfqOrder) | **POST** /api/v1/dex/aggregator/order/submit | Submit RFQ Order |
 
+
+<a id="buildSolanaSwapInstructions"></a>
+# **buildSolanaSwapInstructions**
+> BuildSolanaSwapInstructionsResponse buildSolanaSwapInstructions(binanceChainId, amount, fromTokenAddress, toTokenAddress, slippagePercent, userWalletAddress, quoteId).recvWindow(recvWindow).nonce(nonce).priceImpactProtectionPercent(priceImpactProtectionPercent).autoSlippage(autoSlippage).maxAutoSlippagePercent(maxAutoSlippagePercent).computeUnitLimit(computeUnitLimit).computeUnitPrice(computeUnitPrice).gasLevel(gasLevel).tips(tips).execute();
+
+Build Solana Swap Instructions
+
+Solana-only counterpart to &#x60;/swap&#x60;. Shares the full quote → route → vendor &#x60;buildSwapTx&#x60; → priceImpact → minReceive → instruction-assembly pipeline; the only difference is the response: instead of returning a signed-and-serialized base64 transaction, this endpoint returns the **uncompiled** instruction list plus the address-lookup-table (ALT) address list, leaving v0-transaction compilation, signing, and submission to the caller.  Use this when the caller needs to: - prepend / append their own instructions (e.g. fee splitting, custom   logging) before signing;  - reuse the platform-curated route, slippage, PS-variant rewriting, ALT   injection, ComputeBudget overwrite, and ATA batching while still   controlling the final wire format.   Only supports &#x60;binanceChainId&#x3D;CT_501&#x60; (Solana). Other chains return &#x60;CHAIN_NOT_SUPPORTED&#x60; (40411). Parameters mirror the Solana subset of &#x60;/swap&#x60; (no EVM-only &#x60;approveTransaction&#x60; / &#x60;approveAmount&#x60; / &#x60;gasLimit&#x60;).
+
+### Example
+```java
+// Import classes:
+import com.binance.connector.client.web3_wallet.ApiClient;
+import com.binance.connector.client.web3_wallet.ApiException;
+import com.binance.connector.client.web3_wallet.Configuration;
+import com.binance.connector.client.web3_wallet.models.*;
+import com.binance.connector.client.web3_wallet.rest.api.TradingApi;
+
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("https://web3.binance.com/build");
+
+    TradingApi apiInstance = new TradingApi(defaultClient);
+    BinanceChainId binanceChainId = BinanceChainId.fromValue("CT_501"); // BinanceChainId | Chain identifier. Only `CT_501` (Solana) is accepted; other values return `CHAIN_NOT_SUPPORTED` (40411).
+    String amount = "12000000"; // String | Sell-token amount in the token's smallest unit (positive integer string, no decimals).
+    String fromTokenAddress = "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"; // String | Sell-token mint address (Solana Base58, case-sensitive).
+    String toTokenAddress = "So11111111111111111111111111111111111111112"; // String | Buy-token mint address (Solana Base58, case-sensitive).
+    String slippagePercent = "0.5"; // String | Maximum slippage as a percentage. Solana range 0 to less than 100. \"0.5\" means 0.5%.
+    String userWalletAddress = "J5CBzXpcYn6WR2JBah8zU4Yxct985CAFGwXRcFaX2pbS"; // String | User wallet address (Solana Base58); becomes the v0 transaction's `feePayer`.
+    String quoteId = "a1b2c3d4e5f64a8b9c0d1e2f3a4b5c6d"; // String | quoteId returned from `/quote` for the route to execute. TTL ~30s; expired entries return `QUOTE_EXPIRED` (40401).
+    Long recvWindow = 5000L; // Long | Allowed time deviation in milliseconds (default: 5000, max: 60000).
+    String nonce = "unique-nonce-string"; // String | Unique request identifier for anti-replay; falls back to X-OC-SIGN if omitted.
+    String priceImpactProtectionPercent = "90"; // String | Maximum allowed price impact percentage (0–100). Defaults to 90; set to 100 to disable.
+    AutoSlippage autoSlippage = AutoSlippage.fromValue("true"); // AutoSlippage | When \"true\", slippage is auto-derived from market data and overrides `slippagePercent`. Defaults to false.
+    String maxAutoSlippagePercent = "3"; // String | Cap on auto-derived slippage (only applies when `autoSlippage=true`).
+    String computeUnitLimit = "1400000"; // String | Maximum compute units the transaction may consume (analogous to EVM gasLimit). Defaults to the platform value when omitted.
+    String computeUnitPrice = "1000"; // String | Priority fee per compute unit (micro-lamports). When omitted, the platform computes a value either from the `gasLevel` tier or from chain-side defaults.
+    GasLevel gasLevel = GasLevel.fromValue("slow"); // GasLevel | Priority-fee tier; consulted only when `computeUnitPrice` is omitted. Defaults to \"average\".
+    String tips = "0.001"; // String | Jito tips in SOL for MEV protection. Valid range [0.000000001, 2] (minimum 1 lamport). When specified, it is recommended to set `computeUnitPrice=0`. The platform picks one of Jito's tip accounts at random per request.
+    try {
+      BuildSolanaSwapInstructionsResponse result = apiInstance.buildSolanaSwapInstructions(binanceChainId, amount, fromTokenAddress, toTokenAddress, slippagePercent, userWalletAddress, quoteId)
+            .recvWindow(recvWindow)
+            .nonce(nonce)
+            .priceImpactProtectionPercent(priceImpactProtectionPercent)
+            .autoSlippage(autoSlippage)
+            .maxAutoSlippagePercent(maxAutoSlippagePercent)
+            .computeUnitLimit(computeUnitLimit)
+            .computeUnitPrice(computeUnitPrice)
+            .gasLevel(gasLevel)
+            .tips(tips)
+            .execute();
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling TradingApi#buildSolanaSwapInstructions");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **binanceChainId** | [**BinanceChainId**](.md)| Chain identifier. Only &#x60;CT_501&#x60; (Solana) is accepted; other values return &#x60;CHAIN_NOT_SUPPORTED&#x60; (40411). | [enum: CT_501] |
+| **amount** | **String**| Sell-token amount in the token&#39;s smallest unit (positive integer string, no decimals). | |
+| **fromTokenAddress** | **String**| Sell-token mint address (Solana Base58, case-sensitive). | |
+| **toTokenAddress** | **String**| Buy-token mint address (Solana Base58, case-sensitive). | |
+| **slippagePercent** | **String**| Maximum slippage as a percentage. Solana range 0 to less than 100. \&quot;0.5\&quot; means 0.5%. | |
+| **userWalletAddress** | **String**| User wallet address (Solana Base58); becomes the v0 transaction&#39;s &#x60;feePayer&#x60;. | |
+| **quoteId** | **String**| quoteId returned from &#x60;/quote&#x60; for the route to execute. TTL ~30s; expired entries return &#x60;QUOTE_EXPIRED&#x60; (40401). | |
+| **recvWindow** | **Long**| Allowed time deviation in milliseconds (default: 5000, max: 60000). | [optional] |
+| **nonce** | **String**| Unique request identifier for anti-replay; falls back to X-OC-SIGN if omitted. | [optional] |
+| **priceImpactProtectionPercent** | **String**| Maximum allowed price impact percentage (0–100). Defaults to 90; set to 100 to disable. | [optional] |
+| **autoSlippage** | [**AutoSlippage**](.md)| When \&quot;true\&quot;, slippage is auto-derived from market data and overrides &#x60;slippagePercent&#x60;. Defaults to false. | [optional] [enum: true, false] |
+| **maxAutoSlippagePercent** | **String**| Cap on auto-derived slippage (only applies when &#x60;autoSlippage&#x3D;true&#x60;). | [optional] |
+| **computeUnitLimit** | **String**| Maximum compute units the transaction may consume (analogous to EVM gasLimit). Defaults to the platform value when omitted. | [optional] |
+| **computeUnitPrice** | **String**| Priority fee per compute unit (micro-lamports). When omitted, the platform computes a value either from the &#x60;gasLevel&#x60; tier or from chain-side defaults. | [optional] |
+| **gasLevel** | [**GasLevel**](.md)| Priority-fee tier; consulted only when &#x60;computeUnitPrice&#x60; is omitted. Defaults to \&quot;average\&quot;. | [optional] [enum: slow, average, fast] |
+| **tips** | **String**| Jito tips in SOL for MEV protection. Valid range [0.000000001, 2] (minimum 1 lamport). When specified, it is recommended to set &#x60;computeUnitPrice&#x3D;0&#x60;. The platform picks one of Jito&#39;s tip accounts at random per request. | [optional] |
+
+### Return type
+
+[**BuildSolanaSwapInstructionsResponse**](BuildSolanaSwapInstructionsResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/x-www-form-urlencoded
+ - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Uncompiled Solana instruction list and ALT addresses returned successfully. |  -  |
+| **401** | Unauthorized. The request is missing or contains an invalid API key. |  -  |
+| **403** | Forbidden. The API key does not have permission to access this endpoint. |  -  |
+| **404** | Not Found. The requested resource or endpoint does not exist. |  -  |
 
 <a id="buildSwapTransaction"></a>
 # **buildSwapTransaction**
-> BuildSwapTransactionResponse buildSwapTransaction(binanceChainId, amount, fromTokenAddress, toTokenAddress, slippagePercent, userWalletAddress, quoteId).recvWindow(recvWindow).nonce(nonce).approveTransaction(approveTransaction).approveAmount(approveAmount).gasLimit(gasLimit).gasLevel(gasLevel).priceImpactProtectionPercent(priceImpactProtectionPercent).autoSlippage(autoSlippage).maxAutoSlippagePercent(maxAutoSlippagePercent).computeUnitLimit(computeUnitLimit).computeUnitPrice(computeUnitPrice).tips(tips).execute();
+> BuildSwapTransactionResponse buildSwapTransaction(binanceChainId, amount, fromTokenAddress, toTokenAddress, userWalletAddress, quoteId).recvWindow(recvWindow).nonce(nonce).slippagePercent(slippagePercent).approveTransaction(approveTransaction).approveAmount(approveAmount).gasLimit(gasLimit).gasLevel(gasLevel).priceImpactProtectionPercent(priceImpactProtectionPercent).autoSlippage(autoSlippage).maxAutoSlippagePercent(maxAutoSlippagePercent).computeUnitLimit(computeUnitLimit).computeUnitPrice(computeUnitPrice).tips(tips).execute();
 
 Build Swap Transaction
 
@@ -38,25 +147,26 @@ public class Example {
     String amount = "1000000"; // String | Sell-token amount in the token's smallest unit (positive integer string, no decimals).
     String fromTokenAddress = "0x55d398326f99059fF775485246999027B3197955"; // String | Sell-token contract address.
     String toTokenAddress = "0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d"; // String | Buy-token contract address.
-    String slippagePercent = "0.5"; // String | Maximum slippage as a percentage. EVM range 0–100; Solana range 0 to less than 100. \"0.5\" means 0.5%.
     String userWalletAddress = "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045"; // String | User wallet address (transaction sender).
     String quoteId = "a1b2c3d4e5f64a8b9c0d1e2f3a4b5c6d"; // String | quoteId returned from `/quote` for the route to execute. TTL ~30s; expired entries return `QUOTE_EXPIRED` (40401).
     Long recvWindow = 5000L; // Long | Allowed time deviation in milliseconds (default: 5000, max: 60000).
     String nonce = "unique-nonce-string"; // String | Unique request identifier for anti-replay; falls back to X-OC-SIGN if omitted.
+    String slippagePercent = "0.5"; // String | Maximum slippage tolerance as a percentage string. Required unless `autoSlippage=true`.  **Range by chain:** - EVM chains (BSC, Ethereum, Base, etc.): `0` to `100` (inclusive) - Solana (`CT_501`): `0` to less than `100` (i.e. `< 100`)  **Range by vendor:** - 1inch, PancakeSwap: `0` to `50` (values above 50 are rejected) - LiFi, LiquidMesh: `0` to `100` (EVM) or `0` to `< 100` (Solana) - Jupiter (Solana): `0` to less than `100`; the value is converted to basis points (`slippageBps = ceil(slippagePercent × 100)`) and applied to the on-chain swap  `\"0.5\"` means 0.5% maximum slippage. When `autoSlippage=true` this field is overridden by the auto-computed value.
     ApproveTransaction approveTransaction = ApproveTransaction.fromValue("true"); // ApproveTransaction | When \"true\", `signatureData` includes the spender address and approve calldata so the client can submit it before the swap. Defaults to false.
     String approveAmount = "1000000"; // String | Override approve amount (smallest unit, positive integer string). Defaults to the swap amount.
     String gasLimit = "200000"; // String | Gas limit override (positive integer string). EVM only.
     GasLevel gasLevel = GasLevel.fromValue("slow"); // GasLevel | Gas price tier. Defaults to \"average\".
     String priceImpactProtectionPercent = "90"; // String | Maximum allowed price impact percentage (0–100). Defaults to 90; set to 100 to disable.
-    AutoSlippage autoSlippage = AutoSlippage.fromValue("true"); // AutoSlippage | When \"true\", slippage is auto-derived from market data and overrides `slippagePercent`. Defaults to false.
+    AutoSlippage autoSlippage = AutoSlippage.fromValue("true"); // AutoSlippage | When `\"true\"`, slippage is auto-derived from market data and overrides `slippagePercent`. Either `slippagePercent` or `autoSlippage=true` must be provided — omitting both returns a parameter error. Defaults to `\"false\"`.
     String maxAutoSlippagePercent = "3"; // String | Cap on auto-derived slippage (only applies when `autoSlippage=true`).
     String computeUnitLimit = "1400000"; // String | Solana only — maximum compute units the transaction may consume (analogous to EVM gasLimit). Applies only when `binanceChainId=CT_501`.
     String computeUnitPrice = "1000"; // String | Solana only — priority fee per compute unit (micro-lamports), analogous to EVM gasPrice. When omitted, the platform computes a value dynamically. Applies only when `binanceChainId=CT_501`.
     String tips = "0.001"; // String | Solana only — Jito tips in SOL for MEV protection. Valid range [0.000000001, 2] (minimum 1 lamport). When specified, it is recommended to set `computeUnitPrice=0`. Applies only when `binanceChainId=CT_501`.
     try {
-      BuildSwapTransactionResponse result = apiInstance.buildSwapTransaction(binanceChainId, amount, fromTokenAddress, toTokenAddress, slippagePercent, userWalletAddress, quoteId)
+      BuildSwapTransactionResponse result = apiInstance.buildSwapTransaction(binanceChainId, amount, fromTokenAddress, toTokenAddress, userWalletAddress, quoteId)
             .recvWindow(recvWindow)
             .nonce(nonce)
+            .slippagePercent(slippagePercent)
             .approveTransaction(approveTransaction)
             .approveAmount(approveAmount)
             .gasLimit(gasLimit)
@@ -88,17 +198,17 @@ public class Example {
 | **amount** | **String**| Sell-token amount in the token&#39;s smallest unit (positive integer string, no decimals). | |
 | **fromTokenAddress** | **String**| Sell-token contract address. | |
 | **toTokenAddress** | **String**| Buy-token contract address. | |
-| **slippagePercent** | **String**| Maximum slippage as a percentage. EVM range 0–100; Solana range 0 to less than 100. \&quot;0.5\&quot; means 0.5%. | |
 | **userWalletAddress** | **String**| User wallet address (transaction sender). | |
 | **quoteId** | **String**| quoteId returned from &#x60;/quote&#x60; for the route to execute. TTL ~30s; expired entries return &#x60;QUOTE_EXPIRED&#x60; (40401). | |
 | **recvWindow** | **Long**| Allowed time deviation in milliseconds (default: 5000, max: 60000). | [optional] |
 | **nonce** | **String**| Unique request identifier for anti-replay; falls back to X-OC-SIGN if omitted. | [optional] |
+| **slippagePercent** | **String**| Maximum slippage tolerance as a percentage string. Required unless &#x60;autoSlippage&#x3D;true&#x60;.  **Range by chain:** - EVM chains (BSC, Ethereum, Base, etc.): &#x60;0&#x60; to &#x60;100&#x60; (inclusive) - Solana (&#x60;CT_501&#x60;): &#x60;0&#x60; to less than &#x60;100&#x60; (i.e. &#x60;&lt; 100&#x60;)  **Range by vendor:** - 1inch, PancakeSwap: &#x60;0&#x60; to &#x60;50&#x60; (values above 50 are rejected) - LiFi, LiquidMesh: &#x60;0&#x60; to &#x60;100&#x60; (EVM) or &#x60;0&#x60; to &#x60;&lt; 100&#x60; (Solana) - Jupiter (Solana): &#x60;0&#x60; to less than &#x60;100&#x60;; the value is converted to basis points (&#x60;slippageBps &#x3D; ceil(slippagePercent × 100)&#x60;) and applied to the on-chain swap  &#x60;\&quot;0.5\&quot;&#x60; means 0.5% maximum slippage. When &#x60;autoSlippage&#x3D;true&#x60; this field is overridden by the auto-computed value. | [optional] |
 | **approveTransaction** | [**ApproveTransaction**](.md)| When \&quot;true\&quot;, &#x60;signatureData&#x60; includes the spender address and approve calldata so the client can submit it before the swap. Defaults to false. | [optional] [enum: true, false] |
 | **approveAmount** | **String**| Override approve amount (smallest unit, positive integer string). Defaults to the swap amount. | [optional] |
 | **gasLimit** | **String**| Gas limit override (positive integer string). EVM only. | [optional] |
 | **gasLevel** | [**GasLevel**](.md)| Gas price tier. Defaults to \&quot;average\&quot;. | [optional] [enum: slow, average, fast] |
 | **priceImpactProtectionPercent** | **String**| Maximum allowed price impact percentage (0–100). Defaults to 90; set to 100 to disable. | [optional] |
-| **autoSlippage** | [**AutoSlippage**](.md)| When \&quot;true\&quot;, slippage is auto-derived from market data and overrides &#x60;slippagePercent&#x60;. Defaults to false. | [optional] [enum: true, false] |
+| **autoSlippage** | [**AutoSlippage**](.md)| When &#x60;\&quot;true\&quot;&#x60;, slippage is auto-derived from market data and overrides &#x60;slippagePercent&#x60;. Either &#x60;slippagePercent&#x60; or &#x60;autoSlippage&#x3D;true&#x60; must be provided — omitting both returns a parameter error. Defaults to &#x60;\&quot;false\&quot;&#x60;. | [optional] [enum: true, false] |
 | **maxAutoSlippagePercent** | **String**| Cap on auto-derived slippage (only applies when &#x60;autoSlippage&#x3D;true&#x60;). | [optional] |
 | **computeUnitLimit** | **String**| Solana only — maximum compute units the transaction may consume (analogous to EVM gasLimit). Applies only when &#x60;binanceChainId&#x3D;CT_501&#x60;. | [optional] |
 | **computeUnitPrice** | **String**| Solana only — priority fee per compute unit (micro-lamports), analogous to EVM gasPrice. When omitted, the platform computes a value dynamically. Applies only when &#x60;binanceChainId&#x3D;CT_501&#x60;. | [optional] |
@@ -127,7 +237,7 @@ No authorization required
 
 <a id="getAggregatedQuote"></a>
 # **getAggregatedQuote**
-> GetAggregatedQuoteResponse getAggregatedQuote(binanceChainId, amount, fromTokenAddress, toTokenAddress).recvWindow(recvWindow).nonce(nonce).execute();
+> GetAggregatedQuoteResponse getAggregatedQuote(binanceChainId, amount, fromTokenAddress, toTokenAddress).recvWindow(recvWindow).nonce(nonce).userWalletAddress(userWalletAddress).execute();
 
 Get Aggregated Quote
 
@@ -154,10 +264,12 @@ public class Example {
     String toTokenAddress = "0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d"; // String | Buy-token contract address. Must differ from `fromTokenAddress`.
     Long recvWindow = 5000L; // Long | Allowed time deviation in milliseconds (default: 5000, max: 60000).
     String nonce = "unique-nonce-string"; // String | Unique request identifier for anti-replay; falls back to X-OC-SIGN if omitted.
+    String userWalletAddress = "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045"; // String | User wallet address. Required when quoting RFQ routes (equity / RWA tokens such as Ondo and BStock). This address is used as the receiver in the RFQ order and must match the wallet that signs `rfq.typedDataToSign` in the subsequent `/swap` call.
     try {
       GetAggregatedQuoteResponse result = apiInstance.getAggregatedQuote(binanceChainId, amount, fromTokenAddress, toTokenAddress)
             .recvWindow(recvWindow)
             .nonce(nonce)
+            .userWalletAddress(userWalletAddress)
             .execute();
       System.out.println(result);
     } catch (ApiException e) {
@@ -181,6 +293,7 @@ public class Example {
 | **toTokenAddress** | **String**| Buy-token contract address. Must differ from &#x60;fromTokenAddress&#x60;. | |
 | **recvWindow** | **Long**| Allowed time deviation in milliseconds (default: 5000, max: 60000). | [optional] |
 | **nonce** | **String**| Unique request identifier for anti-replay; falls back to X-OC-SIGN if omitted. | [optional] |
+| **userWalletAddress** | **String**| User wallet address. Required when quoting RFQ routes (equity / RWA tokens such as Ondo and BStock). This address is used as the receiver in the RFQ order and must match the wallet that signs &#x60;rfq.typedDataToSign&#x60; in the subsequent &#x60;/swap&#x60; call. | [optional] |
 
 ### Return type
 
@@ -278,7 +391,7 @@ No authorization required
 
 <a id="getErc20ApproveTransaction"></a>
 # **getErc20ApproveTransaction**
-> GetErc20ApproveTransactionResponse getErc20ApproveTransaction(binanceChainId, tokenContractAddress, approveAmount).recvWindow(recvWindow).nonce(nonce).execute();
+> GetErc20ApproveTransactionResponse getErc20ApproveTransaction(binanceChainId, tokenContractAddress, approveAmount).recvWindow(recvWindow).nonce(nonce).vendor(vendor).execute();
 
 Get ERC-20 Approve Transaction
 
@@ -304,10 +417,12 @@ public class Example {
     String approveAmount = "1000000"; // String | Approval amount in the token's smallest unit (positive integer string). Example \"1000000\" = 1 USDT (decimals=6).
     Long recvWindow = 5000L; // Long | Allowed time deviation in milliseconds (default: 5000, max: 60000).
     String nonce = "unique-nonce-string"; // String | Unique request identifier for anti-replay; falls back to X-OC-SIGN if omitted.
+    String vendor = "PcsXRfq"; // String | RFQ vendor name. **Required for equity / RWA tokens (Ondo, BStock)**; pass the `vendorName` from the `/quote` response (e.g. `InchFusion`, `CowSwap`, `PcsXRfq`). When provided, the backend returns approve calldata targeting the vendor-specific spender contract (e.g. 1inch Router, PcsX Permit2, CowSwap VaultRelayer) instead of the default DEX router.  For regular (non-RWA) tokens, this parameter is optional. If omitted, the backend uses the standard DEX router. If a valid RFQ vendor is passed, the backend resolves that vendor's spender — used when buying Ondo/BStock with a stablecoin, where the from-token (e.g. USDT) itself is not an RFQ token but must be approved to the RFQ vendor's router.
     try {
       GetErc20ApproveTransactionResponse result = apiInstance.getErc20ApproveTransaction(binanceChainId, tokenContractAddress, approveAmount)
             .recvWindow(recvWindow)
             .nonce(nonce)
+            .vendor(vendor)
             .execute();
       System.out.println(result);
     } catch (ApiException e) {
@@ -330,6 +445,7 @@ public class Example {
 | **approveAmount** | **String**| Approval amount in the token&#39;s smallest unit (positive integer string). Example \&quot;1000000\&quot; &#x3D; 1 USDT (decimals&#x3D;6). | |
 | **recvWindow** | **Long**| Allowed time deviation in milliseconds (default: 5000, max: 60000). | [optional] |
 | **nonce** | **String**| Unique request identifier for anti-replay; falls back to X-OC-SIGN if omitted. | [optional] |
+| **vendor** | **String**| RFQ vendor name. **Required for equity / RWA tokens (Ondo, BStock)**; pass the &#x60;vendorName&#x60; from the &#x60;/quote&#x60; response (e.g. &#x60;InchFusion&#x60;, &#x60;CowSwap&#x60;, &#x60;PcsXRfq&#x60;). When provided, the backend returns approve calldata targeting the vendor-specific spender contract (e.g. 1inch Router, PcsX Permit2, CowSwap VaultRelayer) instead of the default DEX router.  For regular (non-RWA) tokens, this parameter is optional. If omitted, the backend uses the standard DEX router. If a valid RFQ vendor is passed, the backend resolves that vendor&#39;s spender — used when buying Ondo/BStock with a stablecoin, where the from-token (e.g. USDT) itself is not an RFQ token but must be approved to the RFQ vendor&#39;s router. | [optional] |
 
 ### Return type
 
@@ -348,6 +464,78 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Approve transaction data returned successfully. |  -  |
+| **401** | Unauthorized. The request is missing or contains an invalid API key. |  -  |
+| **403** | Forbidden. The API key does not have permission to access this endpoint. |  -  |
+| **404** | Not Found. The requested resource or endpoint does not exist. |  -  |
+
+<a id="getRfqOrderStatus"></a>
+# **getRfqOrderStatus**
+> GetRfqOrderStatusResponse getRfqOrderStatus(orderId).recvWindow(recvWindow).nonce(nonce).execute();
+
+Get RFQ Order Status
+
+Query the settlement status of an RFQ order by its platform &#x60;orderId&#x60; (returned by &#x60;POST /order/submit&#x60;). Poll this endpoint until &#x60;status&#x60; reaches a terminal state: &#x60;FILLED&#x60; (settled on-chain) or &#x60;FAILED&#x60; (settlement failed).
+
+### Example
+```java
+// Import classes:
+import com.binance.connector.client.web3_wallet.ApiClient;
+import com.binance.connector.client.web3_wallet.ApiException;
+import com.binance.connector.client.web3_wallet.Configuration;
+import com.binance.connector.client.web3_wallet.models.*;
+import com.binance.connector.client.web3_wallet.rest.api.TradingApi;
+
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("https://web3.binance.com/build");
+
+    TradingApi apiInstance = new TradingApi(defaultClient);
+    String orderId = "oc-o-abc123def456"; // String | Platform order ID returned by `POST /order/submit`.
+    Long recvWindow = 5000L; // Long | Allowed time deviation in milliseconds (default: 5000, max: 60000).
+    String nonce = "unique-nonce-string"; // String | Unique request identifier for anti-replay; falls back to X-OC-SIGN if omitted.
+    try {
+      GetRfqOrderStatusResponse result = apiInstance.getRfqOrderStatus(orderId)
+            .recvWindow(recvWindow)
+            .nonce(nonce)
+            .execute();
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling TradingApi#getRfqOrderStatus");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **orderId** | **String**| Platform order ID returned by &#x60;POST /order/submit&#x60;. | |
+| **recvWindow** | **Long**| Allowed time deviation in milliseconds (default: 5000, max: 60000). | [optional] |
+| **nonce** | **String**| Unique request identifier for anti-replay; falls back to X-OC-SIGN if omitted. | [optional] |
+
+### Return type
+
+[**GetRfqOrderStatusResponse**](GetRfqOrderStatusResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/x-www-form-urlencoded
+ - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Order status returned successfully. |  -  |
 | **401** | Unauthorized. The request is missing or contains an invalid API key. |  -  |
 | **403** | Forbidden. The API key does not have permission to access this endpoint. |  -  |
 | **404** | Not Found. The requested resource or endpoint does not exist. |  -  |
@@ -422,6 +610,193 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Transaction details. &#x60;data&#x60; is null when no record is found. |  -  |
+| **401** | Unauthorized. The request is missing or contains an invalid API key. |  -  |
+| **403** | Forbidden. The API key does not have permission to access this endpoint. |  -  |
+| **404** | Not Found. The requested resource or endpoint does not exist. |  -  |
+
+<a id="quoteAndBuildSwapTransaction"></a>
+# **quoteAndBuildSwapTransaction**
+> QuoteAndBuildSwapTransactionResponse quoteAndBuildSwapTransaction(binanceChainId, amount, fromTokenAddress, toTokenAddress, userWalletAddress, vendor).recvWindow(recvWindow).nonce(nonce).slippagePercent(slippagePercent).approveTransaction(approveTransaction).approveAmount(approveAmount).gasLimit(gasLimit).gasLevel(gasLevel).priceImpactProtectionPercent(priceImpactProtectionPercent).autoSlippage(autoSlippage).maxAutoSlippagePercent(maxAutoSlippagePercent).computeUnitLimit(computeUnitLimit).computeUnitPrice(computeUnitPrice).tips(tips).execute();
+
+Quote and Build Swap Transaction (Flash API)
+
+Combines quoting and swap-transaction construction into a single call. Unlike the two-step &#x60;/quote&#x60; + &#x60;/swap&#x60; flow, this endpoint does not require a prior &#x60;/quote&#x60; call or a &#x60;quoteId&#x60; — it returns the executable calldata / swapTransaction directly, eliminating one HTTP round-trip. Use this endpoint for latency-sensitive trading when the vendor is known upfront. The response shape is identical to &#x60;/swap&#x60;, so clients can reuse the same response parsing logic for both endpoints.
+
+### Example
+```java
+// Import classes:
+import com.binance.connector.client.web3_wallet.ApiClient;
+import com.binance.connector.client.web3_wallet.ApiException;
+import com.binance.connector.client.web3_wallet.Configuration;
+import com.binance.connector.client.web3_wallet.models.*;
+import com.binance.connector.client.web3_wallet.rest.api.TradingApi;
+
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("https://web3.binance.com/build");
+
+    TradingApi apiInstance = new TradingApi(defaultClient);
+    String binanceChainId = "56"; // String | Unique chain identifier (e.g. \"56\"=BSC, \"1\"=Ethereum, \"CT_501\"=Solana).
+    String amount = "1000000"; // String | Sell-token amount in the token's smallest unit (positive integer string, no decimals).
+    String fromTokenAddress = "0x55d398326f99059fF775485246999027B3197955"; // String | Sell-token contract address.
+    String toTokenAddress = "0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d"; // String | Buy-token contract address.
+    String userWalletAddress = "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045"; // String | User wallet address (transaction sender). For Solana, a Base58 system-account address with sufficient SOL for gas.
+    Vendor vendor = Vendor.fromValue("LiquidMesh"); // Vendor | Swap vendor to use for this request. **Required** — case-sensitive; must match one of the enum values. Any other value returns `PARAM_ERROR` (40001). For multi-vendor aggregation, use `/swap` with a `quoteId` instead.
+    Long recvWindow = 5000L; // Long | Allowed time deviation in milliseconds (default: 5000, max: 60000).
+    String nonce = "unique-nonce-string"; // String | Unique request identifier for anti-replay; falls back to X-OC-SIGN if omitted.
+    String slippagePercent = "0.5"; // String | Maximum slippage tolerance as a percentage string. Required unless `autoSlippage=true`.  **Range by chain:** - EVM chains (BSC, Ethereum, Base, etc.): `0` to `100` (inclusive) - Solana (`CT_501`): `0` to less than `100` (i.e. `< 100`)  `\"0.5\"` means 0.5% maximum slippage. When `autoSlippage=true` this field is overridden by the auto-computed value.
+    ApproveTransaction approveTransaction = ApproveTransaction.fromValue("true"); // ApproveTransaction | When \"true\", `signatureData` includes the spender address and approve calldata so the client can submit it before the swap. Defaults to false.
+    String approveAmount = "1000000"; // String | Override approve amount (smallest unit, positive integer string). Defaults to the swap amount.
+    String gasLimit = "200000"; // String | Gas limit override (positive integer string). EVM only.
+    GasLevel gasLevel = GasLevel.fromValue("slow"); // GasLevel | Gas price tier. Defaults to \"average\".
+    String priceImpactProtectionPercent = "90"; // String | Maximum allowed price impact percentage (0–100). Defaults to 90; set to 100 to disable.
+    AutoSlippage autoSlippage = AutoSlippage.fromValue("true"); // AutoSlippage | When `\"true\"`, slippage is auto-derived from market data and overrides `slippagePercent`. Either `slippagePercent` or `autoSlippage=true` must be provided — omitting both returns a parameter error. Defaults to `\"false\"`.
+    String maxAutoSlippagePercent = "3"; // String | Cap on auto-derived slippage (only applies when `autoSlippage=true`).
+    String computeUnitLimit = "1400000"; // String | Solana only — maximum compute units the transaction may consume (analogous to EVM gasLimit). Applies only when `binanceChainId=CT_501`.
+    String computeUnitPrice = "1000"; // String | Solana only — priority fee per compute unit (micro-lamports), analogous to EVM gasPrice. When omitted, the platform computes a value dynamically. Applies only when `binanceChainId=CT_501`.
+    String tips = "0.001"; // String | Solana only — Jito tips in SOL for MEV protection. Valid range [0.000000001, 2] (minimum 1 lamport). When specified, it is recommended to set `computeUnitPrice=0`. Applies only when `binanceChainId=CT_501`.
+    try {
+      QuoteAndBuildSwapTransactionResponse result = apiInstance.quoteAndBuildSwapTransaction(binanceChainId, amount, fromTokenAddress, toTokenAddress, userWalletAddress, vendor)
+            .recvWindow(recvWindow)
+            .nonce(nonce)
+            .slippagePercent(slippagePercent)
+            .approveTransaction(approveTransaction)
+            .approveAmount(approveAmount)
+            .gasLimit(gasLimit)
+            .gasLevel(gasLevel)
+            .priceImpactProtectionPercent(priceImpactProtectionPercent)
+            .autoSlippage(autoSlippage)
+            .maxAutoSlippagePercent(maxAutoSlippagePercent)
+            .computeUnitLimit(computeUnitLimit)
+            .computeUnitPrice(computeUnitPrice)
+            .tips(tips)
+            .execute();
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling TradingApi#quoteAndBuildSwapTransaction");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **binanceChainId** | **String**| Unique chain identifier (e.g. \&quot;56\&quot;&#x3D;BSC, \&quot;1\&quot;&#x3D;Ethereum, \&quot;CT_501\&quot;&#x3D;Solana). | |
+| **amount** | **String**| Sell-token amount in the token&#39;s smallest unit (positive integer string, no decimals). | |
+| **fromTokenAddress** | **String**| Sell-token contract address. | |
+| **toTokenAddress** | **String**| Buy-token contract address. | |
+| **userWalletAddress** | **String**| User wallet address (transaction sender). For Solana, a Base58 system-account address with sufficient SOL for gas. | |
+| **vendor** | [**Vendor**](.md)| Swap vendor to use for this request. **Required** — case-sensitive; must match one of the enum values. Any other value returns &#x60;PARAM_ERROR&#x60; (40001). For multi-vendor aggregation, use &#x60;/swap&#x60; with a &#x60;quoteId&#x60; instead. | [enum: LiquidMesh] |
+| **recvWindow** | **Long**| Allowed time deviation in milliseconds (default: 5000, max: 60000). | [optional] |
+| **nonce** | **String**| Unique request identifier for anti-replay; falls back to X-OC-SIGN if omitted. | [optional] |
+| **slippagePercent** | **String**| Maximum slippage tolerance as a percentage string. Required unless &#x60;autoSlippage&#x3D;true&#x60;.  **Range by chain:** - EVM chains (BSC, Ethereum, Base, etc.): &#x60;0&#x60; to &#x60;100&#x60; (inclusive) - Solana (&#x60;CT_501&#x60;): &#x60;0&#x60; to less than &#x60;100&#x60; (i.e. &#x60;&lt; 100&#x60;)  &#x60;\&quot;0.5\&quot;&#x60; means 0.5% maximum slippage. When &#x60;autoSlippage&#x3D;true&#x60; this field is overridden by the auto-computed value. | [optional] |
+| **approveTransaction** | [**ApproveTransaction**](.md)| When \&quot;true\&quot;, &#x60;signatureData&#x60; includes the spender address and approve calldata so the client can submit it before the swap. Defaults to false. | [optional] [enum: true, false] |
+| **approveAmount** | **String**| Override approve amount (smallest unit, positive integer string). Defaults to the swap amount. | [optional] |
+| **gasLimit** | **String**| Gas limit override (positive integer string). EVM only. | [optional] |
+| **gasLevel** | [**GasLevel**](.md)| Gas price tier. Defaults to \&quot;average\&quot;. | [optional] [enum: slow, average, fast] |
+| **priceImpactProtectionPercent** | **String**| Maximum allowed price impact percentage (0–100). Defaults to 90; set to 100 to disable. | [optional] |
+| **autoSlippage** | [**AutoSlippage**](.md)| When &#x60;\&quot;true\&quot;&#x60;, slippage is auto-derived from market data and overrides &#x60;slippagePercent&#x60;. Either &#x60;slippagePercent&#x60; or &#x60;autoSlippage&#x3D;true&#x60; must be provided — omitting both returns a parameter error. Defaults to &#x60;\&quot;false\&quot;&#x60;. | [optional] [enum: true, false] |
+| **maxAutoSlippagePercent** | **String**| Cap on auto-derived slippage (only applies when &#x60;autoSlippage&#x3D;true&#x60;). | [optional] |
+| **computeUnitLimit** | **String**| Solana only — maximum compute units the transaction may consume (analogous to EVM gasLimit). Applies only when &#x60;binanceChainId&#x3D;CT_501&#x60;. | [optional] |
+| **computeUnitPrice** | **String**| Solana only — priority fee per compute unit (micro-lamports), analogous to EVM gasPrice. When omitted, the platform computes a value dynamically. Applies only when &#x60;binanceChainId&#x3D;CT_501&#x60;. | [optional] |
+| **tips** | **String**| Solana only — Jito tips in SOL for MEV protection. Valid range [0.000000001, 2] (minimum 1 lamport). When specified, it is recommended to set &#x60;computeUnitPrice&#x3D;0&#x60;. Applies only when &#x60;binanceChainId&#x3D;CT_501&#x60;. | [optional] |
+
+### Return type
+
+[**QuoteAndBuildSwapTransactionResponse**](QuoteAndBuildSwapTransactionResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/x-www-form-urlencoded
+ - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Swap transaction data returned successfully. |  -  |
+| **401** | Unauthorized. The request is missing or contains an invalid API key. |  -  |
+| **403** | Forbidden. The API key does not have permission to access this endpoint. |  -  |
+| **404** | Not Found. The requested resource or endpoint does not exist. |  -  |
+
+<a id="submitRfqOrder"></a>
+# **submitRfqOrder**
+> SubmitRfqOrderResponse submitRfqOrder(submitRfqOrderRequest).recvWindow(recvWindow).nonce(nonce).execute();
+
+Submit RFQ Order
+
+Submit a signed RFQ order to the backend for on-chain settlement via the corresponding vendor relayer. Only used when &#x60;executionMode&#x3D;RFQ&#x60; (equity / RWA tokens such as Ondo and BStock).  **Flow**: &#x60;GET /quote&#x60; → pick an RFQ route → &#x60;GET /swap&#x60; → sign &#x60;rfq.typedDataToSign&#x60; with EIP-712 (&#x60;eth_signTypedData_v4&#x60;) → call this endpoint → poll &#x60;GET /order/{orderId}&#x60; until &#x60;FILLED&#x60; or &#x60;FAILED&#x60;.  **Idempotency**: Submitting with the same &#x60;requestId&#x60; within 30 minutes returns the original result without re-calling the vendor. Use a new UUID for each distinct order; reuse the same UUID when retrying.
+
+### Example
+```java
+// Import classes:
+import com.binance.connector.client.web3_wallet.ApiClient;
+import com.binance.connector.client.web3_wallet.ApiException;
+import com.binance.connector.client.web3_wallet.Configuration;
+import com.binance.connector.client.web3_wallet.models.*;
+import com.binance.connector.client.web3_wallet.rest.api.TradingApi;
+
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("https://web3.binance.com/build");
+
+    TradingApi apiInstance = new TradingApi(defaultClient);
+    SubmitRfqOrderRequest submitRfqOrderRequest = new SubmitRfqOrderRequest(); // SubmitRfqOrderRequest | 
+    Long recvWindow = 5000L; // Long | Allowed time deviation in milliseconds (default: 5000, max: 60000).
+    String nonce = "unique-nonce-string"; // String | Unique request identifier for anti-replay; falls back to X-OC-SIGN if omitted.
+    try {
+      SubmitRfqOrderResponse result = apiInstance.submitRfqOrder(submitRfqOrderRequest)
+            .recvWindow(recvWindow)
+            .nonce(nonce)
+            .execute();
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling TradingApi#submitRfqOrder");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **submitRfqOrderRequest** | [**SubmitRfqOrderRequest**](SubmitRfqOrderRequest.md)|  | |
+| **recvWindow** | **Long**| Allowed time deviation in milliseconds (default: 5000, max: 60000). | [optional] |
+| **nonce** | **String**| Unique request identifier for anti-replay; falls back to X-OC-SIGN if omitted. | [optional] |
+
+### Return type
+
+[**SubmitRfqOrderResponse**](SubmitRfqOrderResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/x-www-form-urlencoded
+ - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | RFQ order submitted successfully. |  -  |
 | **401** | Unauthorized. The request is missing or contains an invalid API key. |  -  |
 | **403** | Forbidden. The API key does not have permission to access this endpoint. |  -  |
 | **404** | Not Found. The requested resource or endpoint does not exist. |  -  |

@@ -42,6 +42,7 @@ public class GetAggregatedQuoteExample {
         String toTokenAddress = "0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d";
         Long recvWindow = 5000L;
         String nonce = "unique-nonce-string";
+        String userWalletAddress = "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045";
         TradingApi.GetAggregatedQuoteRequest request =
                 new TradingApi.GetAggregatedQuoteRequest(
                         binanceChainId, amount, fromTokenAddress, toTokenAddress);

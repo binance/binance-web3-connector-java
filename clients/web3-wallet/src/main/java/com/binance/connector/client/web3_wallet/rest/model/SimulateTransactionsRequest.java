@@ -46,14 +46,20 @@ public class SimulateTransactionsRequest {
     public static final String SERIALIZED_NAME_EVM_TX = "evmTx";
 
     @SerializedName(SERIALIZED_NAME_EVM_TX)
-    @jakarta.annotation.Nullable
+    @jakarta.annotation.Nonnull
     private SimulateTransactionsRequestEvmTx evmTx;
 
     public static final String SERIALIZED_NAME_SOL_TX = "solTx";
 
     @SerializedName(SERIALIZED_NAME_SOL_TX)
-    @jakarta.annotation.Nullable
+    @jakarta.annotation.Nonnull
     private SimulateTransactionsRequestSolTx solTx;
+
+    public static final String SERIALIZED_NAME_TRON_TX = "tronTx";
+
+    @SerializedName(SERIALIZED_NAME_TRON_TX)
+    @jakarta.annotation.Nonnull
+    private SimulateTransactionsRequestTronTx tronTx;
 
     public SimulateTransactionsRequest() {}
 
@@ -65,7 +71,11 @@ public class SimulateTransactionsRequest {
 
     /**
      * Unique chain identifier (e.g. \&quot;1\&quot;&#x3D;Ethereum, \&quot;56\&quot;&#x3D;BSC,
-     * \&quot;CT_501\&quot;&#x3D;Solana).
+     * \&quot;CT_501\&quot;&#x3D;Solana, \&quot;CT_195\&quot;&#x3D;Tron). Provide &#x60;evmTx&#x60;
+     * for EVM chains, &#x60;solTx&#x60; for Solana, or &#x60;tronTx&#x60; for Tron — exactly one
+     * must be present. Note: &#x60;evmTx&#x60;, &#x60;solTx&#x60;, and &#x60;tronTx&#x60; are
+     * marked required in this schema for rendering purposes only; in practice supply exactly one
+     * matching &#x60;binanceChainId&#x60;.
      *
      * @return binanceChainId
      */
@@ -80,7 +90,7 @@ public class SimulateTransactionsRequest {
     }
 
     public SimulateTransactionsRequest evmTx(
-            @jakarta.annotation.Nullable SimulateTransactionsRequestEvmTx evmTx) {
+            @jakarta.annotation.Nonnull SimulateTransactionsRequestEvmTx evmTx) {
         this.evmTx = evmTx;
         return this;
     }
@@ -90,18 +100,19 @@ public class SimulateTransactionsRequest {
      *
      * @return evmTx
      */
-    @jakarta.annotation.Nullable
+    @jakarta.annotation.Nonnull
+    @NotNull
     @Valid
     public SimulateTransactionsRequestEvmTx getEvmTx() {
         return evmTx;
     }
 
-    public void setEvmTx(@jakarta.annotation.Nullable SimulateTransactionsRequestEvmTx evmTx) {
+    public void setEvmTx(@jakarta.annotation.Nonnull SimulateTransactionsRequestEvmTx evmTx) {
         this.evmTx = evmTx;
     }
 
     public SimulateTransactionsRequest solTx(
-            @jakarta.annotation.Nullable SimulateTransactionsRequestSolTx solTx) {
+            @jakarta.annotation.Nonnull SimulateTransactionsRequestSolTx solTx) {
         this.solTx = solTx;
         return this;
     }
@@ -111,14 +122,37 @@ public class SimulateTransactionsRequest {
      *
      * @return solTx
      */
-    @jakarta.annotation.Nullable
+    @jakarta.annotation.Nonnull
+    @NotNull
     @Valid
     public SimulateTransactionsRequestSolTx getSolTx() {
         return solTx;
     }
 
-    public void setSolTx(@jakarta.annotation.Nullable SimulateTransactionsRequestSolTx solTx) {
+    public void setSolTx(@jakarta.annotation.Nonnull SimulateTransactionsRequestSolTx solTx) {
         this.solTx = solTx;
+    }
+
+    public SimulateTransactionsRequest tronTx(
+            @jakarta.annotation.Nonnull SimulateTransactionsRequestTronTx tronTx) {
+        this.tronTx = tronTx;
+        return this;
+    }
+
+    /**
+     * Get tronTx
+     *
+     * @return tronTx
+     */
+    @jakarta.annotation.Nonnull
+    @NotNull
+    @Valid
+    public SimulateTransactionsRequestTronTx getTronTx() {
+        return tronTx;
+    }
+
+    public void setTronTx(@jakarta.annotation.Nonnull SimulateTransactionsRequestTronTx tronTx) {
+        this.tronTx = tronTx;
     }
 
     @Override
@@ -132,12 +166,13 @@ public class SimulateTransactionsRequest {
         SimulateTransactionsRequest simulateTransactionsRequest = (SimulateTransactionsRequest) o;
         return Objects.equals(this.binanceChainId, simulateTransactionsRequest.binanceChainId)
                 && Objects.equals(this.evmTx, simulateTransactionsRequest.evmTx)
-                && Objects.equals(this.solTx, simulateTransactionsRequest.solTx);
+                && Objects.equals(this.solTx, simulateTransactionsRequest.solTx)
+                && Objects.equals(this.tronTx, simulateTransactionsRequest.tronTx);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(binanceChainId, evmTx, solTx);
+        return Objects.hash(binanceChainId, evmTx, solTx, tronTx);
     }
 
     @Override
@@ -147,6 +182,7 @@ public class SimulateTransactionsRequest {
         sb.append("		binanceChainId: ").append(toIndentedString(binanceChainId)).append("\n");
         sb.append("		evmTx: ").append(toIndentedString(evmTx)).append("\n");
         sb.append("		solTx: ").append(toIndentedString(solTx)).append("\n");
+        sb.append("		tronTx: ").append(toIndentedString(tronTx)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -166,6 +202,10 @@ public class SimulateTransactionsRequest {
         String solTxValueAsString = "";
         solTxValueAsString = solTxValue.toString();
         sb.append("solTx=").append(urlEncode(solTxValueAsString)).append("");
+        Object tronTxValue = getTronTx();
+        String tronTxValueAsString = "";
+        tronTxValueAsString = tronTxValue.toString();
+        sb.append("tronTx=").append(urlEncode(tronTxValueAsString)).append("");
         return sb.toString();
     }
 
@@ -197,10 +237,14 @@ public class SimulateTransactionsRequest {
         openapiFields.add("binanceChainId");
         openapiFields.add("evmTx");
         openapiFields.add("solTx");
+        openapiFields.add("tronTx");
 
         // a set of required properties/fields (JSON key names)
         openapiRequiredFields = new HashSet<String>();
         openapiRequiredFields.add("binanceChainId");
+        openapiRequiredFields.add("evmTx");
+        openapiRequiredFields.add("solTx");
+        openapiRequiredFields.add("tronTx");
     }
 
     /**
@@ -239,14 +283,12 @@ public class SimulateTransactionsRequest {
                                     + " string but got `%s`",
                             jsonObj.get("binanceChainId").toString()));
         }
-        // validate the optional field `evmTx`
-        if (jsonObj.get("evmTx") != null && !jsonObj.get("evmTx").isJsonNull()) {
-            SimulateTransactionsRequestEvmTx.validateJsonElement(jsonObj.get("evmTx"));
-        }
-        // validate the optional field `solTx`
-        if (jsonObj.get("solTx") != null && !jsonObj.get("solTx").isJsonNull()) {
-            SimulateTransactionsRequestSolTx.validateJsonElement(jsonObj.get("solTx"));
-        }
+        // validate the required field `evmTx`
+        SimulateTransactionsRequestEvmTx.validateJsonElement(jsonObj.get("evmTx"));
+        // validate the required field `solTx`
+        SimulateTransactionsRequestSolTx.validateJsonElement(jsonObj.get("solTx"));
+        // validate the required field `tronTx`
+        SimulateTransactionsRequestTronTx.validateJsonElement(jsonObj.get("tronTx"));
     }
 
     public static class CustomTypeAdapterFactory implements TypeAdapterFactory {

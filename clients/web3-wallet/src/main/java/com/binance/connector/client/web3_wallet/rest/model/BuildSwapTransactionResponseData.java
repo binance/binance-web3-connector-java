@@ -28,9 +28,11 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Objects;
 import org.hibernate.validator.constraints.*;
+import org.openapitools.jackson.nullable.JsonNullable;
 
 /** BuildSwapTransactionResponseData */
 @jakarta.annotation.Generated(
@@ -48,6 +50,18 @@ public class BuildSwapTransactionResponseData {
     @SerializedName(SERIALIZED_NAME_TX)
     @jakarta.annotation.Nullable
     private BuildSwapTransactionResponseDataTx tx;
+
+    public static final String SERIALIZED_NAME_EXECUTION_MODE = "executionMode";
+
+    @SerializedName(SERIALIZED_NAME_EXECUTION_MODE)
+    @jakarta.annotation.Nullable
+    private String executionMode;
+
+    public static final String SERIALIZED_NAME_RFQ = "rfq";
+
+    @SerializedName(SERIALIZED_NAME_RFQ)
+    @jakarta.annotation.Nullable
+    private BuildSwapTransactionResponseDataRfq rfq;
 
     public BuildSwapTransactionResponseData() {}
 
@@ -96,6 +110,51 @@ public class BuildSwapTransactionResponseData {
         this.tx = tx;
     }
 
+    public BuildSwapTransactionResponseData executionMode(
+            @jakarta.annotation.Nullable String executionMode) {
+        this.executionMode = executionMode;
+        return this;
+    }
+
+    /**
+     * Execution mode for this swap. &#x60;SWAP&#x60; &#x3D; sign the &#x60;tx&#x60; object and
+     * broadcast to the chain. &#x60;RFQ&#x60; &#x3D; sign &#x60;rfq.typedDataToSign&#x60; with
+     * EIP-712 (&#x60;eth_signTypedData_v4&#x60;), then submit via &#x60;POST /order/submit&#x60;
+     * and poll &#x60;GET /order/{orderId}&#x60; for settlement status. Equity / RWA tokens always
+     * return &#x60;RFQ&#x60;.
+     *
+     * @return executionMode
+     */
+    @jakarta.annotation.Nullable
+    public String getExecutionMode() {
+        return executionMode;
+    }
+
+    public void setExecutionMode(@jakarta.annotation.Nullable String executionMode) {
+        this.executionMode = executionMode;
+    }
+
+    public BuildSwapTransactionResponseData rfq(
+            @jakarta.annotation.Nullable BuildSwapTransactionResponseDataRfq rfq) {
+        this.rfq = rfq;
+        return this;
+    }
+
+    /**
+     * Get rfq
+     *
+     * @return rfq
+     */
+    @jakarta.annotation.Nullable
+    @Valid
+    public BuildSwapTransactionResponseDataRfq getRfq() {
+        return rfq;
+    }
+
+    public void setRfq(@jakarta.annotation.Nullable BuildSwapTransactionResponseDataRfq rfq) {
+        this.rfq = rfq;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -107,12 +166,31 @@ public class BuildSwapTransactionResponseData {
         BuildSwapTransactionResponseData buildSwapTransactionResponseData =
                 (BuildSwapTransactionResponseData) o;
         return Objects.equals(this.routerResult, buildSwapTransactionResponseData.routerResult)
-                && Objects.equals(this.tx, buildSwapTransactionResponseData.tx);
+                && Objects.equals(this.tx, buildSwapTransactionResponseData.tx)
+                && Objects.equals(
+                        this.executionMode, buildSwapTransactionResponseData.executionMode)
+                && Objects.equals(this.rfq, buildSwapTransactionResponseData.rfq);
+    }
+
+    private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
+        return a == b
+                || (a != null
+                        && b != null
+                        && a.isPresent()
+                        && b.isPresent()
+                        && Objects.deepEquals(a.get(), b.get()));
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(routerResult, tx);
+        return Objects.hash(routerResult, tx, executionMode, rfq);
+    }
+
+    private static <T> int hashCodeNullable(JsonNullable<T> a) {
+        if (a == null) {
+            return 1;
+        }
+        return a.isPresent() ? Arrays.deepHashCode(new Object[] {a.get()}) : 31;
     }
 
     @Override
@@ -121,6 +199,8 @@ public class BuildSwapTransactionResponseData {
         sb.append("class BuildSwapTransactionResponseData {\n");
         sb.append("		routerResult: ").append(toIndentedString(routerResult)).append("\n");
         sb.append("		tx: ").append(toIndentedString(tx)).append("\n");
+        sb.append("		executionMode: ").append(toIndentedString(executionMode)).append("\n");
+        sb.append("		rfq: ").append(toIndentedString(rfq)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -136,6 +216,14 @@ public class BuildSwapTransactionResponseData {
         String txValueAsString = "";
         txValueAsString = txValue.toString();
         sb.append("tx=").append(urlEncode(txValueAsString)).append("");
+        Object executionModeValue = getExecutionMode();
+        String executionModeValueAsString = "";
+        executionModeValueAsString = executionModeValue.toString();
+        sb.append("executionMode=").append(urlEncode(executionModeValueAsString)).append("");
+        Object rfqValue = getRfq();
+        String rfqValueAsString = "";
+        rfqValueAsString = rfqValue.toString();
+        sb.append("rfq=").append(urlEncode(rfqValueAsString)).append("");
         return sb.toString();
     }
 
@@ -166,6 +254,8 @@ public class BuildSwapTransactionResponseData {
         openapiFields = new HashSet<String>();
         openapiFields.add("routerResult");
         openapiFields.add("tx");
+        openapiFields.add("executionMode");
+        openapiFields.add("rfq");
 
         // a set of required properties/fields (JSON key names)
         openapiRequiredFields = new HashSet<String>();
@@ -198,6 +288,18 @@ public class BuildSwapTransactionResponseData {
         // validate the optional field `tx`
         if (jsonObj.get("tx") != null && !jsonObj.get("tx").isJsonNull()) {
             BuildSwapTransactionResponseDataTx.validateJsonElement(jsonObj.get("tx"));
+        }
+        if ((jsonObj.get("executionMode") != null && !jsonObj.get("executionMode").isJsonNull())
+                && !jsonObj.get("executionMode").isJsonPrimitive()) {
+            throw new IllegalArgumentException(
+                    String.format(
+                            "Expected the field `executionMode` to be a primitive type in the JSON"
+                                    + " string but got `%s`",
+                            jsonObj.get("executionMode").toString()));
+        }
+        // validate the optional field `rfq`
+        if (jsonObj.get("rfq") != null && !jsonObj.get("rfq").isJsonNull()) {
+            BuildSwapTransactionResponseDataRfq.validateJsonElement(jsonObj.get("rfq"));
         }
     }
 

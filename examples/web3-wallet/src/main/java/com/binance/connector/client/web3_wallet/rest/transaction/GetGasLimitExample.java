@@ -30,14 +30,20 @@ public class GetGasLimitExample {
      * Get Gas Limit
      *
      * <p>Estimate the gas limit (or compute-unit ceiling on Solana) for an unsigned transaction.
-     * Provide either &#x60;evmTx&#x60; for EVM chains or &#x60;solTx&#x60; for Solana, matching the
-     * value of &#x60;binanceChainId&#x60;.
+     * Provide either &#x60;evmTx&#x60; for EVM chains, &#x60;solTx&#x60; for Solana, or
+     * &#x60;tronTx&#x60; for Tron (\&quot;CT_195\&quot;), matching the value of
+     * &#x60;binanceChainId&#x60;. On Tron the response carries energy/bandwidth fields instead of a
+     * single gas limit; &#x60;gasLimit&#x60; is the fee limit (in sun) and the energy/bandwidth
+     * fields describe resource consumption and pricing.
      *
      * @throws ApiException if the Api call fails
      */
     public void getGasLimitExample() throws ApiException {
         GetGasLimitRequest getGasLimitRequest = new GetGasLimitRequest();
         getGasLimitRequest.binanceChainId("1");
+        getGasLimitRequest.evmTx(null);
+        getGasLimitRequest.solTx(null);
+        getGasLimitRequest.tronTx(null);
         Long recvWindow = 5000L;
         String nonce = "unique-nonce-string";
         ApiResponse<GetGasLimitResponse> response =

@@ -21,14 +21,22 @@ import com.binance.connector.client.common.exception.ConstraintViolationExceptio
 import com.binance.connector.client.web3.common.ApiClient;
 import com.binance.connector.client.web3_wallet.rest.model.ApproveTransaction;
 import com.binance.connector.client.web3_wallet.rest.model.AutoSlippage;
+import com.binance.connector.client.web3_wallet.rest.model.BinanceChainId;
+import com.binance.connector.client.web3_wallet.rest.model.BuildSolanaSwapInstructionsResponse;
 import com.binance.connector.client.web3_wallet.rest.model.BuildSwapTransactionResponse;
 import com.binance.connector.client.web3_wallet.rest.model.GasLevel;
 import com.binance.connector.client.web3_wallet.rest.model.GetAggregatedQuoteResponse;
 import com.binance.connector.client.web3_wallet.rest.model.GetAggregatorSupportedChainsResponse;
 import com.binance.connector.client.web3_wallet.rest.model.GetErc20ApproveTransactionResponse;
+import com.binance.connector.client.web3_wallet.rest.model.GetRfqOrderStatusResponse;
 import com.binance.connector.client.web3_wallet.rest.model.GetTransactionStatusResponse;
+import com.binance.connector.client.web3_wallet.rest.model.QuoteAndBuildSwapTransactionResponse;
+import com.binance.connector.client.web3_wallet.rest.model.SubmitRfqOrderRequest;
+import com.binance.connector.client.web3_wallet.rest.model.SubmitRfqOrderResponse;
+import com.binance.connector.client.web3_wallet.rest.model.Vendor;
 import com.google.gson.reflect.TypeToken;
 import jakarta.validation.ConstraintViolation;
+import jakarta.validation.Valid;
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;
 import jakarta.validation.constraints.*;
@@ -49,7 +57,7 @@ public class TradingApi {
 
     private static final String USER_AGENT =
             String.format(
-                    "binance-web3-wallet/2.0.0 (Java/%s; %s; %s)",
+                    "binance-web3-wallet/3.0.0 (Java/%s; %s; %s)",
                     SystemUtil.getJavaVersion(), SystemUtil.getOs(), SystemUtil.getArch());
     private static final boolean HAS_TIME_UNIT = false;
 
@@ -86,8 +94,8 @@ public class TradingApi {
         this.localCustomBaseUrl = customBaseUrl;
     }
 
-    private okhttp3.Call buildSwapTransactionCall(
-            String binanceChainId,
+    private okhttp3.Call buildSolanaSwapInstructionsCall(
+            BinanceChainId binanceChainId,
             String amount,
             String fromTokenAddress,
             String toTokenAddress,
@@ -96,6 +104,529 @@ public class TradingApi {
             String quoteId,
             Long recvWindow,
             String nonce,
+            String priceImpactProtectionPercent,
+            AutoSlippage autoSlippage,
+            String maxAutoSlippagePercent,
+            String computeUnitLimit,
+            String computeUnitPrice,
+            GasLevel gasLevel,
+            String tips)
+            throws ApiException {
+        String basePath = null;
+        // Operation Servers
+        String[] localBasePaths = new String[] {};
+
+        // Determine Base Path to Use
+        if (localCustomBaseUrl != null) {
+            basePath = localCustomBaseUrl;
+        } else if (localBasePaths.length > 0) {
+            basePath = localBasePaths[localHostIndex];
+        } else {
+            basePath = null;
+        }
+
+        Object localVarPostBody = null;
+
+        // create path and map variables
+        String localVarPath = "/api/v1/dex/aggregator/swap-instruction";
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        Map<String, String> localVarCookieParams = new HashMap<String, String>();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        if (binanceChainId != null) {
+            localVarQueryParams.addAll(
+                    localVarApiClient.parameterToPair("binanceChainId", binanceChainId));
+        }
+
+        if (amount != null) {
+            localVarQueryParams.addAll(localVarApiClient.parameterToPair("amount", amount));
+        }
+
+        if (fromTokenAddress != null) {
+            localVarQueryParams.addAll(
+                    localVarApiClient.parameterToPair("fromTokenAddress", fromTokenAddress));
+        }
+
+        if (toTokenAddress != null) {
+            localVarQueryParams.addAll(
+                    localVarApiClient.parameterToPair("toTokenAddress", toTokenAddress));
+        }
+
+        if (slippagePercent != null) {
+            localVarQueryParams.addAll(
+                    localVarApiClient.parameterToPair("slippagePercent", slippagePercent));
+        }
+
+        if (userWalletAddress != null) {
+            localVarQueryParams.addAll(
+                    localVarApiClient.parameterToPair("userWalletAddress", userWalletAddress));
+        }
+
+        if (quoteId != null) {
+            localVarQueryParams.addAll(localVarApiClient.parameterToPair("quoteId", quoteId));
+        }
+
+        if (priceImpactProtectionPercent != null) {
+            localVarQueryParams.addAll(
+                    localVarApiClient.parameterToPair(
+                            "priceImpactProtectionPercent", priceImpactProtectionPercent));
+        }
+
+        if (autoSlippage != null) {
+            localVarQueryParams.addAll(
+                    localVarApiClient.parameterToPair("autoSlippage", autoSlippage));
+        }
+
+        if (maxAutoSlippagePercent != null) {
+            localVarQueryParams.addAll(
+                    localVarApiClient.parameterToPair(
+                            "maxAutoSlippagePercent", maxAutoSlippagePercent));
+        }
+
+        if (computeUnitLimit != null) {
+            localVarQueryParams.addAll(
+                    localVarApiClient.parameterToPair("computeUnitLimit", computeUnitLimit));
+        }
+
+        if (computeUnitPrice != null) {
+            localVarQueryParams.addAll(
+                    localVarApiClient.parameterToPair("computeUnitPrice", computeUnitPrice));
+        }
+
+        if (gasLevel != null) {
+            localVarQueryParams.addAll(localVarApiClient.parameterToPair("gasLevel", gasLevel));
+        }
+
+        if (tips != null) {
+            localVarQueryParams.addAll(localVarApiClient.parameterToPair("tips", tips));
+        }
+
+        final String[] localVarAccepts = {"application/json"};
+        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) {
+            localVarHeaderParams.put("Accept", localVarAccept);
+        }
+
+        final String[] localVarContentTypes = {"application/x-www-form-urlencoded"};
+        final String localVarContentType =
+                localVarApiClient.selectHeaderContentType(localVarContentTypes);
+        if (!localVarFormParams.isEmpty() && localVarContentType != null) {
+            localVarHeaderParams.put("Content-Type", localVarContentType);
+        }
+
+        if (recvWindow != null) {
+            localVarHeaderParams.put("recvWindow", localVarApiClient.parameterToString(recvWindow));
+        }
+
+        if (nonce != null) {
+            localVarHeaderParams.put("nonce", localVarApiClient.parameterToString(nonce));
+        }
+
+        Set<String> localVarAuthNames = new HashSet<>();
+        localVarAuthNames.add("binanceWeb3Signature");
+        if (HAS_TIME_UNIT) {
+            localVarAuthNames.add("timeUnit");
+        }
+        return localVarApiClient.buildCall(
+                basePath,
+                localVarPath,
+                "GET",
+                localVarQueryParams,
+                localVarCollectionQueryParams,
+                localVarPostBody,
+                localVarHeaderParams,
+                localVarCookieParams,
+                localVarFormParams,
+                localVarAuthNames);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call buildSolanaSwapInstructionsValidateBeforeCall(
+            BinanceChainId binanceChainId,
+            String amount,
+            String fromTokenAddress,
+            String toTokenAddress,
+            String slippagePercent,
+            String userWalletAddress,
+            String quoteId,
+            Long recvWindow,
+            String nonce,
+            String priceImpactProtectionPercent,
+            AutoSlippage autoSlippage,
+            String maxAutoSlippagePercent,
+            String computeUnitLimit,
+            String computeUnitPrice,
+            GasLevel gasLevel,
+            String tips)
+            throws ApiException {
+        try {
+            Validator validator =
+                    Validation.byDefaultProvider()
+                            .configure()
+                            .messageInterpolator(new ParameterMessageInterpolator())
+                            .buildValidatorFactory()
+                            .getValidator();
+            ExecutableValidator executableValidator = validator.forExecutables();
+
+            Object[] parameterValues = {
+                binanceChainId,
+                amount,
+                fromTokenAddress,
+                toTokenAddress,
+                slippagePercent,
+                userWalletAddress,
+                quoteId,
+                recvWindow,
+                nonce,
+                priceImpactProtectionPercent,
+                autoSlippage,
+                maxAutoSlippagePercent,
+                computeUnitLimit,
+                computeUnitPrice,
+                gasLevel,
+                tips
+            };
+            Method method =
+                    this.getClass()
+                            .getMethod(
+                                    "buildSolanaSwapInstructions",
+                                    BinanceChainId.class,
+                                    String.class,
+                                    String.class,
+                                    String.class,
+                                    String.class,
+                                    String.class,
+                                    String.class,
+                                    Long.class,
+                                    String.class,
+                                    String.class,
+                                    AutoSlippage.class,
+                                    String.class,
+                                    String.class,
+                                    String.class,
+                                    GasLevel.class,
+                                    String.class);
+            Set<ConstraintViolation<TradingApi>> violations =
+                    executableValidator.validateParameters(this, method, parameterValues);
+
+            if (violations.size() == 0) {
+                return buildSolanaSwapInstructionsCall(
+                        binanceChainId,
+                        amount,
+                        fromTokenAddress,
+                        toTokenAddress,
+                        slippagePercent,
+                        userWalletAddress,
+                        quoteId,
+                        recvWindow,
+                        nonce,
+                        priceImpactProtectionPercent,
+                        autoSlippage,
+                        maxAutoSlippagePercent,
+                        computeUnitLimit,
+                        computeUnitPrice,
+                        gasLevel,
+                        tips);
+            } else {
+                throw new ConstraintViolationException((Set) violations);
+            }
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+            throw new ApiException(e.getMessage());
+        } catch (SecurityException e) {
+            e.printStackTrace();
+            throw new ApiException(e.getMessage());
+        }
+    }
+
+    public ApiResponse<BuildSolanaSwapInstructionsResponse> buildSolanaSwapInstructions(
+            @NotNull BinanceChainId binanceChainId,
+            @NotNull String amount,
+            @NotNull String fromTokenAddress,
+            @NotNull String toTokenAddress,
+            @NotNull String slippagePercent,
+            @NotNull String userWalletAddress,
+            @NotNull String quoteId,
+            Long recvWindow,
+            String nonce,
+            String priceImpactProtectionPercent,
+            AutoSlippage autoSlippage,
+            String maxAutoSlippagePercent,
+            String computeUnitLimit,
+            String computeUnitPrice,
+            GasLevel gasLevel,
+            String tips)
+            throws ApiException {
+        okhttp3.Call localVarCall =
+                buildSolanaSwapInstructionsValidateBeforeCall(
+                        binanceChainId,
+                        amount,
+                        fromTokenAddress,
+                        toTokenAddress,
+                        slippagePercent,
+                        userWalletAddress,
+                        quoteId,
+                        recvWindow,
+                        nonce,
+                        priceImpactProtectionPercent,
+                        autoSlippage,
+                        maxAutoSlippagePercent,
+                        computeUnitLimit,
+                        computeUnitPrice,
+                        gasLevel,
+                        tips);
+        java.lang.reflect.Type localVarReturnType =
+                new TypeToken<BuildSolanaSwapInstructionsResponse>() {}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    public ApiResponse<BuildSolanaSwapInstructionsResponse> buildSolanaSwapInstructions(
+            BuildSolanaSwapInstructionsRequest request) {
+        return buildSolanaSwapInstructions(
+                request.getBinanceChainId(),
+                request.getAmount(),
+                request.getFromTokenAddress(),
+                request.getToTokenAddress(),
+                request.getSlippagePercent(),
+                request.getUserWalletAddress(),
+                request.getQuoteId(),
+                request.getRecvWindow(),
+                request.getNonce(),
+                request.getPriceImpactProtectionPercent(),
+                request.getAutoSlippage(),
+                request.getMaxAutoSlippagePercent(),
+                request.getComputeUnitLimit(),
+                request.getComputeUnitPrice(),
+                request.getGasLevel(),
+                request.getTips());
+    }
+
+    public static class BuildSolanaSwapInstructionsRequest {
+        private final BinanceChainId binanceChainId;
+        private final String amount;
+        private final String fromTokenAddress;
+        private final String toTokenAddress;
+        private final String slippagePercent;
+        private final String userWalletAddress;
+        private final String quoteId;
+        private Long recvWindow;
+        private String nonce;
+        private String priceImpactProtectionPercent;
+        private AutoSlippage autoSlippage;
+        private String maxAutoSlippagePercent;
+        private String computeUnitLimit;
+        private String computeUnitPrice;
+        private GasLevel gasLevel;
+        private String tips;
+
+        public BinanceChainId getBinanceChainId() {
+            return binanceChainId;
+        }
+
+        public String getAmount() {
+            return amount;
+        }
+
+        public String getFromTokenAddress() {
+            return fromTokenAddress;
+        }
+
+        public String getToTokenAddress() {
+            return toTokenAddress;
+        }
+
+        public String getSlippagePercent() {
+            return slippagePercent;
+        }
+
+        public String getUserWalletAddress() {
+            return userWalletAddress;
+        }
+
+        public String getQuoteId() {
+            return quoteId;
+        }
+
+        public Long getRecvWindow() {
+            return recvWindow;
+        }
+
+        public String getNonce() {
+            return nonce;
+        }
+
+        public String getPriceImpactProtectionPercent() {
+            return priceImpactProtectionPercent;
+        }
+
+        public AutoSlippage getAutoSlippage() {
+            return autoSlippage;
+        }
+
+        public String getMaxAutoSlippagePercent() {
+            return maxAutoSlippagePercent;
+        }
+
+        public String getComputeUnitLimit() {
+            return computeUnitLimit;
+        }
+
+        public String getComputeUnitPrice() {
+            return computeUnitPrice;
+        }
+
+        public GasLevel getGasLevel() {
+            return gasLevel;
+        }
+
+        public String getTips() {
+            return tips;
+        }
+
+        public BuildSolanaSwapInstructionsRequest(
+                BinanceChainId binanceChainId,
+                String amount,
+                String fromTokenAddress,
+                String toTokenAddress,
+                String slippagePercent,
+                String userWalletAddress,
+                String quoteId) {
+            this.binanceChainId = binanceChainId;
+            this.amount = amount;
+            this.fromTokenAddress = fromTokenAddress;
+            this.toTokenAddress = toTokenAddress;
+            this.slippagePercent = slippagePercent;
+            this.userWalletAddress = userWalletAddress;
+            this.quoteId = quoteId;
+        }
+
+        /**
+         * Set recvWindow
+         *
+         * @param recvWindow Allowed time deviation in milliseconds (default: 5000, max: 60000).
+         *     (optional)
+         * @return BuildSolanaSwapInstructionsRequest
+         */
+        public BuildSolanaSwapInstructionsRequest recvWindow(Long recvWindow) {
+            this.recvWindow = recvWindow;
+            return this;
+        }
+
+        /**
+         * Set nonce
+         *
+         * @param nonce Unique request identifier for anti-replay; falls back to X-OC-SIGN if
+         *     omitted. (optional)
+         * @return BuildSolanaSwapInstructionsRequest
+         */
+        public BuildSolanaSwapInstructionsRequest nonce(String nonce) {
+            this.nonce = nonce;
+            return this;
+        }
+
+        /**
+         * Set priceImpactProtectionPercent
+         *
+         * @param priceImpactProtectionPercent Maximum allowed price impact percentage (0–100).
+         *     Defaults to 90; set to 100 to disable. (optional)
+         * @return BuildSolanaSwapInstructionsRequest
+         */
+        public BuildSolanaSwapInstructionsRequest priceImpactProtectionPercent(
+                String priceImpactProtectionPercent) {
+            this.priceImpactProtectionPercent = priceImpactProtectionPercent;
+            return this;
+        }
+
+        /**
+         * Set autoSlippage
+         *
+         * @param autoSlippage When \&quot;true\&quot;, slippage is auto-derived from market data
+         *     and overrides &#x60;slippagePercent&#x60;. Defaults to false. (optional)
+         * @return BuildSolanaSwapInstructionsRequest
+         */
+        public BuildSolanaSwapInstructionsRequest autoSlippage(AutoSlippage autoSlippage) {
+            this.autoSlippage = autoSlippage;
+            return this;
+        }
+
+        /**
+         * Set maxAutoSlippagePercent
+         *
+         * @param maxAutoSlippagePercent Cap on auto-derived slippage (only applies when
+         *     &#x60;autoSlippage&#x3D;true&#x60;). (optional)
+         * @return BuildSolanaSwapInstructionsRequest
+         */
+        public BuildSolanaSwapInstructionsRequest maxAutoSlippagePercent(
+                String maxAutoSlippagePercent) {
+            this.maxAutoSlippagePercent = maxAutoSlippagePercent;
+            return this;
+        }
+
+        /**
+         * Set computeUnitLimit
+         *
+         * @param computeUnitLimit Maximum compute units the transaction may consume (analogous to
+         *     EVM gasLimit). Defaults to the platform value when omitted. (optional)
+         * @return BuildSolanaSwapInstructionsRequest
+         */
+        public BuildSolanaSwapInstructionsRequest computeUnitLimit(String computeUnitLimit) {
+            this.computeUnitLimit = computeUnitLimit;
+            return this;
+        }
+
+        /**
+         * Set computeUnitPrice
+         *
+         * @param computeUnitPrice Priority fee per compute unit (micro-lamports). When omitted, the
+         *     platform computes a value either from the &#x60;gasLevel&#x60; tier or from
+         *     chain-side defaults. (optional)
+         * @return BuildSolanaSwapInstructionsRequest
+         */
+        public BuildSolanaSwapInstructionsRequest computeUnitPrice(String computeUnitPrice) {
+            this.computeUnitPrice = computeUnitPrice;
+            return this;
+        }
+
+        /**
+         * Set gasLevel
+         *
+         * @param gasLevel Priority-fee tier; consulted only when &#x60;computeUnitPrice&#x60; is
+         *     omitted. Defaults to \&quot;average\&quot;. (optional)
+         * @return BuildSolanaSwapInstructionsRequest
+         */
+        public BuildSolanaSwapInstructionsRequest gasLevel(GasLevel gasLevel) {
+            this.gasLevel = gasLevel;
+            return this;
+        }
+
+        /**
+         * Set tips
+         *
+         * @param tips Jito tips in SOL for MEV protection. Valid range [0.000000001, 2] (minimum 1
+         *     lamport). When specified, it is recommended to set
+         *     &#x60;computeUnitPrice&#x3D;0&#x60;. The platform picks one of Jito&#39;s tip
+         *     accounts at random per request. (optional)
+         * @return BuildSolanaSwapInstructionsRequest
+         */
+        public BuildSolanaSwapInstructionsRequest tips(String tips) {
+            this.tips = tips;
+            return this;
+        }
+    }
+
+    private okhttp3.Call buildSwapTransactionCall(
+            String binanceChainId,
+            String amount,
+            String fromTokenAddress,
+            String toTokenAddress,
+            String userWalletAddress,
+            String quoteId,
+            Long recvWindow,
+            String nonce,
+            String slippagePercent,
             ApproveTransaction approveTransaction,
             String approveAmount,
             String gasLimit,
@@ -258,11 +789,11 @@ public class TradingApi {
             String amount,
             String fromTokenAddress,
             String toTokenAddress,
-            String slippagePercent,
             String userWalletAddress,
             String quoteId,
             Long recvWindow,
             String nonce,
+            String slippagePercent,
             ApproveTransaction approveTransaction,
             String approveAmount,
             String gasLimit,
@@ -288,11 +819,11 @@ public class TradingApi {
                 amount,
                 fromTokenAddress,
                 toTokenAddress,
-                slippagePercent,
                 userWalletAddress,
                 quoteId,
                 recvWindow,
                 nonce,
+                slippagePercent,
                 approveTransaction,
                 approveAmount,
                 gasLimit,
@@ -314,8 +845,8 @@ public class TradingApi {
                                     String.class,
                                     String.class,
                                     String.class,
-                                    String.class,
                                     Long.class,
+                                    String.class,
                                     String.class,
                                     ApproveTransaction.class,
                                     String.class,
@@ -336,11 +867,11 @@ public class TradingApi {
                         amount,
                         fromTokenAddress,
                         toTokenAddress,
-                        slippagePercent,
                         userWalletAddress,
                         quoteId,
                         recvWindow,
                         nonce,
+                        slippagePercent,
                         approveTransaction,
                         approveAmount,
                         gasLimit,
@@ -368,11 +899,11 @@ public class TradingApi {
             @NotNull String amount,
             @NotNull String fromTokenAddress,
             @NotNull String toTokenAddress,
-            @NotNull String slippagePercent,
             @NotNull String userWalletAddress,
             @NotNull String quoteId,
             Long recvWindow,
             String nonce,
+            String slippagePercent,
             ApproveTransaction approveTransaction,
             String approveAmount,
             String gasLimit,
@@ -390,11 +921,11 @@ public class TradingApi {
                         amount,
                         fromTokenAddress,
                         toTokenAddress,
-                        slippagePercent,
                         userWalletAddress,
                         quoteId,
                         recvWindow,
                         nonce,
+                        slippagePercent,
                         approveTransaction,
                         approveAmount,
                         gasLimit,
@@ -417,11 +948,11 @@ public class TradingApi {
                 request.getAmount(),
                 request.getFromTokenAddress(),
                 request.getToTokenAddress(),
-                request.getSlippagePercent(),
                 request.getUserWalletAddress(),
                 request.getQuoteId(),
                 request.getRecvWindow(),
                 request.getNonce(),
+                request.getSlippagePercent(),
                 request.getApproveTransaction(),
                 request.getApproveAmount(),
                 request.getGasLimit(),
@@ -439,11 +970,11 @@ public class TradingApi {
         private final String amount;
         private final String fromTokenAddress;
         private final String toTokenAddress;
-        private final String slippagePercent;
         private final String userWalletAddress;
         private final String quoteId;
         private Long recvWindow;
         private String nonce;
+        private String slippagePercent;
         private ApproveTransaction approveTransaction;
         private String approveAmount;
         private String gasLimit;
@@ -471,10 +1002,6 @@ public class TradingApi {
             return toTokenAddress;
         }
 
-        public String getSlippagePercent() {
-            return slippagePercent;
-        }
-
         public String getUserWalletAddress() {
             return userWalletAddress;
         }
@@ -489,6 +1016,10 @@ public class TradingApi {
 
         public String getNonce() {
             return nonce;
+        }
+
+        public String getSlippagePercent() {
+            return slippagePercent;
         }
 
         public ApproveTransaction getApproveTransaction() {
@@ -536,14 +1067,12 @@ public class TradingApi {
                 String amount,
                 String fromTokenAddress,
                 String toTokenAddress,
-                String slippagePercent,
                 String userWalletAddress,
                 String quoteId) {
             this.binanceChainId = binanceChainId;
             this.amount = amount;
             this.fromTokenAddress = fromTokenAddress;
             this.toTokenAddress = toTokenAddress;
-            this.slippagePercent = slippagePercent;
             this.userWalletAddress = userWalletAddress;
             this.quoteId = quoteId;
         }
@@ -569,6 +1098,28 @@ public class TradingApi {
          */
         public BuildSwapTransactionRequest nonce(String nonce) {
             this.nonce = nonce;
+            return this;
+        }
+
+        /**
+         * Set slippagePercent
+         *
+         * @param slippagePercent Maximum slippage tolerance as a percentage string. Required unless
+         *     &#x60;autoSlippage&#x3D;true&#x60;. **Range by chain:** - EVM chains (BSC, Ethereum,
+         *     Base, etc.): &#x60;0&#x60; to &#x60;100&#x60; (inclusive) - Solana
+         *     (&#x60;CT_501&#x60;): &#x60;0&#x60; to less than &#x60;100&#x60; (i.e. &#x60;&lt;
+         *     100&#x60;) **Range by vendor:** - 1inch, PancakeSwap: &#x60;0&#x60; to &#x60;50&#x60;
+         *     (values above 50 are rejected) - LiFi, LiquidMesh: &#x60;0&#x60; to &#x60;100&#x60;
+         *     (EVM) or &#x60;0&#x60; to &#x60;&lt; 100&#x60; (Solana) - Jupiter (Solana):
+         *     &#x60;0&#x60; to less than &#x60;100&#x60;; the value is converted to basis points
+         *     (&#x60;slippageBps &#x3D; ceil(slippagePercent × 100)&#x60;) and applied to the
+         *     on-chain swap &#x60;\&quot;0.5\&quot;&#x60; means 0.5% maximum slippage. When
+         *     &#x60;autoSlippage&#x3D;true&#x60; this field is overridden by the auto-computed
+         *     value. (optional)
+         * @return BuildSwapTransactionRequest
+         */
+        public BuildSwapTransactionRequest slippagePercent(String slippagePercent) {
+            this.slippagePercent = slippagePercent;
             return this;
         }
 
@@ -636,8 +1187,11 @@ public class TradingApi {
         /**
          * Set autoSlippage
          *
-         * @param autoSlippage When \&quot;true\&quot;, slippage is auto-derived from market data
-         *     and overrides &#x60;slippagePercent&#x60;. Defaults to false. (optional)
+         * @param autoSlippage When &#x60;\&quot;true\&quot;&#x60;, slippage is auto-derived from
+         *     market data and overrides &#x60;slippagePercent&#x60;. Either
+         *     &#x60;slippagePercent&#x60; or &#x60;autoSlippage&#x3D;true&#x60; must be provided —
+         *     omitting both returns a parameter error. Defaults to &#x60;\&quot;false\&quot;&#x60;.
+         *     (optional)
          * @return BuildSwapTransactionRequest
          */
         public BuildSwapTransactionRequest autoSlippage(AutoSlippage autoSlippage) {
@@ -704,7 +1258,8 @@ public class TradingApi {
             String fromTokenAddress,
             String toTokenAddress,
             Long recvWindow,
-            String nonce)
+            String nonce,
+            String userWalletAddress)
             throws ApiException {
         String basePath = null;
         // Operation Servers
@@ -747,6 +1302,11 @@ public class TradingApi {
         if (toTokenAddress != null) {
             localVarQueryParams.addAll(
                     localVarApiClient.parameterToPair("toTokenAddress", toTokenAddress));
+        }
+
+        if (userWalletAddress != null) {
+            localVarQueryParams.addAll(
+                    localVarApiClient.parameterToPair("userWalletAddress", userWalletAddress));
         }
 
         final String[] localVarAccepts = {"application/json"};
@@ -795,7 +1355,8 @@ public class TradingApi {
             String fromTokenAddress,
             String toTokenAddress,
             Long recvWindow,
-            String nonce)
+            String nonce,
+            String userWalletAddress)
             throws ApiException {
         try {
             Validator validator =
@@ -807,7 +1368,13 @@ public class TradingApi {
             ExecutableValidator executableValidator = validator.forExecutables();
 
             Object[] parameterValues = {
-                binanceChainId, amount, fromTokenAddress, toTokenAddress, recvWindow, nonce
+                binanceChainId,
+                amount,
+                fromTokenAddress,
+                toTokenAddress,
+                recvWindow,
+                nonce,
+                userWalletAddress
             };
             Method method =
                     this.getClass()
@@ -818,6 +1385,7 @@ public class TradingApi {
                                     String.class,
                                     String.class,
                                     Long.class,
+                                    String.class,
                                     String.class);
             Set<ConstraintViolation<TradingApi>> violations =
                     executableValidator.validateParameters(this, method, parameterValues);
@@ -829,7 +1397,8 @@ public class TradingApi {
                         fromTokenAddress,
                         toTokenAddress,
                         recvWindow,
-                        nonce);
+                        nonce,
+                        userWalletAddress);
             } else {
                 throw new ConstraintViolationException((Set) violations);
             }
@@ -848,7 +1417,8 @@ public class TradingApi {
             @NotNull String fromTokenAddress,
             @NotNull String toTokenAddress,
             Long recvWindow,
-            String nonce)
+            String nonce,
+            String userWalletAddress)
             throws ApiException {
         okhttp3.Call localVarCall =
                 getAggregatedQuoteValidateBeforeCall(
@@ -857,7 +1427,8 @@ public class TradingApi {
                         fromTokenAddress,
                         toTokenAddress,
                         recvWindow,
-                        nonce);
+                        nonce,
+                        userWalletAddress);
         java.lang.reflect.Type localVarReturnType =
                 new TypeToken<GetAggregatedQuoteResponse>() {}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
@@ -871,7 +1442,8 @@ public class TradingApi {
                 request.getFromTokenAddress(),
                 request.getToTokenAddress(),
                 request.getRecvWindow(),
-                request.getNonce());
+                request.getNonce(),
+                request.getUserWalletAddress());
     }
 
     public static class GetAggregatedQuoteRequest {
@@ -881,6 +1453,7 @@ public class TradingApi {
         private final String toTokenAddress;
         private Long recvWindow;
         private String nonce;
+        private String userWalletAddress;
 
         public String getBinanceChainId() {
             return binanceChainId;
@@ -904,6 +1477,10 @@ public class TradingApi {
 
         public String getNonce() {
             return nonce;
+        }
+
+        public String getUserWalletAddress() {
+            return userWalletAddress;
         }
 
         public GetAggregatedQuoteRequest(
@@ -938,6 +1515,20 @@ public class TradingApi {
          */
         public GetAggregatedQuoteRequest nonce(String nonce) {
             this.nonce = nonce;
+            return this;
+        }
+
+        /**
+         * Set userWalletAddress
+         *
+         * @param userWalletAddress User wallet address. Required when quoting RFQ routes (equity /
+         *     RWA tokens such as Ondo and BStock). This address is used as the receiver in the RFQ
+         *     order and must match the wallet that signs &#x60;rfq.typedDataToSign&#x60; in the
+         *     subsequent &#x60;/swap&#x60; call. (optional)
+         * @return GetAggregatedQuoteRequest
+         */
+        public GetAggregatedQuoteRequest userWalletAddress(String userWalletAddress) {
+            this.userWalletAddress = userWalletAddress;
             return this;
         }
     }
@@ -1126,7 +1717,8 @@ public class TradingApi {
             String tokenContractAddress,
             String approveAmount,
             Long recvWindow,
-            String nonce)
+            String nonce,
+            String vendor)
             throws ApiException {
         String basePath = null;
         // Operation Servers
@@ -1166,6 +1758,10 @@ public class TradingApi {
         if (approveAmount != null) {
             localVarQueryParams.addAll(
                     localVarApiClient.parameterToPair("approveAmount", approveAmount));
+        }
+
+        if (vendor != null) {
+            localVarQueryParams.addAll(localVarApiClient.parameterToPair("vendor", vendor));
         }
 
         final String[] localVarAccepts = {"application/json"};
@@ -1213,7 +1809,8 @@ public class TradingApi {
             String tokenContractAddress,
             String approveAmount,
             Long recvWindow,
-            String nonce)
+            String nonce,
+            String vendor)
             throws ApiException {
         try {
             Validator validator =
@@ -1225,7 +1822,7 @@ public class TradingApi {
             ExecutableValidator executableValidator = validator.forExecutables();
 
             Object[] parameterValues = {
-                binanceChainId, tokenContractAddress, approveAmount, recvWindow, nonce
+                binanceChainId, tokenContractAddress, approveAmount, recvWindow, nonce, vendor
             };
             Method method =
                     this.getClass()
@@ -1235,13 +1832,19 @@ public class TradingApi {
                                     String.class,
                                     String.class,
                                     Long.class,
+                                    String.class,
                                     String.class);
             Set<ConstraintViolation<TradingApi>> violations =
                     executableValidator.validateParameters(this, method, parameterValues);
 
             if (violations.size() == 0) {
                 return getErc20ApproveTransactionCall(
-                        binanceChainId, tokenContractAddress, approveAmount, recvWindow, nonce);
+                        binanceChainId,
+                        tokenContractAddress,
+                        approveAmount,
+                        recvWindow,
+                        nonce,
+                        vendor);
             } else {
                 throw new ConstraintViolationException((Set) violations);
             }
@@ -1259,11 +1862,17 @@ public class TradingApi {
             @NotNull String tokenContractAddress,
             @NotNull String approveAmount,
             Long recvWindow,
-            String nonce)
+            String nonce,
+            String vendor)
             throws ApiException {
         okhttp3.Call localVarCall =
                 getErc20ApproveTransactionValidateBeforeCall(
-                        binanceChainId, tokenContractAddress, approveAmount, recvWindow, nonce);
+                        binanceChainId,
+                        tokenContractAddress,
+                        approveAmount,
+                        recvWindow,
+                        nonce,
+                        vendor);
         java.lang.reflect.Type localVarReturnType =
                 new TypeToken<GetErc20ApproveTransactionResponse>() {}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
@@ -1276,7 +1885,8 @@ public class TradingApi {
                 request.getTokenContractAddress(),
                 request.getApproveAmount(),
                 request.getRecvWindow(),
-                request.getNonce());
+                request.getNonce(),
+                request.getVendor());
     }
 
     public static class GetErc20ApproveTransactionRequest {
@@ -1285,6 +1895,7 @@ public class TradingApi {
         private final String approveAmount;
         private Long recvWindow;
         private String nonce;
+        private String vendor;
 
         public String getBinanceChainId() {
             return binanceChainId;
@@ -1304,6 +1915,10 @@ public class TradingApi {
 
         public String getNonce() {
             return nonce;
+        }
+
+        public String getVendor() {
+            return vendor;
         }
 
         public GetErc20ApproveTransactionRequest(
@@ -1333,6 +1948,187 @@ public class TradingApi {
          * @return GetErc20ApproveTransactionRequest
          */
         public GetErc20ApproveTransactionRequest nonce(String nonce) {
+            this.nonce = nonce;
+            return this;
+        }
+
+        /**
+         * Set vendor
+         *
+         * @param vendor RFQ vendor name. **Required for equity / RWA tokens (Ondo, BStock)**; pass
+         *     the &#x60;vendorName&#x60; from the &#x60;/quote&#x60; response (e.g.
+         *     &#x60;InchFusion&#x60;, &#x60;CowSwap&#x60;, &#x60;PcsXRfq&#x60;). When provided, the
+         *     backend returns approve calldata targeting the vendor-specific spender contract (e.g.
+         *     1inch Router, PcsX Permit2, CowSwap VaultRelayer) instead of the default DEX router.
+         *     For regular (non-RWA) tokens, this parameter is optional. If omitted, the backend
+         *     uses the standard DEX router. If a valid RFQ vendor is passed, the backend resolves
+         *     that vendor&#39;s spender — used when buying Ondo/BStock with a stablecoin, where the
+         *     from-token (e.g. USDT) itself is not an RFQ token but must be approved to the RFQ
+         *     vendor&#39;s router. (optional)
+         * @return GetErc20ApproveTransactionRequest
+         */
+        public GetErc20ApproveTransactionRequest vendor(String vendor) {
+            this.vendor = vendor;
+            return this;
+        }
+    }
+
+    private okhttp3.Call getRfqOrderStatusCall(String orderId, Long recvWindow, String nonce)
+            throws ApiException {
+        String basePath = null;
+        // Operation Servers
+        String[] localBasePaths = new String[] {};
+
+        // Determine Base Path to Use
+        if (localCustomBaseUrl != null) {
+            basePath = localCustomBaseUrl;
+        } else if (localBasePaths.length > 0) {
+            basePath = localBasePaths[localHostIndex];
+        } else {
+            basePath = null;
+        }
+
+        Object localVarPostBody = null;
+
+        // create path and map variables
+        String localVarPath =
+                "/api/v1/dex/aggregator/order/{orderId}"
+                        .replace(
+                                "{" + "orderId" + "}",
+                                localVarApiClient.escapeString(orderId.toString()));
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        Map<String, String> localVarCookieParams = new HashMap<String, String>();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = {"application/json"};
+        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) {
+            localVarHeaderParams.put("Accept", localVarAccept);
+        }
+
+        final String[] localVarContentTypes = {"application/x-www-form-urlencoded"};
+        final String localVarContentType =
+                localVarApiClient.selectHeaderContentType(localVarContentTypes);
+        if (!localVarFormParams.isEmpty() && localVarContentType != null) {
+            localVarHeaderParams.put("Content-Type", localVarContentType);
+        }
+
+        if (recvWindow != null) {
+            localVarHeaderParams.put("recvWindow", localVarApiClient.parameterToString(recvWindow));
+        }
+
+        if (nonce != null) {
+            localVarHeaderParams.put("nonce", localVarApiClient.parameterToString(nonce));
+        }
+
+        Set<String> localVarAuthNames = new HashSet<>();
+        localVarAuthNames.add("binanceWeb3Signature");
+        if (HAS_TIME_UNIT) {
+            localVarAuthNames.add("timeUnit");
+        }
+        return localVarApiClient.buildCall(
+                basePath,
+                localVarPath,
+                "GET",
+                localVarQueryParams,
+                localVarCollectionQueryParams,
+                localVarPostBody,
+                localVarHeaderParams,
+                localVarCookieParams,
+                localVarFormParams,
+                localVarAuthNames);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call getRfqOrderStatusValidateBeforeCall(
+            String orderId, Long recvWindow, String nonce) throws ApiException {
+        try {
+            Validator validator =
+                    Validation.byDefaultProvider()
+                            .configure()
+                            .messageInterpolator(new ParameterMessageInterpolator())
+                            .buildValidatorFactory()
+                            .getValidator();
+            ExecutableValidator executableValidator = validator.forExecutables();
+
+            Object[] parameterValues = {orderId, recvWindow, nonce};
+            Method method =
+                    this.getClass()
+                            .getMethod("getRfqOrderStatus", String.class, Long.class, String.class);
+            Set<ConstraintViolation<TradingApi>> violations =
+                    executableValidator.validateParameters(this, method, parameterValues);
+
+            if (violations.size() == 0) {
+                return getRfqOrderStatusCall(orderId, recvWindow, nonce);
+            } else {
+                throw new ConstraintViolationException((Set) violations);
+            }
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+            throw new ApiException(e.getMessage());
+        } catch (SecurityException e) {
+            e.printStackTrace();
+            throw new ApiException(e.getMessage());
+        }
+    }
+
+    public ApiResponse<GetRfqOrderStatusResponse> getRfqOrderStatus(
+            @NotNull String orderId, Long recvWindow, String nonce) throws ApiException {
+        okhttp3.Call localVarCall = getRfqOrderStatusValidateBeforeCall(orderId, recvWindow, nonce);
+        java.lang.reflect.Type localVarReturnType =
+                new TypeToken<GetRfqOrderStatusResponse>() {}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    public ApiResponse<GetRfqOrderStatusResponse> getRfqOrderStatus(
+            GetRfqOrderStatusRequest request) {
+        return getRfqOrderStatus(request.getOrderId(), request.getRecvWindow(), request.getNonce());
+    }
+
+    public static class GetRfqOrderStatusRequest {
+        private final String orderId;
+        private Long recvWindow;
+        private String nonce;
+
+        public String getOrderId() {
+            return orderId;
+        }
+
+        public Long getRecvWindow() {
+            return recvWindow;
+        }
+
+        public String getNonce() {
+            return nonce;
+        }
+
+        public GetRfqOrderStatusRequest(String orderId) {
+            this.orderId = orderId;
+        }
+
+        /**
+         * Set recvWindow
+         *
+         * @param recvWindow Allowed time deviation in milliseconds (default: 5000, max: 60000).
+         *     (optional)
+         * @return GetRfqOrderStatusRequest
+         */
+        public GetRfqOrderStatusRequest recvWindow(Long recvWindow) {
+            this.recvWindow = recvWindow;
+            return this;
+        }
+
+        /**
+         * Set nonce
+         *
+         * @param nonce Unique request identifier for anti-replay; falls back to X-OC-SIGN if
+         *     omitted. (optional)
+         * @return GetRfqOrderStatusRequest
+         */
+        public GetRfqOrderStatusRequest nonce(String nonce) {
             this.nonce = nonce;
             return this;
         }
@@ -1521,5 +2317,772 @@ public class TradingApi {
             this.nonce = nonce;
             return this;
         }
+    }
+
+    private okhttp3.Call quoteAndBuildSwapTransactionCall(
+            String binanceChainId,
+            String amount,
+            String fromTokenAddress,
+            String toTokenAddress,
+            String userWalletAddress,
+            Vendor vendor,
+            Long recvWindow,
+            String nonce,
+            String slippagePercent,
+            ApproveTransaction approveTransaction,
+            String approveAmount,
+            String gasLimit,
+            GasLevel gasLevel,
+            String priceImpactProtectionPercent,
+            AutoSlippage autoSlippage,
+            String maxAutoSlippagePercent,
+            String computeUnitLimit,
+            String computeUnitPrice,
+            String tips)
+            throws ApiException {
+        String basePath = null;
+        // Operation Servers
+        String[] localBasePaths = new String[] {};
+
+        // Determine Base Path to Use
+        if (localCustomBaseUrl != null) {
+            basePath = localCustomBaseUrl;
+        } else if (localBasePaths.length > 0) {
+            basePath = localBasePaths[localHostIndex];
+        } else {
+            basePath = null;
+        }
+
+        Object localVarPostBody = null;
+
+        // create path and map variables
+        String localVarPath = "/api/v1/dex/aggregator/quote-and-swap";
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        Map<String, String> localVarCookieParams = new HashMap<String, String>();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        if (binanceChainId != null) {
+            localVarQueryParams.addAll(
+                    localVarApiClient.parameterToPair("binanceChainId", binanceChainId));
+        }
+
+        if (amount != null) {
+            localVarQueryParams.addAll(localVarApiClient.parameterToPair("amount", amount));
+        }
+
+        if (fromTokenAddress != null) {
+            localVarQueryParams.addAll(
+                    localVarApiClient.parameterToPair("fromTokenAddress", fromTokenAddress));
+        }
+
+        if (toTokenAddress != null) {
+            localVarQueryParams.addAll(
+                    localVarApiClient.parameterToPair("toTokenAddress", toTokenAddress));
+        }
+
+        if (slippagePercent != null) {
+            localVarQueryParams.addAll(
+                    localVarApiClient.parameterToPair("slippagePercent", slippagePercent));
+        }
+
+        if (userWalletAddress != null) {
+            localVarQueryParams.addAll(
+                    localVarApiClient.parameterToPair("userWalletAddress", userWalletAddress));
+        }
+
+        if (vendor != null) {
+            localVarQueryParams.addAll(localVarApiClient.parameterToPair("vendor", vendor));
+        }
+
+        if (approveTransaction != null) {
+            localVarQueryParams.addAll(
+                    localVarApiClient.parameterToPair("approveTransaction", approveTransaction));
+        }
+
+        if (approveAmount != null) {
+            localVarQueryParams.addAll(
+                    localVarApiClient.parameterToPair("approveAmount", approveAmount));
+        }
+
+        if (gasLimit != null) {
+            localVarQueryParams.addAll(localVarApiClient.parameterToPair("gasLimit", gasLimit));
+        }
+
+        if (gasLevel != null) {
+            localVarQueryParams.addAll(localVarApiClient.parameterToPair("gasLevel", gasLevel));
+        }
+
+        if (priceImpactProtectionPercent != null) {
+            localVarQueryParams.addAll(
+                    localVarApiClient.parameterToPair(
+                            "priceImpactProtectionPercent", priceImpactProtectionPercent));
+        }
+
+        if (autoSlippage != null) {
+            localVarQueryParams.addAll(
+                    localVarApiClient.parameterToPair("autoSlippage", autoSlippage));
+        }
+
+        if (maxAutoSlippagePercent != null) {
+            localVarQueryParams.addAll(
+                    localVarApiClient.parameterToPair(
+                            "maxAutoSlippagePercent", maxAutoSlippagePercent));
+        }
+
+        if (computeUnitLimit != null) {
+            localVarQueryParams.addAll(
+                    localVarApiClient.parameterToPair("computeUnitLimit", computeUnitLimit));
+        }
+
+        if (computeUnitPrice != null) {
+            localVarQueryParams.addAll(
+                    localVarApiClient.parameterToPair("computeUnitPrice", computeUnitPrice));
+        }
+
+        if (tips != null) {
+            localVarQueryParams.addAll(localVarApiClient.parameterToPair("tips", tips));
+        }
+
+        final String[] localVarAccepts = {"application/json"};
+        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) {
+            localVarHeaderParams.put("Accept", localVarAccept);
+        }
+
+        final String[] localVarContentTypes = {"application/x-www-form-urlencoded"};
+        final String localVarContentType =
+                localVarApiClient.selectHeaderContentType(localVarContentTypes);
+        if (!localVarFormParams.isEmpty() && localVarContentType != null) {
+            localVarHeaderParams.put("Content-Type", localVarContentType);
+        }
+
+        if (recvWindow != null) {
+            localVarHeaderParams.put("recvWindow", localVarApiClient.parameterToString(recvWindow));
+        }
+
+        if (nonce != null) {
+            localVarHeaderParams.put("nonce", localVarApiClient.parameterToString(nonce));
+        }
+
+        Set<String> localVarAuthNames = new HashSet<>();
+        localVarAuthNames.add("binanceWeb3Signature");
+        if (HAS_TIME_UNIT) {
+            localVarAuthNames.add("timeUnit");
+        }
+        return localVarApiClient.buildCall(
+                basePath,
+                localVarPath,
+                "GET",
+                localVarQueryParams,
+                localVarCollectionQueryParams,
+                localVarPostBody,
+                localVarHeaderParams,
+                localVarCookieParams,
+                localVarFormParams,
+                localVarAuthNames);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call quoteAndBuildSwapTransactionValidateBeforeCall(
+            String binanceChainId,
+            String amount,
+            String fromTokenAddress,
+            String toTokenAddress,
+            String userWalletAddress,
+            Vendor vendor,
+            Long recvWindow,
+            String nonce,
+            String slippagePercent,
+            ApproveTransaction approveTransaction,
+            String approveAmount,
+            String gasLimit,
+            GasLevel gasLevel,
+            String priceImpactProtectionPercent,
+            AutoSlippage autoSlippage,
+            String maxAutoSlippagePercent,
+            String computeUnitLimit,
+            String computeUnitPrice,
+            String tips)
+            throws ApiException {
+        try {
+            Validator validator =
+                    Validation.byDefaultProvider()
+                            .configure()
+                            .messageInterpolator(new ParameterMessageInterpolator())
+                            .buildValidatorFactory()
+                            .getValidator();
+            ExecutableValidator executableValidator = validator.forExecutables();
+
+            Object[] parameterValues = {
+                binanceChainId,
+                amount,
+                fromTokenAddress,
+                toTokenAddress,
+                userWalletAddress,
+                vendor,
+                recvWindow,
+                nonce,
+                slippagePercent,
+                approveTransaction,
+                approveAmount,
+                gasLimit,
+                gasLevel,
+                priceImpactProtectionPercent,
+                autoSlippage,
+                maxAutoSlippagePercent,
+                computeUnitLimit,
+                computeUnitPrice,
+                tips
+            };
+            Method method =
+                    this.getClass()
+                            .getMethod(
+                                    "quoteAndBuildSwapTransaction",
+                                    String.class,
+                                    String.class,
+                                    String.class,
+                                    String.class,
+                                    String.class,
+                                    Vendor.class,
+                                    Long.class,
+                                    String.class,
+                                    String.class,
+                                    ApproveTransaction.class,
+                                    String.class,
+                                    String.class,
+                                    GasLevel.class,
+                                    String.class,
+                                    AutoSlippage.class,
+                                    String.class,
+                                    String.class,
+                                    String.class,
+                                    String.class);
+            Set<ConstraintViolation<TradingApi>> violations =
+                    executableValidator.validateParameters(this, method, parameterValues);
+
+            if (violations.size() == 0) {
+                return quoteAndBuildSwapTransactionCall(
+                        binanceChainId,
+                        amount,
+                        fromTokenAddress,
+                        toTokenAddress,
+                        userWalletAddress,
+                        vendor,
+                        recvWindow,
+                        nonce,
+                        slippagePercent,
+                        approveTransaction,
+                        approveAmount,
+                        gasLimit,
+                        gasLevel,
+                        priceImpactProtectionPercent,
+                        autoSlippage,
+                        maxAutoSlippagePercent,
+                        computeUnitLimit,
+                        computeUnitPrice,
+                        tips);
+            } else {
+                throw new ConstraintViolationException((Set) violations);
+            }
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+            throw new ApiException(e.getMessage());
+        } catch (SecurityException e) {
+            e.printStackTrace();
+            throw new ApiException(e.getMessage());
+        }
+    }
+
+    public ApiResponse<QuoteAndBuildSwapTransactionResponse> quoteAndBuildSwapTransaction(
+            @NotNull String binanceChainId,
+            @NotNull String amount,
+            @NotNull String fromTokenAddress,
+            @NotNull String toTokenAddress,
+            @NotNull String userWalletAddress,
+            @NotNull Vendor vendor,
+            Long recvWindow,
+            String nonce,
+            String slippagePercent,
+            ApproveTransaction approveTransaction,
+            String approveAmount,
+            String gasLimit,
+            GasLevel gasLevel,
+            String priceImpactProtectionPercent,
+            AutoSlippage autoSlippage,
+            String maxAutoSlippagePercent,
+            String computeUnitLimit,
+            String computeUnitPrice,
+            String tips)
+            throws ApiException {
+        okhttp3.Call localVarCall =
+                quoteAndBuildSwapTransactionValidateBeforeCall(
+                        binanceChainId,
+                        amount,
+                        fromTokenAddress,
+                        toTokenAddress,
+                        userWalletAddress,
+                        vendor,
+                        recvWindow,
+                        nonce,
+                        slippagePercent,
+                        approveTransaction,
+                        approveAmount,
+                        gasLimit,
+                        gasLevel,
+                        priceImpactProtectionPercent,
+                        autoSlippage,
+                        maxAutoSlippagePercent,
+                        computeUnitLimit,
+                        computeUnitPrice,
+                        tips);
+        java.lang.reflect.Type localVarReturnType =
+                new TypeToken<QuoteAndBuildSwapTransactionResponse>() {}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    public ApiResponse<QuoteAndBuildSwapTransactionResponse> quoteAndBuildSwapTransaction(
+            QuoteAndBuildSwapTransactionRequest request) {
+        return quoteAndBuildSwapTransaction(
+                request.getBinanceChainId(),
+                request.getAmount(),
+                request.getFromTokenAddress(),
+                request.getToTokenAddress(),
+                request.getUserWalletAddress(),
+                request.getVendor(),
+                request.getRecvWindow(),
+                request.getNonce(),
+                request.getSlippagePercent(),
+                request.getApproveTransaction(),
+                request.getApproveAmount(),
+                request.getGasLimit(),
+                request.getGasLevel(),
+                request.getPriceImpactProtectionPercent(),
+                request.getAutoSlippage(),
+                request.getMaxAutoSlippagePercent(),
+                request.getComputeUnitLimit(),
+                request.getComputeUnitPrice(),
+                request.getTips());
+    }
+
+    public static class QuoteAndBuildSwapTransactionRequest {
+        private final String binanceChainId;
+        private final String amount;
+        private final String fromTokenAddress;
+        private final String toTokenAddress;
+        private final String userWalletAddress;
+        private final Vendor vendor;
+        private Long recvWindow;
+        private String nonce;
+        private String slippagePercent;
+        private ApproveTransaction approveTransaction;
+        private String approveAmount;
+        private String gasLimit;
+        private GasLevel gasLevel;
+        private String priceImpactProtectionPercent;
+        private AutoSlippage autoSlippage;
+        private String maxAutoSlippagePercent;
+        private String computeUnitLimit;
+        private String computeUnitPrice;
+        private String tips;
+
+        public String getBinanceChainId() {
+            return binanceChainId;
+        }
+
+        public String getAmount() {
+            return amount;
+        }
+
+        public String getFromTokenAddress() {
+            return fromTokenAddress;
+        }
+
+        public String getToTokenAddress() {
+            return toTokenAddress;
+        }
+
+        public String getUserWalletAddress() {
+            return userWalletAddress;
+        }
+
+        public Vendor getVendor() {
+            return vendor;
+        }
+
+        public Long getRecvWindow() {
+            return recvWindow;
+        }
+
+        public String getNonce() {
+            return nonce;
+        }
+
+        public String getSlippagePercent() {
+            return slippagePercent;
+        }
+
+        public ApproveTransaction getApproveTransaction() {
+            return approveTransaction;
+        }
+
+        public String getApproveAmount() {
+            return approveAmount;
+        }
+
+        public String getGasLimit() {
+            return gasLimit;
+        }
+
+        public GasLevel getGasLevel() {
+            return gasLevel;
+        }
+
+        public String getPriceImpactProtectionPercent() {
+            return priceImpactProtectionPercent;
+        }
+
+        public AutoSlippage getAutoSlippage() {
+            return autoSlippage;
+        }
+
+        public String getMaxAutoSlippagePercent() {
+            return maxAutoSlippagePercent;
+        }
+
+        public String getComputeUnitLimit() {
+            return computeUnitLimit;
+        }
+
+        public String getComputeUnitPrice() {
+            return computeUnitPrice;
+        }
+
+        public String getTips() {
+            return tips;
+        }
+
+        public QuoteAndBuildSwapTransactionRequest(
+                String binanceChainId,
+                String amount,
+                String fromTokenAddress,
+                String toTokenAddress,
+                String userWalletAddress,
+                Vendor vendor) {
+            this.binanceChainId = binanceChainId;
+            this.amount = amount;
+            this.fromTokenAddress = fromTokenAddress;
+            this.toTokenAddress = toTokenAddress;
+            this.userWalletAddress = userWalletAddress;
+            this.vendor = vendor;
+        }
+
+        /**
+         * Set recvWindow
+         *
+         * @param recvWindow Allowed time deviation in milliseconds (default: 5000, max: 60000).
+         *     (optional)
+         * @return QuoteAndBuildSwapTransactionRequest
+         */
+        public QuoteAndBuildSwapTransactionRequest recvWindow(Long recvWindow) {
+            this.recvWindow = recvWindow;
+            return this;
+        }
+
+        /**
+         * Set nonce
+         *
+         * @param nonce Unique request identifier for anti-replay; falls back to X-OC-SIGN if
+         *     omitted. (optional)
+         * @return QuoteAndBuildSwapTransactionRequest
+         */
+        public QuoteAndBuildSwapTransactionRequest nonce(String nonce) {
+            this.nonce = nonce;
+            return this;
+        }
+
+        /**
+         * Set slippagePercent
+         *
+         * @param slippagePercent Maximum slippage tolerance as a percentage string. Required unless
+         *     &#x60;autoSlippage&#x3D;true&#x60;. **Range by chain:** - EVM chains (BSC, Ethereum,
+         *     Base, etc.): &#x60;0&#x60; to &#x60;100&#x60; (inclusive) - Solana
+         *     (&#x60;CT_501&#x60;): &#x60;0&#x60; to less than &#x60;100&#x60; (i.e. &#x60;&lt;
+         *     100&#x60;) &#x60;\&quot;0.5\&quot;&#x60; means 0.5% maximum slippage. When
+         *     &#x60;autoSlippage&#x3D;true&#x60; this field is overridden by the auto-computed
+         *     value. (optional)
+         * @return QuoteAndBuildSwapTransactionRequest
+         */
+        public QuoteAndBuildSwapTransactionRequest slippagePercent(String slippagePercent) {
+            this.slippagePercent = slippagePercent;
+            return this;
+        }
+
+        /**
+         * Set approveTransaction
+         *
+         * @param approveTransaction When \&quot;true\&quot;, &#x60;signatureData&#x60; includes the
+         *     spender address and approve calldata so the client can submit it before the swap.
+         *     Defaults to false. (optional)
+         * @return QuoteAndBuildSwapTransactionRequest
+         */
+        public QuoteAndBuildSwapTransactionRequest approveTransaction(
+                ApproveTransaction approveTransaction) {
+            this.approveTransaction = approveTransaction;
+            return this;
+        }
+
+        /**
+         * Set approveAmount
+         *
+         * @param approveAmount Override approve amount (smallest unit, positive integer string).
+         *     Defaults to the swap amount. (optional)
+         * @return QuoteAndBuildSwapTransactionRequest
+         */
+        public QuoteAndBuildSwapTransactionRequest approveAmount(String approveAmount) {
+            this.approveAmount = approveAmount;
+            return this;
+        }
+
+        /**
+         * Set gasLimit
+         *
+         * @param gasLimit Gas limit override (positive integer string). EVM only. (optional)
+         * @return QuoteAndBuildSwapTransactionRequest
+         */
+        public QuoteAndBuildSwapTransactionRequest gasLimit(String gasLimit) {
+            this.gasLimit = gasLimit;
+            return this;
+        }
+
+        /**
+         * Set gasLevel
+         *
+         * @param gasLevel Gas price tier. Defaults to \&quot;average\&quot;. (optional)
+         * @return QuoteAndBuildSwapTransactionRequest
+         */
+        public QuoteAndBuildSwapTransactionRequest gasLevel(GasLevel gasLevel) {
+            this.gasLevel = gasLevel;
+            return this;
+        }
+
+        /**
+         * Set priceImpactProtectionPercent
+         *
+         * @param priceImpactProtectionPercent Maximum allowed price impact percentage (0–100).
+         *     Defaults to 90; set to 100 to disable. (optional)
+         * @return QuoteAndBuildSwapTransactionRequest
+         */
+        public QuoteAndBuildSwapTransactionRequest priceImpactProtectionPercent(
+                String priceImpactProtectionPercent) {
+            this.priceImpactProtectionPercent = priceImpactProtectionPercent;
+            return this;
+        }
+
+        /**
+         * Set autoSlippage
+         *
+         * @param autoSlippage When &#x60;\&quot;true\&quot;&#x60;, slippage is auto-derived from
+         *     market data and overrides &#x60;slippagePercent&#x60;. Either
+         *     &#x60;slippagePercent&#x60; or &#x60;autoSlippage&#x3D;true&#x60; must be provided —
+         *     omitting both returns a parameter error. Defaults to &#x60;\&quot;false\&quot;&#x60;.
+         *     (optional)
+         * @return QuoteAndBuildSwapTransactionRequest
+         */
+        public QuoteAndBuildSwapTransactionRequest autoSlippage(AutoSlippage autoSlippage) {
+            this.autoSlippage = autoSlippage;
+            return this;
+        }
+
+        /**
+         * Set maxAutoSlippagePercent
+         *
+         * @param maxAutoSlippagePercent Cap on auto-derived slippage (only applies when
+         *     &#x60;autoSlippage&#x3D;true&#x60;). (optional)
+         * @return QuoteAndBuildSwapTransactionRequest
+         */
+        public QuoteAndBuildSwapTransactionRequest maxAutoSlippagePercent(
+                String maxAutoSlippagePercent) {
+            this.maxAutoSlippagePercent = maxAutoSlippagePercent;
+            return this;
+        }
+
+        /**
+         * Set computeUnitLimit
+         *
+         * @param computeUnitLimit Solana only — maximum compute units the transaction may consume
+         *     (analogous to EVM gasLimit). Applies only when
+         *     &#x60;binanceChainId&#x3D;CT_501&#x60;. (optional)
+         * @return QuoteAndBuildSwapTransactionRequest
+         */
+        public QuoteAndBuildSwapTransactionRequest computeUnitLimit(String computeUnitLimit) {
+            this.computeUnitLimit = computeUnitLimit;
+            return this;
+        }
+
+        /**
+         * Set computeUnitPrice
+         *
+         * @param computeUnitPrice Solana only — priority fee per compute unit (micro-lamports),
+         *     analogous to EVM gasPrice. When omitted, the platform computes a value dynamically.
+         *     Applies only when &#x60;binanceChainId&#x3D;CT_501&#x60;. (optional)
+         * @return QuoteAndBuildSwapTransactionRequest
+         */
+        public QuoteAndBuildSwapTransactionRequest computeUnitPrice(String computeUnitPrice) {
+            this.computeUnitPrice = computeUnitPrice;
+            return this;
+        }
+
+        /**
+         * Set tips
+         *
+         * @param tips Solana only — Jito tips in SOL for MEV protection. Valid range [0.000000001,
+         *     2] (minimum 1 lamport). When specified, it is recommended to set
+         *     &#x60;computeUnitPrice&#x3D;0&#x60;. Applies only when
+         *     &#x60;binanceChainId&#x3D;CT_501&#x60;. (optional)
+         * @return QuoteAndBuildSwapTransactionRequest
+         */
+        public QuoteAndBuildSwapTransactionRequest tips(String tips) {
+            this.tips = tips;
+            return this;
+        }
+    }
+
+    private okhttp3.Call submitRfqOrderCall(
+            SubmitRfqOrderRequest submitRfqOrderRequest, Long recvWindow, String nonce)
+            throws ApiException {
+        String basePath = null;
+        // Operation Servers
+        String[] localBasePaths = new String[] {};
+
+        // Determine Base Path to Use
+        if (localCustomBaseUrl != null) {
+            basePath = localCustomBaseUrl;
+        } else if (localBasePaths.length > 0) {
+            basePath = localBasePaths[localHostIndex];
+        } else {
+            basePath = null;
+        }
+
+        Object localVarPostBody = null;
+
+        // create path and map variables
+        String localVarPath = "/api/v1/dex/aggregator/order/submit";
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        Map<String, String> localVarCookieParams = new HashMap<String, String>();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        if (submitRfqOrderRequest.getRequestId() != null) {
+            localVarFormParams.put("requestId", submitRfqOrderRequest.getRequestId());
+        }
+
+        if (submitRfqOrderRequest.getUserSignature() != null) {
+            localVarFormParams.put("userSignature", submitRfqOrderRequest.getUserSignature());
+        }
+
+        if (submitRfqOrderRequest.getVendor() != null) {
+            localVarFormParams.put("vendor", submitRfqOrderRequest.getVendor());
+        }
+
+        if (submitRfqOrderRequest.getQuoteId() != null) {
+            localVarFormParams.put("quoteId", submitRfqOrderRequest.getQuoteId());
+        }
+
+        if (submitRfqOrderRequest.getSigningScheme() != null) {
+            localVarFormParams.put("signingScheme", submitRfqOrderRequest.getSigningScheme());
+        }
+
+        final String[] localVarAccepts = {"application/json"};
+        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) {
+            localVarHeaderParams.put("Accept", localVarAccept);
+        }
+
+        final String[] localVarContentTypes = {"application/x-www-form-urlencoded"};
+        final String localVarContentType =
+                localVarApiClient.selectHeaderContentType(localVarContentTypes);
+        if (!localVarFormParams.isEmpty() && localVarContentType != null) {
+            localVarHeaderParams.put("Content-Type", localVarContentType);
+        }
+
+        if (recvWindow != null) {
+            localVarHeaderParams.put("recvWindow", localVarApiClient.parameterToString(recvWindow));
+        }
+
+        if (nonce != null) {
+            localVarHeaderParams.put("nonce", localVarApiClient.parameterToString(nonce));
+        }
+
+        Set<String> localVarAuthNames = new HashSet<>();
+        localVarAuthNames.add("binanceWeb3Signature");
+        if (HAS_TIME_UNIT) {
+            localVarAuthNames.add("timeUnit");
+        }
+        return localVarApiClient.buildCall(
+                basePath,
+                localVarPath,
+                "POST",
+                localVarQueryParams,
+                localVarCollectionQueryParams,
+                localVarPostBody,
+                localVarHeaderParams,
+                localVarCookieParams,
+                localVarFormParams,
+                localVarAuthNames);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call submitRfqOrderValidateBeforeCall(
+            SubmitRfqOrderRequest submitRfqOrderRequest, Long recvWindow, String nonce)
+            throws ApiException {
+        try {
+            Validator validator =
+                    Validation.byDefaultProvider()
+                            .configure()
+                            .messageInterpolator(new ParameterMessageInterpolator())
+                            .buildValidatorFactory()
+                            .getValidator();
+            ExecutableValidator executableValidator = validator.forExecutables();
+
+            Object[] parameterValues = {submitRfqOrderRequest, recvWindow, nonce};
+            Method method =
+                    this.getClass()
+                            .getMethod(
+                                    "submitRfqOrder",
+                                    SubmitRfqOrderRequest.class,
+                                    Long.class,
+                                    String.class);
+            Set<ConstraintViolation<TradingApi>> violations =
+                    executableValidator.validateParameters(this, method, parameterValues);
+
+            if (violations.size() == 0) {
+                return submitRfqOrderCall(submitRfqOrderRequest, recvWindow, nonce);
+            } else {
+                throw new ConstraintViolationException((Set) violations);
+            }
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+            throw new ApiException(e.getMessage());
+        } catch (SecurityException e) {
+            e.printStackTrace();
+            throw new ApiException(e.getMessage());
+        }
+    }
+
+    public ApiResponse<SubmitRfqOrderResponse> submitRfqOrder(
+            @Valid @NotNull SubmitRfqOrderRequest submitRfqOrderRequest,
+            Long recvWindow,
+            String nonce)
+            throws ApiException {
+        okhttp3.Call localVarCall =
+                submitRfqOrderValidateBeforeCall(submitRfqOrderRequest, recvWindow, nonce);
+        java.lang.reflect.Type localVarReturnType =
+                new TypeToken<SubmitRfqOrderResponse>() {}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 }

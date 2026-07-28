@@ -114,7 +114,6 @@ public class TradingApiTest {
                         amount,
                         fromTokenAddress,
                         toTokenAddress,
-                        slippagePercent,
                         userWalletAddress,
                         quoteId);
         ApiResponse<BuildSwapTransactionResponse> response = api.buildSwapTransaction(request);
@@ -129,9 +128,9 @@ public class TradingApiTest {
         Call captorValue = callArgumentCaptor.getValue();
         Request actualRequest = captorValue.request();
 
-        assertEquals("binanceChainId=56&amount=1000000&fromTokenAddress=0x55d398326f99059fF775485246999027B3197955&toTokenAddress=0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d&slippagePercent=0.5&userWalletAddress=0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045&quoteId=a1b2c3d4e5f64a8b9c0d1e2f3a4b5c6d&timestamp=1736393892000", signInputCaptor.getValue());
+        assertEquals("binanceChainId=56&amount=1000000&fromTokenAddress=0x55d398326f99059fF775485246999027B3197955&toTokenAddress=0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d&userWalletAddress=0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045&quoteId=a1b2c3d4e5f64a8b9c0d1e2f3a4b5c6d&timestamp=1736393892000", signInputCaptor.getValue());
         assertEquals(
-                "fbb6ec18ac54ed188292b0a8f4e42b959c6e32bba96cbca842f7fd4cc740357d",
+                "3deb8de6611cc31df83d4013faf6b718c3bdf41105355eeea2aafc926cdce95c",
                 actualRequest.url().queryParameter("signature"));
         assertEquals("/api/v1/dex/aggregator/swap", actualRequest.url().encodedPath());
     }

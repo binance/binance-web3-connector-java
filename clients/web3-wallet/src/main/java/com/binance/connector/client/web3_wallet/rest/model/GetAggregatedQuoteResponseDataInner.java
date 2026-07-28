@@ -116,6 +116,24 @@ public class GetAggregatedQuoteResponseDataInner {
     @jakarta.annotation.Nullable
     private List<@Valid GetAggregatedQuoteResponseDataInnerDexRouterListInner> dexRouterList;
 
+    public static final String SERIALIZED_NAME_EXECUTION_MODE = "executionMode";
+
+    @SerializedName(SERIALIZED_NAME_EXECUTION_MODE)
+    @jakarta.annotation.Nullable
+    private String executionMode;
+
+    public static final String SERIALIZED_NAME_APPROVE_TARGET = "approveTarget";
+
+    @SerializedName(SERIALIZED_NAME_APPROVE_TARGET)
+    @jakarta.annotation.Nullable
+    private String approveTarget;
+
+    public static final String SERIALIZED_NAME_IS_BEST = "isBest";
+
+    @SerializedName(SERIALIZED_NAME_IS_BEST)
+    @jakarta.annotation.Nullable
+    private Boolean isBest;
+
     public GetAggregatedQuoteResponseDataInner() {}
 
     public GetAggregatedQuoteResponseDataInner quoteId(
@@ -379,6 +397,76 @@ public class GetAggregatedQuoteResponseDataInner {
         this.dexRouterList = dexRouterList;
     }
 
+    public GetAggregatedQuoteResponseDataInner executionMode(
+            @jakarta.annotation.Nullable String executionMode) {
+        this.executionMode = executionMode;
+        return this;
+    }
+
+    /**
+     * Execution mode for this route. &#x60;SWAP&#x60; &#x3D; standard on-chain swap (sign the
+     * &#x60;tx&#x60; object from &#x60;/swap&#x60; and broadcast). &#x60;RFQ&#x60; &#x3D; signed
+     * order flow (sign &#x60;rfq.typedDataToSign&#x60; from &#x60;/swap&#x60; with EIP-712, submit
+     * via &#x60;POST /order/submit&#x60;, poll &#x60;GET /order/{orderId}&#x60;). Equity / RWA
+     * tokens always return &#x60;RFQ&#x60;.
+     *
+     * @return executionMode
+     */
+    @jakarta.annotation.Nullable
+    public String getExecutionMode() {
+        return executionMode;
+    }
+
+    public void setExecutionMode(@jakarta.annotation.Nullable String executionMode) {
+        this.executionMode = executionMode;
+    }
+
+    public GetAggregatedQuoteResponseDataInner approveTarget(
+            @jakarta.annotation.Nullable String approveTarget) {
+        this.approveTarget = approveTarget;
+        return this;
+    }
+
+    /**
+     * The spender contract address the backend will encode into the approve calldata for this
+     * route. To obtain that calldata, call &#x60;/approve-transaction&#x60; with
+     * &#x60;vendor&#x3D;&lt;vendorName&gt;&#x60; (the string name, e.g.
+     * &#x60;\&quot;PcsXRfq\&quot;&#x60;) — the backend resolves the spender address internally from
+     * the vendor name. This field is provided for informational purposes only (e.g. to call ERC-20
+     * &#x60;approve()&#x60; directly without going through &#x60;/approve-transaction&#x60;). Null
+     * when no approval is needed (e.g. native-token swap or already approved).
+     *
+     * @return approveTarget
+     */
+    @jakarta.annotation.Nullable
+    public String getApproveTarget() {
+        return approveTarget;
+    }
+
+    public void setApproveTarget(@jakarta.annotation.Nullable String approveTarget) {
+        this.approveTarget = approveTarget;
+    }
+
+    public GetAggregatedQuoteResponseDataInner isBest(@jakarta.annotation.Nullable Boolean isBest) {
+        this.isBest = isBest;
+        return this;
+    }
+
+    /**
+     * Whether this route has the highest &#x60;toTokenAmount&#x60; among all routes returned in
+     * this response. At most one route per response has &#x60;isBest&#x3D;true&#x60;.
+     *
+     * @return isBest
+     */
+    @jakarta.annotation.Nullable
+    public Boolean getIsBest() {
+        return isBest;
+    }
+
+    public void setIsBest(@jakarta.annotation.Nullable Boolean isBest) {
+        this.isBest = isBest;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -407,7 +495,12 @@ public class GetAggregatedQuoteResponseDataInner {
                 && Objects.equals(this.fromToken, getAggregatedQuoteResponseDataInner.fromToken)
                 && Objects.equals(this.toToken, getAggregatedQuoteResponseDataInner.toToken)
                 && Objects.equals(
-                        this.dexRouterList, getAggregatedQuoteResponseDataInner.dexRouterList);
+                        this.dexRouterList, getAggregatedQuoteResponseDataInner.dexRouterList)
+                && Objects.equals(
+                        this.executionMode, getAggregatedQuoteResponseDataInner.executionMode)
+                && Objects.equals(
+                        this.approveTarget, getAggregatedQuoteResponseDataInner.approveTarget)
+                && Objects.equals(this.isBest, getAggregatedQuoteResponseDataInner.isBest);
     }
 
     private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
@@ -433,7 +526,10 @@ public class GetAggregatedQuoteResponseDataInner {
                 router,
                 fromToken,
                 toToken,
-                dexRouterList);
+                dexRouterList,
+                executionMode,
+                approveTarget,
+                isBest);
     }
 
     private static <T> int hashCodeNullable(JsonNullable<T> a) {
@@ -461,6 +557,9 @@ public class GetAggregatedQuoteResponseDataInner {
         sb.append("		fromToken: ").append(toIndentedString(fromToken)).append("\n");
         sb.append("		toToken: ").append(toIndentedString(toToken)).append("\n");
         sb.append("		dexRouterList: ").append(toIndentedString(dexRouterList)).append("\n");
+        sb.append("		executionMode: ").append(toIndentedString(executionMode)).append("\n");
+        sb.append("		approveTarget: ").append(toIndentedString(approveTarget)).append("\n");
+        sb.append("		isBest: ").append(toIndentedString(isBest)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -521,6 +620,18 @@ public class GetAggregatedQuoteResponseDataInner {
                         ((Collection) dexRouterListValue)
                                 .stream().map(Object::toString).collect(Collectors.joining(","));
         sb.append("dexRouterList=").append(urlEncode(dexRouterListValueAsString)).append("");
+        Object executionModeValue = getExecutionMode();
+        String executionModeValueAsString = "";
+        executionModeValueAsString = executionModeValue.toString();
+        sb.append("executionMode=").append(urlEncode(executionModeValueAsString)).append("");
+        Object approveTargetValue = getApproveTarget();
+        String approveTargetValueAsString = "";
+        approveTargetValueAsString = approveTargetValue.toString();
+        sb.append("approveTarget=").append(urlEncode(approveTargetValueAsString)).append("");
+        Object isBestValue = getIsBest();
+        String isBestValueAsString = "";
+        isBestValueAsString = isBestValue.toString();
+        sb.append("isBest=").append(urlEncode(isBestValueAsString)).append("");
         return sb.toString();
     }
 
@@ -561,6 +672,9 @@ public class GetAggregatedQuoteResponseDataInner {
         openapiFields.add("fromToken");
         openapiFields.add("toToken");
         openapiFields.add("dexRouterList");
+        openapiFields.add("executionMode");
+        openapiFields.add("approveTarget");
+        openapiFields.add("isBest");
 
         // a set of required properties/fields (JSON key names)
         openapiRequiredFields = new HashSet<String>();
@@ -687,6 +801,22 @@ public class GetAggregatedQuoteResponseDataInner {
                 }
                 ;
             }
+        }
+        if ((jsonObj.get("executionMode") != null && !jsonObj.get("executionMode").isJsonNull())
+                && !jsonObj.get("executionMode").isJsonPrimitive()) {
+            throw new IllegalArgumentException(
+                    String.format(
+                            "Expected the field `executionMode` to be a primitive type in the JSON"
+                                    + " string but got `%s`",
+                            jsonObj.get("executionMode").toString()));
+        }
+        if ((jsonObj.get("approveTarget") != null && !jsonObj.get("approveTarget").isJsonNull())
+                && !jsonObj.get("approveTarget").isJsonPrimitive()) {
+            throw new IllegalArgumentException(
+                    String.format(
+                            "Expected the field `approveTarget` to be a primitive type in the JSON"
+                                    + " string but got `%s`",
+                            jsonObj.get("approveTarget").toString()));
         }
     }
 

@@ -76,7 +76,8 @@ public class BroadcastTransactionsResponseData {
     }
 
     /**
-     * On-chain transaction hash.
+     * On-chain transaction hash. EVM chains return a hex hash; Tron returns a base58check hash;
+     * Solana returns a base58 hash.
      *
      * @return txHash
      */
