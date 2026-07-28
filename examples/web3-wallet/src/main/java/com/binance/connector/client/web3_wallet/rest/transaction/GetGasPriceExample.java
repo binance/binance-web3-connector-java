@@ -32,8 +32,10 @@ public class GetGasPriceExample {
      * <p>Query the current network gas price for the specified chain. The response shape varies by
      * chain family: - EVM chains return both &#x60;evmLegacyGasPrice&#x60; (legacy gasPrice) and
      * &#x60;eip1559GasPrice&#x60; (baseFee + priority/max fees) when EIP-1559 is supported. -
-     * Solana returns &#x60;solanaGasPrice&#x60; (compute-unit prices and Jito tips). Fields not
-     * applicable to the chain family are returned as &#x60;null&#x60;.
+     * Solana returns &#x60;solanaGasPrice&#x60; (compute-unit prices and Jito tips). - Tron
+     * (\&quot;CT_195\&quot;) returns an empty &#x60;data&#x60; object because Tron has no on-chain
+     * gas-price concept; use the gas-limit endpoint instead. Fields not applicable to the chain
+     * family are returned as &#x60;null&#x60;.
      *
      * @throws ApiException if the Api call fails
      */

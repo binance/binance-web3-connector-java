@@ -19,6 +19,9 @@
 |**fromToken** | [**GetAggregatedQuoteResponseDataInnerFromToken**](GetAggregatedQuoteResponseDataInnerFromToken.md) |  |  [optional] |
 |**toToken** | [**GetAggregatedQuoteResponseDataInnerToToken**](GetAggregatedQuoteResponseDataInnerToToken.md) |  |  [optional] |
 |**dexRouterList** | [**List&lt;GetAggregatedQuoteResponseDataInnerDexRouterListInner&gt;**](GetAggregatedQuoteResponseDataInnerDexRouterListInner.md) | Routing path segments. Each segment corresponds to one hop on one DEX protocol; multi-DEX hops are flattened. |  [optional] |
+|**executionMode** | **String** | Execution mode for this route. &#x60;SWAP&#x60; &#x3D; standard on-chain swap (sign the &#x60;tx&#x60; object from &#x60;/swap&#x60; and broadcast). &#x60;RFQ&#x60; &#x3D; signed order flow (sign &#x60;rfq.typedDataToSign&#x60; from &#x60;/swap&#x60; with EIP-712, submit via &#x60;POST /order/submit&#x60;, poll &#x60;GET /order/{orderId}&#x60;). Equity / RWA tokens always return &#x60;RFQ&#x60;. |  [optional] |
+|**approveTarget** | **String** | The spender contract address the backend will encode into the approve calldata for this route. To obtain that calldata, call &#x60;/approve-transaction&#x60; with &#x60;vendor&#x3D;&lt;vendorName&gt;&#x60; (the string name, e.g. &#x60;\&quot;PcsXRfq\&quot;&#x60;) — the backend resolves the spender address internally from the vendor name. This field is provided for informational purposes only (e.g. to call ERC-20 &#x60;approve()&#x60; directly without going through &#x60;/approve-transaction&#x60;). Null when no approval is needed (e.g. native-token swap or already approved). |  [optional] |
+|**isBest** | **Boolean** | Whether this route has the highest &#x60;toTokenAmount&#x60; among all routes returned in this response. At most one route per response has &#x60;isBest&#x3D;true&#x60;. |  [optional] |
 
 
 

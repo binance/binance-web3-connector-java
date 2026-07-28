@@ -27,11 +27,16 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Objects;
 import org.hibernate.validator.constraints.*;
+import org.openapitools.jackson.nullable.JsonNullable;
 
-/** GetGasLimitResponseData */
+/**
+ * Estimated gas limit. On Tron, the response additionally carries energy/bandwidth fields;
+ * non-applicable fields are returned as &#x60;null&#x60;.
+ */
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
         comments = "Generator version: 7.22.0")
@@ -42,6 +47,42 @@ public class GetGasLimitResponseData {
     @jakarta.annotation.Nullable
     private String gasLimit;
 
+    public static final String SERIALIZED_NAME_ENERGY_REQUIRED = "energyRequired";
+
+    @SerializedName(SERIALIZED_NAME_ENERGY_REQUIRED)
+    @jakarta.annotation.Nullable
+    private String energyRequired;
+
+    public static final String SERIALIZED_NAME_BANDWIDTH_REQUIRED = "bandwidthRequired";
+
+    @SerializedName(SERIALIZED_NAME_BANDWIDTH_REQUIRED)
+    @jakarta.annotation.Nullable
+    private String bandwidthRequired;
+
+    public static final String SERIALIZED_NAME_FREE_ENERGY = "freeEnergy";
+
+    @SerializedName(SERIALIZED_NAME_FREE_ENERGY)
+    @jakarta.annotation.Nullable
+    private String freeEnergy;
+
+    public static final String SERIALIZED_NAME_FREE_BANDWIDTH = "freeBandwidth";
+
+    @SerializedName(SERIALIZED_NAME_FREE_BANDWIDTH)
+    @jakarta.annotation.Nullable
+    private String freeBandwidth;
+
+    public static final String SERIALIZED_NAME_ENERGY_FEE = "energyFee";
+
+    @SerializedName(SERIALIZED_NAME_ENERGY_FEE)
+    @jakarta.annotation.Nullable
+    private String energyFee;
+
+    public static final String SERIALIZED_NAME_BANDWIDTH_FEE = "bandwidthFee";
+
+    @SerializedName(SERIALIZED_NAME_BANDWIDTH_FEE)
+    @jakarta.annotation.Nullable
+    private String bandwidthFee;
+
     public GetGasLimitResponseData() {}
 
     public GetGasLimitResponseData gasLimit(@jakarta.annotation.Nullable String gasLimit) {
@@ -50,7 +91,8 @@ public class GetGasLimitResponseData {
     }
 
     /**
-     * Estimated gas limit (EVM) or compute-unit ceiling (Solana), as an integer string.
+     * Estimated gas limit (EVM), compute-unit ceiling (Solana), or fee limit in sun (Tron), as an
+     * integer string.
      *
      * @return gasLimit
      */
@@ -63,6 +105,123 @@ public class GetGasLimitResponseData {
         this.gasLimit = gasLimit;
     }
 
+    public GetGasLimitResponseData energyRequired(
+            @jakarta.annotation.Nullable String energyRequired) {
+        this.energyRequired = energyRequired;
+        return this;
+    }
+
+    /**
+     * Energy consumed by the Tron transaction (integer string). Null on non-Tron chains.
+     *
+     * @return energyRequired
+     */
+    @jakarta.annotation.Nullable
+    public String getEnergyRequired() {
+        return energyRequired;
+    }
+
+    public void setEnergyRequired(@jakarta.annotation.Nullable String energyRequired) {
+        this.energyRequired = energyRequired;
+    }
+
+    public GetGasLimitResponseData bandwidthRequired(
+            @jakarta.annotation.Nullable String bandwidthRequired) {
+        this.bandwidthRequired = bandwidthRequired;
+        return this;
+    }
+
+    /**
+     * Bandwidth consumed by the Tron transaction (integer string). Null on non-Tron chains.
+     *
+     * @return bandwidthRequired
+     */
+    @jakarta.annotation.Nullable
+    public String getBandwidthRequired() {
+        return bandwidthRequired;
+    }
+
+    public void setBandwidthRequired(@jakarta.annotation.Nullable String bandwidthRequired) {
+        this.bandwidthRequired = bandwidthRequired;
+    }
+
+    public GetGasLimitResponseData freeEnergy(@jakarta.annotation.Nullable String freeEnergy) {
+        this.freeEnergy = freeEnergy;
+        return this;
+    }
+
+    /**
+     * Free energy available to the account on Tron (integer string). Null on non-Tron chains.
+     *
+     * @return freeEnergy
+     */
+    @jakarta.annotation.Nullable
+    public String getFreeEnergy() {
+        return freeEnergy;
+    }
+
+    public void setFreeEnergy(@jakarta.annotation.Nullable String freeEnergy) {
+        this.freeEnergy = freeEnergy;
+    }
+
+    public GetGasLimitResponseData freeBandwidth(
+            @jakarta.annotation.Nullable String freeBandwidth) {
+        this.freeBandwidth = freeBandwidth;
+        return this;
+    }
+
+    /**
+     * Free bandwidth available to the account on Tron (integer string). Null on non-Tron chains.
+     *
+     * @return freeBandwidth
+     */
+    @jakarta.annotation.Nullable
+    public String getFreeBandwidth() {
+        return freeBandwidth;
+    }
+
+    public void setFreeBandwidth(@jakarta.annotation.Nullable String freeBandwidth) {
+        this.freeBandwidth = freeBandwidth;
+    }
+
+    public GetGasLimitResponseData energyFee(@jakarta.annotation.Nullable String energyFee) {
+        this.energyFee = energyFee;
+        return this;
+    }
+
+    /**
+     * Unit price of energy on Tron (sun per energy, integer string). Null on non-Tron chains.
+     *
+     * @return energyFee
+     */
+    @jakarta.annotation.Nullable
+    public String getEnergyFee() {
+        return energyFee;
+    }
+
+    public void setEnergyFee(@jakarta.annotation.Nullable String energyFee) {
+        this.energyFee = energyFee;
+    }
+
+    public GetGasLimitResponseData bandwidthFee(@jakarta.annotation.Nullable String bandwidthFee) {
+        this.bandwidthFee = bandwidthFee;
+        return this;
+    }
+
+    /**
+     * Unit price of bandwidth on Tron (sun per byte, integer string). Null on non-Tron chains.
+     *
+     * @return bandwidthFee
+     */
+    @jakarta.annotation.Nullable
+    public String getBandwidthFee() {
+        return bandwidthFee;
+    }
+
+    public void setBandwidthFee(@jakarta.annotation.Nullable String bandwidthFee) {
+        this.bandwidthFee = bandwidthFee;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -72,12 +231,41 @@ public class GetGasLimitResponseData {
             return false;
         }
         GetGasLimitResponseData getGasLimitResponseData = (GetGasLimitResponseData) o;
-        return Objects.equals(this.gasLimit, getGasLimitResponseData.gasLimit);
+        return Objects.equals(this.gasLimit, getGasLimitResponseData.gasLimit)
+                && Objects.equals(this.energyRequired, getGasLimitResponseData.energyRequired)
+                && Objects.equals(this.bandwidthRequired, getGasLimitResponseData.bandwidthRequired)
+                && Objects.equals(this.freeEnergy, getGasLimitResponseData.freeEnergy)
+                && Objects.equals(this.freeBandwidth, getGasLimitResponseData.freeBandwidth)
+                && Objects.equals(this.energyFee, getGasLimitResponseData.energyFee)
+                && Objects.equals(this.bandwidthFee, getGasLimitResponseData.bandwidthFee);
+    }
+
+    private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
+        return a == b
+                || (a != null
+                        && b != null
+                        && a.isPresent()
+                        && b.isPresent()
+                        && Objects.deepEquals(a.get(), b.get()));
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(gasLimit);
+        return Objects.hash(
+                gasLimit,
+                energyRequired,
+                bandwidthRequired,
+                freeEnergy,
+                freeBandwidth,
+                energyFee,
+                bandwidthFee);
+    }
+
+    private static <T> int hashCodeNullable(JsonNullable<T> a) {
+        if (a == null) {
+            return 1;
+        }
+        return a.isPresent() ? Arrays.deepHashCode(new Object[] {a.get()}) : 31;
     }
 
     @Override
@@ -85,6 +273,12 @@ public class GetGasLimitResponseData {
         StringBuilder sb = new StringBuilder();
         sb.append("class GetGasLimitResponseData {\n");
         sb.append("		gasLimit: ").append(toIndentedString(gasLimit)).append("\n");
+        sb.append("		energyRequired: ").append(toIndentedString(energyRequired)).append("\n");
+        sb.append("		bandwidthRequired: ").append(toIndentedString(bandwidthRequired)).append("\n");
+        sb.append("		freeEnergy: ").append(toIndentedString(freeEnergy)).append("\n");
+        sb.append("		freeBandwidth: ").append(toIndentedString(freeBandwidth)).append("\n");
+        sb.append("		energyFee: ").append(toIndentedString(energyFee)).append("\n");
+        sb.append("		bandwidthFee: ").append(toIndentedString(bandwidthFee)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -96,6 +290,32 @@ public class GetGasLimitResponseData {
         String gasLimitValueAsString = "";
         gasLimitValueAsString = gasLimitValue.toString();
         sb.append("gasLimit=").append(urlEncode(gasLimitValueAsString)).append("");
+        Object energyRequiredValue = getEnergyRequired();
+        String energyRequiredValueAsString = "";
+        energyRequiredValueAsString = energyRequiredValue.toString();
+        sb.append("energyRequired=").append(urlEncode(energyRequiredValueAsString)).append("");
+        Object bandwidthRequiredValue = getBandwidthRequired();
+        String bandwidthRequiredValueAsString = "";
+        bandwidthRequiredValueAsString = bandwidthRequiredValue.toString();
+        sb.append("bandwidthRequired=")
+                .append(urlEncode(bandwidthRequiredValueAsString))
+                .append("");
+        Object freeEnergyValue = getFreeEnergy();
+        String freeEnergyValueAsString = "";
+        freeEnergyValueAsString = freeEnergyValue.toString();
+        sb.append("freeEnergy=").append(urlEncode(freeEnergyValueAsString)).append("");
+        Object freeBandwidthValue = getFreeBandwidth();
+        String freeBandwidthValueAsString = "";
+        freeBandwidthValueAsString = freeBandwidthValue.toString();
+        sb.append("freeBandwidth=").append(urlEncode(freeBandwidthValueAsString)).append("");
+        Object energyFeeValue = getEnergyFee();
+        String energyFeeValueAsString = "";
+        energyFeeValueAsString = energyFeeValue.toString();
+        sb.append("energyFee=").append(urlEncode(energyFeeValueAsString)).append("");
+        Object bandwidthFeeValue = getBandwidthFee();
+        String bandwidthFeeValueAsString = "";
+        bandwidthFeeValueAsString = bandwidthFeeValue.toString();
+        sb.append("bandwidthFee=").append(urlEncode(bandwidthFeeValueAsString)).append("");
         return sb.toString();
     }
 
@@ -125,6 +345,12 @@ public class GetGasLimitResponseData {
         // a set of all properties/fields (JSON key names)
         openapiFields = new HashSet<String>();
         openapiFields.add("gasLimit");
+        openapiFields.add("energyRequired");
+        openapiFields.add("bandwidthRequired");
+        openapiFields.add("freeEnergy");
+        openapiFields.add("freeBandwidth");
+        openapiFields.add("energyFee");
+        openapiFields.add("bandwidthFee");
 
         // a set of required properties/fields (JSON key names)
         openapiRequiredFields = new HashSet<String>();
@@ -155,6 +381,55 @@ public class GetGasLimitResponseData {
                             "Expected the field `gasLimit` to be a primitive type in the JSON"
                                     + " string but got `%s`",
                             jsonObj.get("gasLimit").toString()));
+        }
+        if ((jsonObj.get("energyRequired") != null && !jsonObj.get("energyRequired").isJsonNull())
+                && !jsonObj.get("energyRequired").isJsonPrimitive()) {
+            throw new IllegalArgumentException(
+                    String.format(
+                            "Expected the field `energyRequired` to be a primitive type in the JSON"
+                                    + " string but got `%s`",
+                            jsonObj.get("energyRequired").toString()));
+        }
+        if ((jsonObj.get("bandwidthRequired") != null
+                        && !jsonObj.get("bandwidthRequired").isJsonNull())
+                && !jsonObj.get("bandwidthRequired").isJsonPrimitive()) {
+            throw new IllegalArgumentException(
+                    String.format(
+                            "Expected the field `bandwidthRequired` to be a primitive type in the"
+                                    + " JSON string but got `%s`",
+                            jsonObj.get("bandwidthRequired").toString()));
+        }
+        if ((jsonObj.get("freeEnergy") != null && !jsonObj.get("freeEnergy").isJsonNull())
+                && !jsonObj.get("freeEnergy").isJsonPrimitive()) {
+            throw new IllegalArgumentException(
+                    String.format(
+                            "Expected the field `freeEnergy` to be a primitive type in the JSON"
+                                    + " string but got `%s`",
+                            jsonObj.get("freeEnergy").toString()));
+        }
+        if ((jsonObj.get("freeBandwidth") != null && !jsonObj.get("freeBandwidth").isJsonNull())
+                && !jsonObj.get("freeBandwidth").isJsonPrimitive()) {
+            throw new IllegalArgumentException(
+                    String.format(
+                            "Expected the field `freeBandwidth` to be a primitive type in the JSON"
+                                    + " string but got `%s`",
+                            jsonObj.get("freeBandwidth").toString()));
+        }
+        if ((jsonObj.get("energyFee") != null && !jsonObj.get("energyFee").isJsonNull())
+                && !jsonObj.get("energyFee").isJsonPrimitive()) {
+            throw new IllegalArgumentException(
+                    String.format(
+                            "Expected the field `energyFee` to be a primitive type in the JSON"
+                                    + " string but got `%s`",
+                            jsonObj.get("energyFee").toString()));
+        }
+        if ((jsonObj.get("bandwidthFee") != null && !jsonObj.get("bandwidthFee").isJsonNull())
+                && !jsonObj.get("bandwidthFee").isJsonPrimitive()) {
+            throw new IllegalArgumentException(
+                    String.format(
+                            "Expected the field `bandwidthFee` to be a primitive type in the JSON"
+                                    + " string but got `%s`",
+                            jsonObj.get("bandwidthFee").toString()));
         }
     }
 

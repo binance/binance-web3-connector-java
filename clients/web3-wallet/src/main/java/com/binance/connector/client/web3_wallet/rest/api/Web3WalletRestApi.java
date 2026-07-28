@@ -8,46 +8,75 @@ import com.binance.connector.client.web3_wallet.rest.Web3WalletRestApiUtil;
 import com.binance.connector.client.web3_wallet.rest.model.ApproveTransaction;
 import com.binance.connector.client.web3_wallet.rest.model.AutoSlippage;
 import com.binance.connector.client.web3_wallet.rest.model.Bar;
+import com.binance.connector.client.web3_wallet.rest.model.BinanceChainId;
 import com.binance.connector.client.web3_wallet.rest.model.BroadcastTransactionsRequest;
 import com.binance.connector.client.web3_wallet.rest.model.BroadcastTransactionsResponse;
+import com.binance.connector.client.web3_wallet.rest.model.BuildSolanaSwapInstructionsResponse;
 import com.binance.connector.client.web3_wallet.rest.model.BuildSwapTransactionResponse;
 import com.binance.connector.client.web3_wallet.rest.model.GasLevel;
+import com.binance.connector.client.web3_wallet.rest.model.GetAddressPnLForSpecificTokenResponse;
+import com.binance.connector.client.web3_wallet.rest.model.GetAddressPortfolioOverviewResponse;
+import com.binance.connector.client.web3_wallet.rest.model.GetAddressRecentPnLResponse;
 import com.binance.connector.client.web3_wallet.rest.model.GetAggregatedQuoteResponse;
 import com.binance.connector.client.web3_wallet.rest.model.GetAggregatorSupportedChainsResponse;
 import com.binance.connector.client.web3_wallet.rest.model.GetAllTokenBalancesByAddressResponse;
 import com.binance.connector.client.web3_wallet.rest.model.GetBroadcastOrdersResponse;
 import com.binance.connector.client.web3_wallet.rest.model.GetCandlesResponse;
+import com.binance.connector.client.web3_wallet.rest.model.GetDexTradeHistoryResponse;
 import com.binance.connector.client.web3_wallet.rest.model.GetErc20ApproveTransactionResponse;
 import com.binance.connector.client.web3_wallet.rest.model.GetGasLimitRequest;
 import com.binance.connector.client.web3_wallet.rest.model.GetGasLimitResponse;
 import com.binance.connector.client.web3_wallet.rest.model.GetGasPriceResponse;
 import com.binance.connector.client.web3_wallet.rest.model.GetHoldersRankingResponse;
 import com.binance.connector.client.web3_wallet.rest.model.GetHotTokenListResponse;
+import com.binance.connector.client.web3_wallet.rest.model.GetLeaderboardResponse;
+import com.binance.connector.client.web3_wallet.rest.model.GetPortfolioSupportedChainsResponse;
+import com.binance.connector.client.web3_wallet.rest.model.GetRfqOrderStatusResponse;
+import com.binance.connector.client.web3_wallet.rest.model.GetRwaTokenIssuancePlatformsResponse;
+import com.binance.connector.client.web3_wallet.rest.model.GetRwaTokenListResponse;
+import com.binance.connector.client.web3_wallet.rest.model.GetRwaTokenPriceResponse;
+import com.binance.connector.client.web3_wallet.rest.model.GetRwaUnderlyingInfoResponse;
+import com.binance.connector.client.web3_wallet.rest.model.GetRwaUnderlyingMarketDataResponse;
 import com.binance.connector.client.web3_wallet.rest.model.GetSupportedChainsResponse;
 import com.binance.connector.client.web3_wallet.rest.model.GetTokenAdvancedInfoResponse;
 import com.binance.connector.client.web3_wallet.rest.model.GetTokenBalancesByAddressRequest;
 import com.binance.connector.client.web3_wallet.rest.model.GetTokenBalancesByAddressResponse;
 import com.binance.connector.client.web3_wallet.rest.model.GetTokenBasicInfoResponse;
+import com.binance.connector.client.web3_wallet.rest.model.GetTokenDevInfoResponse;
 import com.binance.connector.client.web3_wallet.rest.model.GetTokenPriceResponse;
 import com.binance.connector.client.web3_wallet.rest.model.GetTokenTradesResponse;
 import com.binance.connector.client.web3_wallet.rest.model.GetTokenTradingInfoResponse;
 import com.binance.connector.client.web3_wallet.rest.model.GetTopLiquidityPoolsResponse;
 import com.binance.connector.client.web3_wallet.rest.model.GetTopTradersResponse;
+import com.binance.connector.client.web3_wallet.rest.model.GetTrackedTradesResponse;
 import com.binance.connector.client.web3_wallet.rest.model.GetTransactionDetailByHashResponse;
 import com.binance.connector.client.web3_wallet.rest.model.GetTransactionStatusResponse;
 import com.binance.connector.client.web3_wallet.rest.model.GetTransactionSupportedChainsResponse;
 import com.binance.connector.client.web3_wallet.rest.model.GetTransactionsByAddressResponse;
 import com.binance.connector.client.web3_wallet.rest.model.GetWalletSupportedChainsResponse;
+import com.binance.connector.client.web3_wallet.rest.model.OrderType;
+import com.binance.connector.client.web3_wallet.rest.model.PlatformId;
+import com.binance.connector.client.web3_wallet.rest.model.QuoteAndBuildSwapTransactionResponse;
 import com.binance.connector.client.web3_wallet.rest.model.RankBy;
 import com.binance.connector.client.web3_wallet.rest.model.RankingTimeFrame;
+import com.binance.connector.client.web3_wallet.rest.model.SearchRwaTokenResponse;
 import com.binance.connector.client.web3_wallet.rest.model.SearchTokenResponse;
 import com.binance.connector.client.web3_wallet.rest.model.SimulateTransactionsRequest;
 import com.binance.connector.client.web3_wallet.rest.model.SimulateTransactionsResponse;
+import com.binance.connector.client.web3_wallet.rest.model.SortBy;
+import com.binance.connector.client.web3_wallet.rest.model.SubmitRfqOrderRequest;
+import com.binance.connector.client.web3_wallet.rest.model.SubmitRfqOrderResponse;
 import com.binance.connector.client.web3_wallet.rest.model.TagFilter;
+import com.binance.connector.client.web3_wallet.rest.model.TimeFrame;
+import com.binance.connector.client.web3_wallet.rest.model.TrackerType;
+import com.binance.connector.client.web3_wallet.rest.model.Vendor;
+import com.binance.connector.client.web3_wallet.rest.model.WalletType;
 
 public class Web3WalletRestApi {
 
-    private final MarketApi marketApi;
+    private final AddressPortfolioApi addressPortfolioApi;
+    private final GeneralDataApi generalDataApi;
+    private final RwaDataApi rwaDataApi;
     private final TradingApi tradingApi;
     private final TransactionApi transactionApi;
     private final WalletApi walletApi;
@@ -57,14 +86,429 @@ public class Web3WalletRestApi {
     }
 
     public Web3WalletRestApi(ApiClient apiClient) {
-        this.marketApi = new MarketApi(apiClient);
+        this.addressPortfolioApi = new AddressPortfolioApi(apiClient);
+        this.generalDataApi = new GeneralDataApi(apiClient);
+        this.rwaDataApi = new RwaDataApi(apiClient);
         this.tradingApi = new TradingApi(apiClient);
         this.transactionApi = new TransactionApi(apiClient);
         this.walletApi = new WalletApi(apiClient);
     }
 
-    public ApiResponse<GetCandlesResponse> getCandles(MarketApi.GetCandlesRequest request) {
-        return marketApi.getCandles(request);
+    public ApiResponse<GetAddressPnLForSpecificTokenResponse> getAddressPnLForSpecificToken(
+            AddressPortfolioApi.GetAddressPnLForSpecificTokenRequest request) {
+        return addressPortfolioApi.getAddressPnLForSpecificToken(request);
+    }
+
+    /**
+     * Get Address PnL for Specific Token Return the latest realized PnL detail for a specific token
+     * held by an address, including buy/sell stats, current balance, and holding duration.
+     *
+     * @param binanceChainId Unique chain identifier (e.g. \&quot;1\&quot;&#x3D;Ethereum,
+     *     \&quot;56\&quot;&#x3D;BSC, \&quot;CT_501\&quot;&#x3D;Solana). (required)
+     * @param walletAddress Wallet address to query. EVM chains accept lowercase 42-character hex
+     *     addresses; Solana accepts base58 addresses (case-sensitive). (required)
+     * @param tokenContractAddress Token contract address. EVM chains accept lowercase 42-character
+     *     hex addresses; Solana accepts base58 addresses (case-sensitive). (required)
+     * @param recvWindow Allowed time deviation in milliseconds (default: 5000, max: 60000).
+     *     (optional)
+     * @param nonce Unique request identifier for anti-replay; falls back to X-OC-SIGN if omitted.
+     *     (optional)
+     * @return ApiResponse&lt;GetAddressPnLForSpecificTokenResponse&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the
+     *     response body
+     * @http.response.details
+     *     <table border="1">
+     * <caption>Response Details</caption>
+     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+     * <tr><td> 200 </td><td> Token latest PnL returned successfully. </td><td>  -  </td></tr>
+     * <tr><td> 401 </td><td> Unauthorized. The request is missing or contains an invalid API key. </td><td>  -  </td></tr>
+     * <tr><td> 403 </td><td> Forbidden. The API key does not have permission to access this endpoint. </td><td>  -  </td></tr>
+     * <tr><td> 404 </td><td> Not Found. The requested resource or endpoint does not exist. </td><td>  -  </td></tr>
+     * </table>
+     *
+     * @see <a
+     *     href="https://web3.binance.com/en/dev-docs/catalog/web3-wallet/api/rest-api/address-portfolio#get-address-pn-lfor-specific-token">Get
+     *     Address PnL for Specific Token Documentation</a>
+     */
+    public ApiResponse<GetAddressPnLForSpecificTokenResponse> getAddressPnLForSpecificToken(
+            String binanceChainId,
+            String walletAddress,
+            String tokenContractAddress,
+            Long recvWindow,
+            String nonce)
+            throws ApiException {
+        return addressPortfolioApi.getAddressPnLForSpecificToken(
+                binanceChainId, walletAddress, tokenContractAddress, recvWindow, nonce);
+    }
+
+    public ApiResponse<GetAddressPortfolioOverviewResponse> getAddressPortfolioOverview(
+            AddressPortfolioApi.GetAddressPortfolioOverviewRequest request) {
+        return addressPortfolioApi.getAddressPortfolioOverview(request);
+    }
+
+    /**
+     * Get Address Portfolio Overview Return trading performance overview for an address within the
+     * selected time frame, including realized PnL, daily PnL breakdown, win rate, and top 3
+     * profitable tokens.
+     *
+     * @param binanceChainId Unique chain identifier (e.g. \&quot;1\&quot;&#x3D;Ethereum,
+     *     \&quot;56\&quot;&#x3D;BSC, \&quot;CT_501\&quot;&#x3D;Solana). (required)
+     * @param walletAddress Wallet address to query. EVM chains accept lowercase 42-character hex
+     *     addresses; Solana accepts base58 addresses (case-sensitive). (required)
+     * @param timeFrame Statistics time range. 1&#x3D;1D, 2&#x3D;7D, 3&#x3D;1M, 4&#x3D;3M. Note:
+     *     these values differ from the leaderboard/list endpoint (where 1&#x3D;7D, 2&#x3D;1M,
+     *     3&#x3D;3M); do not reuse enum knowledge across endpoints. (required)
+     * @param recvWindow Allowed time deviation in milliseconds (default: 5000, max: 60000).
+     *     (optional)
+     * @param nonce Unique request identifier for anti-replay; falls back to X-OC-SIGN if omitted.
+     *     (optional)
+     * @return ApiResponse&lt;GetAddressPortfolioOverviewResponse&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the
+     *     response body
+     * @http.response.details
+     *     <table border="1">
+     * <caption>Response Details</caption>
+     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+     * <tr><td> 200 </td><td> Portfolio overview returned successfully. </td><td>  -  </td></tr>
+     * <tr><td> 401 </td><td> Unauthorized. The request is missing or contains an invalid API key. </td><td>  -  </td></tr>
+     * <tr><td> 403 </td><td> Forbidden. The API key does not have permission to access this endpoint. </td><td>  -  </td></tr>
+     * <tr><td> 404 </td><td> Not Found. The requested resource or endpoint does not exist. </td><td>  -  </td></tr>
+     * </table>
+     *
+     * @see <a
+     *     href="https://web3.binance.com/en/dev-docs/catalog/web3-wallet/api/rest-api/address-portfolio#get-address-portfolio-overview">Get
+     *     Address Portfolio Overview Documentation</a>
+     */
+    public ApiResponse<GetAddressPortfolioOverviewResponse> getAddressPortfolioOverview(
+            String binanceChainId,
+            String walletAddress,
+            TimeFrame timeFrame,
+            Long recvWindow,
+            String nonce)
+            throws ApiException {
+        return addressPortfolioApi.getAddressPortfolioOverview(
+                binanceChainId, walletAddress, timeFrame, recvWindow, nonce);
+    }
+
+    public ApiResponse<GetAddressRecentPnLResponse> getAddressRecentPnL(
+            AddressPortfolioApi.GetAddressRecentPnLRequest request) {
+        return addressPortfolioApi.getAddressRecentPnL(request);
+    }
+
+    /**
+     * Get Address Recent PnL Return recent realized PnL list for an address.
+     *
+     * @param binanceChainId Unique chain identifier (e.g. \&quot;1\&quot;&#x3D;Ethereum,
+     *     \&quot;56\&quot;&#x3D;BSC, \&quot;CT_501\&quot;&#x3D;Solana). (required)
+     * @param walletAddress Wallet address to query. EVM chains accept lowercase 42-character hex
+     *     addresses; Solana accepts base58 addresses (case-sensitive). (required)
+     * @param recvWindow Allowed time deviation in milliseconds (default: 5000, max: 60000).
+     *     (optional)
+     * @param nonce Unique request identifier for anti-replay; falls back to X-OC-SIGN if omitted.
+     *     (optional)
+     * @param cursor Pagination cursor. Omit or pass empty string for the first page; pass the
+     *     cursor from the previous response to get the next page. (optional)
+     * @param limit Number of records per page. Default 20, max 100. (optional)
+     * @return ApiResponse&lt;GetAddressRecentPnLResponse&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the
+     *     response body
+     * @http.response.details
+     *     <table border="1">
+     * <caption>Response Details</caption>
+     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+     * <tr><td> 200 </td><td> Recent PnL list returned successfully. </td><td>  -  </td></tr>
+     * <tr><td> 401 </td><td> Unauthorized. The request is missing or contains an invalid API key. </td><td>  -  </td></tr>
+     * <tr><td> 403 </td><td> Forbidden. The API key does not have permission to access this endpoint. </td><td>  -  </td></tr>
+     * <tr><td> 404 </td><td> Not Found. The requested resource or endpoint does not exist. </td><td>  -  </td></tr>
+     * </table>
+     *
+     * @see <a
+     *     href="https://web3.binance.com/en/dev-docs/catalog/web3-wallet/api/rest-api/address-portfolio#get-address-recent-pn-l">Get
+     *     Address Recent PnL Documentation</a>
+     */
+    public ApiResponse<GetAddressRecentPnLResponse> getAddressRecentPnL(
+            String binanceChainId,
+            String walletAddress,
+            Long recvWindow,
+            String nonce,
+            String cursor,
+            String limit)
+            throws ApiException {
+        return addressPortfolioApi.getAddressRecentPnL(
+                binanceChainId, walletAddress, recvWindow, nonce, cursor, limit);
+    }
+
+    public ApiResponse<GetDexTradeHistoryResponse> getDexTradeHistory(
+            AddressPortfolioApi.GetDexTradeHistoryRequest request) {
+        return addressPortfolioApi.getDexTradeHistory(request);
+    }
+
+    /**
+     * Get DEX Trade History Return swap trade history for a specific address. Supports filtering by
+     * time range, token, and trade type.
+     *
+     * @param binanceChainId Unique chain identifier (e.g. \&quot;1\&quot;&#x3D;Ethereum,
+     *     \&quot;56\&quot;&#x3D;BSC, \&quot;CT_501\&quot;&#x3D;Solana). (required)
+     * @param walletAddress Wallet address to query. EVM chains accept lowercase 42-character hex
+     *     addresses; Solana accepts base58 addresses (case-sensitive). (required)
+     * @param recvWindow Allowed time deviation in milliseconds (default: 5000, max: 60000).
+     *     (optional)
+     * @param nonce Unique request identifier for anti-replay; falls back to X-OC-SIGN if omitted.
+     *     (optional)
+     * @param begin Start timestamp (Unix milliseconds, inclusive). If both begin and end are
+     *     omitted, no time filter is applied. (optional)
+     * @param end End timestamp (Unix milliseconds, inclusive). If both begin and end are omitted,
+     *     no time filter is applied. (optional)
+     * @param tokenContractAddress Filter by token contract address. Returns all tokens when
+     *     omitted. (optional)
+     * @param type Trade type filter. 1&#x3D;Buy, 2&#x3D;Sell. Omit to return all types. (optional)
+     * @param cursor Pagination cursor. Omit or pass empty string for the first page. (optional)
+     * @param limit Number of records per page. Default 20, max 100. (optional)
+     * @return ApiResponse&lt;GetDexTradeHistoryResponse&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the
+     *     response body
+     * @http.response.details
+     *     <table border="1">
+     * <caption>Response Details</caption>
+     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+     * <tr><td> 200 </td><td> DEX history returned successfully. </td><td>  -  </td></tr>
+     * <tr><td> 401 </td><td> Unauthorized. The request is missing or contains an invalid API key. </td><td>  -  </td></tr>
+     * <tr><td> 403 </td><td> Forbidden. The API key does not have permission to access this endpoint. </td><td>  -  </td></tr>
+     * <tr><td> 404 </td><td> Not Found. The requested resource or endpoint does not exist. </td><td>  -  </td></tr>
+     * </table>
+     *
+     * @see <a
+     *     href="https://web3.binance.com/en/dev-docs/catalog/web3-wallet/api/rest-api/address-portfolio#get-dex-trade-history">Get
+     *     DEX Trade History Documentation</a>
+     */
+    public ApiResponse<GetDexTradeHistoryResponse> getDexTradeHistory(
+            String binanceChainId,
+            String walletAddress,
+            Long recvWindow,
+            String nonce,
+            String begin,
+            String end,
+            String tokenContractAddress,
+            OrderType type,
+            String cursor,
+            String limit)
+            throws ApiException {
+        return addressPortfolioApi.getDexTradeHistory(
+                binanceChainId,
+                walletAddress,
+                recvWindow,
+                nonce,
+                begin,
+                end,
+                tokenContractAddress,
+                type,
+                cursor,
+                limit);
+    }
+
+    public ApiResponse<GetLeaderboardResponse> getLeaderboard(
+            AddressPortfolioApi.GetLeaderboardRequest request) {
+        return addressPortfolioApi.getLeaderboard(request);
+    }
+
+    /**
+     * Get Leaderboard Return a leaderboard of top-performing wallets, with sorting and filtering by
+     * PnL, win rate, transaction count, and volume.
+     *
+     * @param binanceChainId Unique chain identifier (e.g. \&quot;1\&quot;&#x3D;Ethereum,
+     *     \&quot;56\&quot;&#x3D;BSC, \&quot;CT_501\&quot;&#x3D;Solana). Single chain only.
+     *     (required)
+     * @param timeFrame Statistics time range. 1&#x3D;7D, 2&#x3D;1M, 3&#x3D;3M. Note: these values
+     *     differ from the portfolio/overview endpoint (where 1&#x3D;1D, 2&#x3D;7D, 3&#x3D;1M,
+     *     4&#x3D;3M); do not reuse enum knowledge across endpoints. (required)
+     * @param sortBy Sort field. 1&#x3D;Realized PnL (USD), 2&#x3D;Win Rate, 3&#x3D;Transaction
+     *     count, 4&#x3D;Volume (USD), 5&#x3D;Realized PnL %. (required)
+     * @param recvWindow Allowed time deviation in milliseconds (default: 5000, max: 60000).
+     *     (optional)
+     * @param nonce Unique request identifier for anti-replay; falls back to X-OC-SIGN if omitted.
+     *     (optional)
+     * @param walletType Wallet type filter, single selection only. 1&#x3D;Smart Money, 2&#x3D;KOL,
+     *     3&#x3D;Hot List. Returns all types when omitted. (optional)
+     * @param minRealizedPnlUsd Minimum realized PnL filter, denominated in USD. (optional)
+     * @param maxRealizedPnlUsd Maximum realized PnL filter, denominated in USD. (optional)
+     * @param minWinRatePercent Minimum win rate filter, without percent sign. \&quot;50\&quot;
+     *     means ≥50%. (optional)
+     * @param maxWinRatePercent Maximum win rate filter, without percent sign. \&quot;90\&quot;
+     *     means ≤90%. (optional)
+     * @param minTxs Minimum transaction count filter. (optional)
+     * @param maxTxs Maximum transaction count filter. (optional)
+     * @param minTxVolume Minimum total transaction volume filter, denominated in USD. (optional)
+     * @param maxTxVolume Maximum total transaction volume filter, denominated in USD. (optional)
+     * @param cursor Pagination cursor. Omit or pass empty string for the first page. (optional)
+     * @param limit Number of records per page. Default 50, max 50. (optional)
+     * @return ApiResponse&lt;GetLeaderboardResponse&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the
+     *     response body
+     * @http.response.details
+     *     <table border="1">
+     * <caption>Response Details</caption>
+     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+     * <tr><td> 200 </td><td> Leaderboard list returned successfully. </td><td>  -  </td></tr>
+     * <tr><td> 401 </td><td> Unauthorized. The request is missing or contains an invalid API key. </td><td>  -  </td></tr>
+     * <tr><td> 403 </td><td> Forbidden. The API key does not have permission to access this endpoint. </td><td>  -  </td></tr>
+     * <tr><td> 404 </td><td> Not Found. The requested resource or endpoint does not exist. </td><td>  -  </td></tr>
+     * </table>
+     *
+     * @see <a
+     *     href="https://web3.binance.com/en/dev-docs/catalog/web3-wallet/api/rest-api/address-portfolio#get-leaderboard">Get
+     *     Leaderboard Documentation</a>
+     */
+    public ApiResponse<GetLeaderboardResponse> getLeaderboard(
+            String binanceChainId,
+            TimeFrame timeFrame,
+            SortBy sortBy,
+            Long recvWindow,
+            String nonce,
+            WalletType walletType,
+            String minRealizedPnlUsd,
+            String maxRealizedPnlUsd,
+            String minWinRatePercent,
+            String maxWinRatePercent,
+            String minTxs,
+            String maxTxs,
+            String minTxVolume,
+            String maxTxVolume,
+            String cursor,
+            String limit)
+            throws ApiException {
+        return addressPortfolioApi.getLeaderboard(
+                binanceChainId,
+                timeFrame,
+                sortBy,
+                recvWindow,
+                nonce,
+                walletType,
+                minRealizedPnlUsd,
+                maxRealizedPnlUsd,
+                minWinRatePercent,
+                maxWinRatePercent,
+                minTxs,
+                maxTxs,
+                minTxVolume,
+                maxTxVolume,
+                cursor,
+                limit);
+    }
+
+    public ApiResponse<GetPortfolioSupportedChainsResponse> getPortfolioSupportedChains(
+            AddressPortfolioApi.GetPortfolioSupportedChainsRequest request) {
+        return addressPortfolioApi.getPortfolioSupportedChains(request);
+    }
+
+    /**
+     * Get Portfolio Supported Chains Return the list of blockchains supported by address portfolio
+     * analysis.
+     *
+     * @param recvWindow Allowed time deviation in milliseconds (default: 5000, max: 60000).
+     *     (optional)
+     * @param nonce Unique request identifier for anti-replay; falls back to X-OC-SIGN if omitted.
+     *     (optional)
+     * @return ApiResponse&lt;GetPortfolioSupportedChainsResponse&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the
+     *     response body
+     * @http.response.details
+     *     <table border="1">
+     * <caption>Response Details</caption>
+     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+     * <tr><td> 200 </td><td> Supported chains returned successfully. </td><td>  -  </td></tr>
+     * <tr><td> 401 </td><td> Unauthorized. The request is missing or contains an invalid API key. </td><td>  -  </td></tr>
+     * <tr><td> 403 </td><td> Forbidden. The API key does not have permission to access this endpoint. </td><td>  -  </td></tr>
+     * <tr><td> 404 </td><td> Not Found. The requested resource or endpoint does not exist. </td><td>  -  </td></tr>
+     * </table>
+     *
+     * @see <a
+     *     href="https://web3.binance.com/en/dev-docs/catalog/web3-wallet/api/rest-api/address-portfolio#get-portfolio-supported-chains">Get
+     *     Portfolio Supported Chains Documentation</a>
+     */
+    public ApiResponse<GetPortfolioSupportedChainsResponse> getPortfolioSupportedChains(
+            Long recvWindow, String nonce) throws ApiException {
+        return addressPortfolioApi.getPortfolioSupportedChains(recvWindow, nonce);
+    }
+
+    public ApiResponse<GetTrackedTradesResponse> getTrackedTrades(
+            AddressPortfolioApi.GetTrackedTradesRequest request) {
+        return addressPortfolioApi.getTrackedTrades(request);
+    }
+
+    /**
+     * Get Tracked Trades Return the latest swap trades from tracked addresses (smart money, KOL, or
+     * custom address list).
+     *
+     * @param trackerType Tracker type. 1&#x3D;Smart Money, 2&#x3D;KOL, 3&#x3D;Custom address list
+     *     (walletAddress required). (required)
+     * @param recvWindow Allowed time deviation in milliseconds (default: 5000, max: 60000).
+     *     (optional)
+     * @param nonce Unique request identifier for anti-replay; falls back to X-OC-SIGN if omitted.
+     *     (optional)
+     * @param walletAddress Required when trackerType&#x3D;3. One or more wallet addresses,
+     *     comma-separated, up to 20. EVM chains accept lowercase 42-character hex addresses; Solana
+     *     accepts base58 addresses (case-sensitive). (optional)
+     * @param tradeType Trade type filter. 0&#x3D;All (default), 1&#x3D;Buy, 2&#x3D;Sell, 3&#x3D;Add
+     *     position, 4&#x3D;Reduce position, 5&#x3D;Open position, 6&#x3D;Close position,
+     *     7&#x3D;Transfer in, 8&#x3D;Transfer out. Multiple values comma-separated. (optional)
+     * @param binanceChainId Filter by chain. Returns all chains when omitted. (optional)
+     * @param minVolume Minimum trade volume filter, denominated in USD. (optional)
+     * @param maxVolume Maximum trade volume filter, denominated in USD. (optional)
+     * @param minMarketCap Minimum market cap filter, denominated in USD. (optional)
+     * @param maxMarketCap Maximum market cap filter, denominated in USD. (optional)
+     * @param isHideRiskToken Whether to hide risk tokens. true&#x3D;hide risk tokens (default),
+     *     false&#x3D;show all tokens including risk tokens. (optional)
+     * @param limit Maximum number of trades to return. Effective only for trackerType&#x3D;3
+     *     (custom address list); trackerType&#x3D;1/2 ignore this and use the downstream public
+     *     query fixed cap. Omit to use the downstream default. (optional)
+     * @return ApiResponse&lt;GetTrackedTradesResponse&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the
+     *     response body
+     * @http.response.details
+     *     <table border="1">
+     * <caption>Response Details</caption>
+     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+     * <tr><td> 200 </td><td> Address tracker trades returned successfully. </td><td>  -  </td></tr>
+     * <tr><td> 401 </td><td> Unauthorized. The request is missing or contains an invalid API key. </td><td>  -  </td></tr>
+     * <tr><td> 403 </td><td> Forbidden. The API key does not have permission to access this endpoint. </td><td>  -  </td></tr>
+     * <tr><td> 404 </td><td> Not Found. The requested resource or endpoint does not exist. </td><td>  -  </td></tr>
+     * </table>
+     *
+     * @see <a
+     *     href="https://web3.binance.com/en/dev-docs/catalog/web3-wallet/api/rest-api/address-portfolio#get-tracked-trades">Get
+     *     Tracked Trades Documentation</a>
+     */
+    public ApiResponse<GetTrackedTradesResponse> getTrackedTrades(
+            TrackerType trackerType,
+            Long recvWindow,
+            String nonce,
+            String walletAddress,
+            String tradeType,
+            String binanceChainId,
+            String minVolume,
+            String maxVolume,
+            String minMarketCap,
+            String maxMarketCap,
+            Boolean isHideRiskToken,
+            Integer limit)
+            throws ApiException {
+        return addressPortfolioApi.getTrackedTrades(
+                trackerType,
+                recvWindow,
+                nonce,
+                walletAddress,
+                tradeType,
+                binanceChainId,
+                minVolume,
+                maxVolume,
+                minMarketCap,
+                maxMarketCap,
+                isHideRiskToken,
+                limit);
+    }
+
+    public ApiResponse<GetCandlesResponse> getCandles(GeneralDataApi.GetCandlesRequest request) {
+        return generalDataApi.getCandles(request);
     }
 
     /**
@@ -101,7 +545,7 @@ public class Web3WalletRestApi {
      * </table>
      *
      * @see <a
-     *     href="https://web3.binance.com/en/dev-docs/catalog/web3-wallet/api/rest-api/market-api#get-candles">Get
+     *     href="https://web3.binance.com/en/dev-docs/catalog/web3-wallet/api/rest-api/general-data#get-candles">Get
      *     Candles Documentation</a>
      */
     public ApiResponse<GetCandlesResponse> getCandles(
@@ -114,13 +558,13 @@ public class Web3WalletRestApi {
             Long before,
             Integer limit)
             throws ApiException {
-        return marketApi.getCandles(
+        return generalDataApi.getCandles(
                 binanceChainId, tokenContractAddress, recvWindow, nonce, bar, after, before, limit);
     }
 
     public ApiResponse<GetHoldersRankingResponse> getHoldersRanking(
-            MarketApi.GetHoldersRankingRequest request) {
-        return marketApi.getHoldersRanking(request);
+            GeneralDataApi.GetHoldersRankingRequest request) {
+        return generalDataApi.getHoldersRanking(request);
     }
 
     /**
@@ -152,7 +596,7 @@ public class Web3WalletRestApi {
      * </table>
      *
      * @see <a
-     *     href="https://web3.binance.com/en/dev-docs/catalog/web3-wallet/api/rest-api/market-api#get-holders-ranking">Get
+     *     href="https://web3.binance.com/en/dev-docs/catalog/web3-wallet/api/rest-api/general-data#get-holders-ranking">Get
      *     Holders Ranking Documentation</a>
      */
     public ApiResponse<GetHoldersRankingResponse> getHoldersRanking(
@@ -162,13 +606,13 @@ public class Web3WalletRestApi {
             String nonce,
             TagFilter tagFilter)
             throws ApiException {
-        return marketApi.getHoldersRanking(
+        return generalDataApi.getHoldersRanking(
                 binanceChainId, tokenContractAddress, recvWindow, nonce, tagFilter);
     }
 
     public ApiResponse<GetHotTokenListResponse> getHotTokenList(
-            MarketApi.GetHotTokenListRequest request) {
-        return marketApi.getHotTokenList(request);
+            GeneralDataApi.GetHotTokenListRequest request) {
+        return generalDataApi.getHotTokenList(request);
     }
 
     /**
@@ -176,12 +620,11 @@ public class Web3WalletRestApi {
      * market cap, etc., with filters for holding distribution, developer behavior, liquidity, and
      * more.
      *
+     * @param binanceChainId Chain identifier. Single value only. (required)
      * @param recvWindow Allowed time deviation in milliseconds (default: 5000, max: 60000).
      *     (optional)
      * @param nonce Unique request identifier for anti-replay; falls back to X-OC-SIGN if omitted.
      *     (optional)
-     * @param binanceChainId Chain identifier. Single value only. Omit to return mixed results
-     *     across all chains. (optional)
      * @param rankBy Ranking field. 1&#x3D;price, 2&#x3D;price change, 3&#x3D;transactions,
      *     4&#x3D;volume, 5&#x3D;market cap, 6&#x3D;liquidity, 7&#x3D;creation time, 8&#x3D;holders,
      *     9&#x3D;Binance MPC wallet holders, 10&#x3D;net inflow. (optional)
@@ -280,13 +723,13 @@ public class Web3WalletRestApi {
      * </table>
      *
      * @see <a
-     *     href="https://web3.binance.com/en/dev-docs/catalog/web3-wallet/api/rest-api/market-api#get-hot-token-list">Get
+     *     href="https://web3.binance.com/en/dev-docs/catalog/web3-wallet/api/rest-api/general-data#get-hot-token-list">Get
      *     Hot Token List Documentation</a>
      */
     public ApiResponse<GetHotTokenListResponse> getHotTokenList(
+            String binanceChainId,
             Long recvWindow,
             String nonce,
-            String binanceChainId,
             RankBy rankBy,
             RankingTimeFrame rankingTimeFrame,
             String priceChangePercentMin,
@@ -339,10 +782,10 @@ public class Web3WalletRestApi {
             Integer pageId,
             Integer size)
             throws ApiException {
-        return marketApi.getHotTokenList(
+        return generalDataApi.getHotTokenList(
+                binanceChainId,
                 recvWindow,
                 nonce,
-                binanceChainId,
                 rankBy,
                 rankingTimeFrame,
                 priceChangePercentMin,
@@ -397,8 +840,8 @@ public class Web3WalletRestApi {
     }
 
     public ApiResponse<GetSupportedChainsResponse> getSupportedChains(
-            MarketApi.GetSupportedChainsRequest request) {
-        return marketApi.getSupportedChains(request);
+            GeneralDataApi.GetSupportedChainsRequest request) {
+        return generalDataApi.getSupportedChains(request);
     }
 
     /**
@@ -422,17 +865,17 @@ public class Web3WalletRestApi {
      * </table>
      *
      * @see <a
-     *     href="https://web3.binance.com/en/dev-docs/catalog/web3-wallet/api/rest-api/market-api#get-supported-chains">Get
+     *     href="https://web3.binance.com/en/dev-docs/catalog/web3-wallet/api/rest-api/general-data#get-supported-chains">Get
      *     Supported Chains Documentation</a>
      */
     public ApiResponse<GetSupportedChainsResponse> getSupportedChains(Long recvWindow, String nonce)
             throws ApiException {
-        return marketApi.getSupportedChains(recvWindow, nonce);
+        return generalDataApi.getSupportedChains(recvWindow, nonce);
     }
 
     public ApiResponse<GetTokenAdvancedInfoResponse> getTokenAdvancedInfo(
-            MarketApi.GetTokenAdvancedInfoRequest request) {
-        return marketApi.getTokenAdvancedInfo(request);
+            GeneralDataApi.GetTokenAdvancedInfoRequest request) {
+        return generalDataApi.getTokenAdvancedInfo(request);
     }
 
     /**
@@ -460,19 +903,19 @@ public class Web3WalletRestApi {
      * </table>
      *
      * @see <a
-     *     href="https://web3.binance.com/en/dev-docs/catalog/web3-wallet/api/rest-api/market-api#get-token-advanced-info">Get
+     *     href="https://web3.binance.com/en/dev-docs/catalog/web3-wallet/api/rest-api/general-data#get-token-advanced-info">Get
      *     Token Advanced Info Documentation</a>
      */
     public ApiResponse<GetTokenAdvancedInfoResponse> getTokenAdvancedInfo(
             String binanceChainId, String tokenContractAddress, Long recvWindow, String nonce)
             throws ApiException {
-        return marketApi.getTokenAdvancedInfo(
+        return generalDataApi.getTokenAdvancedInfo(
                 binanceChainId, tokenContractAddress, recvWindow, nonce);
     }
 
     public ApiResponse<GetTokenBasicInfoResponse> getTokenBasicInfo(
-            MarketApi.GetTokenBasicInfoRequest request) {
-        return marketApi.getTokenBasicInfo(request);
+            GeneralDataApi.GetTokenBasicInfoRequest request) {
+        return generalDataApi.getTokenBasicInfo(request);
     }
 
     /**
@@ -500,18 +943,60 @@ public class Web3WalletRestApi {
      * </table>
      *
      * @see <a
-     *     href="https://web3.binance.com/en/dev-docs/catalog/web3-wallet/api/rest-api/market-api#get-token-basic-info">Get
+     *     href="https://web3.binance.com/en/dev-docs/catalog/web3-wallet/api/rest-api/general-data#get-token-basic-info">Get
      *     Token Basic Info Documentation</a>
      */
     public ApiResponse<GetTokenBasicInfoResponse> getTokenBasicInfo(
             String binanceChainId, String tokenContractAddress, Long recvWindow, String nonce)
             throws ApiException {
-        return marketApi.getTokenBasicInfo(binanceChainId, tokenContractAddress, recvWindow, nonce);
+        return generalDataApi.getTokenBasicInfo(
+                binanceChainId, tokenContractAddress, recvWindow, nonce);
+    }
+
+    public ApiResponse<GetTokenDevInfoResponse> getTokenDevInfo(
+            GeneralDataApi.GetTokenDevInfoRequest request) {
+        return generalDataApi.getTokenDevInfo(request);
+    }
+
+    /**
+     * Get Token Dev Info Return developer profile for a token, including historical token launch
+     * stats, current holding percentage, and initial funding source.
+     *
+     * @param binanceChainId Unique chain identifier (e.g. \&quot;1\&quot;&#x3D;Ethereum,
+     *     \&quot;56\&quot;&#x3D;BSC, \&quot;CT_501\&quot;&#x3D;Solana). (required)
+     * @param tokenContractAddress Token contract address. EVM chains accept lowercase 42-character
+     *     hex addresses; Solana accepts base58 addresses (case-sensitive). (required)
+     * @param recvWindow Allowed time deviation in milliseconds (default: 5000, max: 60000).
+     *     (optional)
+     * @param nonce Unique request identifier for anti-replay; falls back to X-OC-SIGN if omitted.
+     *     (optional)
+     * @return ApiResponse&lt;GetTokenDevInfoResponse&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the
+     *     response body
+     * @http.response.details
+     *     <table border="1">
+     * <caption>Response Details</caption>
+     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+     * <tr><td> 200 </td><td> Token dev info returned successfully. </td><td>  -  </td></tr>
+     * <tr><td> 401 </td><td> Unauthorized. The request is missing or contains an invalid API key. </td><td>  -  </td></tr>
+     * <tr><td> 403 </td><td> Forbidden. The API key does not have permission to access this endpoint. </td><td>  -  </td></tr>
+     * <tr><td> 404 </td><td> Not Found. The requested resource or endpoint does not exist. </td><td>  -  </td></tr>
+     * </table>
+     *
+     * @see <a
+     *     href="https://web3.binance.com/en/dev-docs/catalog/web3-wallet/api/rest-api/general-data#get-token-dev-info">Get
+     *     Token Dev Info Documentation</a>
+     */
+    public ApiResponse<GetTokenDevInfoResponse> getTokenDevInfo(
+            String binanceChainId, String tokenContractAddress, Long recvWindow, String nonce)
+            throws ApiException {
+        return generalDataApi.getTokenDevInfo(
+                binanceChainId, tokenContractAddress, recvWindow, nonce);
     }
 
     public ApiResponse<GetTokenPriceResponse> getTokenPrice(
-            MarketApi.GetTokenPriceRequest request) {
-        return marketApi.getTokenPrice(request);
+            GeneralDataApi.GetTokenPriceRequest request) {
+        return generalDataApi.getTokenPrice(request);
     }
 
     /**
@@ -537,17 +1022,17 @@ public class Web3WalletRestApi {
      * </table>
      *
      * @see <a
-     *     href="https://web3.binance.com/en/dev-docs/catalog/web3-wallet/api/rest-api/market-api#get-token-price">Get
+     *     href="https://web3.binance.com/en/dev-docs/catalog/web3-wallet/api/rest-api/general-data#get-token-price">Get
      *     Token Price Documentation</a>
      */
     public ApiResponse<GetTokenPriceResponse> getTokenPrice(Long recvWindow, String nonce)
             throws ApiException {
-        return marketApi.getTokenPrice(recvWindow, nonce);
+        return generalDataApi.getTokenPrice(recvWindow, nonce);
     }
 
     public ApiResponse<GetTokenTradesResponse> getTokenTrades(
-            MarketApi.GetTokenTradesRequest request) {
-        return marketApi.getTokenTrades(request);
+            GeneralDataApi.GetTokenTradesRequest request) {
+        return generalDataApi.getTokenTrades(request);
     }
 
     /**
@@ -584,7 +1069,7 @@ public class Web3WalletRestApi {
      * </table>
      *
      * @see <a
-     *     href="https://web3.binance.com/en/dev-docs/catalog/web3-wallet/api/rest-api/market-api#get-token-trades">Get
+     *     href="https://web3.binance.com/en/dev-docs/catalog/web3-wallet/api/rest-api/general-data#get-token-trades">Get
      *     Token Trades Documentation</a>
      */
     public ApiResponse<GetTokenTradesResponse> getTokenTrades(
@@ -597,7 +1082,7 @@ public class Web3WalletRestApi {
             TagFilter tagFilter,
             String walletAddressFilter)
             throws ApiException {
-        return marketApi.getTokenTrades(
+        return generalDataApi.getTokenTrades(
                 binanceChainId,
                 tokenContractAddress,
                 recvWindow,
@@ -609,8 +1094,8 @@ public class Web3WalletRestApi {
     }
 
     public ApiResponse<GetTokenTradingInfoResponse> getTokenTradingInfo(
-            MarketApi.GetTokenTradingInfoRequest request) {
-        return marketApi.getTokenTradingInfo(request);
+            GeneralDataApi.GetTokenTradingInfoRequest request) {
+        return generalDataApi.getTokenTradingInfo(request);
     }
 
     /**
@@ -636,17 +1121,17 @@ public class Web3WalletRestApi {
      * </table>
      *
      * @see <a
-     *     href="https://web3.binance.com/en/dev-docs/catalog/web3-wallet/api/rest-api/market-api#get-token-trading-info">Get
+     *     href="https://web3.binance.com/en/dev-docs/catalog/web3-wallet/api/rest-api/general-data#get-token-trading-info">Get
      *     Token Trading Info Documentation</a>
      */
     public ApiResponse<GetTokenTradingInfoResponse> getTokenTradingInfo(
             Long recvWindow, String nonce) throws ApiException {
-        return marketApi.getTokenTradingInfo(recvWindow, nonce);
+        return generalDataApi.getTokenTradingInfo(recvWindow, nonce);
     }
 
     public ApiResponse<GetTopLiquidityPoolsResponse> getTopLiquidityPools(
-            MarketApi.GetTopLiquidityPoolsRequest request) {
-        return marketApi.getTopLiquidityPools(request);
+            GeneralDataApi.GetTopLiquidityPoolsRequest request) {
+        return generalDataApi.getTopLiquidityPools(request);
     }
 
     /**
@@ -673,19 +1158,19 @@ public class Web3WalletRestApi {
      * </table>
      *
      * @see <a
-     *     href="https://web3.binance.com/en/dev-docs/catalog/web3-wallet/api/rest-api/market-api#get-top-liquidity-pools">Get
+     *     href="https://web3.binance.com/en/dev-docs/catalog/web3-wallet/api/rest-api/general-data#get-top-liquidity-pools">Get
      *     Top Liquidity Pools Documentation</a>
      */
     public ApiResponse<GetTopLiquidityPoolsResponse> getTopLiquidityPools(
             String binanceChainId, String tokenContractAddress, Long recvWindow, String nonce)
             throws ApiException {
-        return marketApi.getTopLiquidityPools(
+        return generalDataApi.getTopLiquidityPools(
                 binanceChainId, tokenContractAddress, recvWindow, nonce);
     }
 
     public ApiResponse<GetTopTradersResponse> getTopTraders(
-            MarketApi.GetTopTradersRequest request) {
-        return marketApi.getTopTraders(request);
+            GeneralDataApi.GetTopTradersRequest request) {
+        return generalDataApi.getTopTraders(request);
     }
 
     /**
@@ -717,7 +1202,7 @@ public class Web3WalletRestApi {
      * </table>
      *
      * @see <a
-     *     href="https://web3.binance.com/en/dev-docs/catalog/web3-wallet/api/rest-api/market-api#get-top-traders">Get
+     *     href="https://web3.binance.com/en/dev-docs/catalog/web3-wallet/api/rest-api/general-data#get-top-traders">Get
      *     Top Traders Documentation</a>
      */
     public ApiResponse<GetTopTradersResponse> getTopTraders(
@@ -727,12 +1212,12 @@ public class Web3WalletRestApi {
             String nonce,
             TagFilter tagFilter)
             throws ApiException {
-        return marketApi.getTopTraders(
+        return generalDataApi.getTopTraders(
                 binanceChainId, tokenContractAddress, recvWindow, nonce, tagFilter);
     }
 
-    public ApiResponse<SearchTokenResponse> searchToken(MarketApi.SearchTokenRequest request) {
-        return marketApi.searchToken(request);
+    public ApiResponse<SearchTokenResponse> searchToken(GeneralDataApi.SearchTokenRequest request) {
+        return generalDataApi.searchToken(request);
     }
 
     /**
@@ -758,12 +1243,360 @@ public class Web3WalletRestApi {
      * </table>
      *
      * @see <a
-     *     href="https://web3.binance.com/en/dev-docs/catalog/web3-wallet/api/rest-api/market-api#search-token">Search
+     *     href="https://web3.binance.com/en/dev-docs/catalog/web3-wallet/api/rest-api/general-data#search-token">Search
      *     Token Documentation</a>
      */
     public ApiResponse<SearchTokenResponse> searchToken(
             String chains, String search, Long recvWindow, String nonce) throws ApiException {
-        return marketApi.searchToken(chains, search, recvWindow, nonce);
+        return generalDataApi.searchToken(chains, search, recvWindow, nonce);
+    }
+
+    public ApiResponse<GetRwaTokenIssuancePlatformsResponse> getRwaTokenIssuancePlatforms(
+            RwaDataApi.GetRwaTokenIssuancePlatformsRequest request) {
+        return rwaDataApi.getRwaTokenIssuancePlatforms(request);
+    }
+
+    /**
+     * Get RWA Token Issuance Platforms Return the list of supported RWA token issuance platforms
+     * and their basic info.
+     *
+     * @param recvWindow Allowed time deviation in milliseconds. Default 5000, max 60000. (optional)
+     * @param nonce Unique request identifier to prevent replay attacks. Falls back to X-OC-SIGN
+     *     when omitted. (optional)
+     * @param platformId Platform identifier (ondo&#x3D;Ondo Finance, bstock&#x3D;bStocks).
+     *     Optional. If not specified, returns all platforms; when specified, returns only that
+     *     platform. (optional)
+     * @return ApiResponse&lt;GetRwaTokenIssuancePlatformsResponse&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the
+     *     response body
+     * @http.response.details
+     *     <table border="1">
+     * <caption>Response Details</caption>
+     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+     * <tr><td> 200 </td><td> RWA token issuance platform list returned successfully. </td><td>  -  </td></tr>
+     * <tr><td> 401 </td><td> Unauthorized. The request is missing or contains an invalid API key. </td><td>  -  </td></tr>
+     * <tr><td> 403 </td><td> Forbidden. The API key does not have permission to access this endpoint. </td><td>  -  </td></tr>
+     * <tr><td> 404 </td><td> Not Found. The requested resource or endpoint does not exist. </td><td>  -  </td></tr>
+     * </table>
+     *
+     * @see <a
+     *     href="https://web3.binance.com/en/dev-docs/catalog/web3-wallet/api/rest-api/rwa-data#get-rwa-token-issuance-platforms">Get
+     *     RWA Token Issuance Platforms Documentation</a>
+     */
+    public ApiResponse<GetRwaTokenIssuancePlatformsResponse> getRwaTokenIssuancePlatforms(
+            Long recvWindow, String nonce, PlatformId platformId) throws ApiException {
+        return rwaDataApi.getRwaTokenIssuancePlatforms(recvWindow, nonce, platformId);
+    }
+
+    public ApiResponse<GetRwaTokenListResponse> getRwaTokenList(
+            RwaDataApi.GetRwaTokenListRequest request) {
+        return rwaDataApi.getRwaTokenList(request);
+    }
+
+    /**
+     * Get RWA Token List Get the list of RWA tokens with underlying asset info. Supports filtering
+     * by platform and sector tab.
+     *
+     * @param recvWindow Allowed time deviation in milliseconds. Default 5000, max 60000. (optional)
+     * @param nonce Unique request identifier to prevent replay attacks. Falls back to X-OC-SIGN
+     *     when omitted. (optional)
+     * @param binanceChainId Unique chain identifier (e.g. \&quot;1\&quot;&#x3D;Ethereum,
+     *     \&quot;56\&quot;&#x3D;BSC, \&quot;CT_501\&quot;&#x3D;Solana). Optional. If not specified,
+     *     returns data from all chains. (optional)
+     * @param platformId Platform filter (ondo&#x3D;Ondo Finance, bstock&#x3D;bStocks). Optional. If
+     *     not specified, returns all platforms. (optional)
+     * @param tabId Sector tab filter. Optional. If not specified, returns all sectors. Enum:
+     *     1&#x3D;Serenity Call, 2&#x3D;SpaceX (SpaceX-related and commercial spaceflight concept
+     *     stocks), 3&#x3D;Upcoming Earnings, 4&#x3D;AI Chips, 5&#x3D;Storage, 6&#x3D;Energy,
+     *     7&#x3D;Precious Metals, 8&#x3D;China ADR (Chinese companies listed in the US),
+     *     9&#x3D;Magnificent 7 (the seven largest US tech giants: Apple, Microsoft, Alphabet,
+     *     Amazon, Nvidia, Meta, Tesla), 10&#x3D;Crypto, 11&#x3D;ETF, 12&#x3D;Tech Leaders,
+     *     13&#x3D;Buffett Portfolio. (optional)
+     * @return ApiResponse&lt;GetRwaTokenListResponse&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the
+     *     response body
+     * @http.response.details
+     *     <table border="1">
+     * <caption>Response Details</caption>
+     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+     * <tr><td> 200 </td><td> RWA token list returned successfully. </td><td>  -  </td></tr>
+     * <tr><td> 401 </td><td> Unauthorized. The request is missing or contains an invalid API key. </td><td>  -  </td></tr>
+     * <tr><td> 403 </td><td> Forbidden. The API key does not have permission to access this endpoint. </td><td>  -  </td></tr>
+     * <tr><td> 404 </td><td> Not Found. The requested resource or endpoint does not exist. </td><td>  -  </td></tr>
+     * </table>
+     *
+     * @see <a
+     *     href="https://web3.binance.com/en/dev-docs/catalog/web3-wallet/api/rest-api/rwa-data#get-rwa-token-list">Get
+     *     RWA Token List Documentation</a>
+     */
+    public ApiResponse<GetRwaTokenListResponse> getRwaTokenList(
+            Long recvWindow,
+            String nonce,
+            String binanceChainId,
+            PlatformId platformId,
+            Integer tabId)
+            throws ApiException {
+        return rwaDataApi.getRwaTokenList(recvWindow, nonce, binanceChainId, platformId, tabId);
+    }
+
+    public ApiResponse<GetRwaTokenPriceResponse> getRwaTokenPrice(
+            RwaDataApi.GetRwaTokenPriceRequest request) {
+        return rwaDataApi.getRwaTokenPrice(request);
+    }
+
+    /**
+     * Get RWA Token Price Batch query RWA token prices, including on-chain price and underlying
+     * reference price.
+     *
+     * @param binanceChainId Unique chain identifier (e.g. \&quot;1\&quot;&#x3D;Ethereum,
+     *     \&quot;56\&quot;&#x3D;BSC, \&quot;CT_501\&quot;&#x3D;Solana). (required)
+     * @param tokenContractAddresses Comma-separated token contract addresses. Maximum 100 per
+     *     request. (required)
+     * @param recvWindow Allowed time deviation in milliseconds. Default 5000, max 60000. (optional)
+     * @param nonce Unique request identifier to prevent replay attacks. Falls back to X-OC-SIGN
+     *     when omitted. (optional)
+     * @return ApiResponse&lt;GetRwaTokenPriceResponse&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the
+     *     response body
+     * @http.response.details
+     *     <table border="1">
+     * <caption>Response Details</caption>
+     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+     * <tr><td> 200 </td><td> Quote data returned successfully. </td><td>  -  </td></tr>
+     * <tr><td> 401 </td><td> Unauthorized. The request is missing or contains an invalid API key. </td><td>  -  </td></tr>
+     * <tr><td> 403 </td><td> Forbidden. The API key does not have permission to access this endpoint. </td><td>  -  </td></tr>
+     * <tr><td> 404 </td><td> Not Found. The requested resource or endpoint does not exist. </td><td>  -  </td></tr>
+     * </table>
+     *
+     * @see <a
+     *     href="https://web3.binance.com/en/dev-docs/catalog/web3-wallet/api/rest-api/rwa-data#get-rwa-token-price">Get
+     *     RWA Token Price Documentation</a>
+     */
+    public ApiResponse<GetRwaTokenPriceResponse> getRwaTokenPrice(
+            String binanceChainId, String tokenContractAddresses, Long recvWindow, String nonce)
+            throws ApiException {
+        return rwaDataApi.getRwaTokenPrice(
+                binanceChainId, tokenContractAddresses, recvWindow, nonce);
+    }
+
+    public ApiResponse<GetRwaUnderlyingInfoResponse> getRwaUnderlyingInfo(
+            RwaDataApi.GetRwaUnderlyingInfoRequest request) {
+        return rwaDataApi.getRwaUnderlyingInfo(request);
+    }
+
+    /**
+     * Get RWA Underlying Info Get the underlying company information for an RWA token.
+     *
+     * @param binanceChainId Unique chain identifier (e.g. \&quot;1\&quot;&#x3D;Ethereum,
+     *     \&quot;56\&quot;&#x3D;BSC, \&quot;CT_501\&quot;&#x3D;Solana). (required)
+     * @param tokenContractAddress Token contract address. (required)
+     * @param recvWindow Allowed time deviation in milliseconds. Default 5000, max 60000. (optional)
+     * @param nonce Unique request identifier to prevent replay attacks. Falls back to X-OC-SIGN
+     *     when omitted. (optional)
+     * @return ApiResponse&lt;GetRwaUnderlyingInfoResponse&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the
+     *     response body
+     * @http.response.details
+     *     <table border="1">
+     * <caption>Response Details</caption>
+     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+     * <tr><td> 200 </td><td> Token detail returned successfully. </td><td>  -  </td></tr>
+     * <tr><td> 401 </td><td> Unauthorized. The request is missing or contains an invalid API key. </td><td>  -  </td></tr>
+     * <tr><td> 403 </td><td> Forbidden. The API key does not have permission to access this endpoint. </td><td>  -  </td></tr>
+     * <tr><td> 404 </td><td> Not Found. The requested resource or endpoint does not exist. </td><td>  -  </td></tr>
+     * </table>
+     *
+     * @see <a
+     *     href="https://web3.binance.com/en/dev-docs/catalog/web3-wallet/api/rest-api/rwa-data#get-rwa-underlying-info">Get
+     *     RWA Underlying Info Documentation</a>
+     */
+    public ApiResponse<GetRwaUnderlyingInfoResponse> getRwaUnderlyingInfo(
+            String binanceChainId, String tokenContractAddress, Long recvWindow, String nonce)
+            throws ApiException {
+        return rwaDataApi.getRwaUnderlyingInfo(
+                binanceChainId, tokenContractAddress, recvWindow, nonce);
+    }
+
+    public ApiResponse<GetRwaUnderlyingMarketDataResponse> getRwaUnderlyingMarketData(
+            RwaDataApi.GetRwaUnderlyingMarketDataRequest request) {
+        return rwaDataApi.getRwaUnderlyingMarketData(request);
+    }
+
+    /**
+     * Get RWA Underlying Market Data Get market data for the underlying asset of an RWA token.
+     *
+     * @param binanceChainId Unique chain identifier (e.g. \&quot;1\&quot;&#x3D;Ethereum,
+     *     \&quot;56\&quot;&#x3D;BSC, \&quot;CT_501\&quot;&#x3D;Solana). (required)
+     * @param tokenContractAddress Token contract address. (required)
+     * @param recvWindow Allowed time deviation in milliseconds. Default 5000, max 60000. (optional)
+     * @param nonce Unique request identifier to prevent replay attacks. Falls back to X-OC-SIGN
+     *     when omitted. (optional)
+     * @return ApiResponse&lt;GetRwaUnderlyingMarketDataResponse&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the
+     *     response body
+     * @http.response.details
+     *     <table border="1">
+     * <caption>Response Details</caption>
+     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+     * <tr><td> 200 </td><td> Underlying market data returned successfully. </td><td>  -  </td></tr>
+     * <tr><td> 401 </td><td> Unauthorized. The request is missing or contains an invalid API key. </td><td>  -  </td></tr>
+     * <tr><td> 403 </td><td> Forbidden. The API key does not have permission to access this endpoint. </td><td>  -  </td></tr>
+     * <tr><td> 404 </td><td> Not Found. The requested resource or endpoint does not exist. </td><td>  -  </td></tr>
+     * </table>
+     *
+     * @see <a
+     *     href="https://web3.binance.com/en/dev-docs/catalog/web3-wallet/api/rest-api/rwa-data#get-rwa-underlying-market-data">Get
+     *     RWA Underlying Market Data Documentation</a>
+     */
+    public ApiResponse<GetRwaUnderlyingMarketDataResponse> getRwaUnderlyingMarketData(
+            String binanceChainId, String tokenContractAddress, Long recvWindow, String nonce)
+            throws ApiException {
+        return rwaDataApi.getRwaUnderlyingMarketData(
+                binanceChainId, tokenContractAddress, recvWindow, nonce);
+    }
+
+    public ApiResponse<SearchRwaTokenResponse> searchRwaToken(
+            RwaDataApi.SearchRwaTokenRequest request) {
+        return rwaDataApi.searchRwaToken(request);
+    }
+
+    /**
+     * Search RWA Token Search RWA tokens by keyword or contract address.
+     *
+     * @param keyword Search keyword (ticker, company name, or contract address). Case-insensitive.
+     *     (required)
+     * @param recvWindow Allowed time deviation in milliseconds. Default 5000, max 60000. (optional)
+     * @param nonce Unique request identifier to prevent replay attacks. Falls back to X-OC-SIGN
+     *     when omitted. (optional)
+     * @param platformId Platform filter (ondo&#x3D;Ondo Finance, bstock&#x3D;bStocks). Optional. If
+     *     not specified, returns results from all platforms. (optional)
+     * @return ApiResponse&lt;SearchRwaTokenResponse&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the
+     *     response body
+     * @http.response.details
+     *     <table border="1">
+     * <caption>Response Details</caption>
+     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+     * <tr><td> 200 </td><td> Ticker lookup results returned successfully. </td><td>  -  </td></tr>
+     * <tr><td> 401 </td><td> Unauthorized. The request is missing or contains an invalid API key. </td><td>  -  </td></tr>
+     * <tr><td> 403 </td><td> Forbidden. The API key does not have permission to access this endpoint. </td><td>  -  </td></tr>
+     * <tr><td> 404 </td><td> Not Found. The requested resource or endpoint does not exist. </td><td>  -  </td></tr>
+     * </table>
+     *
+     * @see <a
+     *     href="https://web3.binance.com/en/dev-docs/catalog/web3-wallet/api/rest-api/rwa-data#search-rwa-token">Search
+     *     RWA Token Documentation</a>
+     */
+    public ApiResponse<SearchRwaTokenResponse> searchRwaToken(
+            String keyword, Long recvWindow, String nonce, PlatformId platformId)
+            throws ApiException {
+        return rwaDataApi.searchRwaToken(keyword, recvWindow, nonce, platformId);
+    }
+
+    public ApiResponse<BuildSolanaSwapInstructionsResponse> buildSolanaSwapInstructions(
+            TradingApi.BuildSolanaSwapInstructionsRequest request) {
+        return tradingApi.buildSolanaSwapInstructions(request);
+    }
+
+    /**
+     * Build Solana Swap Instructions Solana-only counterpart to &#x60;/swap&#x60;. Shares the full
+     * quote → route → vendor &#x60;buildSwapTx&#x60; → priceImpact → minReceive →
+     * instruction-assembly pipeline; the only difference is the response: instead of returning a
+     * signed-and-serialized base64 transaction, this endpoint returns the **uncompiled**
+     * instruction list plus the address-lookup-table (ALT) address list, leaving v0-transaction
+     * compilation, signing, and submission to the caller. Use this when the caller needs to: -
+     * prepend / append their own instructions (e.g. fee splitting, custom logging) before signing;
+     * - reuse the platform-curated route, slippage, PS-variant rewriting, ALT injection,
+     * ComputeBudget overwrite, and ATA batching while still controlling the final wire format. Only
+     * supports &#x60;binanceChainId&#x3D;CT_501&#x60; (Solana). Other chains return
+     * &#x60;CHAIN_NOT_SUPPORTED&#x60; (40411). Parameters mirror the Solana subset of
+     * &#x60;/swap&#x60; (no EVM-only &#x60;approveTransaction&#x60; / &#x60;approveAmount&#x60; /
+     * &#x60;gasLimit&#x60;).
+     *
+     * @param binanceChainId Chain identifier. Only &#x60;CT_501&#x60; (Solana) is accepted; other
+     *     values return &#x60;CHAIN_NOT_SUPPORTED&#x60; (40411). (required)
+     * @param amount Sell-token amount in the token&#39;s smallest unit (positive integer string, no
+     *     decimals). (required)
+     * @param fromTokenAddress Sell-token mint address (Solana Base58, case-sensitive). (required)
+     * @param toTokenAddress Buy-token mint address (Solana Base58, case-sensitive). (required)
+     * @param slippagePercent Maximum slippage as a percentage. Solana range 0 to less than 100.
+     *     \&quot;0.5\&quot; means 0.5%. (required)
+     * @param userWalletAddress User wallet address (Solana Base58); becomes the v0
+     *     transaction&#39;s &#x60;feePayer&#x60;. (required)
+     * @param quoteId quoteId returned from &#x60;/quote&#x60; for the route to execute. TTL ~30s;
+     *     expired entries return &#x60;QUOTE_EXPIRED&#x60; (40401). (required)
+     * @param recvWindow Allowed time deviation in milliseconds (default: 5000, max: 60000).
+     *     (optional)
+     * @param nonce Unique request identifier for anti-replay; falls back to X-OC-SIGN if omitted.
+     *     (optional)
+     * @param priceImpactProtectionPercent Maximum allowed price impact percentage (0–100). Defaults
+     *     to 90; set to 100 to disable. (optional)
+     * @param autoSlippage When \&quot;true\&quot;, slippage is auto-derived from market data and
+     *     overrides &#x60;slippagePercent&#x60;. Defaults to false. (optional)
+     * @param maxAutoSlippagePercent Cap on auto-derived slippage (only applies when
+     *     &#x60;autoSlippage&#x3D;true&#x60;). (optional)
+     * @param computeUnitLimit Maximum compute units the transaction may consume (analogous to EVM
+     *     gasLimit). Defaults to the platform value when omitted. (optional)
+     * @param computeUnitPrice Priority fee per compute unit (micro-lamports). When omitted, the
+     *     platform computes a value either from the &#x60;gasLevel&#x60; tier or from chain-side
+     *     defaults. (optional)
+     * @param gasLevel Priority-fee tier; consulted only when &#x60;computeUnitPrice&#x60; is
+     *     omitted. Defaults to \&quot;average\&quot;. (optional)
+     * @param tips Jito tips in SOL for MEV protection. Valid range [0.000000001, 2] (minimum 1
+     *     lamport). When specified, it is recommended to set &#x60;computeUnitPrice&#x3D;0&#x60;.
+     *     The platform picks one of Jito&#39;s tip accounts at random per request. (optional)
+     * @return ApiResponse&lt;BuildSolanaSwapInstructionsResponse&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the
+     *     response body
+     * @http.response.details
+     *     <table border="1">
+     * <caption>Response Details</caption>
+     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+     * <tr><td> 200 </td><td> Uncompiled Solana instruction list and ALT addresses returned successfully. </td><td>  -  </td></tr>
+     * <tr><td> 401 </td><td> Unauthorized. The request is missing or contains an invalid API key. </td><td>  -  </td></tr>
+     * <tr><td> 403 </td><td> Forbidden. The API key does not have permission to access this endpoint. </td><td>  -  </td></tr>
+     * <tr><td> 404 </td><td> Not Found. The requested resource or endpoint does not exist. </td><td>  -  </td></tr>
+     * </table>
+     *
+     * @see <a
+     *     href="https://web3.binance.com/en/dev-docs/catalog/web3-wallet/api/rest-api/trading-api#build-solana-swap-instructions">Build
+     *     Solana Swap Instructions Documentation</a>
+     */
+    public ApiResponse<BuildSolanaSwapInstructionsResponse> buildSolanaSwapInstructions(
+            BinanceChainId binanceChainId,
+            String amount,
+            String fromTokenAddress,
+            String toTokenAddress,
+            String slippagePercent,
+            String userWalletAddress,
+            String quoteId,
+            Long recvWindow,
+            String nonce,
+            String priceImpactProtectionPercent,
+            AutoSlippage autoSlippage,
+            String maxAutoSlippagePercent,
+            String computeUnitLimit,
+            String computeUnitPrice,
+            GasLevel gasLevel,
+            String tips)
+            throws ApiException {
+        return tradingApi.buildSolanaSwapInstructions(
+                binanceChainId,
+                amount,
+                fromTokenAddress,
+                toTokenAddress,
+                slippagePercent,
+                userWalletAddress,
+                quoteId,
+                recvWindow,
+                nonce,
+                priceImpactProtectionPercent,
+                autoSlippage,
+                maxAutoSlippagePercent,
+                computeUnitLimit,
+                computeUnitPrice,
+                gasLevel,
+                tips);
     }
 
     public ApiResponse<BuildSwapTransactionResponse> buildSwapTransaction(
@@ -783,14 +1616,24 @@ public class Web3WalletRestApi {
      *     decimals). (required)
      * @param fromTokenAddress Sell-token contract address. (required)
      * @param toTokenAddress Buy-token contract address. (required)
-     * @param slippagePercent Maximum slippage as a percentage. EVM range 0–100; Solana range 0 to
-     *     less than 100. \&quot;0.5\&quot; means 0.5%. (required)
      * @param userWalletAddress User wallet address (transaction sender). (required)
      * @param quoteId quoteId returned from &#x60;/quote&#x60; for the route to execute. TTL ~30s;
      *     expired entries return &#x60;QUOTE_EXPIRED&#x60; (40401). (required)
      * @param recvWindow Allowed time deviation in milliseconds (default: 5000, max: 60000).
      *     (optional)
      * @param nonce Unique request identifier for anti-replay; falls back to X-OC-SIGN if omitted.
+     *     (optional)
+     * @param slippagePercent Maximum slippage tolerance as a percentage string. Required unless
+     *     &#x60;autoSlippage&#x3D;true&#x60;. **Range by chain:** - EVM chains (BSC, Ethereum,
+     *     Base, etc.): &#x60;0&#x60; to &#x60;100&#x60; (inclusive) - Solana (&#x60;CT_501&#x60;):
+     *     &#x60;0&#x60; to less than &#x60;100&#x60; (i.e. &#x60;&lt; 100&#x60;) **Range by
+     *     vendor:** - 1inch, PancakeSwap: &#x60;0&#x60; to &#x60;50&#x60; (values above 50 are
+     *     rejected) - LiFi, LiquidMesh: &#x60;0&#x60; to &#x60;100&#x60; (EVM) or &#x60;0&#x60; to
+     *     &#x60;&lt; 100&#x60; (Solana) - Jupiter (Solana): &#x60;0&#x60; to less than
+     *     &#x60;100&#x60;; the value is converted to basis points (&#x60;slippageBps &#x3D;
+     *     ceil(slippagePercent × 100)&#x60;) and applied to the on-chain swap
+     *     &#x60;\&quot;0.5\&quot;&#x60; means 0.5% maximum slippage. When
+     *     &#x60;autoSlippage&#x3D;true&#x60; this field is overridden by the auto-computed value.
      *     (optional)
      * @param approveTransaction When \&quot;true\&quot;, &#x60;signatureData&#x60; includes the
      *     spender address and approve calldata so the client can submit it before the swap.
@@ -801,8 +1644,10 @@ public class Web3WalletRestApi {
      * @param gasLevel Gas price tier. Defaults to \&quot;average\&quot;. (optional)
      * @param priceImpactProtectionPercent Maximum allowed price impact percentage (0–100). Defaults
      *     to 90; set to 100 to disable. (optional)
-     * @param autoSlippage When \&quot;true\&quot;, slippage is auto-derived from market data and
-     *     overrides &#x60;slippagePercent&#x60;. Defaults to false. (optional)
+     * @param autoSlippage When &#x60;\&quot;true\&quot;&#x60;, slippage is auto-derived from market
+     *     data and overrides &#x60;slippagePercent&#x60;. Either &#x60;slippagePercent&#x60; or
+     *     &#x60;autoSlippage&#x3D;true&#x60; must be provided — omitting both returns a parameter
+     *     error. Defaults to &#x60;\&quot;false\&quot;&#x60;. (optional)
      * @param maxAutoSlippagePercent Cap on auto-derived slippage (only applies when
      *     &#x60;autoSlippage&#x3D;true&#x60;). (optional)
      * @param computeUnitLimit Solana only — maximum compute units the transaction may consume
@@ -837,11 +1682,11 @@ public class Web3WalletRestApi {
             String amount,
             String fromTokenAddress,
             String toTokenAddress,
-            String slippagePercent,
             String userWalletAddress,
             String quoteId,
             Long recvWindow,
             String nonce,
+            String slippagePercent,
             ApproveTransaction approveTransaction,
             String approveAmount,
             String gasLimit,
@@ -858,11 +1703,11 @@ public class Web3WalletRestApi {
                 amount,
                 fromTokenAddress,
                 toTokenAddress,
-                slippagePercent,
                 userWalletAddress,
                 quoteId,
                 recvWindow,
                 nonce,
+                slippagePercent,
                 approveTransaction,
                 approveAmount,
                 gasLimit,
@@ -898,6 +1743,10 @@ public class Web3WalletRestApi {
      *     (optional)
      * @param nonce Unique request identifier for anti-replay; falls back to X-OC-SIGN if omitted.
      *     (optional)
+     * @param userWalletAddress User wallet address. Required when quoting RFQ routes (equity / RWA
+     *     tokens such as Ondo and BStock). This address is used as the receiver in the RFQ order
+     *     and must match the wallet that signs &#x60;rfq.typedDataToSign&#x60; in the subsequent
+     *     &#x60;/swap&#x60; call. (optional)
      * @return ApiResponse&lt;GetAggregatedQuoteResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the
      *     response body
@@ -921,10 +1770,17 @@ public class Web3WalletRestApi {
             String fromTokenAddress,
             String toTokenAddress,
             Long recvWindow,
-            String nonce)
+            String nonce,
+            String userWalletAddress)
             throws ApiException {
         return tradingApi.getAggregatedQuote(
-                binanceChainId, amount, fromTokenAddress, toTokenAddress, recvWindow, nonce);
+                binanceChainId,
+                amount,
+                fromTokenAddress,
+                toTokenAddress,
+                recvWindow,
+                nonce,
+                userWalletAddress);
     }
 
     public ApiResponse<GetAggregatorSupportedChainsResponse> getAggregatorSupportedChains(
@@ -986,6 +1842,15 @@ public class Web3WalletRestApi {
      *     (optional)
      * @param nonce Unique request identifier for anti-replay; falls back to X-OC-SIGN if omitted.
      *     (optional)
+     * @param vendor RFQ vendor name. **Required for equity / RWA tokens (Ondo, BStock)**; pass the
+     *     &#x60;vendorName&#x60; from the &#x60;/quote&#x60; response (e.g. &#x60;InchFusion&#x60;,
+     *     &#x60;CowSwap&#x60;, &#x60;PcsXRfq&#x60;). When provided, the backend returns approve
+     *     calldata targeting the vendor-specific spender contract (e.g. 1inch Router, PcsX Permit2,
+     *     CowSwap VaultRelayer) instead of the default DEX router. For regular (non-RWA) tokens,
+     *     this parameter is optional. If omitted, the backend uses the standard DEX router. If a
+     *     valid RFQ vendor is passed, the backend resolves that vendor&#39;s spender — used when
+     *     buying Ondo/BStock with a stablecoin, where the from-token (e.g. USDT) itself is not an
+     *     RFQ token but must be approved to the RFQ vendor&#39;s router. (optional)
      * @return ApiResponse&lt;GetErc20ApproveTransactionResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the
      *     response body
@@ -1008,10 +1873,49 @@ public class Web3WalletRestApi {
             String tokenContractAddress,
             String approveAmount,
             Long recvWindow,
-            String nonce)
+            String nonce,
+            String vendor)
             throws ApiException {
         return tradingApi.getErc20ApproveTransaction(
-                binanceChainId, tokenContractAddress, approveAmount, recvWindow, nonce);
+                binanceChainId, tokenContractAddress, approveAmount, recvWindow, nonce, vendor);
+    }
+
+    public ApiResponse<GetRfqOrderStatusResponse> getRfqOrderStatus(
+            TradingApi.GetRfqOrderStatusRequest request) {
+        return tradingApi.getRfqOrderStatus(request);
+    }
+
+    /**
+     * Get RFQ Order Status Query the settlement status of an RFQ order by its platform
+     * &#x60;orderId&#x60; (returned by &#x60;POST /order/submit&#x60;). Poll this endpoint until
+     * &#x60;status&#x60; reaches a terminal state: &#x60;FILLED&#x60; (settled on-chain) or
+     * &#x60;FAILED&#x60; (settlement failed).
+     *
+     * @param orderId Platform order ID returned by &#x60;POST /order/submit&#x60;. (required)
+     * @param recvWindow Allowed time deviation in milliseconds (default: 5000, max: 60000).
+     *     (optional)
+     * @param nonce Unique request identifier for anti-replay; falls back to X-OC-SIGN if omitted.
+     *     (optional)
+     * @return ApiResponse&lt;GetRfqOrderStatusResponse&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the
+     *     response body
+     * @http.response.details
+     *     <table border="1">
+     * <caption>Response Details</caption>
+     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+     * <tr><td> 200 </td><td> Order status returned successfully. </td><td>  -  </td></tr>
+     * <tr><td> 401 </td><td> Unauthorized. The request is missing or contains an invalid API key. </td><td>  -  </td></tr>
+     * <tr><td> 403 </td><td> Forbidden. The API key does not have permission to access this endpoint. </td><td>  -  </td></tr>
+     * <tr><td> 404 </td><td> Not Found. The requested resource or endpoint does not exist. </td><td>  -  </td></tr>
+     * </table>
+     *
+     * @see <a
+     *     href="https://web3.binance.com/en/dev-docs/catalog/web3-wallet/api/rest-api/trading-api#get-rfq-order-status">Get
+     *     RFQ Order Status Documentation</a>
+     */
+    public ApiResponse<GetRfqOrderStatusResponse> getRfqOrderStatus(
+            String orderId, Long recvWindow, String nonce) throws ApiException {
+        return tradingApi.getRfqOrderStatus(orderId, recvWindow, nonce);
     }
 
     public ApiResponse<GetTransactionStatusResponse> getTransactionStatus(
@@ -1058,12 +1962,174 @@ public class Web3WalletRestApi {
         return tradingApi.getTransactionStatus(binanceChainId, txHash, recvWindow, nonce);
     }
 
+    public ApiResponse<QuoteAndBuildSwapTransactionResponse> quoteAndBuildSwapTransaction(
+            TradingApi.QuoteAndBuildSwapTransactionRequest request) {
+        return tradingApi.quoteAndBuildSwapTransaction(request);
+    }
+
+    /**
+     * Quote and Build Swap Transaction (Flash API) Combines quoting and swap-transaction
+     * construction into a single call. Unlike the two-step &#x60;/quote&#x60; + &#x60;/swap&#x60;
+     * flow, this endpoint does not require a prior &#x60;/quote&#x60; call or a &#x60;quoteId&#x60;
+     * — it returns the executable calldata / swapTransaction directly, eliminating one HTTP
+     * round-trip. Use this endpoint for latency-sensitive trading when the vendor is known upfront.
+     * The response shape is identical to &#x60;/swap&#x60;, so clients can reuse the same response
+     * parsing logic for both endpoints.
+     *
+     * @param binanceChainId Unique chain identifier (e.g. \&quot;56\&quot;&#x3D;BSC,
+     *     \&quot;1\&quot;&#x3D;Ethereum, \&quot;CT_501\&quot;&#x3D;Solana). (required)
+     * @param amount Sell-token amount in the token&#39;s smallest unit (positive integer string, no
+     *     decimals). (required)
+     * @param fromTokenAddress Sell-token contract address. (required)
+     * @param toTokenAddress Buy-token contract address. (required)
+     * @param userWalletAddress User wallet address (transaction sender). For Solana, a Base58
+     *     system-account address with sufficient SOL for gas. (required)
+     * @param vendor Swap vendor to use for this request. **Required** — case-sensitive; must match
+     *     one of the enum values. Any other value returns &#x60;PARAM_ERROR&#x60; (40001). For
+     *     multi-vendor aggregation, use &#x60;/swap&#x60; with a &#x60;quoteId&#x60; instead.
+     *     (required)
+     * @param recvWindow Allowed time deviation in milliseconds (default: 5000, max: 60000).
+     *     (optional)
+     * @param nonce Unique request identifier for anti-replay; falls back to X-OC-SIGN if omitted.
+     *     (optional)
+     * @param slippagePercent Maximum slippage tolerance as a percentage string. Required unless
+     *     &#x60;autoSlippage&#x3D;true&#x60;. **Range by chain:** - EVM chains (BSC, Ethereum,
+     *     Base, etc.): &#x60;0&#x60; to &#x60;100&#x60; (inclusive) - Solana (&#x60;CT_501&#x60;):
+     *     &#x60;0&#x60; to less than &#x60;100&#x60; (i.e. &#x60;&lt; 100&#x60;)
+     *     &#x60;\&quot;0.5\&quot;&#x60; means 0.5% maximum slippage. When
+     *     &#x60;autoSlippage&#x3D;true&#x60; this field is overridden by the auto-computed value.
+     *     (optional)
+     * @param approveTransaction When \&quot;true\&quot;, &#x60;signatureData&#x60; includes the
+     *     spender address and approve calldata so the client can submit it before the swap.
+     *     Defaults to false. (optional)
+     * @param approveAmount Override approve amount (smallest unit, positive integer string).
+     *     Defaults to the swap amount. (optional)
+     * @param gasLimit Gas limit override (positive integer string). EVM only. (optional)
+     * @param gasLevel Gas price tier. Defaults to \&quot;average\&quot;. (optional)
+     * @param priceImpactProtectionPercent Maximum allowed price impact percentage (0–100). Defaults
+     *     to 90; set to 100 to disable. (optional)
+     * @param autoSlippage When &#x60;\&quot;true\&quot;&#x60;, slippage is auto-derived from market
+     *     data and overrides &#x60;slippagePercent&#x60;. Either &#x60;slippagePercent&#x60; or
+     *     &#x60;autoSlippage&#x3D;true&#x60; must be provided — omitting both returns a parameter
+     *     error. Defaults to &#x60;\&quot;false\&quot;&#x60;. (optional)
+     * @param maxAutoSlippagePercent Cap on auto-derived slippage (only applies when
+     *     &#x60;autoSlippage&#x3D;true&#x60;). (optional)
+     * @param computeUnitLimit Solana only — maximum compute units the transaction may consume
+     *     (analogous to EVM gasLimit). Applies only when &#x60;binanceChainId&#x3D;CT_501&#x60;.
+     *     (optional)
+     * @param computeUnitPrice Solana only — priority fee per compute unit (micro-lamports),
+     *     analogous to EVM gasPrice. When omitted, the platform computes a value dynamically.
+     *     Applies only when &#x60;binanceChainId&#x3D;CT_501&#x60;. (optional)
+     * @param tips Solana only — Jito tips in SOL for MEV protection. Valid range [0.000000001, 2]
+     *     (minimum 1 lamport). When specified, it is recommended to set
+     *     &#x60;computeUnitPrice&#x3D;0&#x60;. Applies only when
+     *     &#x60;binanceChainId&#x3D;CT_501&#x60;. (optional)
+     * @return ApiResponse&lt;QuoteAndBuildSwapTransactionResponse&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the
+     *     response body
+     * @http.response.details
+     *     <table border="1">
+     * <caption>Response Details</caption>
+     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+     * <tr><td> 200 </td><td> Swap transaction data returned successfully. </td><td>  -  </td></tr>
+     * <tr><td> 401 </td><td> Unauthorized. The request is missing or contains an invalid API key. </td><td>  -  </td></tr>
+     * <tr><td> 403 </td><td> Forbidden. The API key does not have permission to access this endpoint. </td><td>  -  </td></tr>
+     * <tr><td> 404 </td><td> Not Found. The requested resource or endpoint does not exist. </td><td>  -  </td></tr>
+     * </table>
+     *
+     * @see <a
+     *     href="https://web3.binance.com/en/dev-docs/catalog/web3-wallet/api/rest-api/trading-api#quote-and-build-swap-transaction">Quote
+     *     and Build Swap Transaction (Flash API) Documentation</a>
+     */
+    public ApiResponse<QuoteAndBuildSwapTransactionResponse> quoteAndBuildSwapTransaction(
+            String binanceChainId,
+            String amount,
+            String fromTokenAddress,
+            String toTokenAddress,
+            String userWalletAddress,
+            Vendor vendor,
+            Long recvWindow,
+            String nonce,
+            String slippagePercent,
+            ApproveTransaction approveTransaction,
+            String approveAmount,
+            String gasLimit,
+            GasLevel gasLevel,
+            String priceImpactProtectionPercent,
+            AutoSlippage autoSlippage,
+            String maxAutoSlippagePercent,
+            String computeUnitLimit,
+            String computeUnitPrice,
+            String tips)
+            throws ApiException {
+        return tradingApi.quoteAndBuildSwapTransaction(
+                binanceChainId,
+                amount,
+                fromTokenAddress,
+                toTokenAddress,
+                userWalletAddress,
+                vendor,
+                recvWindow,
+                nonce,
+                slippagePercent,
+                approveTransaction,
+                approveAmount,
+                gasLimit,
+                gasLevel,
+                priceImpactProtectionPercent,
+                autoSlippage,
+                maxAutoSlippagePercent,
+                computeUnitLimit,
+                computeUnitPrice,
+                tips);
+    }
+
+    /**
+     * Submit RFQ Order Submit a signed RFQ order to the backend for on-chain settlement via the
+     * corresponding vendor relayer. Only used when &#x60;executionMode&#x3D;RFQ&#x60; (equity / RWA
+     * tokens such as Ondo and BStock). **Flow**: &#x60;GET /quote&#x60; → pick an RFQ route →
+     * &#x60;GET /swap&#x60; → sign &#x60;rfq.typedDataToSign&#x60; with EIP-712
+     * (&#x60;eth_signTypedData_v4&#x60;) → call this endpoint → poll &#x60;GET
+     * /order/{orderId}&#x60; until &#x60;FILLED&#x60; or &#x60;FAILED&#x60;. **Idempotency**:
+     * Submitting with the same &#x60;requestId&#x60; within 30 minutes returns the original result
+     * without re-calling the vendor. Use a new UUID for each distinct order; reuse the same UUID
+     * when retrying.
+     *
+     * @param submitRfqOrderRequest (required)
+     * @param recvWindow Allowed time deviation in milliseconds (default: 5000, max: 60000).
+     *     (optional)
+     * @param nonce Unique request identifier for anti-replay; falls back to X-OC-SIGN if omitted.
+     *     (optional)
+     * @return ApiResponse&lt;SubmitRfqOrderResponse&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the
+     *     response body
+     * @http.response.details
+     *     <table border="1">
+     * <caption>Response Details</caption>
+     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+     * <tr><td> 200 </td><td> RFQ order submitted successfully. </td><td>  -  </td></tr>
+     * <tr><td> 401 </td><td> Unauthorized. The request is missing or contains an invalid API key. </td><td>  -  </td></tr>
+     * <tr><td> 403 </td><td> Forbidden. The API key does not have permission to access this endpoint. </td><td>  -  </td></tr>
+     * <tr><td> 404 </td><td> Not Found. The requested resource or endpoint does not exist. </td><td>  -  </td></tr>
+     * </table>
+     *
+     * @see <a
+     *     href="https://web3.binance.com/en/dev-docs/catalog/web3-wallet/api/rest-api/trading-api#submit-rfq-order">Submit
+     *     RFQ Order Documentation</a>
+     */
+    public ApiResponse<SubmitRfqOrderResponse> submitRfqOrder(
+            SubmitRfqOrderRequest submitRfqOrderRequest, Long recvWindow, String nonce)
+            throws ApiException {
+        return tradingApi.submitRfqOrder(submitRfqOrderRequest, recvWindow, nonce);
+    }
+
     /**
      * Broadcast Transactions Broadcast a client-signed transaction to the chain via the Binance
      * Web3 API relay. Returns the transaction hash and an internal &#x60;orderId&#x60; you can use
      * to track on-chain status via the post-transaction service. Optional MEV protection (EVM
      * chains only) routes the transaction through a private mempool to mitigate front-running and
-     * sandwich attacks.
+     * sandwich attacks. Tron and Solana do not support MEV protection; the flag is ignored on these
+     * chains.
      *
      * @param broadcastTransactionsRequest (required)
      * @param recvWindow Allowed time deviation in milliseconds (default: 5000, max: 60000).
@@ -1152,8 +2218,11 @@ public class Web3WalletRestApi {
 
     /**
      * Get Gas Limit Estimate the gas limit (or compute-unit ceiling on Solana) for an unsigned
-     * transaction. Provide either &#x60;evmTx&#x60; for EVM chains or &#x60;solTx&#x60; for Solana,
-     * matching the value of &#x60;binanceChainId&#x60;.
+     * transaction. Provide either &#x60;evmTx&#x60; for EVM chains, &#x60;solTx&#x60; for Solana,
+     * or &#x60;tronTx&#x60; for Tron (\&quot;CT_195\&quot;), matching the value of
+     * &#x60;binanceChainId&#x60;. On Tron the response carries energy/bandwidth fields instead of a
+     * single gas limit; &#x60;gasLimit&#x60; is the fee limit (in sun) and the energy/bandwidth
+     * fields describe resource consumption and pricing.
      *
      * @param getGasLimitRequest (required)
      * @param recvWindow Allowed time deviation in milliseconds (default: 5000, max: 60000).
@@ -1191,11 +2260,14 @@ public class Web3WalletRestApi {
      * Get Gas Price Query the current network gas price for the specified chain. The response shape
      * varies by chain family: - EVM chains return both &#x60;evmLegacyGasPrice&#x60; (legacy
      * gasPrice) and &#x60;eip1559GasPrice&#x60; (baseFee + priority/max fees) when EIP-1559 is
-     * supported. - Solana returns &#x60;solanaGasPrice&#x60; (compute-unit prices and Jito tips).
-     * Fields not applicable to the chain family are returned as &#x60;null&#x60;.
+     * supported. - Solana returns &#x60;solanaGasPrice&#x60; (compute-unit prices and Jito tips). -
+     * Tron (\&quot;CT_195\&quot;) returns an empty &#x60;data&#x60; object because Tron has no
+     * on-chain gas-price concept; use the gas-limit endpoint instead. Fields not applicable to the
+     * chain family are returned as &#x60;null&#x60;.
      *
      * @param binanceChainId Unique chain identifier (e.g. \&quot;1\&quot;&#x3D;Ethereum,
-     *     \&quot;56\&quot;&#x3D;BSC, \&quot;CT_501\&quot;&#x3D;Solana). (required)
+     *     \&quot;56\&quot;&#x3D;BSC, \&quot;CT_501\&quot;&#x3D;Solana,
+     *     \&quot;CT_195\&quot;&#x3D;Tron). (required)
      * @param recvWindow Allowed time deviation in milliseconds (default: 5000, max: 60000).
      *     (optional)
      * @param nonce Unique request identifier for anti-replay; falls back to X-OC-SIGN if omitted.
@@ -1262,8 +2334,10 @@ public class Web3WalletRestApi {
      * Simulate Transactions Simulate transaction execution off-chain to predict its outcome before
      * broadcasting. The response includes the predicted execution status, balance changes per
      * affected account/token, and ERC-20 allowance changes (EVM chains). Provide either
-     * &#x60;evmTx&#x60; (EVM chains) or &#x60;solTx&#x60; (Solana) matching
-     * &#x60;binanceChainId&#x60;.
+     * &#x60;evmTx&#x60; (EVM chains), &#x60;solTx&#x60; (Solana), or &#x60;tronTx&#x60; (Tron
+     * \&quot;CT_195\&quot;) matching &#x60;binanceChainId&#x60;. On Tron,
+     * &#x60;allowanceChanges&#x60; is returned as an empty array. Note: Metis (chainId 1088) is not
+     * supported by this endpoint.
      *
      * @param simulateTransactionsRequest (required)
      * @param recvWindow Allowed time deviation in milliseconds (default: 5000, max: 60000).

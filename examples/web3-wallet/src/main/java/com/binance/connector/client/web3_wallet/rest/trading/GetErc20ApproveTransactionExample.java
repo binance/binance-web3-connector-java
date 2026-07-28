@@ -41,6 +41,7 @@ public class GetErc20ApproveTransactionExample {
         String approveAmount = "1000000";
         Long recvWindow = 5000L;
         String nonce = "unique-nonce-string";
+        String vendor = "PcsXRfq";
         TradingApi.GetErc20ApproveTransactionRequest request =
                 new TradingApi.GetErc20ApproveTransactionRequest(
                         binanceChainId, tokenContractAddress, approveAmount);

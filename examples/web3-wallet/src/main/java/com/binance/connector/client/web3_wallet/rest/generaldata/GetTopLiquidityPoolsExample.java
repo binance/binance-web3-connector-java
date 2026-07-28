@@ -1,0 +1,48 @@
+package com.binance.connector.client.web3_wallet.rest.generaldata;
+
+import com.binance.connector.client.common.ApiException;
+import com.binance.connector.client.common.ApiResponse;
+import com.binance.connector.client.common.configuration.ClientConfiguration;
+import com.binance.connector.client.common.configuration.SignatureConfiguration;
+import com.binance.connector.client.web3_wallet.rest.Web3WalletRestApiUtil;
+import com.binance.connector.client.web3_wallet.rest.api.GeneralDataApi;
+import com.binance.connector.client.web3_wallet.rest.api.Web3WalletRestApi;
+import com.binance.connector.client.web3_wallet.rest.model.GetTopLiquidityPoolsResponse;
+
+/** API examples for GeneralDataApi */
+public class GetTopLiquidityPoolsExample {
+    private Web3WalletRestApi api;
+
+    public Web3WalletRestApi getApi() {
+        if (api == null) {
+            ClientConfiguration clientConfiguration =
+                    Web3WalletRestApiUtil.getClientConfiguration();
+            SignatureConfiguration signatureConfiguration = new SignatureConfiguration();
+            signatureConfiguration.setApiKey("apiKey");
+            signatureConfiguration.setSecretKey("secretKey");
+            clientConfiguration.setSignatureConfiguration(signatureConfiguration);
+            api = new Web3WalletRestApi(clientConfiguration);
+        }
+        return api;
+    }
+
+    /**
+     * Get Top Liquidity Pools
+     *
+     * <p>Return the top liquidity pools for a token, including pool name, protocol, liquidity in
+     * USD, pool address, and per-token composition.
+     *
+     * @throws ApiException if the Api call fails
+     */
+    public void getTopLiquidityPoolsExample() throws ApiException {
+        String binanceChainId = "1";
+        String tokenContractAddress = "0x6982508145454ce325ddbe47a25d4ec3d2311933";
+        Long recvWindow = 5000L;
+        String nonce = "unique-nonce-string";
+        GeneralDataApi.GetTopLiquidityPoolsRequest request =
+                new GeneralDataApi.GetTopLiquidityPoolsRequest(
+                        binanceChainId, tokenContractAddress);
+        ApiResponse<GetTopLiquidityPoolsResponse> response = getApi().getTopLiquidityPools(request);
+        System.out.println(response.getData());
+    }
+}

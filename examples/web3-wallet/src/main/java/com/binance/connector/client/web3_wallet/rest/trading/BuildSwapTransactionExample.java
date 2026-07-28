@@ -44,11 +44,11 @@ public class BuildSwapTransactionExample {
         String amount = "1000000";
         String fromTokenAddress = "0x55d398326f99059fF775485246999027B3197955";
         String toTokenAddress = "0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d";
-        String slippagePercent = "0.5";
         String userWalletAddress = "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045";
         String quoteId = "a1b2c3d4e5f64a8b9c0d1e2f3a4b5c6d";
         Long recvWindow = 5000L;
         String nonce = "unique-nonce-string";
+        String slippagePercent = "0.5";
         ApproveTransaction approveTransaction = ApproveTransaction.TRUE;
         String approveAmount = "1000000";
         String gasLimit = "200000";
@@ -65,7 +65,6 @@ public class BuildSwapTransactionExample {
                         amount,
                         fromTokenAddress,
                         toTokenAddress,
-                        slippagePercent,
                         userWalletAddress,
                         quoteId);
         ApiResponse<BuildSwapTransactionResponse> response = getApi().buildSwapTransaction(request);

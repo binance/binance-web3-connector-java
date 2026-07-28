@@ -46,14 +46,20 @@ public class GetGasLimitRequest {
     public static final String SERIALIZED_NAME_EVM_TX = "evmTx";
 
     @SerializedName(SERIALIZED_NAME_EVM_TX)
-    @jakarta.annotation.Nullable
+    @jakarta.annotation.Nonnull
     private GetGasLimitRequestEvmTx evmTx;
 
     public static final String SERIALIZED_NAME_SOL_TX = "solTx";
 
     @SerializedName(SERIALIZED_NAME_SOL_TX)
-    @jakarta.annotation.Nullable
+    @jakarta.annotation.Nonnull
     private GetGasLimitRequestSolTx solTx;
+
+    public static final String SERIALIZED_NAME_TRON_TX = "tronTx";
+
+    @SerializedName(SERIALIZED_NAME_TRON_TX)
+    @jakarta.annotation.Nonnull
+    private GetGasLimitRequestTronTx tronTx;
 
     public GetGasLimitRequest() {}
 
@@ -64,7 +70,11 @@ public class GetGasLimitRequest {
 
     /**
      * Unique chain identifier (e.g. \&quot;1\&quot;&#x3D;Ethereum, \&quot;56\&quot;&#x3D;BSC,
-     * \&quot;CT_501\&quot;&#x3D;Solana).
+     * \&quot;CT_501\&quot;&#x3D;Solana, \&quot;CT_195\&quot;&#x3D;Tron). Provide &#x60;evmTx&#x60;
+     * for EVM chains, &#x60;solTx&#x60; for Solana, or &#x60;tronTx&#x60; for Tron — exactly one
+     * must be present. Note: &#x60;evmTx&#x60;, &#x60;solTx&#x60;, and &#x60;tronTx&#x60; are
+     * marked required in this schema for rendering purposes only; in practice supply exactly one
+     * matching &#x60;binanceChainId&#x60;.
      *
      * @return binanceChainId
      */
@@ -78,7 +88,7 @@ public class GetGasLimitRequest {
         this.binanceChainId = binanceChainId;
     }
 
-    public GetGasLimitRequest evmTx(@jakarta.annotation.Nullable GetGasLimitRequestEvmTx evmTx) {
+    public GetGasLimitRequest evmTx(@jakarta.annotation.Nonnull GetGasLimitRequestEvmTx evmTx) {
         this.evmTx = evmTx;
         return this;
     }
@@ -88,17 +98,18 @@ public class GetGasLimitRequest {
      *
      * @return evmTx
      */
-    @jakarta.annotation.Nullable
+    @jakarta.annotation.Nonnull
+    @NotNull
     @Valid
     public GetGasLimitRequestEvmTx getEvmTx() {
         return evmTx;
     }
 
-    public void setEvmTx(@jakarta.annotation.Nullable GetGasLimitRequestEvmTx evmTx) {
+    public void setEvmTx(@jakarta.annotation.Nonnull GetGasLimitRequestEvmTx evmTx) {
         this.evmTx = evmTx;
     }
 
-    public GetGasLimitRequest solTx(@jakarta.annotation.Nullable GetGasLimitRequestSolTx solTx) {
+    public GetGasLimitRequest solTx(@jakarta.annotation.Nonnull GetGasLimitRequestSolTx solTx) {
         this.solTx = solTx;
         return this;
     }
@@ -108,14 +119,36 @@ public class GetGasLimitRequest {
      *
      * @return solTx
      */
-    @jakarta.annotation.Nullable
+    @jakarta.annotation.Nonnull
+    @NotNull
     @Valid
     public GetGasLimitRequestSolTx getSolTx() {
         return solTx;
     }
 
-    public void setSolTx(@jakarta.annotation.Nullable GetGasLimitRequestSolTx solTx) {
+    public void setSolTx(@jakarta.annotation.Nonnull GetGasLimitRequestSolTx solTx) {
         this.solTx = solTx;
+    }
+
+    public GetGasLimitRequest tronTx(@jakarta.annotation.Nonnull GetGasLimitRequestTronTx tronTx) {
+        this.tronTx = tronTx;
+        return this;
+    }
+
+    /**
+     * Get tronTx
+     *
+     * @return tronTx
+     */
+    @jakarta.annotation.Nonnull
+    @NotNull
+    @Valid
+    public GetGasLimitRequestTronTx getTronTx() {
+        return tronTx;
+    }
+
+    public void setTronTx(@jakarta.annotation.Nonnull GetGasLimitRequestTronTx tronTx) {
+        this.tronTx = tronTx;
     }
 
     @Override
@@ -129,12 +162,13 @@ public class GetGasLimitRequest {
         GetGasLimitRequest getGasLimitRequest = (GetGasLimitRequest) o;
         return Objects.equals(this.binanceChainId, getGasLimitRequest.binanceChainId)
                 && Objects.equals(this.evmTx, getGasLimitRequest.evmTx)
-                && Objects.equals(this.solTx, getGasLimitRequest.solTx);
+                && Objects.equals(this.solTx, getGasLimitRequest.solTx)
+                && Objects.equals(this.tronTx, getGasLimitRequest.tronTx);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(binanceChainId, evmTx, solTx);
+        return Objects.hash(binanceChainId, evmTx, solTx, tronTx);
     }
 
     @Override
@@ -144,6 +178,7 @@ public class GetGasLimitRequest {
         sb.append("		binanceChainId: ").append(toIndentedString(binanceChainId)).append("\n");
         sb.append("		evmTx: ").append(toIndentedString(evmTx)).append("\n");
         sb.append("		solTx: ").append(toIndentedString(solTx)).append("\n");
+        sb.append("		tronTx: ").append(toIndentedString(tronTx)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -163,6 +198,10 @@ public class GetGasLimitRequest {
         String solTxValueAsString = "";
         solTxValueAsString = solTxValue.toString();
         sb.append("solTx=").append(urlEncode(solTxValueAsString)).append("");
+        Object tronTxValue = getTronTx();
+        String tronTxValueAsString = "";
+        tronTxValueAsString = tronTxValue.toString();
+        sb.append("tronTx=").append(urlEncode(tronTxValueAsString)).append("");
         return sb.toString();
     }
 
@@ -194,10 +233,14 @@ public class GetGasLimitRequest {
         openapiFields.add("binanceChainId");
         openapiFields.add("evmTx");
         openapiFields.add("solTx");
+        openapiFields.add("tronTx");
 
         // a set of required properties/fields (JSON key names)
         openapiRequiredFields = new HashSet<String>();
         openapiRequiredFields.add("binanceChainId");
+        openapiRequiredFields.add("evmTx");
+        openapiRequiredFields.add("solTx");
+        openapiRequiredFields.add("tronTx");
     }
 
     /**
@@ -235,14 +278,12 @@ public class GetGasLimitRequest {
                                     + " string but got `%s`",
                             jsonObj.get("binanceChainId").toString()));
         }
-        // validate the optional field `evmTx`
-        if (jsonObj.get("evmTx") != null && !jsonObj.get("evmTx").isJsonNull()) {
-            GetGasLimitRequestEvmTx.validateJsonElement(jsonObj.get("evmTx"));
-        }
-        // validate the optional field `solTx`
-        if (jsonObj.get("solTx") != null && !jsonObj.get("solTx").isJsonNull()) {
-            GetGasLimitRequestSolTx.validateJsonElement(jsonObj.get("solTx"));
-        }
+        // validate the required field `evmTx`
+        GetGasLimitRequestEvmTx.validateJsonElement(jsonObj.get("evmTx"));
+        // validate the required field `solTx`
+        GetGasLimitRequestSolTx.validateJsonElement(jsonObj.get("solTx"));
+        // validate the required field `tronTx`
+        GetGasLimitRequestTronTx.validateJsonElement(jsonObj.get("tronTx"));
     }
 
     public static class CustomTypeAdapterFactory implements TypeAdapterFactory {

@@ -45,7 +45,7 @@ public class SimulateTransactionsRequestSolTx {
     public static final String SERIALIZED_NAME_ADDRESS = "address";
 
     @SerializedName(SERIALIZED_NAME_ADDRESS)
-    @jakarta.annotation.Nonnull
+    @jakarta.annotation.Nullable
     private String address;
 
     public SimulateTransactionsRequestSolTx() {}
@@ -70,7 +70,7 @@ public class SimulateTransactionsRequestSolTx {
         this.base64Tx = base64Tx;
     }
 
-    public SimulateTransactionsRequestSolTx address(@jakarta.annotation.Nonnull String address) {
+    public SimulateTransactionsRequestSolTx address(@jakarta.annotation.Nullable String address) {
         this.address = address;
         return this;
     }
@@ -80,13 +80,12 @@ public class SimulateTransactionsRequestSolTx {
      *
      * @return address
      */
-    @jakarta.annotation.Nonnull
-    @NotNull
+    @jakarta.annotation.Nullable
     public String getAddress() {
         return address;
     }
 
-    public void setAddress(@jakarta.annotation.Nonnull String address) {
+    public void setAddress(@jakarta.annotation.Nullable String address) {
         this.address = address;
     }
 
@@ -164,7 +163,6 @@ public class SimulateTransactionsRequestSolTx {
         // a set of required properties/fields (JSON key names)
         openapiRequiredFields = new HashSet<String>();
         openapiRequiredFields.add("base64Tx");
-        openapiRequiredFields.add("address");
     }
 
     /**
@@ -203,7 +201,8 @@ public class SimulateTransactionsRequestSolTx {
                                     + " string but got `%s`",
                             jsonObj.get("base64Tx").toString()));
         }
-        if (!jsonObj.get("address").isJsonPrimitive()) {
+        if ((jsonObj.get("address") != null && !jsonObj.get("address").isJsonNull())
+                && !jsonObj.get("address").isJsonPrimitive()) {
             throw new IllegalArgumentException(
                     String.format(
                             "Expected the field `address` to be a primitive type in the JSON string"

@@ -52,7 +52,7 @@ public class TransactionApi {
 
     private static final String USER_AGENT =
             String.format(
-                    "binance-web3-wallet/2.0.0 (Java/%s; %s; %s)",
+                    "binance-web3-wallet/3.0.0 (Java/%s; %s; %s)",
                     SystemUtil.getJavaVersion(), SystemUtil.getOs(), SystemUtil.getArch());
     private static final boolean HAS_TIME_UNIT = false;
 
@@ -585,6 +585,11 @@ public class TransactionApi {
             localVarFormParams.put("solTx", json);
         }
 
+        if (getGasLimitRequest.getTronTx() != null) {
+            String json = JSON.getGson().toJson(getGasLimitRequest.getTronTx());
+            localVarFormParams.put("tronTx", json);
+        }
+
         final String[] localVarAccepts = {"application/json"};
         final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
         if (localVarAccept != null) {
@@ -1026,6 +1031,11 @@ public class TransactionApi {
         if (simulateTransactionsRequest.getSolTx() != null) {
             String json = JSON.getGson().toJson(simulateTransactionsRequest.getSolTx());
             localVarFormParams.put("solTx", json);
+        }
+
+        if (simulateTransactionsRequest.getTronTx() != null) {
+            String json = JSON.getGson().toJson(simulateTransactionsRequest.getTronTx());
+            localVarFormParams.put("tronTx", json);
         }
 
         final String[] localVarAccepts = {"application/json"};
