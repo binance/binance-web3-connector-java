@@ -13,6 +13,7 @@ import com.binance.connector.client.web3_wallet.rest.model.BroadcastTransactions
 import com.binance.connector.client.web3_wallet.rest.model.BroadcastTransactionsResponse;
 import com.binance.connector.client.web3_wallet.rest.model.BuildSolanaSwapInstructionsResponse;
 import com.binance.connector.client.web3_wallet.rest.model.BuildSwapTransactionResponse;
+import com.binance.connector.client.web3_wallet.rest.model.FeeSource;
 import com.binance.connector.client.web3_wallet.rest.model.GasLevel;
 import com.binance.connector.client.web3_wallet.rest.model.GetAddressPnLForSpecificTokenResponse;
 import com.binance.connector.client.web3_wallet.rest.model.GetAddressPortfolioOverviewResponse;
@@ -1511,7 +1512,10 @@ public class Web3WalletRestApi {
      * supports &#x60;binanceChainId&#x3D;CT_501&#x60; (Solana). Other chains return
      * &#x60;CHAIN_NOT_SUPPORTED&#x60; (40411). Parameters mirror the Solana subset of
      * &#x60;/swap&#x60; (no EVM-only &#x60;approveTransaction&#x60; / &#x60;approveAmount&#x60; /
-     * &#x60;gasLimit&#x60;).
+     * &#x60;gasLimit&#x60;). Supports the custom-fee (Add Fee / referral fee) parameters
+     * (&#x60;feePercent&#x60; + &#x60;fromTokenReferrerWalletAddress&#x60; /
+     * &#x60;toTokenReferrerWalletAddress&#x60;), with the same semantics as &#x60;/swap&#x60; — the
+     * fee instructions are injected into the returned uncompiled instruction list.
      *
      * @param binanceChainId Chain identifier. Only &#x60;CT_501&#x60; (Solana) is accepted; other
      *     values return &#x60;CHAIN_NOT_SUPPORTED&#x60; (40411). (required)
@@ -1545,6 +1549,28 @@ public class Web3WalletRestApi {
      * @param tips Jito tips in SOL for MEV protection. Valid range [0.000000001, 2] (minimum 1
      *     lamport). When specified, it is recommended to set &#x60;computeUnitPrice&#x3D;0&#x60;.
      *     The platform picks one of Jito&#39;s tip accounts at random per request. (optional)
+     * @param feePercent Custom fee (referral fee / Add Fee) percentage as a decimal string. Must be
+     *     paired with exactly one of &#x60;fromTokenReferrerWalletAddress&#x60; or
+     *     &#x60;toTokenReferrerWalletAddress&#x60; (the two referrer addresses are mutually
+     *     exclusive). Same semantics as &#x60;/swap&#x60;. **Range (Solana):** &#x60;(0, 10]&#x60;
+     *     — greater than 0, up to 10 inclusive, max 2 decimal places. &#x60;\&quot;1.5\&quot;&#x60;
+     *     means 1.5%. Values exceeding 2 decimal places are rejected with
+     *     &#x60;INVALID_FEE_PERCENT&#x60; (40466). **&#x60;four.meme&#x60; tokens are not
+     *     supported** — do not pass fee parameters when either side of the pair is a
+     *     &#x60;four.meme&#x60; token. (optional)
+     * @param fromTokenReferrerWalletAddress Wallet address that receives the fee deducted from the
+     *     sell token (&#x60;FROM_TOKEN&#x60; direction). Mutually exclusive with
+     *     &#x60;toTokenReferrerWalletAddress&#x60; — providing both returns
+     *     &#x60;CONFLICT_REFERRER_PARAMS&#x60; (40468). Solana requires a Base58 pubkey; an invalid
+     *     format returns &#x60;INVALID_REFERRER_ADDRESS&#x60; (40467). Must be paired with
+     *     &#x60;feePercent&#x60;. (optional)
+     * @param toTokenReferrerWalletAddress Wallet address that receives the fee deducted from the
+     *     buy-token output (&#x60;TO_TOKEN&#x60; direction). Mutually exclusive with
+     *     &#x60;fromTokenReferrerWalletAddress&#x60; — providing both returns
+     *     &#x60;CONFLICT_REFERRER_PARAMS&#x60; (40468). Solana requires a Base58 pubkey; an invalid
+     *     format returns &#x60;INVALID_REFERRER_ADDRESS&#x60; (40467). Must be paired with
+     *     &#x60;feePercent&#x60;. The referrer must already be activated (funded with some SOL) or
+     *     the request returns &#x60;REFERRER_NOT_ACTIVATED&#x60; (40469). (optional)
      * @return ApiResponse&lt;BuildSolanaSwapInstructionsResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the
      *     response body
@@ -1578,7 +1604,10 @@ public class Web3WalletRestApi {
             String computeUnitLimit,
             String computeUnitPrice,
             GasLevel gasLevel,
-            String tips)
+            String tips,
+            String feePercent,
+            String fromTokenReferrerWalletAddress,
+            String toTokenReferrerWalletAddress)
             throws ApiException {
         return tradingApi.buildSolanaSwapInstructions(
                 binanceChainId,
@@ -1596,7 +1625,10 @@ public class Web3WalletRestApi {
                 computeUnitLimit,
                 computeUnitPrice,
                 gasLevel,
-                tips);
+                tips,
+                feePercent,
+                fromTokenReferrerWalletAddress,
+                toTokenReferrerWalletAddress);
     }
 
     public ApiResponse<BuildSwapTransactionResponse> buildSwapTransaction(
@@ -1660,6 +1692,32 @@ public class Web3WalletRestApi {
      *     (minimum 1 lamport). When specified, it is recommended to set
      *     &#x60;computeUnitPrice&#x3D;0&#x60;. Applies only when
      *     &#x60;binanceChainId&#x3D;CT_501&#x60;. (optional)
+     * @param feePercent Custom fee (referral fee / Add Fee) percentage as a decimal string. Must be
+     *     paired with exactly one of &#x60;fromTokenReferrerWalletAddress&#x60; or
+     *     &#x60;toTokenReferrerWalletAddress&#x60; (the two referrer addresses are mutually
+     *     exclusive). **Range by chain:** &#x60;(0, 5]&#x60; for EVM chains (BSC, Ethereum, Base,
+     *     etc.) and &#x60;(0, 10]&#x60; for Solana (&#x60;CT_501&#x60;) — greater than 0, up to the
+     *     chain-specific maximum inclusive, max 2 decimal places. &#x60;\&quot;1.5\&quot;&#x60;
+     *     means 1.5%. Values exceeding 2 decimal places are rejected with
+     *     &#x60;INVALID_FEE_PERCENT&#x60; (40466). **&#x60;four.meme&#x60; tokens are not
+     *     supported** — do not pass fee parameters when either side of the pair is a
+     *     &#x60;four.meme&#x60; token. (optional)
+     * @param fromTokenReferrerWalletAddress Wallet address that receives the fee deducted from the
+     *     sell token (&#x60;FROM_TOKEN&#x60; direction). Mutually exclusive with
+     *     &#x60;toTokenReferrerWalletAddress&#x60; — providing both returns
+     *     &#x60;CONFLICT_REFERRER_PARAMS&#x60; (40468). Address format depends on the chain: EVM
+     *     chains require &#x60;0x&#x60; + 40 hex chars; Solana (&#x60;CT_501&#x60;) requires a
+     *     Base58 pubkey. An invalid format returns &#x60;INVALID_REFERRER_ADDRESS&#x60; (40467).
+     *     Must be paired with &#x60;feePercent&#x60;. (optional)
+     * @param toTokenReferrerWalletAddress Wallet address that receives the fee deducted from the
+     *     buy-token output (&#x60;TO_TOKEN&#x60; direction). Mutually exclusive with
+     *     &#x60;fromTokenReferrerWalletAddress&#x60; — providing both returns
+     *     &#x60;CONFLICT_REFERRER_PARAMS&#x60; (40468). Address format depends on the chain: EVM
+     *     chains require &#x60;0x&#x60; + 40 hex chars; Solana (&#x60;CT_501&#x60;) requires a
+     *     Base58 pubkey. An invalid format returns &#x60;INVALID_REFERRER_ADDRESS&#x60; (40467).
+     *     Must be paired with &#x60;feePercent&#x60;. On Solana, the referrer must already be
+     *     activated (funded with some SOL) or the request returns
+     *     &#x60;REFERRER_NOT_ACTIVATED&#x60; (40469). (optional)
      * @return ApiResponse&lt;BuildSwapTransactionResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the
      *     response body
@@ -1696,7 +1754,10 @@ public class Web3WalletRestApi {
             String maxAutoSlippagePercent,
             String computeUnitLimit,
             String computeUnitPrice,
-            String tips)
+            String tips,
+            String feePercent,
+            String fromTokenReferrerWalletAddress,
+            String toTokenReferrerWalletAddress)
             throws ApiException {
         return tradingApi.buildSwapTransaction(
                 binanceChainId,
@@ -1717,7 +1778,10 @@ public class Web3WalletRestApi {
                 maxAutoSlippagePercent,
                 computeUnitLimit,
                 computeUnitPrice,
-                tips);
+                tips,
+                feePercent,
+                fromTokenReferrerWalletAddress,
+                toTokenReferrerWalletAddress);
     }
 
     public ApiResponse<GetAggregatedQuoteResponse> getAggregatedQuote(
@@ -1747,6 +1811,19 @@ public class Web3WalletRestApi {
      *     tokens such as Ondo and BStock). This address is used as the receiver in the RFQ order
      *     and must match the wallet that signs &#x60;rfq.typedDataToSign&#x60; in the subsequent
      *     &#x60;/swap&#x60; call. (optional)
+     * @param feePercent Custom fee (referral fee / Add Fee) percentage as a decimal string. Must be
+     *     paired with &#x60;feeSource&#x60; — either both present or both absent. **Range by
+     *     chain:** &#x60;(0, 5]&#x60; for EVM chains (BSC, Ethereum, Base, etc.) and &#x60;(0,
+     *     10]&#x60; for Solana (&#x60;CT_501&#x60;) — greater than 0, up to the chain-specific
+     *     maximum inclusive, max 2 decimal places. &#x60;\&quot;1.5\&quot;&#x60; means 1.5%. Values
+     *     exceeding 2 decimal places are rejected with &#x60;INVALID_FEE_PERCENT&#x60; (40466).
+     *     **&#x60;four.meme&#x60; tokens are not supported** — do not pass fee parameters when
+     *     either side of the pair is a &#x60;four.meme&#x60; token. (optional)
+     * @param feeSource Fee deduction direction. &#x60;FROM_TOKEN&#x60; &#x3D; deduct the fee from
+     *     the sell token (the amount passed to the DEX is reduced to a net amount);
+     *     &#x60;TO_TOKEN&#x60; &#x3D; deduct the fee from the buy-token output (the user&#39;s
+     *     actual received amount is reduced). Must be paired with &#x60;feePercent&#x60;.
+     *     (optional)
      * @return ApiResponse&lt;GetAggregatedQuoteResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the
      *     response body
@@ -1771,7 +1848,9 @@ public class Web3WalletRestApi {
             String toTokenAddress,
             Long recvWindow,
             String nonce,
-            String userWalletAddress)
+            String userWalletAddress,
+            String feePercent,
+            FeeSource feeSource)
             throws ApiException {
         return tradingApi.getAggregatedQuote(
                 binanceChainId,
@@ -1780,7 +1859,9 @@ public class Web3WalletRestApi {
                 toTokenAddress,
                 recvWindow,
                 nonce,
-                userWalletAddress);
+                userWalletAddress,
+                feePercent,
+                feeSource);
     }
 
     public ApiResponse<GetAggregatorSupportedChainsResponse> getAggregatorSupportedChains(
@@ -2024,6 +2105,32 @@ public class Web3WalletRestApi {
      *     (minimum 1 lamport). When specified, it is recommended to set
      *     &#x60;computeUnitPrice&#x3D;0&#x60;. Applies only when
      *     &#x60;binanceChainId&#x3D;CT_501&#x60;. (optional)
+     * @param feePercent Custom fee (referral fee / Add Fee) percentage as a decimal string. Must be
+     *     paired with exactly one of &#x60;fromTokenReferrerWalletAddress&#x60; or
+     *     &#x60;toTokenReferrerWalletAddress&#x60; (the two referrer addresses are mutually
+     *     exclusive). **Range by chain:** &#x60;(0, 5]&#x60; for EVM chains (BSC, Ethereum, Base,
+     *     etc.) and &#x60;(0, 10]&#x60; for Solana (&#x60;CT_501&#x60;) — greater than 0, up to the
+     *     chain-specific maximum inclusive, max 2 decimal places. &#x60;\&quot;1.5\&quot;&#x60;
+     *     means 1.5%. Values exceeding 2 decimal places are rejected with
+     *     &#x60;INVALID_FEE_PERCENT&#x60; (40466). **&#x60;four.meme&#x60; tokens are not
+     *     supported** — do not pass fee parameters when either side of the pair is a
+     *     &#x60;four.meme&#x60; token. (optional)
+     * @param fromTokenReferrerWalletAddress Wallet address that receives the fee deducted from the
+     *     sell token (&#x60;FROM_TOKEN&#x60; direction). Mutually exclusive with
+     *     &#x60;toTokenReferrerWalletAddress&#x60; — providing both returns
+     *     &#x60;CONFLICT_REFERRER_PARAMS&#x60; (40468). Address format depends on the chain: EVM
+     *     chains require &#x60;0x&#x60; + 40 hex chars; Solana (&#x60;CT_501&#x60;) requires a
+     *     Base58 pubkey. An invalid format returns &#x60;INVALID_REFERRER_ADDRESS&#x60; (40467).
+     *     Must be paired with &#x60;feePercent&#x60;. (optional)
+     * @param toTokenReferrerWalletAddress Wallet address that receives the fee deducted from the
+     *     buy-token output (&#x60;TO_TOKEN&#x60; direction). Mutually exclusive with
+     *     &#x60;fromTokenReferrerWalletAddress&#x60; — providing both returns
+     *     &#x60;CONFLICT_REFERRER_PARAMS&#x60; (40468). Address format depends on the chain: EVM
+     *     chains require &#x60;0x&#x60; + 40 hex chars; Solana (&#x60;CT_501&#x60;) requires a
+     *     Base58 pubkey. An invalid format returns &#x60;INVALID_REFERRER_ADDRESS&#x60; (40467).
+     *     Must be paired with &#x60;feePercent&#x60;. On Solana, the referrer must already be
+     *     activated (funded with some SOL) or the request returns
+     *     &#x60;REFERRER_NOT_ACTIVATED&#x60; (40469). (optional)
      * @return ApiResponse&lt;QuoteAndBuildSwapTransactionResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the
      *     response body
@@ -2060,7 +2167,10 @@ public class Web3WalletRestApi {
             String maxAutoSlippagePercent,
             String computeUnitLimit,
             String computeUnitPrice,
-            String tips)
+            String tips,
+            String feePercent,
+            String fromTokenReferrerWalletAddress,
+            String toTokenReferrerWalletAddress)
             throws ApiException {
         return tradingApi.quoteAndBuildSwapTransaction(
                 binanceChainId,
@@ -2081,7 +2191,10 @@ public class Web3WalletRestApi {
                 maxAutoSlippagePercent,
                 computeUnitLimit,
                 computeUnitPrice,
-                tips);
+                tips,
+                feePercent,
+                fromTokenReferrerWalletAddress,
+                toTokenReferrerWalletAddress);
     }
 
     /**

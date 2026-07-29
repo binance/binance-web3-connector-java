@@ -59,6 +59,9 @@ public class BuildSwapTransactionExample {
         String computeUnitLimit = "1400000";
         String computeUnitPrice = "1000";
         String tips = "0.001";
+        String feePercent = "1.5";
+        String fromTokenReferrerWalletAddress = "0xCbF2B6E6e3D7e9e4e4e4e4e4e4e4e4e4e4e4e4e4";
+        String toTokenReferrerWalletAddress = "0xCbF2B6E6e3D7e9e4e4e4e4e4e4e4e4e4e4e4e4e4";
         TradingApi.BuildSwapTransactionRequest request =
                 new TradingApi.BuildSwapTransactionRequest(
                         binanceChainId,

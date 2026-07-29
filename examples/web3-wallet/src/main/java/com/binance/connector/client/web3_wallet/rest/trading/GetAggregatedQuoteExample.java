@@ -7,6 +7,7 @@ import com.binance.connector.client.common.configuration.SignatureConfiguration;
 import com.binance.connector.client.web3_wallet.rest.Web3WalletRestApiUtil;
 import com.binance.connector.client.web3_wallet.rest.api.TradingApi;
 import com.binance.connector.client.web3_wallet.rest.api.Web3WalletRestApi;
+import com.binance.connector.client.web3_wallet.rest.model.FeeSource;
 import com.binance.connector.client.web3_wallet.rest.model.GetAggregatedQuoteResponse;
 
 /** API examples for TradingApi */
@@ -43,6 +44,8 @@ public class GetAggregatedQuoteExample {
         Long recvWindow = 5000L;
         String nonce = "unique-nonce-string";
         String userWalletAddress = "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045";
+        String feePercent = "1.5";
+        FeeSource feeSource = FeeSource.FROM_TOKEN;
         TradingApi.GetAggregatedQuoteRequest request =
                 new TradingApi.GetAggregatedQuoteRequest(
                         binanceChainId, amount, fromTokenAddress, toTokenAddress);

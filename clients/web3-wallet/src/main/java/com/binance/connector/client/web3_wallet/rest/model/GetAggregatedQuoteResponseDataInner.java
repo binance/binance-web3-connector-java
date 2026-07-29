@@ -134,6 +134,24 @@ public class GetAggregatedQuoteResponseDataInner {
     @jakarta.annotation.Nullable
     private Boolean isBest;
 
+    public static final String SERIALIZED_NAME_FEE_AMOUNT = "feeAmount";
+
+    @SerializedName(SERIALIZED_NAME_FEE_AMOUNT)
+    @jakarta.annotation.Nullable
+    private String feeAmount;
+
+    public static final String SERIALIZED_NAME_FEE_TOKEN = "feeToken";
+
+    @SerializedName(SERIALIZED_NAME_FEE_TOKEN)
+    @jakarta.annotation.Nullable
+    private String feeToken;
+
+    public static final String SERIALIZED_NAME_ACTUAL_SWAP_AMOUNT = "actualSwapAmount";
+
+    @SerializedName(SERIALIZED_NAME_ACTUAL_SWAP_AMOUNT)
+    @jakarta.annotation.Nullable
+    private String actualSwapAmount;
+
     public GetAggregatedQuoteResponseDataInner() {}
 
     public GetAggregatedQuoteResponseDataInner quoteId(
@@ -467,6 +485,76 @@ public class GetAggregatedQuoteResponseDataInner {
         this.isBest = isBest;
     }
 
+    public GetAggregatedQuoteResponseDataInner feeAmount(
+            @jakarta.annotation.Nullable String feeAmount) {
+        this.feeAmount = feeAmount;
+        return this;
+    }
+
+    /**
+     * Fee amount deducted for this route (smallest unit, integer string). Only populated when the
+     * request enabled the custom fee (&#x60;feePercent&#x60; + &#x60;feeSource&#x60; both present);
+     * &#x60;null&#x60; otherwise. &#x60;FROM_TOKEN&#x60; direction &#x3D;
+     * &#x60;originalFromCoinAmount × feePercent/100&#x60; (HALF_UP); &#x60;TO_TOKEN&#x60; direction
+     * &#x3D; &#x60;originalToCoinAmount × feePercent/100&#x60; (HALF_DOWN).
+     *
+     * @return feeAmount
+     */
+    @jakarta.annotation.Nullable
+    public String getFeeAmount() {
+        return feeAmount;
+    }
+
+    public void setFeeAmount(@jakarta.annotation.Nullable String feeAmount) {
+        this.feeAmount = feeAmount;
+    }
+
+    public GetAggregatedQuoteResponseDataInner feeToken(
+            @jakarta.annotation.Nullable String feeToken) {
+        this.feeToken = feeToken;
+        return this;
+    }
+
+    /**
+     * Contract address of the token in which the fee is denominated. &#x60;FROM_TOKEN&#x60;
+     * direction &#x3D; sell-token address; &#x60;TO_TOKEN&#x60; direction &#x3D; buy-token address.
+     * &#x60;null&#x60; when the custom fee is not enabled.
+     *
+     * @return feeToken
+     */
+    @jakarta.annotation.Nullable
+    public String getFeeToken() {
+        return feeToken;
+    }
+
+    public void setFeeToken(@jakarta.annotation.Nullable String feeToken) {
+        this.feeToken = feeToken;
+    }
+
+    public GetAggregatedQuoteResponseDataInner actualSwapAmount(
+            @jakarta.annotation.Nullable String actualSwapAmount) {
+        this.actualSwapAmount = actualSwapAmount;
+        return this;
+    }
+
+    /**
+     * Actual amount participating in the DEX swap (smallest unit, integer string).
+     * &#x60;FROM_TOKEN&#x60; direction &#x3D; net amount after fee deduction (&#x60;fromTokenAmount
+     * − feeAmount&#x60;, i.e. the amountIn sent to the DEX); &#x60;TO_TOKEN&#x60; direction &#x3D;
+     * original input amount (fee is taken from the output side, so the full input participates in
+     * the swap). &#x60;null&#x60; when the custom fee is not enabled.
+     *
+     * @return actualSwapAmount
+     */
+    @jakarta.annotation.Nullable
+    public String getActualSwapAmount() {
+        return actualSwapAmount;
+    }
+
+    public void setActualSwapAmount(@jakarta.annotation.Nullable String actualSwapAmount) {
+        this.actualSwapAmount = actualSwapAmount;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -500,7 +588,12 @@ public class GetAggregatedQuoteResponseDataInner {
                         this.executionMode, getAggregatedQuoteResponseDataInner.executionMode)
                 && Objects.equals(
                         this.approveTarget, getAggregatedQuoteResponseDataInner.approveTarget)
-                && Objects.equals(this.isBest, getAggregatedQuoteResponseDataInner.isBest);
+                && Objects.equals(this.isBest, getAggregatedQuoteResponseDataInner.isBest)
+                && Objects.equals(this.feeAmount, getAggregatedQuoteResponseDataInner.feeAmount)
+                && Objects.equals(this.feeToken, getAggregatedQuoteResponseDataInner.feeToken)
+                && Objects.equals(
+                        this.actualSwapAmount,
+                        getAggregatedQuoteResponseDataInner.actualSwapAmount);
     }
 
     private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
@@ -529,7 +622,10 @@ public class GetAggregatedQuoteResponseDataInner {
                 dexRouterList,
                 executionMode,
                 approveTarget,
-                isBest);
+                isBest,
+                feeAmount,
+                feeToken,
+                actualSwapAmount);
     }
 
     private static <T> int hashCodeNullable(JsonNullable<T> a) {
@@ -560,6 +656,9 @@ public class GetAggregatedQuoteResponseDataInner {
         sb.append("		executionMode: ").append(toIndentedString(executionMode)).append("\n");
         sb.append("		approveTarget: ").append(toIndentedString(approveTarget)).append("\n");
         sb.append("		isBest: ").append(toIndentedString(isBest)).append("\n");
+        sb.append("		feeAmount: ").append(toIndentedString(feeAmount)).append("\n");
+        sb.append("		feeToken: ").append(toIndentedString(feeToken)).append("\n");
+        sb.append("		actualSwapAmount: ").append(toIndentedString(actualSwapAmount)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -632,6 +731,18 @@ public class GetAggregatedQuoteResponseDataInner {
         String isBestValueAsString = "";
         isBestValueAsString = isBestValue.toString();
         sb.append("isBest=").append(urlEncode(isBestValueAsString)).append("");
+        Object feeAmountValue = getFeeAmount();
+        String feeAmountValueAsString = "";
+        feeAmountValueAsString = feeAmountValue.toString();
+        sb.append("feeAmount=").append(urlEncode(feeAmountValueAsString)).append("");
+        Object feeTokenValue = getFeeToken();
+        String feeTokenValueAsString = "";
+        feeTokenValueAsString = feeTokenValue.toString();
+        sb.append("feeToken=").append(urlEncode(feeTokenValueAsString)).append("");
+        Object actualSwapAmountValue = getActualSwapAmount();
+        String actualSwapAmountValueAsString = "";
+        actualSwapAmountValueAsString = actualSwapAmountValue.toString();
+        sb.append("actualSwapAmount=").append(urlEncode(actualSwapAmountValueAsString)).append("");
         return sb.toString();
     }
 
@@ -675,6 +786,9 @@ public class GetAggregatedQuoteResponseDataInner {
         openapiFields.add("executionMode");
         openapiFields.add("approveTarget");
         openapiFields.add("isBest");
+        openapiFields.add("feeAmount");
+        openapiFields.add("feeToken");
+        openapiFields.add("actualSwapAmount");
 
         // a set of required properties/fields (JSON key names)
         openapiRequiredFields = new HashSet<String>();
@@ -817,6 +931,31 @@ public class GetAggregatedQuoteResponseDataInner {
                             "Expected the field `approveTarget` to be a primitive type in the JSON"
                                     + " string but got `%s`",
                             jsonObj.get("approveTarget").toString()));
+        }
+        if ((jsonObj.get("feeAmount") != null && !jsonObj.get("feeAmount").isJsonNull())
+                && !jsonObj.get("feeAmount").isJsonPrimitive()) {
+            throw new IllegalArgumentException(
+                    String.format(
+                            "Expected the field `feeAmount` to be a primitive type in the JSON"
+                                    + " string but got `%s`",
+                            jsonObj.get("feeAmount").toString()));
+        }
+        if ((jsonObj.get("feeToken") != null && !jsonObj.get("feeToken").isJsonNull())
+                && !jsonObj.get("feeToken").isJsonPrimitive()) {
+            throw new IllegalArgumentException(
+                    String.format(
+                            "Expected the field `feeToken` to be a primitive type in the JSON"
+                                    + " string but got `%s`",
+                            jsonObj.get("feeToken").toString()));
+        }
+        if ((jsonObj.get("actualSwapAmount") != null
+                        && !jsonObj.get("actualSwapAmount").isJsonNull())
+                && !jsonObj.get("actualSwapAmount").isJsonPrimitive()) {
+            throw new IllegalArgumentException(
+                    String.format(
+                            "Expected the field `actualSwapAmount` to be a primitive type in the"
+                                    + " JSON string but got `%s`",
+                            jsonObj.get("actualSwapAmount").toString()));
         }
     }
 

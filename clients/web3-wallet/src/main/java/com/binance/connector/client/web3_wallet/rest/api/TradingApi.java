@@ -24,6 +24,7 @@ import com.binance.connector.client.web3_wallet.rest.model.AutoSlippage;
 import com.binance.connector.client.web3_wallet.rest.model.BinanceChainId;
 import com.binance.connector.client.web3_wallet.rest.model.BuildSolanaSwapInstructionsResponse;
 import com.binance.connector.client.web3_wallet.rest.model.BuildSwapTransactionResponse;
+import com.binance.connector.client.web3_wallet.rest.model.FeeSource;
 import com.binance.connector.client.web3_wallet.rest.model.GasLevel;
 import com.binance.connector.client.web3_wallet.rest.model.GetAggregatedQuoteResponse;
 import com.binance.connector.client.web3_wallet.rest.model.GetAggregatorSupportedChainsResponse;
@@ -57,7 +58,7 @@ public class TradingApi {
 
     private static final String USER_AGENT =
             String.format(
-                    "binance-web3-wallet/3.0.0 (Java/%s; %s; %s)",
+                    "binance-web3-wallet/4.0.0 (Java/%s; %s; %s)",
                     SystemUtil.getJavaVersion(), SystemUtil.getOs(), SystemUtil.getArch());
     private static final boolean HAS_TIME_UNIT = false;
 
@@ -110,7 +111,10 @@ public class TradingApi {
             String computeUnitLimit,
             String computeUnitPrice,
             GasLevel gasLevel,
-            String tips)
+            String tips,
+            String feePercent,
+            String fromTokenReferrerWalletAddress,
+            String toTokenReferrerWalletAddress)
             throws ApiException {
         String basePath = null;
         // Operation Servers
@@ -204,6 +208,22 @@ public class TradingApi {
             localVarQueryParams.addAll(localVarApiClient.parameterToPair("tips", tips));
         }
 
+        if (feePercent != null) {
+            localVarQueryParams.addAll(localVarApiClient.parameterToPair("feePercent", feePercent));
+        }
+
+        if (fromTokenReferrerWalletAddress != null) {
+            localVarQueryParams.addAll(
+                    localVarApiClient.parameterToPair(
+                            "fromTokenReferrerWalletAddress", fromTokenReferrerWalletAddress));
+        }
+
+        if (toTokenReferrerWalletAddress != null) {
+            localVarQueryParams.addAll(
+                    localVarApiClient.parameterToPair(
+                            "toTokenReferrerWalletAddress", toTokenReferrerWalletAddress));
+        }
+
         final String[] localVarAccepts = {"application/json"};
         final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
         if (localVarAccept != null) {
@@ -260,7 +280,10 @@ public class TradingApi {
             String computeUnitLimit,
             String computeUnitPrice,
             GasLevel gasLevel,
-            String tips)
+            String tips,
+            String feePercent,
+            String fromTokenReferrerWalletAddress,
+            String toTokenReferrerWalletAddress)
             throws ApiException {
         try {
             Validator validator =
@@ -287,7 +310,10 @@ public class TradingApi {
                 computeUnitLimit,
                 computeUnitPrice,
                 gasLevel,
-                tips
+                tips,
+                feePercent,
+                fromTokenReferrerWalletAddress,
+                toTokenReferrerWalletAddress
             };
             Method method =
                     this.getClass()
@@ -308,6 +334,9 @@ public class TradingApi {
                                     String.class,
                                     String.class,
                                     GasLevel.class,
+                                    String.class,
+                                    String.class,
+                                    String.class,
                                     String.class);
             Set<ConstraintViolation<TradingApi>> violations =
                     executableValidator.validateParameters(this, method, parameterValues);
@@ -329,7 +358,10 @@ public class TradingApi {
                         computeUnitLimit,
                         computeUnitPrice,
                         gasLevel,
-                        tips);
+                        tips,
+                        feePercent,
+                        fromTokenReferrerWalletAddress,
+                        toTokenReferrerWalletAddress);
             } else {
                 throw new ConstraintViolationException((Set) violations);
             }
@@ -358,7 +390,10 @@ public class TradingApi {
             String computeUnitLimit,
             String computeUnitPrice,
             GasLevel gasLevel,
-            String tips)
+            String tips,
+            String feePercent,
+            String fromTokenReferrerWalletAddress,
+            String toTokenReferrerWalletAddress)
             throws ApiException {
         okhttp3.Call localVarCall =
                 buildSolanaSwapInstructionsValidateBeforeCall(
@@ -377,7 +412,10 @@ public class TradingApi {
                         computeUnitLimit,
                         computeUnitPrice,
                         gasLevel,
-                        tips);
+                        tips,
+                        feePercent,
+                        fromTokenReferrerWalletAddress,
+                        toTokenReferrerWalletAddress);
         java.lang.reflect.Type localVarReturnType =
                 new TypeToken<BuildSolanaSwapInstructionsResponse>() {}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
@@ -401,7 +439,10 @@ public class TradingApi {
                 request.getComputeUnitLimit(),
                 request.getComputeUnitPrice(),
                 request.getGasLevel(),
-                request.getTips());
+                request.getTips(),
+                request.getFeePercent(),
+                request.getFromTokenReferrerWalletAddress(),
+                request.getToTokenReferrerWalletAddress());
     }
 
     public static class BuildSolanaSwapInstructionsRequest {
@@ -421,6 +462,9 @@ public class TradingApi {
         private String computeUnitPrice;
         private GasLevel gasLevel;
         private String tips;
+        private String feePercent;
+        private String fromTokenReferrerWalletAddress;
+        private String toTokenReferrerWalletAddress;
 
         public BinanceChainId getBinanceChainId() {
             return binanceChainId;
@@ -484,6 +528,18 @@ public class TradingApi {
 
         public String getTips() {
             return tips;
+        }
+
+        public String getFeePercent() {
+            return feePercent;
+        }
+
+        public String getFromTokenReferrerWalletAddress() {
+            return fromTokenReferrerWalletAddress;
+        }
+
+        public String getToTokenReferrerWalletAddress() {
+            return toTokenReferrerWalletAddress;
         }
 
         public BuildSolanaSwapInstructionsRequest(
@@ -615,6 +671,60 @@ public class TradingApi {
             this.tips = tips;
             return this;
         }
+
+        /**
+         * Set feePercent
+         *
+         * @param feePercent Custom fee (referral fee / Add Fee) percentage as a decimal string.
+         *     Must be paired with exactly one of &#x60;fromTokenReferrerWalletAddress&#x60; or
+         *     &#x60;toTokenReferrerWalletAddress&#x60; (the two referrer addresses are mutually
+         *     exclusive). Same semantics as &#x60;/swap&#x60;. **Range (Solana):** &#x60;(0,
+         *     10]&#x60; — greater than 0, up to 10 inclusive, max 2 decimal places.
+         *     &#x60;\&quot;1.5\&quot;&#x60; means 1.5%. Values exceeding 2 decimal places are
+         *     rejected with &#x60;INVALID_FEE_PERCENT&#x60; (40466). **&#x60;four.meme&#x60; tokens
+         *     are not supported** — do not pass fee parameters when either side of the pair is a
+         *     &#x60;four.meme&#x60; token. (optional)
+         * @return BuildSolanaSwapInstructionsRequest
+         */
+        public BuildSolanaSwapInstructionsRequest feePercent(String feePercent) {
+            this.feePercent = feePercent;
+            return this;
+        }
+
+        /**
+         * Set fromTokenReferrerWalletAddress
+         *
+         * @param fromTokenReferrerWalletAddress Wallet address that receives the fee deducted from
+         *     the sell token (&#x60;FROM_TOKEN&#x60; direction). Mutually exclusive with
+         *     &#x60;toTokenReferrerWalletAddress&#x60; — providing both returns
+         *     &#x60;CONFLICT_REFERRER_PARAMS&#x60; (40468). Solana requires a Base58 pubkey; an
+         *     invalid format returns &#x60;INVALID_REFERRER_ADDRESS&#x60; (40467). Must be paired
+         *     with &#x60;feePercent&#x60;. (optional)
+         * @return BuildSolanaSwapInstructionsRequest
+         */
+        public BuildSolanaSwapInstructionsRequest fromTokenReferrerWalletAddress(
+                String fromTokenReferrerWalletAddress) {
+            this.fromTokenReferrerWalletAddress = fromTokenReferrerWalletAddress;
+            return this;
+        }
+
+        /**
+         * Set toTokenReferrerWalletAddress
+         *
+         * @param toTokenReferrerWalletAddress Wallet address that receives the fee deducted from
+         *     the buy-token output (&#x60;TO_TOKEN&#x60; direction). Mutually exclusive with
+         *     &#x60;fromTokenReferrerWalletAddress&#x60; — providing both returns
+         *     &#x60;CONFLICT_REFERRER_PARAMS&#x60; (40468). Solana requires a Base58 pubkey; an
+         *     invalid format returns &#x60;INVALID_REFERRER_ADDRESS&#x60; (40467). Must be paired
+         *     with &#x60;feePercent&#x60;. The referrer must already be activated (funded with some
+         *     SOL) or the request returns &#x60;REFERRER_NOT_ACTIVATED&#x60; (40469). (optional)
+         * @return BuildSolanaSwapInstructionsRequest
+         */
+        public BuildSolanaSwapInstructionsRequest toTokenReferrerWalletAddress(
+                String toTokenReferrerWalletAddress) {
+            this.toTokenReferrerWalletAddress = toTokenReferrerWalletAddress;
+            return this;
+        }
     }
 
     private okhttp3.Call buildSwapTransactionCall(
@@ -636,7 +746,10 @@ public class TradingApi {
             String maxAutoSlippagePercent,
             String computeUnitLimit,
             String computeUnitPrice,
-            String tips)
+            String tips,
+            String feePercent,
+            String fromTokenReferrerWalletAddress,
+            String toTokenReferrerWalletAddress)
             throws ApiException {
         String basePath = null;
         // Operation Servers
@@ -744,6 +857,22 @@ public class TradingApi {
             localVarQueryParams.addAll(localVarApiClient.parameterToPair("tips", tips));
         }
 
+        if (feePercent != null) {
+            localVarQueryParams.addAll(localVarApiClient.parameterToPair("feePercent", feePercent));
+        }
+
+        if (fromTokenReferrerWalletAddress != null) {
+            localVarQueryParams.addAll(
+                    localVarApiClient.parameterToPair(
+                            "fromTokenReferrerWalletAddress", fromTokenReferrerWalletAddress));
+        }
+
+        if (toTokenReferrerWalletAddress != null) {
+            localVarQueryParams.addAll(
+                    localVarApiClient.parameterToPair(
+                            "toTokenReferrerWalletAddress", toTokenReferrerWalletAddress));
+        }
+
         final String[] localVarAccepts = {"application/json"};
         final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
         if (localVarAccept != null) {
@@ -803,7 +932,10 @@ public class TradingApi {
             String maxAutoSlippagePercent,
             String computeUnitLimit,
             String computeUnitPrice,
-            String tips)
+            String tips,
+            String feePercent,
+            String fromTokenReferrerWalletAddress,
+            String toTokenReferrerWalletAddress)
             throws ApiException {
         try {
             Validator validator =
@@ -833,7 +965,10 @@ public class TradingApi {
                 maxAutoSlippagePercent,
                 computeUnitLimit,
                 computeUnitPrice,
-                tips
+                tips,
+                feePercent,
+                fromTokenReferrerWalletAddress,
+                toTokenReferrerWalletAddress
             };
             Method method =
                     this.getClass()
@@ -854,6 +989,9 @@ public class TradingApi {
                                     GasLevel.class,
                                     String.class,
                                     AutoSlippage.class,
+                                    String.class,
+                                    String.class,
+                                    String.class,
                                     String.class,
                                     String.class,
                                     String.class,
@@ -881,7 +1019,10 @@ public class TradingApi {
                         maxAutoSlippagePercent,
                         computeUnitLimit,
                         computeUnitPrice,
-                        tips);
+                        tips,
+                        feePercent,
+                        fromTokenReferrerWalletAddress,
+                        toTokenReferrerWalletAddress);
             } else {
                 throw new ConstraintViolationException((Set) violations);
             }
@@ -913,7 +1054,10 @@ public class TradingApi {
             String maxAutoSlippagePercent,
             String computeUnitLimit,
             String computeUnitPrice,
-            String tips)
+            String tips,
+            String feePercent,
+            String fromTokenReferrerWalletAddress,
+            String toTokenReferrerWalletAddress)
             throws ApiException {
         okhttp3.Call localVarCall =
                 buildSwapTransactionValidateBeforeCall(
@@ -935,7 +1079,10 @@ public class TradingApi {
                         maxAutoSlippagePercent,
                         computeUnitLimit,
                         computeUnitPrice,
-                        tips);
+                        tips,
+                        feePercent,
+                        fromTokenReferrerWalletAddress,
+                        toTokenReferrerWalletAddress);
         java.lang.reflect.Type localVarReturnType =
                 new TypeToken<BuildSwapTransactionResponse>() {}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
@@ -962,7 +1109,10 @@ public class TradingApi {
                 request.getMaxAutoSlippagePercent(),
                 request.getComputeUnitLimit(),
                 request.getComputeUnitPrice(),
-                request.getTips());
+                request.getTips(),
+                request.getFeePercent(),
+                request.getFromTokenReferrerWalletAddress(),
+                request.getToTokenReferrerWalletAddress());
     }
 
     public static class BuildSwapTransactionRequest {
@@ -985,6 +1135,9 @@ public class TradingApi {
         private String computeUnitLimit;
         private String computeUnitPrice;
         private String tips;
+        private String feePercent;
+        private String fromTokenReferrerWalletAddress;
+        private String toTokenReferrerWalletAddress;
 
         public String getBinanceChainId() {
             return binanceChainId;
@@ -1060,6 +1213,18 @@ public class TradingApi {
 
         public String getTips() {
             return tips;
+        }
+
+        public String getFeePercent() {
+            return feePercent;
+        }
+
+        public String getFromTokenReferrerWalletAddress() {
+            return fromTokenReferrerWalletAddress;
+        }
+
+        public String getToTokenReferrerWalletAddress() {
+            return toTokenReferrerWalletAddress;
         }
 
         public BuildSwapTransactionRequest(
@@ -1250,6 +1415,66 @@ public class TradingApi {
             this.tips = tips;
             return this;
         }
+
+        /**
+         * Set feePercent
+         *
+         * @param feePercent Custom fee (referral fee / Add Fee) percentage as a decimal string.
+         *     Must be paired with exactly one of &#x60;fromTokenReferrerWalletAddress&#x60; or
+         *     &#x60;toTokenReferrerWalletAddress&#x60; (the two referrer addresses are mutually
+         *     exclusive). **Range by chain:** &#x60;(0, 5]&#x60; for EVM chains (BSC, Ethereum,
+         *     Base, etc.) and &#x60;(0, 10]&#x60; for Solana (&#x60;CT_501&#x60;) — greater than 0,
+         *     up to the chain-specific maximum inclusive, max 2 decimal places.
+         *     &#x60;\&quot;1.5\&quot;&#x60; means 1.5%. Values exceeding 2 decimal places are
+         *     rejected with &#x60;INVALID_FEE_PERCENT&#x60; (40466). **&#x60;four.meme&#x60; tokens
+         *     are not supported** — do not pass fee parameters when either side of the pair is a
+         *     &#x60;four.meme&#x60; token. (optional)
+         * @return BuildSwapTransactionRequest
+         */
+        public BuildSwapTransactionRequest feePercent(String feePercent) {
+            this.feePercent = feePercent;
+            return this;
+        }
+
+        /**
+         * Set fromTokenReferrerWalletAddress
+         *
+         * @param fromTokenReferrerWalletAddress Wallet address that receives the fee deducted from
+         *     the sell token (&#x60;FROM_TOKEN&#x60; direction). Mutually exclusive with
+         *     &#x60;toTokenReferrerWalletAddress&#x60; — providing both returns
+         *     &#x60;CONFLICT_REFERRER_PARAMS&#x60; (40468). Address format depends on the chain:
+         *     EVM chains require &#x60;0x&#x60; + 40 hex chars; Solana (&#x60;CT_501&#x60;)
+         *     requires a Base58 pubkey. An invalid format returns
+         *     &#x60;INVALID_REFERRER_ADDRESS&#x60; (40467). Must be paired with
+         *     &#x60;feePercent&#x60;. (optional)
+         * @return BuildSwapTransactionRequest
+         */
+        public BuildSwapTransactionRequest fromTokenReferrerWalletAddress(
+                String fromTokenReferrerWalletAddress) {
+            this.fromTokenReferrerWalletAddress = fromTokenReferrerWalletAddress;
+            return this;
+        }
+
+        /**
+         * Set toTokenReferrerWalletAddress
+         *
+         * @param toTokenReferrerWalletAddress Wallet address that receives the fee deducted from
+         *     the buy-token output (&#x60;TO_TOKEN&#x60; direction). Mutually exclusive with
+         *     &#x60;fromTokenReferrerWalletAddress&#x60; — providing both returns
+         *     &#x60;CONFLICT_REFERRER_PARAMS&#x60; (40468). Address format depends on the chain:
+         *     EVM chains require &#x60;0x&#x60; + 40 hex chars; Solana (&#x60;CT_501&#x60;)
+         *     requires a Base58 pubkey. An invalid format returns
+         *     &#x60;INVALID_REFERRER_ADDRESS&#x60; (40467). Must be paired with
+         *     &#x60;feePercent&#x60;. On Solana, the referrer must already be activated (funded
+         *     with some SOL) or the request returns &#x60;REFERRER_NOT_ACTIVATED&#x60; (40469).
+         *     (optional)
+         * @return BuildSwapTransactionRequest
+         */
+        public BuildSwapTransactionRequest toTokenReferrerWalletAddress(
+                String toTokenReferrerWalletAddress) {
+            this.toTokenReferrerWalletAddress = toTokenReferrerWalletAddress;
+            return this;
+        }
     }
 
     private okhttp3.Call getAggregatedQuoteCall(
@@ -1259,7 +1484,9 @@ public class TradingApi {
             String toTokenAddress,
             Long recvWindow,
             String nonce,
-            String userWalletAddress)
+            String userWalletAddress,
+            String feePercent,
+            FeeSource feeSource)
             throws ApiException {
         String basePath = null;
         // Operation Servers
@@ -1309,6 +1536,14 @@ public class TradingApi {
                     localVarApiClient.parameterToPair("userWalletAddress", userWalletAddress));
         }
 
+        if (feePercent != null) {
+            localVarQueryParams.addAll(localVarApiClient.parameterToPair("feePercent", feePercent));
+        }
+
+        if (feeSource != null) {
+            localVarQueryParams.addAll(localVarApiClient.parameterToPair("feeSource", feeSource));
+        }
+
         final String[] localVarAccepts = {"application/json"};
         final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
         if (localVarAccept != null) {
@@ -1356,7 +1591,9 @@ public class TradingApi {
             String toTokenAddress,
             Long recvWindow,
             String nonce,
-            String userWalletAddress)
+            String userWalletAddress,
+            String feePercent,
+            FeeSource feeSource)
             throws ApiException {
         try {
             Validator validator =
@@ -1374,7 +1611,9 @@ public class TradingApi {
                 toTokenAddress,
                 recvWindow,
                 nonce,
-                userWalletAddress
+                userWalletAddress,
+                feePercent,
+                feeSource
             };
             Method method =
                     this.getClass()
@@ -1386,7 +1625,9 @@ public class TradingApi {
                                     String.class,
                                     Long.class,
                                     String.class,
-                                    String.class);
+                                    String.class,
+                                    String.class,
+                                    FeeSource.class);
             Set<ConstraintViolation<TradingApi>> violations =
                     executableValidator.validateParameters(this, method, parameterValues);
 
@@ -1398,7 +1639,9 @@ public class TradingApi {
                         toTokenAddress,
                         recvWindow,
                         nonce,
-                        userWalletAddress);
+                        userWalletAddress,
+                        feePercent,
+                        feeSource);
             } else {
                 throw new ConstraintViolationException((Set) violations);
             }
@@ -1418,7 +1661,9 @@ public class TradingApi {
             @NotNull String toTokenAddress,
             Long recvWindow,
             String nonce,
-            String userWalletAddress)
+            String userWalletAddress,
+            String feePercent,
+            FeeSource feeSource)
             throws ApiException {
         okhttp3.Call localVarCall =
                 getAggregatedQuoteValidateBeforeCall(
@@ -1428,7 +1673,9 @@ public class TradingApi {
                         toTokenAddress,
                         recvWindow,
                         nonce,
-                        userWalletAddress);
+                        userWalletAddress,
+                        feePercent,
+                        feeSource);
         java.lang.reflect.Type localVarReturnType =
                 new TypeToken<GetAggregatedQuoteResponse>() {}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
@@ -1443,7 +1690,9 @@ public class TradingApi {
                 request.getToTokenAddress(),
                 request.getRecvWindow(),
                 request.getNonce(),
-                request.getUserWalletAddress());
+                request.getUserWalletAddress(),
+                request.getFeePercent(),
+                request.getFeeSource());
     }
 
     public static class GetAggregatedQuoteRequest {
@@ -1454,6 +1703,8 @@ public class TradingApi {
         private Long recvWindow;
         private String nonce;
         private String userWalletAddress;
+        private String feePercent;
+        private FeeSource feeSource;
 
         public String getBinanceChainId() {
             return binanceChainId;
@@ -1481,6 +1732,14 @@ public class TradingApi {
 
         public String getUserWalletAddress() {
             return userWalletAddress;
+        }
+
+        public String getFeePercent() {
+            return feePercent;
+        }
+
+        public FeeSource getFeeSource() {
+            return feeSource;
         }
 
         public GetAggregatedQuoteRequest(
@@ -1529,6 +1788,40 @@ public class TradingApi {
          */
         public GetAggregatedQuoteRequest userWalletAddress(String userWalletAddress) {
             this.userWalletAddress = userWalletAddress;
+            return this;
+        }
+
+        /**
+         * Set feePercent
+         *
+         * @param feePercent Custom fee (referral fee / Add Fee) percentage as a decimal string.
+         *     Must be paired with &#x60;feeSource&#x60; — either both present or both absent.
+         *     **Range by chain:** &#x60;(0, 5]&#x60; for EVM chains (BSC, Ethereum, Base, etc.) and
+         *     &#x60;(0, 10]&#x60; for Solana (&#x60;CT_501&#x60;) — greater than 0, up to the
+         *     chain-specific maximum inclusive, max 2 decimal places. &#x60;\&quot;1.5\&quot;&#x60;
+         *     means 1.5%. Values exceeding 2 decimal places are rejected with
+         *     &#x60;INVALID_FEE_PERCENT&#x60; (40466). **&#x60;four.meme&#x60; tokens are not
+         *     supported** — do not pass fee parameters when either side of the pair is a
+         *     &#x60;four.meme&#x60; token. (optional)
+         * @return GetAggregatedQuoteRequest
+         */
+        public GetAggregatedQuoteRequest feePercent(String feePercent) {
+            this.feePercent = feePercent;
+            return this;
+        }
+
+        /**
+         * Set feeSource
+         *
+         * @param feeSource Fee deduction direction. &#x60;FROM_TOKEN&#x60; &#x3D; deduct the fee
+         *     from the sell token (the amount passed to the DEX is reduced to a net amount);
+         *     &#x60;TO_TOKEN&#x60; &#x3D; deduct the fee from the buy-token output (the user&#39;s
+         *     actual received amount is reduced). Must be paired with &#x60;feePercent&#x60;.
+         *     (optional)
+         * @return GetAggregatedQuoteRequest
+         */
+        public GetAggregatedQuoteRequest feeSource(FeeSource feeSource) {
+            this.feeSource = feeSource;
             return this;
         }
     }
@@ -2338,7 +2631,10 @@ public class TradingApi {
             String maxAutoSlippagePercent,
             String computeUnitLimit,
             String computeUnitPrice,
-            String tips)
+            String tips,
+            String feePercent,
+            String fromTokenReferrerWalletAddress,
+            String toTokenReferrerWalletAddress)
             throws ApiException {
         String basePath = null;
         // Operation Servers
@@ -2446,6 +2742,22 @@ public class TradingApi {
             localVarQueryParams.addAll(localVarApiClient.parameterToPair("tips", tips));
         }
 
+        if (feePercent != null) {
+            localVarQueryParams.addAll(localVarApiClient.parameterToPair("feePercent", feePercent));
+        }
+
+        if (fromTokenReferrerWalletAddress != null) {
+            localVarQueryParams.addAll(
+                    localVarApiClient.parameterToPair(
+                            "fromTokenReferrerWalletAddress", fromTokenReferrerWalletAddress));
+        }
+
+        if (toTokenReferrerWalletAddress != null) {
+            localVarQueryParams.addAll(
+                    localVarApiClient.parameterToPair(
+                            "toTokenReferrerWalletAddress", toTokenReferrerWalletAddress));
+        }
+
         final String[] localVarAccepts = {"application/json"};
         final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
         if (localVarAccept != null) {
@@ -2505,7 +2817,10 @@ public class TradingApi {
             String maxAutoSlippagePercent,
             String computeUnitLimit,
             String computeUnitPrice,
-            String tips)
+            String tips,
+            String feePercent,
+            String fromTokenReferrerWalletAddress,
+            String toTokenReferrerWalletAddress)
             throws ApiException {
         try {
             Validator validator =
@@ -2535,7 +2850,10 @@ public class TradingApi {
                 maxAutoSlippagePercent,
                 computeUnitLimit,
                 computeUnitPrice,
-                tips
+                tips,
+                feePercent,
+                fromTokenReferrerWalletAddress,
+                toTokenReferrerWalletAddress
             };
             Method method =
                     this.getClass()
@@ -2556,6 +2874,9 @@ public class TradingApi {
                                     GasLevel.class,
                                     String.class,
                                     AutoSlippage.class,
+                                    String.class,
+                                    String.class,
+                                    String.class,
                                     String.class,
                                     String.class,
                                     String.class,
@@ -2583,7 +2904,10 @@ public class TradingApi {
                         maxAutoSlippagePercent,
                         computeUnitLimit,
                         computeUnitPrice,
-                        tips);
+                        tips,
+                        feePercent,
+                        fromTokenReferrerWalletAddress,
+                        toTokenReferrerWalletAddress);
             } else {
                 throw new ConstraintViolationException((Set) violations);
             }
@@ -2615,7 +2939,10 @@ public class TradingApi {
             String maxAutoSlippagePercent,
             String computeUnitLimit,
             String computeUnitPrice,
-            String tips)
+            String tips,
+            String feePercent,
+            String fromTokenReferrerWalletAddress,
+            String toTokenReferrerWalletAddress)
             throws ApiException {
         okhttp3.Call localVarCall =
                 quoteAndBuildSwapTransactionValidateBeforeCall(
@@ -2637,7 +2964,10 @@ public class TradingApi {
                         maxAutoSlippagePercent,
                         computeUnitLimit,
                         computeUnitPrice,
-                        tips);
+                        tips,
+                        feePercent,
+                        fromTokenReferrerWalletAddress,
+                        toTokenReferrerWalletAddress);
         java.lang.reflect.Type localVarReturnType =
                 new TypeToken<QuoteAndBuildSwapTransactionResponse>() {}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
@@ -2664,7 +2994,10 @@ public class TradingApi {
                 request.getMaxAutoSlippagePercent(),
                 request.getComputeUnitLimit(),
                 request.getComputeUnitPrice(),
-                request.getTips());
+                request.getTips(),
+                request.getFeePercent(),
+                request.getFromTokenReferrerWalletAddress(),
+                request.getToTokenReferrerWalletAddress());
     }
 
     public static class QuoteAndBuildSwapTransactionRequest {
@@ -2687,6 +3020,9 @@ public class TradingApi {
         private String computeUnitLimit;
         private String computeUnitPrice;
         private String tips;
+        private String feePercent;
+        private String fromTokenReferrerWalletAddress;
+        private String toTokenReferrerWalletAddress;
 
         public String getBinanceChainId() {
             return binanceChainId;
@@ -2762,6 +3098,18 @@ public class TradingApi {
 
         public String getTips() {
             return tips;
+        }
+
+        public String getFeePercent() {
+            return feePercent;
+        }
+
+        public String getFromTokenReferrerWalletAddress() {
+            return fromTokenReferrerWalletAddress;
+        }
+
+        public String getToTokenReferrerWalletAddress() {
+            return toTokenReferrerWalletAddress;
         }
 
         public QuoteAndBuildSwapTransactionRequest(
@@ -2946,6 +3294,66 @@ public class TradingApi {
          */
         public QuoteAndBuildSwapTransactionRequest tips(String tips) {
             this.tips = tips;
+            return this;
+        }
+
+        /**
+         * Set feePercent
+         *
+         * @param feePercent Custom fee (referral fee / Add Fee) percentage as a decimal string.
+         *     Must be paired with exactly one of &#x60;fromTokenReferrerWalletAddress&#x60; or
+         *     &#x60;toTokenReferrerWalletAddress&#x60; (the two referrer addresses are mutually
+         *     exclusive). **Range by chain:** &#x60;(0, 5]&#x60; for EVM chains (BSC, Ethereum,
+         *     Base, etc.) and &#x60;(0, 10]&#x60; for Solana (&#x60;CT_501&#x60;) — greater than 0,
+         *     up to the chain-specific maximum inclusive, max 2 decimal places.
+         *     &#x60;\&quot;1.5\&quot;&#x60; means 1.5%. Values exceeding 2 decimal places are
+         *     rejected with &#x60;INVALID_FEE_PERCENT&#x60; (40466). **&#x60;four.meme&#x60; tokens
+         *     are not supported** — do not pass fee parameters when either side of the pair is a
+         *     &#x60;four.meme&#x60; token. (optional)
+         * @return QuoteAndBuildSwapTransactionRequest
+         */
+        public QuoteAndBuildSwapTransactionRequest feePercent(String feePercent) {
+            this.feePercent = feePercent;
+            return this;
+        }
+
+        /**
+         * Set fromTokenReferrerWalletAddress
+         *
+         * @param fromTokenReferrerWalletAddress Wallet address that receives the fee deducted from
+         *     the sell token (&#x60;FROM_TOKEN&#x60; direction). Mutually exclusive with
+         *     &#x60;toTokenReferrerWalletAddress&#x60; — providing both returns
+         *     &#x60;CONFLICT_REFERRER_PARAMS&#x60; (40468). Address format depends on the chain:
+         *     EVM chains require &#x60;0x&#x60; + 40 hex chars; Solana (&#x60;CT_501&#x60;)
+         *     requires a Base58 pubkey. An invalid format returns
+         *     &#x60;INVALID_REFERRER_ADDRESS&#x60; (40467). Must be paired with
+         *     &#x60;feePercent&#x60;. (optional)
+         * @return QuoteAndBuildSwapTransactionRequest
+         */
+        public QuoteAndBuildSwapTransactionRequest fromTokenReferrerWalletAddress(
+                String fromTokenReferrerWalletAddress) {
+            this.fromTokenReferrerWalletAddress = fromTokenReferrerWalletAddress;
+            return this;
+        }
+
+        /**
+         * Set toTokenReferrerWalletAddress
+         *
+         * @param toTokenReferrerWalletAddress Wallet address that receives the fee deducted from
+         *     the buy-token output (&#x60;TO_TOKEN&#x60; direction). Mutually exclusive with
+         *     &#x60;fromTokenReferrerWalletAddress&#x60; — providing both returns
+         *     &#x60;CONFLICT_REFERRER_PARAMS&#x60; (40468). Address format depends on the chain:
+         *     EVM chains require &#x60;0x&#x60; + 40 hex chars; Solana (&#x60;CT_501&#x60;)
+         *     requires a Base58 pubkey. An invalid format returns
+         *     &#x60;INVALID_REFERRER_ADDRESS&#x60; (40467). Must be paired with
+         *     &#x60;feePercent&#x60;. On Solana, the referrer must already be activated (funded
+         *     with some SOL) or the request returns &#x60;REFERRER_NOT_ACTIVATED&#x60; (40469).
+         *     (optional)
+         * @return QuoteAndBuildSwapTransactionRequest
+         */
+        public QuoteAndBuildSwapTransactionRequest toTokenReferrerWalletAddress(
+                String toTokenReferrerWalletAddress) {
+            this.toTokenReferrerWalletAddress = toTokenReferrerWalletAddress;
             return this;
         }
     }

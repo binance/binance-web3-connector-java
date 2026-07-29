@@ -58,11 +58,11 @@
 
 ## Trading
 
-[GET /api/v1/dex/aggregator/swap-instruction](https://web3.binance.com/en/dev-docs/catalog/web3-wallet/api/rest-api/trading-api#build-solana-swap-instructions) - buildSolanaSwapInstructions - [BuildSolanaSwapInstructionsExample.java:50](/examples/web3-wallet/src/main/java/com/binance/connector/client/web3_wallet/rest/trading/BuildSolanaSwapInstructionsExample.java#L50)
+[GET /api/v1/dex/aggregator/swap-instruction](https://web3.binance.com/en/dev-docs/catalog/web3-wallet/api/rest-api/trading-api#build-solana-swap-instructions) - buildSolanaSwapInstructions - [BuildSolanaSwapInstructionsExample.java:53](/examples/web3-wallet/src/main/java/com/binance/connector/client/web3_wallet/rest/trading/BuildSolanaSwapInstructionsExample.java#L53)
 
 [GET /api/v1/dex/aggregator/swap](https://web3.binance.com/en/dev-docs/catalog/web3-wallet/api/rest-api/trading-api#build-swap-transaction) - buildSwapTransaction - [BuildSwapTransactionExample.java:42](/examples/web3-wallet/src/main/java/com/binance/connector/client/web3_wallet/rest/trading/BuildSwapTransactionExample.java#L42)
 
-[GET /api/v1/dex/aggregator/quote](https://web3.binance.com/en/dev-docs/catalog/web3-wallet/api/rest-api/trading-api#get-aggregated-quote) - getAggregatedQuote - [GetAggregatedQuoteExample.java:38](/examples/web3-wallet/src/main/java/com/binance/connector/client/web3_wallet/rest/trading/GetAggregatedQuoteExample.java#L38)
+[GET /api/v1/dex/aggregator/quote](https://web3.binance.com/en/dev-docs/catalog/web3-wallet/api/rest-api/trading-api#get-aggregated-quote) - getAggregatedQuote - [GetAggregatedQuoteExample.java:39](/examples/web3-wallet/src/main/java/com/binance/connector/client/web3_wallet/rest/trading/GetAggregatedQuoteExample.java#L39)
 
 [GET /api/v1/dex/aggregator/supported/chain](https://web3.binance.com/en/dev-docs/catalog/web3-wallet/api/rest-api/trading-api#get-aggregator-supported-chains) - getAggregatorSupportedChains - [GetAggregatorSupportedChainsExample.java:38](/examples/web3-wallet/src/main/java/com/binance/connector/client/web3_wallet/rest/trading/GetAggregatorSupportedChainsExample.java#L38)
 
