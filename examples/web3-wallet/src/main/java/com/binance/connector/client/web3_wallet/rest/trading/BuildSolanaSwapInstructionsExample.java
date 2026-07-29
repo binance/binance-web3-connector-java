@@ -43,7 +43,10 @@ public class BuildSolanaSwapInstructionsExample {
      * the final wire format. Only supports &#x60;binanceChainId&#x3D;CT_501&#x60; (Solana). Other
      * chains return &#x60;CHAIN_NOT_SUPPORTED&#x60; (40411). Parameters mirror the Solana subset of
      * &#x60;/swap&#x60; (no EVM-only &#x60;approveTransaction&#x60; / &#x60;approveAmount&#x60; /
-     * &#x60;gasLimit&#x60;).
+     * &#x60;gasLimit&#x60;). Supports the custom-fee (Add Fee / referral fee) parameters
+     * (&#x60;feePercent&#x60; + &#x60;fromTokenReferrerWalletAddress&#x60; /
+     * &#x60;toTokenReferrerWalletAddress&#x60;), with the same semantics as &#x60;/swap&#x60; — the
+     * fee instructions are injected into the returned uncompiled instruction list.
      *
      * @throws ApiException if the Api call fails
      */
@@ -64,6 +67,9 @@ public class BuildSolanaSwapInstructionsExample {
         String computeUnitPrice = "1000";
         GasLevel gasLevel = GasLevel.slow;
         String tips = "0.001";
+        String feePercent = "1.5";
+        String fromTokenReferrerWalletAddress = "J5CBzXpcYn6WR2JBah8zU4Yxct985CAFGwXRcFaX2pbS";
+        String toTokenReferrerWalletAddress = "J5CBzXpcYn6WR2JBah8zU4Yxct985CAFGwXRcFaX2pbS";
         TradingApi.BuildSolanaSwapInstructionsRequest request =
                 new TradingApi.BuildSolanaSwapInstructionsRequest(
                         binanceChainId,

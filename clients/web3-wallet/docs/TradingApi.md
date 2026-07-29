@@ -17,11 +17,11 @@ All URIs are relative to *https://web3.binance.com/build*
 
 <a id="buildSolanaSwapInstructions"></a>
 # **buildSolanaSwapInstructions**
-> BuildSolanaSwapInstructionsResponse buildSolanaSwapInstructions(binanceChainId, amount, fromTokenAddress, toTokenAddress, slippagePercent, userWalletAddress, quoteId).recvWindow(recvWindow).nonce(nonce).priceImpactProtectionPercent(priceImpactProtectionPercent).autoSlippage(autoSlippage).maxAutoSlippagePercent(maxAutoSlippagePercent).computeUnitLimit(computeUnitLimit).computeUnitPrice(computeUnitPrice).gasLevel(gasLevel).tips(tips).execute();
+> BuildSolanaSwapInstructionsResponse buildSolanaSwapInstructions(binanceChainId, amount, fromTokenAddress, toTokenAddress, slippagePercent, userWalletAddress, quoteId).recvWindow(recvWindow).nonce(nonce).priceImpactProtectionPercent(priceImpactProtectionPercent).autoSlippage(autoSlippage).maxAutoSlippagePercent(maxAutoSlippagePercent).computeUnitLimit(computeUnitLimit).computeUnitPrice(computeUnitPrice).gasLevel(gasLevel).tips(tips).feePercent(feePercent).fromTokenReferrerWalletAddress(fromTokenReferrerWalletAddress).toTokenReferrerWalletAddress(toTokenReferrerWalletAddress).execute();
 
 Build Solana Swap Instructions
 
-Solana-only counterpart to &#x60;/swap&#x60;. Shares the full quote → route → vendor &#x60;buildSwapTx&#x60; → priceImpact → minReceive → instruction-assembly pipeline; the only difference is the response: instead of returning a signed-and-serialized base64 transaction, this endpoint returns the **uncompiled** instruction list plus the address-lookup-table (ALT) address list, leaving v0-transaction compilation, signing, and submission to the caller.  Use this when the caller needs to: - prepend / append their own instructions (e.g. fee splitting, custom   logging) before signing;  - reuse the platform-curated route, slippage, PS-variant rewriting, ALT   injection, ComputeBudget overwrite, and ATA batching while still   controlling the final wire format.   Only supports &#x60;binanceChainId&#x3D;CT_501&#x60; (Solana). Other chains return &#x60;CHAIN_NOT_SUPPORTED&#x60; (40411). Parameters mirror the Solana subset of &#x60;/swap&#x60; (no EVM-only &#x60;approveTransaction&#x60; / &#x60;approveAmount&#x60; / &#x60;gasLimit&#x60;).
+Solana-only counterpart to &#x60;/swap&#x60;. Shares the full quote → route → vendor &#x60;buildSwapTx&#x60; → priceImpact → minReceive → instruction-assembly pipeline; the only difference is the response: instead of returning a signed-and-serialized base64 transaction, this endpoint returns the **uncompiled** instruction list plus the address-lookup-table (ALT) address list, leaving v0-transaction compilation, signing, and submission to the caller.  Use this when the caller needs to: - prepend / append their own instructions (e.g. fee splitting, custom   logging) before signing;  - reuse the platform-curated route, slippage, PS-variant rewriting, ALT   injection, ComputeBudget overwrite, and ATA batching while still   controlling the final wire format.   Only supports &#x60;binanceChainId&#x3D;CT_501&#x60; (Solana). Other chains return &#x60;CHAIN_NOT_SUPPORTED&#x60; (40411). Parameters mirror the Solana subset of &#x60;/swap&#x60; (no EVM-only &#x60;approveTransaction&#x60; / &#x60;approveAmount&#x60; / &#x60;gasLimit&#x60;). Supports the custom-fee (Add Fee / referral fee) parameters (&#x60;feePercent&#x60; + &#x60;fromTokenReferrerWalletAddress&#x60; / &#x60;toTokenReferrerWalletAddress&#x60;), with the same semantics as &#x60;/swap&#x60; — the fee instructions are injected into the returned uncompiled instruction list.
 
 ### Example
 ```java
@@ -54,6 +54,9 @@ public class Example {
     String computeUnitPrice = "1000"; // String | Priority fee per compute unit (micro-lamports). When omitted, the platform computes a value either from the `gasLevel` tier or from chain-side defaults.
     GasLevel gasLevel = GasLevel.fromValue("slow"); // GasLevel | Priority-fee tier; consulted only when `computeUnitPrice` is omitted. Defaults to \"average\".
     String tips = "0.001"; // String | Jito tips in SOL for MEV protection. Valid range [0.000000001, 2] (minimum 1 lamport). When specified, it is recommended to set `computeUnitPrice=0`. The platform picks one of Jito's tip accounts at random per request.
+    String feePercent = "1.5"; // String | Custom fee (referral fee / Add Fee) percentage as a decimal string. Must be paired with exactly one of `fromTokenReferrerWalletAddress` or `toTokenReferrerWalletAddress` (the two referrer addresses are mutually exclusive). Same semantics as `/swap`.  **Range (Solana):** `(0, 10]` — greater than 0, up to 10 inclusive, max 2 decimal places. `\"1.5\"` means 1.5%. Values exceeding 2 decimal places are rejected with `INVALID_FEE_PERCENT` (40466).  **`four.meme` tokens are not supported** — do not pass fee parameters when either side of the pair is a `four.meme` token.
+    String fromTokenReferrerWalletAddress = "J5CBzXpcYn6WR2JBah8zU4Yxct985CAFGwXRcFaX2pbS"; // String | Wallet address that receives the fee deducted from the sell token (`FROM_TOKEN` direction). Mutually exclusive with `toTokenReferrerWalletAddress` — providing both returns `CONFLICT_REFERRER_PARAMS` (40468). Solana requires a Base58 pubkey; an invalid format returns `INVALID_REFERRER_ADDRESS` (40467). Must be paired with `feePercent`.
+    String toTokenReferrerWalletAddress = "J5CBzXpcYn6WR2JBah8zU4Yxct985CAFGwXRcFaX2pbS"; // String | Wallet address that receives the fee deducted from the buy-token output (`TO_TOKEN` direction). Mutually exclusive with `fromTokenReferrerWalletAddress` — providing both returns `CONFLICT_REFERRER_PARAMS` (40468). Solana requires a Base58 pubkey; an invalid format returns `INVALID_REFERRER_ADDRESS` (40467). Must be paired with `feePercent`. The referrer must already be activated (funded with some SOL) or the request returns `REFERRER_NOT_ACTIVATED` (40469).
     try {
       BuildSolanaSwapInstructionsResponse result = apiInstance.buildSolanaSwapInstructions(binanceChainId, amount, fromTokenAddress, toTokenAddress, slippagePercent, userWalletAddress, quoteId)
             .recvWindow(recvWindow)
@@ -65,6 +68,9 @@ public class Example {
             .computeUnitPrice(computeUnitPrice)
             .gasLevel(gasLevel)
             .tips(tips)
+            .feePercent(feePercent)
+            .fromTokenReferrerWalletAddress(fromTokenReferrerWalletAddress)
+            .toTokenReferrerWalletAddress(toTokenReferrerWalletAddress)
             .execute();
       System.out.println(result);
     } catch (ApiException e) {
@@ -98,6 +104,9 @@ public class Example {
 | **computeUnitPrice** | **String**| Priority fee per compute unit (micro-lamports). When omitted, the platform computes a value either from the &#x60;gasLevel&#x60; tier or from chain-side defaults. | [optional] |
 | **gasLevel** | [**GasLevel**](.md)| Priority-fee tier; consulted only when &#x60;computeUnitPrice&#x60; is omitted. Defaults to \&quot;average\&quot;. | [optional] [enum: slow, average, fast] |
 | **tips** | **String**| Jito tips in SOL for MEV protection. Valid range [0.000000001, 2] (minimum 1 lamport). When specified, it is recommended to set &#x60;computeUnitPrice&#x3D;0&#x60;. The platform picks one of Jito&#39;s tip accounts at random per request. | [optional] |
+| **feePercent** | **String**| Custom fee (referral fee / Add Fee) percentage as a decimal string. Must be paired with exactly one of &#x60;fromTokenReferrerWalletAddress&#x60; or &#x60;toTokenReferrerWalletAddress&#x60; (the two referrer addresses are mutually exclusive). Same semantics as &#x60;/swap&#x60;.  **Range (Solana):** &#x60;(0, 10]&#x60; — greater than 0, up to 10 inclusive, max 2 decimal places. &#x60;\&quot;1.5\&quot;&#x60; means 1.5%. Values exceeding 2 decimal places are rejected with &#x60;INVALID_FEE_PERCENT&#x60; (40466).  **&#x60;four.meme&#x60; tokens are not supported** — do not pass fee parameters when either side of the pair is a &#x60;four.meme&#x60; token. | [optional] |
+| **fromTokenReferrerWalletAddress** | **String**| Wallet address that receives the fee deducted from the sell token (&#x60;FROM_TOKEN&#x60; direction). Mutually exclusive with &#x60;toTokenReferrerWalletAddress&#x60; — providing both returns &#x60;CONFLICT_REFERRER_PARAMS&#x60; (40468). Solana requires a Base58 pubkey; an invalid format returns &#x60;INVALID_REFERRER_ADDRESS&#x60; (40467). Must be paired with &#x60;feePercent&#x60;. | [optional] |
+| **toTokenReferrerWalletAddress** | **String**| Wallet address that receives the fee deducted from the buy-token output (&#x60;TO_TOKEN&#x60; direction). Mutually exclusive with &#x60;fromTokenReferrerWalletAddress&#x60; — providing both returns &#x60;CONFLICT_REFERRER_PARAMS&#x60; (40468). Solana requires a Base58 pubkey; an invalid format returns &#x60;INVALID_REFERRER_ADDRESS&#x60; (40467). Must be paired with &#x60;feePercent&#x60;. The referrer must already be activated (funded with some SOL) or the request returns &#x60;REFERRER_NOT_ACTIVATED&#x60; (40469). | [optional] |
 
 ### Return type
 
@@ -122,7 +131,7 @@ No authorization required
 
 <a id="buildSwapTransaction"></a>
 # **buildSwapTransaction**
-> BuildSwapTransactionResponse buildSwapTransaction(binanceChainId, amount, fromTokenAddress, toTokenAddress, userWalletAddress, quoteId).recvWindow(recvWindow).nonce(nonce).slippagePercent(slippagePercent).approveTransaction(approveTransaction).approveAmount(approveAmount).gasLimit(gasLimit).gasLevel(gasLevel).priceImpactProtectionPercent(priceImpactProtectionPercent).autoSlippage(autoSlippage).maxAutoSlippagePercent(maxAutoSlippagePercent).computeUnitLimit(computeUnitLimit).computeUnitPrice(computeUnitPrice).tips(tips).execute();
+> BuildSwapTransactionResponse buildSwapTransaction(binanceChainId, amount, fromTokenAddress, toTokenAddress, userWalletAddress, quoteId).recvWindow(recvWindow).nonce(nonce).slippagePercent(slippagePercent).approveTransaction(approveTransaction).approveAmount(approveAmount).gasLimit(gasLimit).gasLevel(gasLevel).priceImpactProtectionPercent(priceImpactProtectionPercent).autoSlippage(autoSlippage).maxAutoSlippagePercent(maxAutoSlippagePercent).computeUnitLimit(computeUnitLimit).computeUnitPrice(computeUnitPrice).tips(tips).feePercent(feePercent).fromTokenReferrerWalletAddress(fromTokenReferrerWalletAddress).toTokenReferrerWalletAddress(toTokenReferrerWalletAddress).execute();
 
 Build Swap Transaction
 
@@ -162,6 +171,9 @@ public class Example {
     String computeUnitLimit = "1400000"; // String | Solana only — maximum compute units the transaction may consume (analogous to EVM gasLimit). Applies only when `binanceChainId=CT_501`.
     String computeUnitPrice = "1000"; // String | Solana only — priority fee per compute unit (micro-lamports), analogous to EVM gasPrice. When omitted, the platform computes a value dynamically. Applies only when `binanceChainId=CT_501`.
     String tips = "0.001"; // String | Solana only — Jito tips in SOL for MEV protection. Valid range [0.000000001, 2] (minimum 1 lamport). When specified, it is recommended to set `computeUnitPrice=0`. Applies only when `binanceChainId=CT_501`.
+    String feePercent = "1.5"; // String | Custom fee (referral fee / Add Fee) percentage as a decimal string. Must be paired with exactly one of `fromTokenReferrerWalletAddress` or `toTokenReferrerWalletAddress` (the two referrer addresses are mutually exclusive).  **Range by chain:** `(0, 5]` for EVM chains (BSC, Ethereum, Base, etc.) and `(0, 10]` for Solana (`CT_501`) — greater than 0, up to the chain-specific maximum inclusive, max 2 decimal places. `\"1.5\"` means 1.5%. Values exceeding 2 decimal places are rejected with `INVALID_FEE_PERCENT` (40466).  **`four.meme` tokens are not supported** — do not pass fee parameters when either side of the pair is a `four.meme` token.
+    String fromTokenReferrerWalletAddress = "0xCbF2B6E6e3D7e9e4e4e4e4e4e4e4e4e4e4e4e4e4"; // String | Wallet address that receives the fee deducted from the sell token (`FROM_TOKEN` direction). Mutually exclusive with `toTokenReferrerWalletAddress` — providing both returns `CONFLICT_REFERRER_PARAMS` (40468). Address format depends on the chain: EVM chains require `0x` + 40 hex chars; Solana (`CT_501`) requires a Base58 pubkey. An invalid format returns `INVALID_REFERRER_ADDRESS` (40467). Must be paired with `feePercent`.
+    String toTokenReferrerWalletAddress = "0xCbF2B6E6e3D7e9e4e4e4e4e4e4e4e4e4e4e4e4e4"; // String | Wallet address that receives the fee deducted from the buy-token output (`TO_TOKEN` direction). Mutually exclusive with `fromTokenReferrerWalletAddress` — providing both returns `CONFLICT_REFERRER_PARAMS` (40468). Address format depends on the chain: EVM chains require `0x` + 40 hex chars; Solana (`CT_501`) requires a Base58 pubkey. An invalid format returns `INVALID_REFERRER_ADDRESS` (40467). Must be paired with `feePercent`. On Solana, the referrer must already be activated (funded with some SOL) or the request returns `REFERRER_NOT_ACTIVATED` (40469).
     try {
       BuildSwapTransactionResponse result = apiInstance.buildSwapTransaction(binanceChainId, amount, fromTokenAddress, toTokenAddress, userWalletAddress, quoteId)
             .recvWindow(recvWindow)
@@ -177,6 +189,9 @@ public class Example {
             .computeUnitLimit(computeUnitLimit)
             .computeUnitPrice(computeUnitPrice)
             .tips(tips)
+            .feePercent(feePercent)
+            .fromTokenReferrerWalletAddress(fromTokenReferrerWalletAddress)
+            .toTokenReferrerWalletAddress(toTokenReferrerWalletAddress)
             .execute();
       System.out.println(result);
     } catch (ApiException e) {
@@ -213,6 +228,9 @@ public class Example {
 | **computeUnitLimit** | **String**| Solana only — maximum compute units the transaction may consume (analogous to EVM gasLimit). Applies only when &#x60;binanceChainId&#x3D;CT_501&#x60;. | [optional] |
 | **computeUnitPrice** | **String**| Solana only — priority fee per compute unit (micro-lamports), analogous to EVM gasPrice. When omitted, the platform computes a value dynamically. Applies only when &#x60;binanceChainId&#x3D;CT_501&#x60;. | [optional] |
 | **tips** | **String**| Solana only — Jito tips in SOL for MEV protection. Valid range [0.000000001, 2] (minimum 1 lamport). When specified, it is recommended to set &#x60;computeUnitPrice&#x3D;0&#x60;. Applies only when &#x60;binanceChainId&#x3D;CT_501&#x60;. | [optional] |
+| **feePercent** | **String**| Custom fee (referral fee / Add Fee) percentage as a decimal string. Must be paired with exactly one of &#x60;fromTokenReferrerWalletAddress&#x60; or &#x60;toTokenReferrerWalletAddress&#x60; (the two referrer addresses are mutually exclusive).  **Range by chain:** &#x60;(0, 5]&#x60; for EVM chains (BSC, Ethereum, Base, etc.) and &#x60;(0, 10]&#x60; for Solana (&#x60;CT_501&#x60;) — greater than 0, up to the chain-specific maximum inclusive, max 2 decimal places. &#x60;\&quot;1.5\&quot;&#x60; means 1.5%. Values exceeding 2 decimal places are rejected with &#x60;INVALID_FEE_PERCENT&#x60; (40466).  **&#x60;four.meme&#x60; tokens are not supported** — do not pass fee parameters when either side of the pair is a &#x60;four.meme&#x60; token. | [optional] |
+| **fromTokenReferrerWalletAddress** | **String**| Wallet address that receives the fee deducted from the sell token (&#x60;FROM_TOKEN&#x60; direction). Mutually exclusive with &#x60;toTokenReferrerWalletAddress&#x60; — providing both returns &#x60;CONFLICT_REFERRER_PARAMS&#x60; (40468). Address format depends on the chain: EVM chains require &#x60;0x&#x60; + 40 hex chars; Solana (&#x60;CT_501&#x60;) requires a Base58 pubkey. An invalid format returns &#x60;INVALID_REFERRER_ADDRESS&#x60; (40467). Must be paired with &#x60;feePercent&#x60;. | [optional] |
+| **toTokenReferrerWalletAddress** | **String**| Wallet address that receives the fee deducted from the buy-token output (&#x60;TO_TOKEN&#x60; direction). Mutually exclusive with &#x60;fromTokenReferrerWalletAddress&#x60; — providing both returns &#x60;CONFLICT_REFERRER_PARAMS&#x60; (40468). Address format depends on the chain: EVM chains require &#x60;0x&#x60; + 40 hex chars; Solana (&#x60;CT_501&#x60;) requires a Base58 pubkey. An invalid format returns &#x60;INVALID_REFERRER_ADDRESS&#x60; (40467). Must be paired with &#x60;feePercent&#x60;. On Solana, the referrer must already be activated (funded with some SOL) or the request returns &#x60;REFERRER_NOT_ACTIVATED&#x60; (40469). | [optional] |
 
 ### Return type
 
@@ -237,7 +255,7 @@ No authorization required
 
 <a id="getAggregatedQuote"></a>
 # **getAggregatedQuote**
-> GetAggregatedQuoteResponse getAggregatedQuote(binanceChainId, amount, fromTokenAddress, toTokenAddress).recvWindow(recvWindow).nonce(nonce).userWalletAddress(userWalletAddress).execute();
+> GetAggregatedQuoteResponse getAggregatedQuote(binanceChainId, amount, fromTokenAddress, toTokenAddress).recvWindow(recvWindow).nonce(nonce).userWalletAddress(userWalletAddress).feePercent(feePercent).feeSource(feeSource).execute();
 
 Get Aggregated Quote
 
@@ -265,11 +283,15 @@ public class Example {
     Long recvWindow = 5000L; // Long | Allowed time deviation in milliseconds (default: 5000, max: 60000).
     String nonce = "unique-nonce-string"; // String | Unique request identifier for anti-replay; falls back to X-OC-SIGN if omitted.
     String userWalletAddress = "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045"; // String | User wallet address. Required when quoting RFQ routes (equity / RWA tokens such as Ondo and BStock). This address is used as the receiver in the RFQ order and must match the wallet that signs `rfq.typedDataToSign` in the subsequent `/swap` call.
+    String feePercent = "1.5"; // String | Custom fee (referral fee / Add Fee) percentage as a decimal string. Must be paired with `feeSource` — either both present or both absent.  **Range by chain:** `(0, 5]` for EVM chains (BSC, Ethereum, Base, etc.) and `(0, 10]` for Solana (`CT_501`) — greater than 0, up to the chain-specific maximum inclusive, max 2 decimal places. `\"1.5\"` means 1.5%. Values exceeding 2 decimal places are rejected with `INVALID_FEE_PERCENT` (40466).  **`four.meme` tokens are not supported** — do not pass fee parameters when either side of the pair is a `four.meme` token.
+    FeeSource feeSource = FeeSource.fromValue("FROM_TOKEN"); // FeeSource | Fee deduction direction. `FROM_TOKEN` = deduct the fee from the sell token (the amount passed to the DEX is reduced to a net amount); `TO_TOKEN` = deduct the fee from the buy-token output (the user's actual received amount is reduced). Must be paired with `feePercent`.
     try {
       GetAggregatedQuoteResponse result = apiInstance.getAggregatedQuote(binanceChainId, amount, fromTokenAddress, toTokenAddress)
             .recvWindow(recvWindow)
             .nonce(nonce)
             .userWalletAddress(userWalletAddress)
+            .feePercent(feePercent)
+            .feeSource(feeSource)
             .execute();
       System.out.println(result);
     } catch (ApiException e) {
@@ -294,6 +316,8 @@ public class Example {
 | **recvWindow** | **Long**| Allowed time deviation in milliseconds (default: 5000, max: 60000). | [optional] |
 | **nonce** | **String**| Unique request identifier for anti-replay; falls back to X-OC-SIGN if omitted. | [optional] |
 | **userWalletAddress** | **String**| User wallet address. Required when quoting RFQ routes (equity / RWA tokens such as Ondo and BStock). This address is used as the receiver in the RFQ order and must match the wallet that signs &#x60;rfq.typedDataToSign&#x60; in the subsequent &#x60;/swap&#x60; call. | [optional] |
+| **feePercent** | **String**| Custom fee (referral fee / Add Fee) percentage as a decimal string. Must be paired with &#x60;feeSource&#x60; — either both present or both absent.  **Range by chain:** &#x60;(0, 5]&#x60; for EVM chains (BSC, Ethereum, Base, etc.) and &#x60;(0, 10]&#x60; for Solana (&#x60;CT_501&#x60;) — greater than 0, up to the chain-specific maximum inclusive, max 2 decimal places. &#x60;\&quot;1.5\&quot;&#x60; means 1.5%. Values exceeding 2 decimal places are rejected with &#x60;INVALID_FEE_PERCENT&#x60; (40466).  **&#x60;four.meme&#x60; tokens are not supported** — do not pass fee parameters when either side of the pair is a &#x60;four.meme&#x60; token. | [optional] |
+| **feeSource** | [**FeeSource**](.md)| Fee deduction direction. &#x60;FROM_TOKEN&#x60; &#x3D; deduct the fee from the sell token (the amount passed to the DEX is reduced to a net amount); &#x60;TO_TOKEN&#x60; &#x3D; deduct the fee from the buy-token output (the user&#39;s actual received amount is reduced). Must be paired with &#x60;feePercent&#x60;. | [optional] [enum: FROM_TOKEN, TO_TOKEN] |
 
 ### Return type
 
@@ -616,7 +640,7 @@ No authorization required
 
 <a id="quoteAndBuildSwapTransaction"></a>
 # **quoteAndBuildSwapTransaction**
-> QuoteAndBuildSwapTransactionResponse quoteAndBuildSwapTransaction(binanceChainId, amount, fromTokenAddress, toTokenAddress, userWalletAddress, vendor).recvWindow(recvWindow).nonce(nonce).slippagePercent(slippagePercent).approveTransaction(approveTransaction).approveAmount(approveAmount).gasLimit(gasLimit).gasLevel(gasLevel).priceImpactProtectionPercent(priceImpactProtectionPercent).autoSlippage(autoSlippage).maxAutoSlippagePercent(maxAutoSlippagePercent).computeUnitLimit(computeUnitLimit).computeUnitPrice(computeUnitPrice).tips(tips).execute();
+> QuoteAndBuildSwapTransactionResponse quoteAndBuildSwapTransaction(binanceChainId, amount, fromTokenAddress, toTokenAddress, userWalletAddress, vendor).recvWindow(recvWindow).nonce(nonce).slippagePercent(slippagePercent).approveTransaction(approveTransaction).approveAmount(approveAmount).gasLimit(gasLimit).gasLevel(gasLevel).priceImpactProtectionPercent(priceImpactProtectionPercent).autoSlippage(autoSlippage).maxAutoSlippagePercent(maxAutoSlippagePercent).computeUnitLimit(computeUnitLimit).computeUnitPrice(computeUnitPrice).tips(tips).feePercent(feePercent).fromTokenReferrerWalletAddress(fromTokenReferrerWalletAddress).toTokenReferrerWalletAddress(toTokenReferrerWalletAddress).execute();
 
 Quote and Build Swap Transaction (Flash API)
 
@@ -656,6 +680,9 @@ public class Example {
     String computeUnitLimit = "1400000"; // String | Solana only — maximum compute units the transaction may consume (analogous to EVM gasLimit). Applies only when `binanceChainId=CT_501`.
     String computeUnitPrice = "1000"; // String | Solana only — priority fee per compute unit (micro-lamports), analogous to EVM gasPrice. When omitted, the platform computes a value dynamically. Applies only when `binanceChainId=CT_501`.
     String tips = "0.001"; // String | Solana only — Jito tips in SOL for MEV protection. Valid range [0.000000001, 2] (minimum 1 lamport). When specified, it is recommended to set `computeUnitPrice=0`. Applies only when `binanceChainId=CT_501`.
+    String feePercent = "1.5"; // String | Custom fee (referral fee / Add Fee) percentage as a decimal string. Must be paired with exactly one of `fromTokenReferrerWalletAddress` or `toTokenReferrerWalletAddress` (the two referrer addresses are mutually exclusive).  **Range by chain:** `(0, 5]` for EVM chains (BSC, Ethereum, Base, etc.) and `(0, 10]` for Solana (`CT_501`) — greater than 0, up to the chain-specific maximum inclusive, max 2 decimal places. `\"1.5\"` means 1.5%. Values exceeding 2 decimal places are rejected with `INVALID_FEE_PERCENT` (40466).  **`four.meme` tokens are not supported** — do not pass fee parameters when either side of the pair is a `four.meme` token.
+    String fromTokenReferrerWalletAddress = "0xCbF2B6E6e3D7e9e4e4e4e4e4e4e4e4e4e4e4e4e4"; // String | Wallet address that receives the fee deducted from the sell token (`FROM_TOKEN` direction). Mutually exclusive with `toTokenReferrerWalletAddress` — providing both returns `CONFLICT_REFERRER_PARAMS` (40468). Address format depends on the chain: EVM chains require `0x` + 40 hex chars; Solana (`CT_501`) requires a Base58 pubkey. An invalid format returns `INVALID_REFERRER_ADDRESS` (40467). Must be paired with `feePercent`.
+    String toTokenReferrerWalletAddress = "0xCbF2B6E6e3D7e9e4e4e4e4e4e4e4e4e4e4e4e4e4"; // String | Wallet address that receives the fee deducted from the buy-token output (`TO_TOKEN` direction). Mutually exclusive with `fromTokenReferrerWalletAddress` — providing both returns `CONFLICT_REFERRER_PARAMS` (40468). Address format depends on the chain: EVM chains require `0x` + 40 hex chars; Solana (`CT_501`) requires a Base58 pubkey. An invalid format returns `INVALID_REFERRER_ADDRESS` (40467). Must be paired with `feePercent`. On Solana, the referrer must already be activated (funded with some SOL) or the request returns `REFERRER_NOT_ACTIVATED` (40469).
     try {
       QuoteAndBuildSwapTransactionResponse result = apiInstance.quoteAndBuildSwapTransaction(binanceChainId, amount, fromTokenAddress, toTokenAddress, userWalletAddress, vendor)
             .recvWindow(recvWindow)
@@ -671,6 +698,9 @@ public class Example {
             .computeUnitLimit(computeUnitLimit)
             .computeUnitPrice(computeUnitPrice)
             .tips(tips)
+            .feePercent(feePercent)
+            .fromTokenReferrerWalletAddress(fromTokenReferrerWalletAddress)
+            .toTokenReferrerWalletAddress(toTokenReferrerWalletAddress)
             .execute();
       System.out.println(result);
     } catch (ApiException e) {
@@ -707,6 +737,9 @@ public class Example {
 | **computeUnitLimit** | **String**| Solana only — maximum compute units the transaction may consume (analogous to EVM gasLimit). Applies only when &#x60;binanceChainId&#x3D;CT_501&#x60;. | [optional] |
 | **computeUnitPrice** | **String**| Solana only — priority fee per compute unit (micro-lamports), analogous to EVM gasPrice. When omitted, the platform computes a value dynamically. Applies only when &#x60;binanceChainId&#x3D;CT_501&#x60;. | [optional] |
 | **tips** | **String**| Solana only — Jito tips in SOL for MEV protection. Valid range [0.000000001, 2] (minimum 1 lamport). When specified, it is recommended to set &#x60;computeUnitPrice&#x3D;0&#x60;. Applies only when &#x60;binanceChainId&#x3D;CT_501&#x60;. | [optional] |
+| **feePercent** | **String**| Custom fee (referral fee / Add Fee) percentage as a decimal string. Must be paired with exactly one of &#x60;fromTokenReferrerWalletAddress&#x60; or &#x60;toTokenReferrerWalletAddress&#x60; (the two referrer addresses are mutually exclusive).  **Range by chain:** &#x60;(0, 5]&#x60; for EVM chains (BSC, Ethereum, Base, etc.) and &#x60;(0, 10]&#x60; for Solana (&#x60;CT_501&#x60;) — greater than 0, up to the chain-specific maximum inclusive, max 2 decimal places. &#x60;\&quot;1.5\&quot;&#x60; means 1.5%. Values exceeding 2 decimal places are rejected with &#x60;INVALID_FEE_PERCENT&#x60; (40466).  **&#x60;four.meme&#x60; tokens are not supported** — do not pass fee parameters when either side of the pair is a &#x60;four.meme&#x60; token. | [optional] |
+| **fromTokenReferrerWalletAddress** | **String**| Wallet address that receives the fee deducted from the sell token (&#x60;FROM_TOKEN&#x60; direction). Mutually exclusive with &#x60;toTokenReferrerWalletAddress&#x60; — providing both returns &#x60;CONFLICT_REFERRER_PARAMS&#x60; (40468). Address format depends on the chain: EVM chains require &#x60;0x&#x60; + 40 hex chars; Solana (&#x60;CT_501&#x60;) requires a Base58 pubkey. An invalid format returns &#x60;INVALID_REFERRER_ADDRESS&#x60; (40467). Must be paired with &#x60;feePercent&#x60;. | [optional] |
+| **toTokenReferrerWalletAddress** | **String**| Wallet address that receives the fee deducted from the buy-token output (&#x60;TO_TOKEN&#x60; direction). Mutually exclusive with &#x60;fromTokenReferrerWalletAddress&#x60; — providing both returns &#x60;CONFLICT_REFERRER_PARAMS&#x60; (40468). Address format depends on the chain: EVM chains require &#x60;0x&#x60; + 40 hex chars; Solana (&#x60;CT_501&#x60;) requires a Base58 pubkey. An invalid format returns &#x60;INVALID_REFERRER_ADDRESS&#x60; (40467). Must be paired with &#x60;feePercent&#x60;. On Solana, the referrer must already be activated (funded with some SOL) or the request returns &#x60;REFERRER_NOT_ACTIVATED&#x60; (40469). | [optional] |
 
 ### Return type
 

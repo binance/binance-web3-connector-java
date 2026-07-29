@@ -113,6 +113,24 @@ public class BuildSolanaSwapInstructionsResponseDataRouterResult {
     @jakarta.annotation.Nullable
     private BuildSolanaSwapInstructionsResponseDataRouterResultToToken toToken;
 
+    public static final String SERIALIZED_NAME_FEE_AMOUNT = "feeAmount";
+
+    @SerializedName(SERIALIZED_NAME_FEE_AMOUNT)
+    @jakarta.annotation.Nullable
+    private String feeAmount;
+
+    public static final String SERIALIZED_NAME_FEE_TOKEN = "feeToken";
+
+    @SerializedName(SERIALIZED_NAME_FEE_TOKEN)
+    @jakarta.annotation.Nullable
+    private String feeToken;
+
+    public static final String SERIALIZED_NAME_ACTUAL_SWAP_AMOUNT = "actualSwapAmount";
+
+    @SerializedName(SERIALIZED_NAME_ACTUAL_SWAP_AMOUNT)
+    @jakarta.annotation.Nullable
+    private String actualSwapAmount;
+
     public BuildSolanaSwapInstructionsResponseDataRouterResult() {}
 
     public BuildSolanaSwapInstructionsResponseDataRouterResult binanceChainId(
@@ -364,6 +382,74 @@ public class BuildSolanaSwapInstructionsResponseDataRouterResult {
         this.toToken = toToken;
     }
 
+    public BuildSolanaSwapInstructionsResponseDataRouterResult feeAmount(
+            @jakarta.annotation.Nullable String feeAmount) {
+        this.feeAmount = feeAmount;
+        return this;
+    }
+
+    /**
+     * Fee amount deducted for this swap (smallest unit, integer string). Only populated when the
+     * request enabled the custom fee; &#x60;null&#x60; otherwise. &#x60;FROM_TOKEN&#x60; direction
+     * &#x3D; &#x60;originalFromCoinAmount × feePercent/100&#x60; (HALF_UP); &#x60;TO_TOKEN&#x60;
+     * direction &#x3D; &#x60;originalToCoinAmount × feePercent/100&#x60; (HALF_DOWN).
+     *
+     * @return feeAmount
+     */
+    @jakarta.annotation.Nullable
+    public String getFeeAmount() {
+        return feeAmount;
+    }
+
+    public void setFeeAmount(@jakarta.annotation.Nullable String feeAmount) {
+        this.feeAmount = feeAmount;
+    }
+
+    public BuildSolanaSwapInstructionsResponseDataRouterResult feeToken(
+            @jakarta.annotation.Nullable String feeToken) {
+        this.feeToken = feeToken;
+        return this;
+    }
+
+    /**
+     * Contract address of the token in which the fee is denominated. &#x60;FROM_TOKEN&#x60;
+     * direction &#x3D; sell-token address; &#x60;TO_TOKEN&#x60; direction &#x3D; buy-token address.
+     * &#x60;null&#x60; when the custom fee is not enabled.
+     *
+     * @return feeToken
+     */
+    @jakarta.annotation.Nullable
+    public String getFeeToken() {
+        return feeToken;
+    }
+
+    public void setFeeToken(@jakarta.annotation.Nullable String feeToken) {
+        this.feeToken = feeToken;
+    }
+
+    public BuildSolanaSwapInstructionsResponseDataRouterResult actualSwapAmount(
+            @jakarta.annotation.Nullable String actualSwapAmount) {
+        this.actualSwapAmount = actualSwapAmount;
+        return this;
+    }
+
+    /**
+     * Actual amount participating in the DEX swap (smallest unit, integer string).
+     * &#x60;FROM_TOKEN&#x60; direction &#x3D; net amount after fee deduction (&#x60;fromTokenAmount
+     * − feeAmount&#x60;); &#x60;TO_TOKEN&#x60; direction &#x3D; original input amount (fee is taken
+     * from the output side). &#x60;null&#x60; when the custom fee is not enabled.
+     *
+     * @return actualSwapAmount
+     */
+    @jakarta.annotation.Nullable
+    public String getActualSwapAmount() {
+        return actualSwapAmount;
+    }
+
+    public void setActualSwapAmount(@jakarta.annotation.Nullable String actualSwapAmount) {
+        this.actualSwapAmount = actualSwapAmount;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -404,7 +490,15 @@ public class BuildSolanaSwapInstructionsResponseDataRouterResult {
                         this.fromToken,
                         buildSolanaSwapInstructionsResponseDataRouterResult.fromToken)
                 && Objects.equals(
-                        this.toToken, buildSolanaSwapInstructionsResponseDataRouterResult.toToken);
+                        this.toToken, buildSolanaSwapInstructionsResponseDataRouterResult.toToken)
+                && Objects.equals(
+                        this.feeAmount,
+                        buildSolanaSwapInstructionsResponseDataRouterResult.feeAmount)
+                && Objects.equals(
+                        this.feeToken, buildSolanaSwapInstructionsResponseDataRouterResult.feeToken)
+                && Objects.equals(
+                        this.actualSwapAmount,
+                        buildSolanaSwapInstructionsResponseDataRouterResult.actualSwapAmount);
     }
 
     private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
@@ -429,7 +523,10 @@ public class BuildSolanaSwapInstructionsResponseDataRouterResult {
                 priceImpactPercent,
                 dexRouterList,
                 fromToken,
-                toToken);
+                toToken,
+                feeAmount,
+                feeToken,
+                actualSwapAmount);
     }
 
     private static <T> int hashCodeNullable(JsonNullable<T> a) {
@@ -456,6 +553,9 @@ public class BuildSolanaSwapInstructionsResponseDataRouterResult {
         sb.append("		dexRouterList: ").append(toIndentedString(dexRouterList)).append("\n");
         sb.append("		fromToken: ").append(toIndentedString(fromToken)).append("\n");
         sb.append("		toToken: ").append(toIndentedString(toToken)).append("\n");
+        sb.append("		feeAmount: ").append(toIndentedString(feeAmount)).append("\n");
+        sb.append("		feeToken: ").append(toIndentedString(feeToken)).append("\n");
+        sb.append("		actualSwapAmount: ").append(toIndentedString(actualSwapAmount)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -512,6 +612,18 @@ public class BuildSolanaSwapInstructionsResponseDataRouterResult {
         String toTokenValueAsString = "";
         toTokenValueAsString = toTokenValue.toString();
         sb.append("toToken=").append(urlEncode(toTokenValueAsString)).append("");
+        Object feeAmountValue = getFeeAmount();
+        String feeAmountValueAsString = "";
+        feeAmountValueAsString = feeAmountValue.toString();
+        sb.append("feeAmount=").append(urlEncode(feeAmountValueAsString)).append("");
+        Object feeTokenValue = getFeeToken();
+        String feeTokenValueAsString = "";
+        feeTokenValueAsString = feeTokenValue.toString();
+        sb.append("feeToken=").append(urlEncode(feeTokenValueAsString)).append("");
+        Object actualSwapAmountValue = getActualSwapAmount();
+        String actualSwapAmountValueAsString = "";
+        actualSwapAmountValueAsString = actualSwapAmountValue.toString();
+        sb.append("actualSwapAmount=").append(urlEncode(actualSwapAmountValueAsString)).append("");
         return sb.toString();
     }
 
@@ -551,6 +663,9 @@ public class BuildSolanaSwapInstructionsResponseDataRouterResult {
         openapiFields.add("dexRouterList");
         openapiFields.add("fromToken");
         openapiFields.add("toToken");
+        openapiFields.add("feeAmount");
+        openapiFields.add("feeToken");
+        openapiFields.add("actualSwapAmount");
 
         // a set of required properties/fields (JSON key names)
         openapiRequiredFields = new HashSet<String>();
@@ -672,6 +787,31 @@ public class BuildSolanaSwapInstructionsResponseDataRouterResult {
         if (jsonObj.get("toToken") != null && !jsonObj.get("toToken").isJsonNull()) {
             BuildSolanaSwapInstructionsResponseDataRouterResultToToken.validateJsonElement(
                     jsonObj.get("toToken"));
+        }
+        if ((jsonObj.get("feeAmount") != null && !jsonObj.get("feeAmount").isJsonNull())
+                && !jsonObj.get("feeAmount").isJsonPrimitive()) {
+            throw new IllegalArgumentException(
+                    String.format(
+                            "Expected the field `feeAmount` to be a primitive type in the JSON"
+                                    + " string but got `%s`",
+                            jsonObj.get("feeAmount").toString()));
+        }
+        if ((jsonObj.get("feeToken") != null && !jsonObj.get("feeToken").isJsonNull())
+                && !jsonObj.get("feeToken").isJsonPrimitive()) {
+            throw new IllegalArgumentException(
+                    String.format(
+                            "Expected the field `feeToken` to be a primitive type in the JSON"
+                                    + " string but got `%s`",
+                            jsonObj.get("feeToken").toString()));
+        }
+        if ((jsonObj.get("actualSwapAmount") != null
+                        && !jsonObj.get("actualSwapAmount").isJsonNull())
+                && !jsonObj.get("actualSwapAmount").isJsonPrimitive()) {
+            throw new IllegalArgumentException(
+                    String.format(
+                            "Expected the field `actualSwapAmount` to be a primitive type in the"
+                                    + " JSON string but got `%s`",
+                            jsonObj.get("actualSwapAmount").toString()));
         }
     }
 
