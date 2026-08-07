@@ -62,7 +62,7 @@
 
 [GET /api/v1/dex/aggregator/swap](https://web3.binance.com/en/dev-docs/catalog/web3-wallet/api/rest-api/trading-api#build-swap-transaction) - buildSwapTransaction - [BuildSwapTransactionExample.java:42](/examples/web3-wallet/src/main/java/com/binance/connector/client/web3_wallet/rest/trading/BuildSwapTransactionExample.java#L42)
 
-[GET /api/v1/dex/aggregator/quote](https://web3.binance.com/en/dev-docs/catalog/web3-wallet/api/rest-api/trading-api#get-aggregated-quote) - getAggregatedQuote - [GetAggregatedQuoteExample.java:39](/examples/web3-wallet/src/main/java/com/binance/connector/client/web3_wallet/rest/trading/GetAggregatedQuoteExample.java#L39)
+[GET /api/v1/dex/aggregator/quote](https://web3.binance.com/en/dev-docs/catalog/web3-wallet/api/rest-api/trading-api#get-aggregated-quote) - getAggregatedQuote - [GetAggregatedQuoteExample.java:40](/examples/web3-wallet/src/main/java/com/binance/connector/client/web3_wallet/rest/trading/GetAggregatedQuoteExample.java#L40)
 
 [GET /api/v1/dex/aggregator/supported/chain](https://web3.binance.com/en/dev-docs/catalog/web3-wallet/api/rest-api/trading-api#get-aggregator-supported-chains) - getAggregatorSupportedChains - [GetAggregatorSupportedChainsExample.java:38](/examples/web3-wallet/src/main/java/com/binance/connector/client/web3_wallet/rest/trading/GetAggregatorSupportedChainsExample.java#L38)
 
@@ -85,6 +85,8 @@
 [POST /api/v1/dex/pre-transaction/gas-limit](https://web3.binance.com/en/dev-docs/catalog/web3-wallet/api/rest-api/transaction-api#get-gas-limit) - getGasLimit - [GetGasLimitExample.java:41](/examples/web3-wallet/src/main/java/com/binance/connector/client/web3_wallet/rest/transaction/GetGasLimitExample.java#L41)
 
 [GET /api/v1/dex/pre-transaction/gas-price](https://web3.binance.com/en/dev-docs/catalog/web3-wallet/api/rest-api/transaction-api#get-gas-price) - getGasPrice - [GetGasPriceExample.java:42](/examples/web3-wallet/src/main/java/com/binance/connector/client/web3_wallet/rest/transaction/GetGasPriceExample.java#L42)
+
+[GET /api/v1/dex/pre-transaction/block-height](https://web3.binance.com/en/dev-docs/catalog/web3-wallet/api/rest-api/transaction-api#get-latest-block-height) - getLatestBlockHeight - [GetLatestBlockHeightExample.java:38](/examples/web3-wallet/src/main/java/com/binance/connector/client/web3_wallet/rest/transaction/GetLatestBlockHeightExample.java#L38)
 
 [GET /api/v1/dex/pre-transaction/supported/chain](https://web3.binance.com/en/dev-docs/catalog/web3-wallet/api/rest-api/transaction-api#get-transaction-supported-chains) - getTransactionSupportedChains - [GetTransactionSupportedChainsExample.java:38](/examples/web3-wallet/src/main/java/com/binance/connector/client/web3_wallet/rest/transaction/GetTransactionSupportedChainsExample.java#L38)
 

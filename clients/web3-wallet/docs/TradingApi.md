@@ -255,7 +255,7 @@ No authorization required
 
 <a id="getAggregatedQuote"></a>
 # **getAggregatedQuote**
-> GetAggregatedQuoteResponse getAggregatedQuote(binanceChainId, amount, fromTokenAddress, toTokenAddress).recvWindow(recvWindow).nonce(nonce).userWalletAddress(userWalletAddress).feePercent(feePercent).feeSource(feeSource).execute();
+> GetAggregatedQuoteResponse getAggregatedQuote(binanceChainId, amount, fromTokenAddress, toTokenAddress).recvWindow(recvWindow).nonce(nonce).vendor(vendor).userWalletAddress(userWalletAddress).feePercent(feePercent).feeSource(feeSource).execute();
 
 Get Aggregated Quote
 
@@ -282,6 +282,7 @@ public class Example {
     String toTokenAddress = "0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d"; // String | Buy-token contract address. Must differ from `fromTokenAddress`.
     Long recvWindow = 5000L; // Long | Allowed time deviation in milliseconds (default: 5000, max: 60000).
     String nonce = "unique-nonce-string"; // String | Unique request identifier for anti-replay; falls back to X-OC-SIGN if omitted.
+    Vendor vendor = Vendor.fromValue("LiquidMesh"); // Vendor | Optional vendor selector. When provided, only the specified vendor is queried through the single-vendor fast path; the request bypasses the multi-vendor dual-window, early-return, and price-check logic. Values are case-sensitive and must be one of `LiquidMesh`, `Pancake`, or `Jupiter`. The vendor must also support the requested chain. An unsupported value or unavailable vendor/chain returns `PARAM_ERROR` (40001). When omitted, the API queries all applicable vendors in parallel and returns the aggregated routes.
     String userWalletAddress = "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045"; // String | User wallet address. Required when quoting RFQ routes (equity / RWA tokens such as Ondo and BStock). This address is used as the receiver in the RFQ order and must match the wallet that signs `rfq.typedDataToSign` in the subsequent `/swap` call.
     String feePercent = "1.5"; // String | Custom fee (referral fee / Add Fee) percentage as a decimal string. Must be paired with `feeSource` — either both present or both absent.  **Range by chain:** `(0, 5]` for EVM chains (BSC, Ethereum, Base, etc.) and `(0, 10]` for Solana (`CT_501`) — greater than 0, up to the chain-specific maximum inclusive, max 2 decimal places. `\"1.5\"` means 1.5%. Values exceeding 2 decimal places are rejected with `INVALID_FEE_PERCENT` (40466).  **`four.meme` tokens are not supported** — do not pass fee parameters when either side of the pair is a `four.meme` token.
     FeeSource feeSource = FeeSource.fromValue("FROM_TOKEN"); // FeeSource | Fee deduction direction. `FROM_TOKEN` = deduct the fee from the sell token (the amount passed to the DEX is reduced to a net amount); `TO_TOKEN` = deduct the fee from the buy-token output (the user's actual received amount is reduced). Must be paired with `feePercent`.
@@ -289,6 +290,7 @@ public class Example {
       GetAggregatedQuoteResponse result = apiInstance.getAggregatedQuote(binanceChainId, amount, fromTokenAddress, toTokenAddress)
             .recvWindow(recvWindow)
             .nonce(nonce)
+            .vendor(vendor)
             .userWalletAddress(userWalletAddress)
             .feePercent(feePercent)
             .feeSource(feeSource)
@@ -315,6 +317,7 @@ public class Example {
 | **toTokenAddress** | **String**| Buy-token contract address. Must differ from &#x60;fromTokenAddress&#x60;. | |
 | **recvWindow** | **Long**| Allowed time deviation in milliseconds (default: 5000, max: 60000). | [optional] |
 | **nonce** | **String**| Unique request identifier for anti-replay; falls back to X-OC-SIGN if omitted. | [optional] |
+| **vendor** | [**Vendor**](.md)| Optional vendor selector. When provided, only the specified vendor is queried through the single-vendor fast path; the request bypasses the multi-vendor dual-window, early-return, and price-check logic. Values are case-sensitive and must be one of &#x60;LiquidMesh&#x60;, &#x60;Pancake&#x60;, or &#x60;Jupiter&#x60;. The vendor must also support the requested chain. An unsupported value or unavailable vendor/chain returns &#x60;PARAM_ERROR&#x60; (40001). When omitted, the API queries all applicable vendors in parallel and returns the aggregated routes. | [optional] [enum: LiquidMesh] |
 | **userWalletAddress** | **String**| User wallet address. Required when quoting RFQ routes (equity / RWA tokens such as Ondo and BStock). This address is used as the receiver in the RFQ order and must match the wallet that signs &#x60;rfq.typedDataToSign&#x60; in the subsequent &#x60;/swap&#x60; call. | [optional] |
 | **feePercent** | **String**| Custom fee (referral fee / Add Fee) percentage as a decimal string. Must be paired with &#x60;feeSource&#x60; — either both present or both absent.  **Range by chain:** &#x60;(0, 5]&#x60; for EVM chains (BSC, Ethereum, Base, etc.) and &#x60;(0, 10]&#x60; for Solana (&#x60;CT_501&#x60;) — greater than 0, up to the chain-specific maximum inclusive, max 2 decimal places. &#x60;\&quot;1.5\&quot;&#x60; means 1.5%. Values exceeding 2 decimal places are rejected with &#x60;INVALID_FEE_PERCENT&#x60; (40466).  **&#x60;four.meme&#x60; tokens are not supported** — do not pass fee parameters when either side of the pair is a &#x60;four.meme&#x60; token. | [optional] |
 | **feeSource** | [**FeeSource**](.md)| Fee deduction direction. &#x60;FROM_TOKEN&#x60; &#x3D; deduct the fee from the sell token (the amount passed to the DEX is reduced to a net amount); &#x60;TO_TOKEN&#x60; &#x3D; deduct the fee from the buy-token output (the user&#39;s actual received amount is reduced). Must be paired with &#x60;feePercent&#x60;. | [optional] [enum: FROM_TOKEN, TO_TOKEN] |

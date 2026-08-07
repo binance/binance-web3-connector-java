@@ -8,6 +8,7 @@ All URIs are relative to *https://web3.binance.com/build*
 | [**getBroadcastOrders**](TransactionApi.md#getBroadcastOrders) | **GET** /api/v1/dex/post-transaction/orders | Get Broadcast Orders |
 | [**getGasLimit**](TransactionApi.md#getGasLimit) | **POST** /api/v1/dex/pre-transaction/gas-limit | Get Gas Limit |
 | [**getGasPrice**](TransactionApi.md#getGasPrice) | **GET** /api/v1/dex/pre-transaction/gas-price | Get Gas Price |
+| [**getLatestBlockHeight**](TransactionApi.md#getLatestBlockHeight) | **GET** /api/v1/dex/pre-transaction/block-height | Get Latest Block Height |
 | [**getTransactionSupportedChains**](TransactionApi.md#getTransactionSupportedChains) | **GET** /api/v1/dex/pre-transaction/supported/chain | Get Transaction Supported Chains |
 | [**simulateTransactions**](TransactionApi.md#simulateTransactions) | **POST** /api/v1/dex/pre-transaction/simulate | Simulate Transactions |
 
@@ -310,6 +311,78 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Current gas price for the specified chain. |  -  |
+| **401** | Unauthorized. The request is missing or contains an invalid API key. |  -  |
+| **403** | Forbidden. The API key does not have permission to access this endpoint. |  -  |
+| **404** | Not Found. The requested resource or endpoint does not exist. |  -  |
+
+<a id="getLatestBlockHeight"></a>
+# **getLatestBlockHeight**
+> GetLatestBlockHeightResponse getLatestBlockHeight(binanceChainId).recvWindow(recvWindow).nonce(nonce).execute();
+
+Get Latest Block Height
+
+Return the latest block height that the Binance Web3 node has synced to for the specified chain. Callers can use this to monitor node sync progress for risk control and detect when the node lags behind the canonical chain head.
+
+### Example
+```java
+// Import classes:
+import com.binance.connector.client.web3_wallet.ApiClient;
+import com.binance.connector.client.web3_wallet.ApiException;
+import com.binance.connector.client.web3_wallet.Configuration;
+import com.binance.connector.client.web3_wallet.models.*;
+import com.binance.connector.client.web3_wallet.rest.api.TransactionApi;
+
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("https://web3.binance.com/build");
+
+    TransactionApi apiInstance = new TransactionApi(defaultClient);
+    String binanceChainId = "1"; // String | Unique chain identifier (e.g. \"1\"=Ethereum, \"56\"=BSC, \"CT_501\"=Solana, \"CT_195\"=Tron).
+    Long recvWindow = 5000L; // Long | Allowed time deviation in milliseconds (default: 5000, max: 60000).
+    String nonce = "unique-nonce-string"; // String | Unique request identifier for anti-replay; falls back to X-OC-SIGN if omitted.
+    try {
+      GetLatestBlockHeightResponse result = apiInstance.getLatestBlockHeight(binanceChainId)
+            .recvWindow(recvWindow)
+            .nonce(nonce)
+            .execute();
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling TransactionApi#getLatestBlockHeight");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **binanceChainId** | **String**| Unique chain identifier (e.g. \&quot;1\&quot;&#x3D;Ethereum, \&quot;56\&quot;&#x3D;BSC, \&quot;CT_501\&quot;&#x3D;Solana, \&quot;CT_195\&quot;&#x3D;Tron). | |
+| **recvWindow** | **Long**| Allowed time deviation in milliseconds (default: 5000, max: 60000). | [optional] |
+| **nonce** | **String**| Unique request identifier for anti-replay; falls back to X-OC-SIGN if omitted. | [optional] |
+
+### Return type
+
+[**GetLatestBlockHeightResponse**](GetLatestBlockHeightResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/x-www-form-urlencoded
+ - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Latest block height for the specified chain. |  -  |
 | **401** | Unauthorized. The request is missing or contains an invalid API key. |  -  |
 | **403** | Forbidden. The API key does not have permission to access this endpoint. |  -  |
 | **404** | Not Found. The requested resource or endpoint does not exist. |  -  |

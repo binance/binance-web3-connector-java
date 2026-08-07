@@ -370,6 +370,12 @@ public class JSON {
                 new com.binance.connector.client.web3_wallet.rest.model
                         .GetHotTokenListResponseDataItemsInner.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(
+                new com.binance.connector.client.web3_wallet.rest.model.GetLatestBlockHeightResponse
+                        .CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(
+                new com.binance.connector.client.web3_wallet.rest.model
+                        .GetLatestBlockHeightResponseData.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(
                 new com.binance.connector.client.web3_wallet.rest.model.GetLeaderboardResponse
                         .CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(

@@ -1,5 +1,17 @@
 # Changelog
 
+## 4.1.0 - 2026-08-07
+
+### Added (1)
+
+- `getLatestBlockHeight()` (`GET /api/v1/dex/pre-transaction/block-height`)
+
+### Changed (1)
+
+- Added parameter `vendor`
+  - affected methods:
+    - `getAggregatedQuote()` (`GET /api/v1/dex/aggregator/quote`)
+
 ## 4.0.0 - 2026-07-29
 
 ### Changed (8)
