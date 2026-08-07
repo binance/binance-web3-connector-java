@@ -26,6 +26,7 @@ import com.binance.connector.client.web3_wallet.rest.model.GetBroadcastOrdersRes
 import com.binance.connector.client.web3_wallet.rest.model.GetGasLimitRequest;
 import com.binance.connector.client.web3_wallet.rest.model.GetGasLimitResponse;
 import com.binance.connector.client.web3_wallet.rest.model.GetGasPriceResponse;
+import com.binance.connector.client.web3_wallet.rest.model.GetLatestBlockHeightResponse;
 import com.binance.connector.client.web3_wallet.rest.model.GetTransactionSupportedChainsResponse;
 import com.binance.connector.client.web3_wallet.rest.model.SimulateTransactionsRequest;
 import com.binance.connector.client.web3_wallet.rest.model.SimulateTransactionsResponse;
@@ -52,7 +53,7 @@ public class TransactionApi {
 
     private static final String USER_AGENT =
             String.format(
-                    "binance-web3-wallet/4.0.0 (Java/%s; %s; %s)",
+                    "binance-web3-wallet/4.1.0 (Java/%s; %s; %s)",
                     SystemUtil.getJavaVersion(), SystemUtil.getOs(), SystemUtil.getArch());
     private static final boolean HAS_TIME_UNIT = false;
 
@@ -835,6 +836,171 @@ public class TransactionApi {
          * @return GetGasPriceRequest
          */
         public GetGasPriceRequest nonce(String nonce) {
+            this.nonce = nonce;
+            return this;
+        }
+    }
+
+    private okhttp3.Call getLatestBlockHeightCall(
+            String binanceChainId, Long recvWindow, String nonce) throws ApiException {
+        String basePath = null;
+        // Operation Servers
+        String[] localBasePaths = new String[] {};
+
+        // Determine Base Path to Use
+        if (localCustomBaseUrl != null) {
+            basePath = localCustomBaseUrl;
+        } else if (localBasePaths.length > 0) {
+            basePath = localBasePaths[localHostIndex];
+        } else {
+            basePath = null;
+        }
+
+        Object localVarPostBody = null;
+
+        // create path and map variables
+        String localVarPath = "/api/v1/dex/pre-transaction/block-height";
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        Map<String, String> localVarCookieParams = new HashMap<String, String>();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        if (binanceChainId != null) {
+            localVarQueryParams.addAll(
+                    localVarApiClient.parameterToPair("binanceChainId", binanceChainId));
+        }
+
+        final String[] localVarAccepts = {"application/json"};
+        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) {
+            localVarHeaderParams.put("Accept", localVarAccept);
+        }
+
+        final String[] localVarContentTypes = {"application/x-www-form-urlencoded"};
+        final String localVarContentType =
+                localVarApiClient.selectHeaderContentType(localVarContentTypes);
+        if (!localVarFormParams.isEmpty() && localVarContentType != null) {
+            localVarHeaderParams.put("Content-Type", localVarContentType);
+        }
+
+        if (recvWindow != null) {
+            localVarHeaderParams.put("recvWindow", localVarApiClient.parameterToString(recvWindow));
+        }
+
+        if (nonce != null) {
+            localVarHeaderParams.put("nonce", localVarApiClient.parameterToString(nonce));
+        }
+
+        Set<String> localVarAuthNames = new HashSet<>();
+        localVarAuthNames.add("binanceWeb3Signature");
+        if (HAS_TIME_UNIT) {
+            localVarAuthNames.add("timeUnit");
+        }
+        return localVarApiClient.buildCall(
+                basePath,
+                localVarPath,
+                "GET",
+                localVarQueryParams,
+                localVarCollectionQueryParams,
+                localVarPostBody,
+                localVarHeaderParams,
+                localVarCookieParams,
+                localVarFormParams,
+                localVarAuthNames);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call getLatestBlockHeightValidateBeforeCall(
+            String binanceChainId, Long recvWindow, String nonce) throws ApiException {
+        try {
+            Validator validator =
+                    Validation.byDefaultProvider()
+                            .configure()
+                            .messageInterpolator(new ParameterMessageInterpolator())
+                            .buildValidatorFactory()
+                            .getValidator();
+            ExecutableValidator executableValidator = validator.forExecutables();
+
+            Object[] parameterValues = {binanceChainId, recvWindow, nonce};
+            Method method =
+                    this.getClass()
+                            .getMethod(
+                                    "getLatestBlockHeight", String.class, Long.class, String.class);
+            Set<ConstraintViolation<TransactionApi>> violations =
+                    executableValidator.validateParameters(this, method, parameterValues);
+
+            if (violations.size() == 0) {
+                return getLatestBlockHeightCall(binanceChainId, recvWindow, nonce);
+            } else {
+                throw new ConstraintViolationException((Set) violations);
+            }
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+            throw new ApiException(e.getMessage());
+        } catch (SecurityException e) {
+            e.printStackTrace();
+            throw new ApiException(e.getMessage());
+        }
+    }
+
+    public ApiResponse<GetLatestBlockHeightResponse> getLatestBlockHeight(
+            @NotNull String binanceChainId, Long recvWindow, String nonce) throws ApiException {
+        okhttp3.Call localVarCall =
+                getLatestBlockHeightValidateBeforeCall(binanceChainId, recvWindow, nonce);
+        java.lang.reflect.Type localVarReturnType =
+                new TypeToken<GetLatestBlockHeightResponse>() {}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    public ApiResponse<GetLatestBlockHeightResponse> getLatestBlockHeight(
+            GetLatestBlockHeightRequest request) {
+        return getLatestBlockHeight(
+                request.getBinanceChainId(), request.getRecvWindow(), request.getNonce());
+    }
+
+    public static class GetLatestBlockHeightRequest {
+        private final String binanceChainId;
+        private Long recvWindow;
+        private String nonce;
+
+        public String getBinanceChainId() {
+            return binanceChainId;
+        }
+
+        public Long getRecvWindow() {
+            return recvWindow;
+        }
+
+        public String getNonce() {
+            return nonce;
+        }
+
+        public GetLatestBlockHeightRequest(String binanceChainId) {
+            this.binanceChainId = binanceChainId;
+        }
+
+        /**
+         * Set recvWindow
+         *
+         * @param recvWindow Allowed time deviation in milliseconds (default: 5000, max: 60000).
+         *     (optional)
+         * @return GetLatestBlockHeightRequest
+         */
+        public GetLatestBlockHeightRequest recvWindow(Long recvWindow) {
+            this.recvWindow = recvWindow;
+            return this;
+        }
+
+        /**
+         * Set nonce
+         *
+         * @param nonce Unique request identifier for anti-replay; falls back to X-OC-SIGN if
+         *     omitted. (optional)
+         * @return GetLatestBlockHeightRequest
+         */
+        public GetLatestBlockHeightRequest nonce(String nonce) {
             this.nonce = nonce;
             return this;
         }

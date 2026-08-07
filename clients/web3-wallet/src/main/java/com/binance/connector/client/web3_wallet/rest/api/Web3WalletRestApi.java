@@ -30,6 +30,7 @@ import com.binance.connector.client.web3_wallet.rest.model.GetGasLimitResponse;
 import com.binance.connector.client.web3_wallet.rest.model.GetGasPriceResponse;
 import com.binance.connector.client.web3_wallet.rest.model.GetHoldersRankingResponse;
 import com.binance.connector.client.web3_wallet.rest.model.GetHotTokenListResponse;
+import com.binance.connector.client.web3_wallet.rest.model.GetLatestBlockHeightResponse;
 import com.binance.connector.client.web3_wallet.rest.model.GetLeaderboardResponse;
 import com.binance.connector.client.web3_wallet.rest.model.GetPortfolioSupportedChainsResponse;
 import com.binance.connector.client.web3_wallet.rest.model.GetRfqOrderStatusResponse;
@@ -1807,6 +1808,13 @@ public class Web3WalletRestApi {
      *     (optional)
      * @param nonce Unique request identifier for anti-replay; falls back to X-OC-SIGN if omitted.
      *     (optional)
+     * @param vendor Optional vendor selector. When provided, only the specified vendor is queried
+     *     through the single-vendor fast path; the request bypasses the multi-vendor dual-window,
+     *     early-return, and price-check logic. Values are case-sensitive and must be one of
+     *     &#x60;LiquidMesh&#x60;, &#x60;Pancake&#x60;, or &#x60;Jupiter&#x60;. The vendor must also
+     *     support the requested chain. An unsupported value or unavailable vendor/chain returns
+     *     &#x60;PARAM_ERROR&#x60; (40001). When omitted, the API queries all applicable vendors in
+     *     parallel and returns the aggregated routes. (optional)
      * @param userWalletAddress User wallet address. Required when quoting RFQ routes (equity / RWA
      *     tokens such as Ondo and BStock). This address is used as the receiver in the RFQ order
      *     and must match the wallet that signs &#x60;rfq.typedDataToSign&#x60; in the subsequent
@@ -1848,6 +1856,7 @@ public class Web3WalletRestApi {
             String toTokenAddress,
             Long recvWindow,
             String nonce,
+            Vendor vendor,
             String userWalletAddress,
             String feePercent,
             FeeSource feeSource)
@@ -1859,6 +1868,7 @@ public class Web3WalletRestApi {
                 toTokenAddress,
                 recvWindow,
                 nonce,
+                vendor,
                 userWalletAddress,
                 feePercent,
                 feeSource);
@@ -2405,6 +2415,45 @@ public class Web3WalletRestApi {
     public ApiResponse<GetGasPriceResponse> getGasPrice(
             String binanceChainId, Long recvWindow, String nonce) throws ApiException {
         return transactionApi.getGasPrice(binanceChainId, recvWindow, nonce);
+    }
+
+    public ApiResponse<GetLatestBlockHeightResponse> getLatestBlockHeight(
+            TransactionApi.GetLatestBlockHeightRequest request) {
+        return transactionApi.getLatestBlockHeight(request);
+    }
+
+    /**
+     * Get Latest Block Height Return the latest block height that the Binance Web3 node has synced
+     * to for the specified chain. Callers can use this to monitor node sync progress for risk
+     * control and detect when the node lags behind the canonical chain head.
+     *
+     * @param binanceChainId Unique chain identifier (e.g. \&quot;1\&quot;&#x3D;Ethereum,
+     *     \&quot;56\&quot;&#x3D;BSC, \&quot;CT_501\&quot;&#x3D;Solana,
+     *     \&quot;CT_195\&quot;&#x3D;Tron). (required)
+     * @param recvWindow Allowed time deviation in milliseconds (default: 5000, max: 60000).
+     *     (optional)
+     * @param nonce Unique request identifier for anti-replay; falls back to X-OC-SIGN if omitted.
+     *     (optional)
+     * @return ApiResponse&lt;GetLatestBlockHeightResponse&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the
+     *     response body
+     * @http.response.details
+     *     <table border="1">
+     * <caption>Response Details</caption>
+     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+     * <tr><td> 200 </td><td> Latest block height for the specified chain. </td><td>  -  </td></tr>
+     * <tr><td> 401 </td><td> Unauthorized. The request is missing or contains an invalid API key. </td><td>  -  </td></tr>
+     * <tr><td> 403 </td><td> Forbidden. The API key does not have permission to access this endpoint. </td><td>  -  </td></tr>
+     * <tr><td> 404 </td><td> Not Found. The requested resource or endpoint does not exist. </td><td>  -  </td></tr>
+     * </table>
+     *
+     * @see <a
+     *     href="https://web3.binance.com/en/dev-docs/catalog/web3-wallet/api/rest-api/transaction-api#get-latest-block-height">Get
+     *     Latest Block Height Documentation</a>
+     */
+    public ApiResponse<GetLatestBlockHeightResponse> getLatestBlockHeight(
+            String binanceChainId, Long recvWindow, String nonce) throws ApiException {
+        return transactionApi.getLatestBlockHeight(binanceChainId, recvWindow, nonce);
     }
 
     public ApiResponse<GetTransactionSupportedChainsResponse> getTransactionSupportedChains(

@@ -58,7 +58,7 @@ public class TradingApi {
 
     private static final String USER_AGENT =
             String.format(
-                    "binance-web3-wallet/4.0.0 (Java/%s; %s; %s)",
+                    "binance-web3-wallet/4.1.0 (Java/%s; %s; %s)",
                     SystemUtil.getJavaVersion(), SystemUtil.getOs(), SystemUtil.getArch());
     private static final boolean HAS_TIME_UNIT = false;
 
@@ -1484,6 +1484,7 @@ public class TradingApi {
             String toTokenAddress,
             Long recvWindow,
             String nonce,
+            Vendor vendor,
             String userWalletAddress,
             String feePercent,
             FeeSource feeSource)
@@ -1529,6 +1530,10 @@ public class TradingApi {
         if (toTokenAddress != null) {
             localVarQueryParams.addAll(
                     localVarApiClient.parameterToPair("toTokenAddress", toTokenAddress));
+        }
+
+        if (vendor != null) {
+            localVarQueryParams.addAll(localVarApiClient.parameterToPair("vendor", vendor));
         }
 
         if (userWalletAddress != null) {
@@ -1591,6 +1596,7 @@ public class TradingApi {
             String toTokenAddress,
             Long recvWindow,
             String nonce,
+            Vendor vendor,
             String userWalletAddress,
             String feePercent,
             FeeSource feeSource)
@@ -1611,6 +1617,7 @@ public class TradingApi {
                 toTokenAddress,
                 recvWindow,
                 nonce,
+                vendor,
                 userWalletAddress,
                 feePercent,
                 feeSource
@@ -1625,6 +1632,7 @@ public class TradingApi {
                                     String.class,
                                     Long.class,
                                     String.class,
+                                    Vendor.class,
                                     String.class,
                                     String.class,
                                     FeeSource.class);
@@ -1639,6 +1647,7 @@ public class TradingApi {
                         toTokenAddress,
                         recvWindow,
                         nonce,
+                        vendor,
                         userWalletAddress,
                         feePercent,
                         feeSource);
@@ -1661,6 +1670,7 @@ public class TradingApi {
             @NotNull String toTokenAddress,
             Long recvWindow,
             String nonce,
+            Vendor vendor,
             String userWalletAddress,
             String feePercent,
             FeeSource feeSource)
@@ -1673,6 +1683,7 @@ public class TradingApi {
                         toTokenAddress,
                         recvWindow,
                         nonce,
+                        vendor,
                         userWalletAddress,
                         feePercent,
                         feeSource);
@@ -1690,6 +1701,7 @@ public class TradingApi {
                 request.getToTokenAddress(),
                 request.getRecvWindow(),
                 request.getNonce(),
+                request.getVendor(),
                 request.getUserWalletAddress(),
                 request.getFeePercent(),
                 request.getFeeSource());
@@ -1702,6 +1714,7 @@ public class TradingApi {
         private final String toTokenAddress;
         private Long recvWindow;
         private String nonce;
+        private Vendor vendor;
         private String userWalletAddress;
         private String feePercent;
         private FeeSource feeSource;
@@ -1728,6 +1741,10 @@ public class TradingApi {
 
         public String getNonce() {
             return nonce;
+        }
+
+        public Vendor getVendor() {
+            return vendor;
         }
 
         public String getUserWalletAddress() {
@@ -1774,6 +1791,23 @@ public class TradingApi {
          */
         public GetAggregatedQuoteRequest nonce(String nonce) {
             this.nonce = nonce;
+            return this;
+        }
+
+        /**
+         * Set vendor
+         *
+         * @param vendor Optional vendor selector. When provided, only the specified vendor is
+         *     queried through the single-vendor fast path; the request bypasses the multi-vendor
+         *     dual-window, early-return, and price-check logic. Values are case-sensitive and must
+         *     be one of &#x60;LiquidMesh&#x60;, &#x60;Pancake&#x60;, or &#x60;Jupiter&#x60;. The
+         *     vendor must also support the requested chain. An unsupported value or unavailable
+         *     vendor/chain returns &#x60;PARAM_ERROR&#x60; (40001). When omitted, the API queries
+         *     all applicable vendors in parallel and returns the aggregated routes. (optional)
+         * @return GetAggregatedQuoteRequest
+         */
+        public GetAggregatedQuoteRequest vendor(Vendor vendor) {
+            this.vendor = vendor;
             return this;
         }
 
