@@ -1,6 +1,6 @@
 /*
  * Binance Web3 API
- * Cross-chain wallet, market, trading, and transaction APIs for the Binance Web3 API platform.
+ * Cross-chain wallet, market, trading, transaction, and B402 payment APIs for the Binance Web3 API platform.
  *
  * The version of the OpenAPI document: 1.0.0
  *
@@ -49,7 +49,7 @@ public class WalletApi {
 
     private static final String USER_AGENT =
             String.format(
-                    "binance-web3-wallet/4.1.0 (Java/%s; %s; %s)",
+                    "binance-web3-wallet/4.2.0 (Java/%s; %s; %s)",
                     SystemUtil.getJavaVersion(), SystemUtil.getOs(), SystemUtil.getArch());
     private static final boolean HAS_TIME_UNIT = false;
 
@@ -336,7 +336,9 @@ public class WalletApi {
         /**
          * Set chains
          *
-         * @param chains Comma-separated list of chain identifiers. (optional)
+         * @param chains Currently only a single chain is supported. Passing multiple
+         *     comma-separated chain IDs returns an error; multi-chain support may be added in the
+         *     future. (optional)
          * @return GetAllTokenBalancesByAddressRequest
          */
         public GetAllTokenBalancesByAddressRequest chains(String chains) {

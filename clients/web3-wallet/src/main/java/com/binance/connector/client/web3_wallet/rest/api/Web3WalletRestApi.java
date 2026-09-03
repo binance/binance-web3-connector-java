@@ -11,8 +11,20 @@ import com.binance.connector.client.web3_wallet.rest.model.Bar;
 import com.binance.connector.client.web3_wallet.rest.model.BinanceChainId;
 import com.binance.connector.client.web3_wallet.rest.model.BroadcastTransactionsRequest;
 import com.binance.connector.client.web3_wallet.rest.model.BroadcastTransactionsResponse;
+import com.binance.connector.client.web3_wallet.rest.model.BuildDeFiClaimTransactionRequest;
+import com.binance.connector.client.web3_wallet.rest.model.BuildDeFiClaimTransactionResponse;
+import com.binance.connector.client.web3_wallet.rest.model.BuildDeFiDepositTransactionRequest;
+import com.binance.connector.client.web3_wallet.rest.model.BuildDeFiDepositTransactionResponse;
+import com.binance.connector.client.web3_wallet.rest.model.BuildDeFiRedeemTransactionRequest;
+import com.binance.connector.client.web3_wallet.rest.model.BuildDeFiRedeemTransactionResponse;
+import com.binance.connector.client.web3_wallet.rest.model.BuildLpAddTransactionRequest;
+import com.binance.connector.client.web3_wallet.rest.model.BuildLpAddTransactionResponse;
+import com.binance.connector.client.web3_wallet.rest.model.BuildLpRemoveTransactionRequest;
+import com.binance.connector.client.web3_wallet.rest.model.BuildLpRemoveTransactionResponse;
 import com.binance.connector.client.web3_wallet.rest.model.BuildSolanaSwapInstructionsResponse;
 import com.binance.connector.client.web3_wallet.rest.model.BuildSwapTransactionResponse;
+import com.binance.connector.client.web3_wallet.rest.model.CalculateLpAddPairedAmountsRequest;
+import com.binance.connector.client.web3_wallet.rest.model.CalculateLpAddPairedAmountsResponse;
 import com.binance.connector.client.web3_wallet.rest.model.FeeSource;
 import com.binance.connector.client.web3_wallet.rest.model.GasLevel;
 import com.binance.connector.client.web3_wallet.rest.model.GetAddressPnLForSpecificTokenResponse;
@@ -21,8 +33,14 @@ import com.binance.connector.client.web3_wallet.rest.model.GetAddressRecentPnLRe
 import com.binance.connector.client.web3_wallet.rest.model.GetAggregatedQuoteResponse;
 import com.binance.connector.client.web3_wallet.rest.model.GetAggregatorSupportedChainsResponse;
 import com.binance.connector.client.web3_wallet.rest.model.GetAllTokenBalancesByAddressResponse;
+import com.binance.connector.client.web3_wallet.rest.model.GetB402SupportedConfigurationsV1Request;
+import com.binance.connector.client.web3_wallet.rest.model.GetB402SupportedConfigurationsV1Response;
+import com.binance.connector.client.web3_wallet.rest.model.GetB402SupportedConfigurationsV2Request;
+import com.binance.connector.client.web3_wallet.rest.model.GetB402SupportedConfigurationsV2Response;
 import com.binance.connector.client.web3_wallet.rest.model.GetBroadcastOrdersResponse;
 import com.binance.connector.client.web3_wallet.rest.model.GetCandlesResponse;
+import com.binance.connector.client.web3_wallet.rest.model.GetDeFiPositionsRequest;
+import com.binance.connector.client.web3_wallet.rest.model.GetDeFiPositionsResponse;
 import com.binance.connector.client.web3_wallet.rest.model.GetDexTradeHistoryResponse;
 import com.binance.connector.client.web3_wallet.rest.model.GetErc20ApproveTransactionResponse;
 import com.binance.connector.client.web3_wallet.rest.model.GetGasLimitRequest;
@@ -30,9 +48,13 @@ import com.binance.connector.client.web3_wallet.rest.model.GetGasLimitResponse;
 import com.binance.connector.client.web3_wallet.rest.model.GetGasPriceResponse;
 import com.binance.connector.client.web3_wallet.rest.model.GetHoldersRankingResponse;
 import com.binance.connector.client.web3_wallet.rest.model.GetHotTokenListResponse;
+import com.binance.connector.client.web3_wallet.rest.model.GetInvestmentDetailRequest;
+import com.binance.connector.client.web3_wallet.rest.model.GetInvestmentDetailResponse;
 import com.binance.connector.client.web3_wallet.rest.model.GetLatestBlockHeightResponse;
 import com.binance.connector.client.web3_wallet.rest.model.GetLeaderboardResponse;
 import com.binance.connector.client.web3_wallet.rest.model.GetPortfolioSupportedChainsResponse;
+import com.binance.connector.client.web3_wallet.rest.model.GetProtocolDetailRequest;
+import com.binance.connector.client.web3_wallet.rest.model.GetProtocolDetailResponse;
 import com.binance.connector.client.web3_wallet.rest.model.GetRfqOrderStatusResponse;
 import com.binance.connector.client.web3_wallet.rest.model.GetRwaTokenIssuancePlatformsResponse;
 import com.binance.connector.client.web3_wallet.rest.model.GetRwaTokenListResponse;
@@ -56,6 +78,11 @@ import com.binance.connector.client.web3_wallet.rest.model.GetTransactionStatusR
 import com.binance.connector.client.web3_wallet.rest.model.GetTransactionSupportedChainsResponse;
 import com.binance.connector.client.web3_wallet.rest.model.GetTransactionsByAddressResponse;
 import com.binance.connector.client.web3_wallet.rest.model.GetWalletSupportedChainsResponse;
+import com.binance.connector.client.web3_wallet.rest.model.GetWebSocketAuthTokenResponse;
+import com.binance.connector.client.web3_wallet.rest.model.ListDeFiInvestmentsRequest;
+import com.binance.connector.client.web3_wallet.rest.model.ListDeFiInvestmentsResponse;
+import com.binance.connector.client.web3_wallet.rest.model.ListDeFiProtocolsRequest;
+import com.binance.connector.client.web3_wallet.rest.model.ListDeFiProtocolsResponse;
 import com.binance.connector.client.web3_wallet.rest.model.OrderType;
 import com.binance.connector.client.web3_wallet.rest.model.PlatformId;
 import com.binance.connector.client.web3_wallet.rest.model.QuoteAndBuildSwapTransactionResponse;
@@ -63,6 +90,10 @@ import com.binance.connector.client.web3_wallet.rest.model.RankBy;
 import com.binance.connector.client.web3_wallet.rest.model.RankingTimeFrame;
 import com.binance.connector.client.web3_wallet.rest.model.SearchRwaTokenResponse;
 import com.binance.connector.client.web3_wallet.rest.model.SearchTokenResponse;
+import com.binance.connector.client.web3_wallet.rest.model.SettleB402PaymentV1Request;
+import com.binance.connector.client.web3_wallet.rest.model.SettleB402PaymentV1Response;
+import com.binance.connector.client.web3_wallet.rest.model.SettleB402PaymentV2Request;
+import com.binance.connector.client.web3_wallet.rest.model.SettleB402PaymentV2Response;
 import com.binance.connector.client.web3_wallet.rest.model.SimulateTransactionsRequest;
 import com.binance.connector.client.web3_wallet.rest.model.SimulateTransactionsResponse;
 import com.binance.connector.client.web3_wallet.rest.model.SortBy;
@@ -72,16 +103,24 @@ import com.binance.connector.client.web3_wallet.rest.model.TagFilter;
 import com.binance.connector.client.web3_wallet.rest.model.TimeFrame;
 import com.binance.connector.client.web3_wallet.rest.model.TrackerType;
 import com.binance.connector.client.web3_wallet.rest.model.Vendor;
+import com.binance.connector.client.web3_wallet.rest.model.VerifyB402PaymentV1Request;
+import com.binance.connector.client.web3_wallet.rest.model.VerifyB402PaymentV1Response;
+import com.binance.connector.client.web3_wallet.rest.model.VerifyB402PaymentV2Request;
+import com.binance.connector.client.web3_wallet.rest.model.VerifyB402PaymentV2Response;
 import com.binance.connector.client.web3_wallet.rest.model.WalletType;
 
 public class Web3WalletRestApi {
 
     private final AddressPortfolioApi addressPortfolioApi;
+    private final B402PaymentsApi b402PaymentsApi;
+    private final DefiDataApi defiDataApi;
+    private final DefiTransactionApi defiTransactionApi;
     private final GeneralDataApi generalDataApi;
     private final RwaDataApi rwaDataApi;
     private final TradingApi tradingApi;
     private final TransactionApi transactionApi;
     private final WalletApi walletApi;
+    private final WebSocketApi webSocketApi;
 
     public Web3WalletRestApi(ClientConfiguration configuration) {
         this(Web3WalletRestApiUtil.getDefaultClient(configuration));
@@ -89,11 +128,15 @@ public class Web3WalletRestApi {
 
     public Web3WalletRestApi(ApiClient apiClient) {
         this.addressPortfolioApi = new AddressPortfolioApi(apiClient);
+        this.b402PaymentsApi = new B402PaymentsApi(apiClient);
+        this.defiDataApi = new DefiDataApi(apiClient);
+        this.defiTransactionApi = new DefiTransactionApi(apiClient);
         this.generalDataApi = new GeneralDataApi(apiClient);
         this.rwaDataApi = new RwaDataApi(apiClient);
         this.tradingApi = new TradingApi(apiClient);
         this.transactionApi = new TransactionApi(apiClient);
         this.walletApi = new WalletApi(apiClient);
+        this.webSocketApi = new WebSocketApi(apiClient);
     }
 
     public ApiResponse<GetAddressPnLForSpecificTokenResponse> getAddressPnLForSpecificToken(
@@ -507,6 +550,658 @@ public class Web3WalletRestApi {
                 maxMarketCap,
                 isHideRiskToken,
                 limit);
+    }
+
+    /**
+     * Get B402 Supported Configurations V1 Legacy V1 compatibility endpoint. New integrations
+     * should use V2. V1 returns &#x60;x402Version&#x3D;1&#x60;, method-specific
+     * &#x60;facilitatorAddress&#x60;, and V1 signer-map semantics.
+     *
+     * @param getB402SupportedConfigurationsV1Request (required)
+     * @param recvWindow Allowed time deviation in milliseconds (default: 5000, max: 60000).
+     *     (optional)
+     * @param nonce Unique request identifier for anti-replay; falls back to X-OC-SIGN if omitted.
+     *     (optional)
+     * @return ApiResponse&lt;GetB402SupportedConfigurationsV1Response&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the
+     *     response body
+     * @http.response.details
+     *     <table border="1">
+     * <caption>Response Details</caption>
+     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+     * <tr><td> 200 </td><td> Legacy supported configurations or a B402 business error envelope. </td><td>  -  </td></tr>
+     * <tr><td> 401 </td><td> Unauthorized. The request is missing or contains invalid Web3 API credentials. </td><td>  -  </td></tr>
+     * <tr><td> 403 </td><td> Forbidden. Check the API Key&#39;s B402 Payments permission, IP whitelist, and endpoint allowlist. </td><td>  -  </td></tr>
+     * <tr><td> 429 </td><td> Rate limit exceeded. </td><td>  -  </td></tr>
+     * <tr><td> 503 </td><td> B402 is temporarily unavailable. </td><td>  -  </td></tr>
+     * </table>
+     *
+     * @see <a
+     *     href="https://web3.binance.com/en/dev-docs/catalog/web3-wallet/api/rest-api/b402-payments#get-b402-supported-configurations-v1">Get
+     *     B402 Supported Configurations V1 Documentation</a>
+     */
+    public ApiResponse<GetB402SupportedConfigurationsV1Response> getB402SupportedConfigurationsV1(
+            GetB402SupportedConfigurationsV1Request getB402SupportedConfigurationsV1Request,
+            Long recvWindow,
+            String nonce)
+            throws ApiException {
+        return b402PaymentsApi.getB402SupportedConfigurationsV1(
+                getB402SupportedConfigurationsV1Request, recvWindow, nonce);
+    }
+
+    /**
+     * Get B402 Supported Configurations V2 Return the live x402 V2 payment kinds available to the
+     * authenticated Developer Portal project. Use the result to construct HTTP 402 payment
+     * requirements. Copy the selected &#x60;extra&#x60; object verbatim and refresh cached
+     * configuration periodically.
+     *
+     * @param getB402SupportedConfigurationsV2Request (required)
+     * @param recvWindow Allowed time deviation in milliseconds (default: 5000, max: 60000).
+     *     (optional)
+     * @param nonce Unique request identifier for anti-replay; falls back to X-OC-SIGN if omitted.
+     *     (optional)
+     * @return ApiResponse&lt;GetB402SupportedConfigurationsV2Response&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the
+     *     response body
+     * @http.response.details
+     *     <table border="1">
+     * <caption>Response Details</caption>
+     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+     * <tr><td> 200 </td><td> Supported configurations returned, or a B402 business error envelope. </td><td>  -  </td></tr>
+     * <tr><td> 401 </td><td> Unauthorized. The request is missing or contains invalid Web3 API credentials. </td><td>  -  </td></tr>
+     * <tr><td> 403 </td><td> Forbidden. Check the API Key&#39;s B402 Payments permission, IP whitelist, and endpoint allowlist. </td><td>  -  </td></tr>
+     * <tr><td> 429 </td><td> Rate limit exceeded. </td><td>  -  </td></tr>
+     * <tr><td> 503 </td><td> B402 is temporarily unavailable. </td><td>  -  </td></tr>
+     * </table>
+     *
+     * @see <a
+     *     href="https://web3.binance.com/en/dev-docs/catalog/web3-wallet/api/rest-api/b402-payments#get-b402-supported-configurations-v2">Get
+     *     B402 Supported Configurations V2 Documentation</a>
+     */
+    public ApiResponse<GetB402SupportedConfigurationsV2Response> getB402SupportedConfigurationsV2(
+            GetB402SupportedConfigurationsV2Request getB402SupportedConfigurationsV2Request,
+            Long recvWindow,
+            String nonce)
+            throws ApiException {
+        return b402PaymentsApi.getB402SupportedConfigurationsV2(
+                getB402SupportedConfigurationsV2Request, recvWindow, nonce);
+    }
+
+    /**
+     * Settle B402 Payment V1 Legacy V1 on-chain settlement endpoint. New integrations should use
+     * V2. This operation can move real funds and is irreversible. V1 additionally returns
+     * &#x60;confirmations&#x60; in the settlement result.
+     *
+     * @param settleB402PaymentV1Request (required)
+     * @param recvWindow Allowed time deviation in milliseconds (default: 5000, max: 60000).
+     *     (optional)
+     * @param nonce Unique request identifier for anti-replay; falls back to X-OC-SIGN if omitted.
+     *     (optional)
+     * @return ApiResponse&lt;SettleB402PaymentV1Response&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the
+     *     response body
+     * @http.response.details
+     *     <table border="1">
+     * <caption>Response Details</caption>
+     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+     * <tr><td> 200 </td><td> Legacy settlement result or a B402 business error envelope. </td><td>  -  </td></tr>
+     * <tr><td> 401 </td><td> Unauthorized. The request is missing or contains invalid Web3 API credentials. </td><td>  -  </td></tr>
+     * <tr><td> 403 </td><td> Forbidden. Check the API Key&#39;s B402 Payments permission, IP whitelist, and endpoint allowlist. </td><td>  -  </td></tr>
+     * <tr><td> 429 </td><td> Rate limit exceeded. </td><td>  -  </td></tr>
+     * <tr><td> 503 </td><td> B402 is temporarily unavailable. </td><td>  -  </td></tr>
+     * </table>
+     *
+     * @see <a
+     *     href="https://web3.binance.com/en/dev-docs/catalog/web3-wallet/api/rest-api/b402-payments#settle-b402-payment-v1">Settle
+     *     B402 Payment V1 Documentation</a>
+     */
+    public ApiResponse<SettleB402PaymentV1Response> settleB402PaymentV1(
+            SettleB402PaymentV1Request settleB402PaymentV1Request, Long recvWindow, String nonce)
+            throws ApiException {
+        return b402PaymentsApi.settleB402PaymentV1(settleB402PaymentV1Request, recvWindow, nonce);
+    }
+
+    /**
+     * Settle B402 Payment V2 Submit a verified x402 V2 authorization on-chain. This operation can
+     * move real funds and is irreversible. For &#x60;permit2-upto&#x60;, provide
+     * &#x60;settleAmount&#x60; in atomic units. Business failure is returned as HTTP 200 with
+     * &#x60;data.success&#x3D;false&#x60;; reconcile any non-empty transaction hash before
+     * retrying.
+     *
+     * @param settleB402PaymentV2Request (required)
+     * @param recvWindow Allowed time deviation in milliseconds (default: 5000, max: 60000).
+     *     (optional)
+     * @param nonce Unique request identifier for anti-replay; falls back to X-OC-SIGN if omitted.
+     *     (optional)
+     * @return ApiResponse&lt;SettleB402PaymentV2Response&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the
+     *     response body
+     * @http.response.details
+     *     <table border="1">
+     * <caption>Response Details</caption>
+     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+     * <tr><td> 200 </td><td> Settlement result, or a B402 business error envelope. </td><td>  -  </td></tr>
+     * <tr><td> 401 </td><td> Unauthorized. The request is missing or contains invalid Web3 API credentials. </td><td>  -  </td></tr>
+     * <tr><td> 403 </td><td> Forbidden. Check the API Key&#39;s B402 Payments permission, IP whitelist, and endpoint allowlist. </td><td>  -  </td></tr>
+     * <tr><td> 429 </td><td> Rate limit exceeded. </td><td>  -  </td></tr>
+     * <tr><td> 503 </td><td> B402 is temporarily unavailable. </td><td>  -  </td></tr>
+     * </table>
+     *
+     * @see <a
+     *     href="https://web3.binance.com/en/dev-docs/catalog/web3-wallet/api/rest-api/b402-payments#settle-b402-payment-v2">Settle
+     *     B402 Payment V2 Documentation</a>
+     */
+    public ApiResponse<SettleB402PaymentV2Response> settleB402PaymentV2(
+            SettleB402PaymentV2Request settleB402PaymentV2Request, Long recvWindow, String nonce)
+            throws ApiException {
+        return b402PaymentsApi.settleB402PaymentV2(settleB402PaymentV2Request, recvWindow, nonce);
+    }
+
+    /**
+     * Verify B402 Payment V1 Legacy V1 off-chain verification endpoint. New integrations should use
+     * V2. Portal identity is resolved from the API Key project, so &#x60;merchantId&#x60; is
+     * omitted from the external request.
+     *
+     * @param verifyB402PaymentV1Request (required)
+     * @param recvWindow Allowed time deviation in milliseconds (default: 5000, max: 60000).
+     *     (optional)
+     * @param nonce Unique request identifier for anti-replay; falls back to X-OC-SIGN if omitted.
+     *     (optional)
+     * @return ApiResponse&lt;VerifyB402PaymentV1Response&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the
+     *     response body
+     * @http.response.details
+     *     <table border="1">
+     * <caption>Response Details</caption>
+     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+     * <tr><td> 200 </td><td> Legacy verification result or a B402 business error envelope. </td><td>  -  </td></tr>
+     * <tr><td> 401 </td><td> Unauthorized. The request is missing or contains invalid Web3 API credentials. </td><td>  -  </td></tr>
+     * <tr><td> 403 </td><td> Forbidden. Check the API Key&#39;s B402 Payments permission, IP whitelist, and endpoint allowlist. </td><td>  -  </td></tr>
+     * <tr><td> 429 </td><td> Rate limit exceeded. </td><td>  -  </td></tr>
+     * <tr><td> 503 </td><td> B402 is temporarily unavailable. </td><td>  -  </td></tr>
+     * </table>
+     *
+     * @see <a
+     *     href="https://web3.binance.com/en/dev-docs/catalog/web3-wallet/api/rest-api/b402-payments#verify-b402-payment-v1">Verify
+     *     B402 Payment V1 Documentation</a>
+     */
+    public ApiResponse<VerifyB402PaymentV1Response> verifyB402PaymentV1(
+            VerifyB402PaymentV1Request verifyB402PaymentV1Request, Long recvWindow, String nonce)
+            throws ApiException {
+        return b402PaymentsApi.verifyB402PaymentV1(verifyB402PaymentV1Request, recvWindow, nonce);
+    }
+
+    /**
+     * Verify B402 Payment V2 Validate an x402 V2 payment authorization off-chain without spending
+     * funds or broadcasting a transaction. Portal identity is resolved from the authenticated API
+     * Key project; omit &#x60;merchantId&#x60;. A validation failure is returned as HTTP 200 with
+     * &#x60;data.isValid&#x3D;false&#x60;.
+     *
+     * @param verifyB402PaymentV2Request (required)
+     * @param recvWindow Allowed time deviation in milliseconds (default: 5000, max: 60000).
+     *     (optional)
+     * @param nonce Unique request identifier for anti-replay; falls back to X-OC-SIGN if omitted.
+     *     (optional)
+     * @return ApiResponse&lt;VerifyB402PaymentV2Response&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the
+     *     response body
+     * @http.response.details
+     *     <table border="1">
+     * <caption>Response Details</caption>
+     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+     * <tr><td> 200 </td><td> Verification result, or a B402 business error envelope. </td><td>  -  </td></tr>
+     * <tr><td> 401 </td><td> Unauthorized. The request is missing or contains invalid Web3 API credentials. </td><td>  -  </td></tr>
+     * <tr><td> 403 </td><td> Forbidden. Check the API Key&#39;s B402 Payments permission, IP whitelist, and endpoint allowlist. </td><td>  -  </td></tr>
+     * <tr><td> 429 </td><td> Rate limit exceeded. </td><td>  -  </td></tr>
+     * <tr><td> 503 </td><td> B402 is temporarily unavailable. </td><td>  -  </td></tr>
+     * </table>
+     *
+     * @see <a
+     *     href="https://web3.binance.com/en/dev-docs/catalog/web3-wallet/api/rest-api/b402-payments#verify-b402-payment-v2">Verify
+     *     B402 Payment V2 Documentation</a>
+     */
+    public ApiResponse<VerifyB402PaymentV2Response> verifyB402PaymentV2(
+            VerifyB402PaymentV2Request verifyB402PaymentV2Request, Long recvWindow, String nonce)
+            throws ApiException {
+        return b402PaymentsApi.verifyB402PaymentV2(verifyB402PaymentV2Request, recvWindow, nonce);
+    }
+
+    /**
+     * Get DeFi Positions Query DeFi positions for one or more wallet addresses on BSC. Returns
+     * protocol-level position summaries with token breakdowns. Optionally filter by specific chains
+     * via &#x60;binanceChainIds&#x60;. Position coverage is wider than the protocol list used by
+     * data queries and transaction building — see [Supported Chains &amp;
+     * Protocols](../supported-chains) for the difference.
+     *
+     * @param getDeFiPositionsRequest (required)
+     * @param recvWindow Allowed time deviation in milliseconds (default: 5000, max: 60000).
+     *     (optional)
+     * @param nonce Unique request identifier for anti-replay; falls back to X-OC-SIGN if omitted.
+     *     (optional)
+     * @return ApiResponse&lt;GetDeFiPositionsResponse&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the
+     *     response body
+     * @http.response.details
+     *     <table border="1">
+     * <caption>Response Details</caption>
+     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+     * <tr><td> 200 </td><td> DeFi positions returned successfully. </td><td>  -  </td></tr>
+     * <tr><td> 401 </td><td> Unauthorized. The request is missing or contains an invalid API key. </td><td>  -  </td></tr>
+     * <tr><td> 403 </td><td> Forbidden. The API key does not have permission to access this endpoint. </td><td>  -  </td></tr>
+     * <tr><td> 404 </td><td> Not Found. The requested resource or endpoint does not exist. </td><td>  -  </td></tr>
+     * </table>
+     *
+     * @see <a
+     *     href="https://web3.binance.com/en/dev-docs/catalog/web3-wallet/api/rest-api/defi-data#get-de-fi-positions">Get
+     *     DeFi Positions Documentation</a>
+     */
+    public ApiResponse<GetDeFiPositionsResponse> getDeFiPositions(
+            GetDeFiPositionsRequest getDeFiPositionsRequest, Long recvWindow, String nonce)
+            throws ApiException {
+        return defiDataApi.getDeFiPositions(getDeFiPositionsRequest, recvWindow, nonce);
+    }
+
+    /**
+     * Get Investment Detail Get detailed information for a specific DeFi investment product,
+     * including APY, TVL, supported tokens (asset / reward / LP / borrow), pool address, fee rate,
+     * and investability.
+     *
+     * @param getInvestmentDetailRequest (required)
+     * @param recvWindow Allowed time deviation in milliseconds (default: 5000, max: 60000).
+     *     (optional)
+     * @param nonce Unique request identifier for anti-replay; falls back to X-OC-SIGN if omitted.
+     *     (optional)
+     * @return ApiResponse&lt;GetInvestmentDetailResponse&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the
+     *     response body
+     * @http.response.details
+     *     <table border="1">
+     * <caption>Response Details</caption>
+     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+     * <tr><td> 200 </td><td> Investment detail returned successfully. </td><td>  -  </td></tr>
+     * <tr><td> 401 </td><td> Unauthorized. The request is missing or contains an invalid API key. </td><td>  -  </td></tr>
+     * <tr><td> 403 </td><td> Forbidden. The API key does not have permission to access this endpoint. </td><td>  -  </td></tr>
+     * <tr><td> 404 </td><td> Not Found. The requested resource or endpoint does not exist. </td><td>  -  </td></tr>
+     * </table>
+     *
+     * @see <a
+     *     href="https://web3.binance.com/en/dev-docs/catalog/web3-wallet/api/rest-api/defi-data#get-investment-detail">Get
+     *     Investment Detail Documentation</a>
+     */
+    public ApiResponse<GetInvestmentDetailResponse> getInvestmentDetail(
+            GetInvestmentDetailRequest getInvestmentDetailRequest, Long recvWindow, String nonce)
+            throws ApiException {
+        return defiDataApi.getInvestmentDetail(getInvestmentDetailRequest, recvWindow, nonce);
+    }
+
+    /**
+     * Get Protocol Detail Get detailed information for a specific DeFi protocol, including
+     * description, highlights, CertiK security scores, team, fundraising, social links, and FAQ.
+     *
+     * @param getProtocolDetailRequest (required)
+     * @param recvWindow Allowed time deviation in milliseconds (default: 5000, max: 60000).
+     *     (optional)
+     * @param nonce Unique request identifier for anti-replay; falls back to X-OC-SIGN if omitted.
+     *     (optional)
+     * @return ApiResponse&lt;GetProtocolDetailResponse&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the
+     *     response body
+     * @http.response.details
+     *     <table border="1">
+     * <caption>Response Details</caption>
+     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+     * <tr><td> 200 </td><td> Protocol detail returned successfully. </td><td>  -  </td></tr>
+     * <tr><td> 401 </td><td> Unauthorized. The request is missing or contains an invalid API key. </td><td>  -  </td></tr>
+     * <tr><td> 403 </td><td> Forbidden. The API key does not have permission to access this endpoint. </td><td>  -  </td></tr>
+     * <tr><td> 404 </td><td> Not Found. The requested resource or endpoint does not exist. </td><td>  -  </td></tr>
+     * </table>
+     *
+     * @see <a
+     *     href="https://web3.binance.com/en/dev-docs/catalog/web3-wallet/api/rest-api/defi-data#get-protocol-detail">Get
+     *     Protocol Detail Documentation</a>
+     */
+    public ApiResponse<GetProtocolDetailResponse> getProtocolDetail(
+            GetProtocolDetailRequest getProtocolDetailRequest, Long recvWindow, String nonce)
+            throws ApiException {
+        return defiDataApi.getProtocolDetail(getProtocolDetailRequest, recvWindow, nonce);
+    }
+
+    /**
+     * List DeFi Investments List available DeFi investment products. Filter by protocol, chain,
+     * investment type, or contract address. Results are paginated and sortable.
+     *
+     * @param listDeFiInvestmentsRequest (required)
+     * @param recvWindow Allowed time deviation in milliseconds (default: 5000, max: 60000).
+     *     (optional)
+     * @param nonce Unique request identifier for anti-replay; falls back to X-OC-SIGN if omitted.
+     *     (optional)
+     * @return ApiResponse&lt;ListDeFiInvestmentsResponse&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the
+     *     response body
+     * @http.response.details
+     *     <table border="1">
+     * <caption>Response Details</caption>
+     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+     * <tr><td> 200 </td><td> Investment list returned successfully. </td><td>  -  </td></tr>
+     * <tr><td> 401 </td><td> Unauthorized. The request is missing or contains an invalid API key. </td><td>  -  </td></tr>
+     * <tr><td> 403 </td><td> Forbidden. The API key does not have permission to access this endpoint. </td><td>  -  </td></tr>
+     * <tr><td> 404 </td><td> Not Found. The requested resource or endpoint does not exist. </td><td>  -  </td></tr>
+     * </table>
+     *
+     * @see <a
+     *     href="https://web3.binance.com/en/dev-docs/catalog/web3-wallet/api/rest-api/defi-data#list-de-fi-investments">List
+     *     DeFi Investments Documentation</a>
+     */
+    public ApiResponse<ListDeFiInvestmentsResponse> listDeFiInvestments(
+            ListDeFiInvestmentsRequest listDeFiInvestmentsRequest, Long recvWindow, String nonce)
+            throws ApiException {
+        return defiDataApi.listDeFiInvestments(listDeFiInvestmentsRequest, recvWindow, nonce);
+    }
+
+    public ApiResponse<ListDeFiProtocolsResponse> listDeFiProtocols(
+            DefiDataApi.ListDeFiProtocolsRequest request) {
+        return defiDataApi.listDeFiProtocols(request);
+    }
+
+    /**
+     * List DeFi Protocols List supported DeFi protocols with optional filtering by chain and
+     * investment type. Results are paginated and sortable.
+     *
+     * @param recvWindow Allowed time deviation in milliseconds (default: 5000, max: 60000).
+     *     (optional)
+     * @param nonce Unique request identifier for anti-replay; falls back to X-OC-SIGN if omitted.
+     *     (optional)
+     * @param listDeFiProtocolsRequest (optional)
+     * @return ApiResponse&lt;ListDeFiProtocolsResponse&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the
+     *     response body
+     * @http.response.details
+     *     <table border="1">
+     * <caption>Response Details</caption>
+     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+     * <tr><td> 200 </td><td> Protocol list returned successfully. </td><td>  -  </td></tr>
+     * <tr><td> 401 </td><td> Unauthorized. The request is missing or contains an invalid API key. </td><td>  -  </td></tr>
+     * <tr><td> 403 </td><td> Forbidden. The API key does not have permission to access this endpoint. </td><td>  -  </td></tr>
+     * <tr><td> 404 </td><td> Not Found. The requested resource or endpoint does not exist. </td><td>  -  </td></tr>
+     * </table>
+     *
+     * @see <a
+     *     href="https://web3.binance.com/en/dev-docs/catalog/web3-wallet/api/rest-api/defi-data#list-de-fi-protocols">List
+     *     DeFi Protocols Documentation</a>
+     */
+    public ApiResponse<ListDeFiProtocolsResponse> listDeFiProtocols(
+            Long recvWindow, String nonce, ListDeFiProtocolsRequest listDeFiProtocolsRequest)
+            throws ApiException {
+        return defiDataApi.listDeFiProtocols(recvWindow, nonce, listDeFiProtocolsRequest);
+    }
+
+    /**
+     * Build DeFi Claim Transaction Build the unsigned claim calldata for one of four claim types —
+     * see &#x60;DefiClaimType&#x60; for which companion fields each type requires **and which
+     * protocol constraints apply** (e.g. &#x60;REWARD_PROTOCOL&#x60; is not supported for LP
+     * protocols; PancakeSwap V3 farming uses &#x60;LP_FEE&#x60;, not
+     * &#x60;REWARD_INVESTMENT&#x60;). Returns an ordered &#x60;dataList&#x60; (typically
+     * &#x60;[CLAIM]&#x60;). **&#x60;binanceChainId&#x60; resolution rules**: - Normally resolved
+     * from &#x60;investmentId&#x60;; the call always executes on that chain. - For claim types
+     * other than &#x60;REWARD_PROTOCOL&#x60;, any client-supplied &#x60;binanceChainId&#x60; is
+     * **silently ignored** — passing a different chainId will not redirect the claim. -
+     * **Exception**: &#x60;REWARD_PROTOCOL&#x60; with no &#x60;investmentId&#x60; — the client MUST
+     * pass &#x60;binanceChainId&#x60; (it is the only chain signal). &#x60;tokenAddressList&#x60;
+     * optionally narrows the claim scope. Set &#x60;simulate&#x3D;true&#x60; to also receive
+     * &#x60;preview&#x60;.
+     *
+     * @param buildDeFiClaimTransactionRequest (required)
+     * @param recvWindow Allowed time deviation in milliseconds (default: 5000, max: 60000).
+     *     (optional)
+     * @param nonce Unique request identifier for anti-replay; falls back to X-OC-SIGN if omitted.
+     *     (optional)
+     * @return ApiResponse&lt;BuildDeFiClaimTransactionResponse&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the
+     *     response body
+     * @http.response.details
+     *     <table border="1">
+     * <caption>Response Details</caption>
+     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+     * <tr><td> 200 </td><td> Claim transaction calldata returned successfully. </td><td>  -  </td></tr>
+     * <tr><td> 401 </td><td> Unauthorized. The request is missing or contains an invalid API key. </td><td>  -  </td></tr>
+     * <tr><td> 403 </td><td> Forbidden. The API key does not have permission to access this endpoint. </td><td>  -  </td></tr>
+     * <tr><td> 404 </td><td> Not Found. The requested resource or endpoint does not exist. </td><td>  -  </td></tr>
+     * </table>
+     *
+     * @see <a
+     *     href="https://web3.binance.com/en/dev-docs/catalog/web3-wallet/api/rest-api/defi-transaction#build-de-fi-claim-transaction">Build
+     *     DeFi Claim Transaction Documentation</a>
+     */
+    public ApiResponse<BuildDeFiClaimTransactionResponse> buildDeFiClaimTransaction(
+            BuildDeFiClaimTransactionRequest buildDeFiClaimTransactionRequest,
+            Long recvWindow,
+            String nonce)
+            throws ApiException {
+        return defiTransactionApi.buildDeFiClaimTransaction(
+                buildDeFiClaimTransactionRequest, recvWindow, nonce);
+    }
+
+    /**
+     * Build DeFi Deposit Transaction Build the unsigned transaction calldata for a DeFi deposit /
+     * stake. Returns an ordered &#x60;dataList&#x60; (typically &#x60;[APPROVE, DEPOSIT]&#x60;, or
+     * &#x60;[DEPOSIT]&#x60; when the allowance is already sufficient) for the caller to sign and
+     * broadcast. The caller does NOT pass &#x60;binanceChainId&#x60; — the service resolves it from
+     * &#x60;investmentId&#x60;. Set &#x60;simulate&#x3D;true&#x60; to also receive a
+     * &#x60;preview&#x60; (projected balance change, estimated gas, and lending health-factor
+     * change) without broadcasting.
+     *
+     * @param buildDeFiDepositTransactionRequest (required)
+     * @param recvWindow Allowed time deviation in milliseconds (default: 5000, max: 60000).
+     *     (optional)
+     * @param nonce Unique request identifier for anti-replay; falls back to X-OC-SIGN if omitted.
+     *     (optional)
+     * @return ApiResponse&lt;BuildDeFiDepositTransactionResponse&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the
+     *     response body
+     * @http.response.details
+     *     <table border="1">
+     * <caption>Response Details</caption>
+     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+     * <tr><td> 200 </td><td> Deposit transaction calldata returned successfully. </td><td>  -  </td></tr>
+     * <tr><td> 401 </td><td> Unauthorized. The request is missing or contains an invalid API key. </td><td>  -  </td></tr>
+     * <tr><td> 403 </td><td> Forbidden. The API key does not have permission to access this endpoint. </td><td>  -  </td></tr>
+     * <tr><td> 404 </td><td> Not Found. The requested resource or endpoint does not exist. </td><td>  -  </td></tr>
+     * </table>
+     *
+     * @see <a
+     *     href="https://web3.binance.com/en/dev-docs/catalog/web3-wallet/api/rest-api/defi-transaction#build-de-fi-deposit-transaction">Build
+     *     DeFi Deposit Transaction Documentation</a>
+     */
+    public ApiResponse<BuildDeFiDepositTransactionResponse> buildDeFiDepositTransaction(
+            BuildDeFiDepositTransactionRequest buildDeFiDepositTransactionRequest,
+            Long recvWindow,
+            String nonce)
+            throws ApiException {
+        return defiTransactionApi.buildDeFiDepositTransaction(
+                buildDeFiDepositTransactionRequest, recvWindow, nonce);
+    }
+
+    /**
+     * Build DeFi Redeem Transaction Build the unsigned transaction calldata for a DeFi redeem /
+     * withdraw. Returns an ordered &#x60;dataList&#x60; (typically &#x60;[REDEEM]&#x60; or
+     * &#x60;[APPROVE, REDEEM]&#x60;). **Redeem amount is decided by exactly one of
+     * &#x60;ratio&#x60; or &#x60;token&#x60;** (mutually exclusive): - &#x60;ratio&#x60; omitted /
+     * blank → **exact-amount redeem**: the amount comes from &#x60;token&#x60;
+     * (&#x60;tokenAddress&#x60; + &#x60;amount&#x60;); the position is *not* queried.
+     * &#x60;token&#x60; is required in this mode (omitting &#x60;token&#x60;, or leaving
+     * &#x60;amount&#x60; blank, is rejected with &#x60;40001&#x60;, &#x60;Parameter error&#x60;;
+     * both &#x60;ratio&#x60; and &#x60;token&#x60; absent is also rejected with &#x60;40001&#x60;).
+     * - &#x60;ratio&#x60; present → **proportional redeem**: must parse as a decimal in &#x60;(0,
+     * 1]&#x60;. The service queries the user&#39;s on-chain position under &#x60;investmentId&#x60;
+     * and scales each token&#39;s amount by &#x60;ratio&#x60; (floored to the token&#39;s
+     * decimals). &#x60;ratio&#x3D;\&quot;1\&quot;&#x60; is a full (max) redeem. In this mode
+     * &#x60;token&#x60; is **ignored** — the output tokens and amounts are derived from the
+     * position. &#x60;slippageBps&#x60; is the slippage tolerance in basis points (e.g.
+     * &#x60;300&#x60; &#x3D; 3%). The caller does NOT pass &#x60;binanceChainId&#x60; — resolved
+     * from &#x60;investmentId&#x60;. Set &#x60;simulate&#x3D;true&#x60; to also receive
+     * &#x60;preview&#x60;. The response also carries &#x60;redeemDelayDays&#x60; — the redeem
+     * waiting period as a &#x60;[min, max]&#x60; day pair (e.g.
+     * &#x60;[\&quot;7\&quot;,\&quot;10\&quot;]&#x60; &#x3D; 7–10 days, &#x60;[]&#x60; &#x3D;
+     * instant). The wait starts after the redeem tx is confirmed on-chain. See the
+     * &#x60;redeemDelayDays&#x60; field on &#x60;DefiTxResponse&#x60;.
+     *
+     * @param buildDeFiRedeemTransactionRequest (required)
+     * @param recvWindow Allowed time deviation in milliseconds (default: 5000, max: 60000).
+     *     (optional)
+     * @param nonce Unique request identifier for anti-replay; falls back to X-OC-SIGN if omitted.
+     *     (optional)
+     * @return ApiResponse&lt;BuildDeFiRedeemTransactionResponse&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the
+     *     response body
+     * @http.response.details
+     *     <table border="1">
+     * <caption>Response Details</caption>
+     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+     * <tr><td> 200 </td><td> Redeem transaction calldata returned successfully. </td><td>  -  </td></tr>
+     * <tr><td> 401 </td><td> Unauthorized. The request is missing or contains an invalid API key. </td><td>  -  </td></tr>
+     * <tr><td> 403 </td><td> Forbidden. The API key does not have permission to access this endpoint. </td><td>  -  </td></tr>
+     * <tr><td> 404 </td><td> Not Found. The requested resource or endpoint does not exist. </td><td>  -  </td></tr>
+     * </table>
+     *
+     * @see <a
+     *     href="https://web3.binance.com/en/dev-docs/catalog/web3-wallet/api/rest-api/defi-transaction#build-de-fi-redeem-transaction">Build
+     *     DeFi Redeem Transaction Documentation</a>
+     */
+    public ApiResponse<BuildDeFiRedeemTransactionResponse> buildDeFiRedeemTransaction(
+            BuildDeFiRedeemTransactionRequest buildDeFiRedeemTransactionRequest,
+            Long recvWindow,
+            String nonce)
+            throws ApiException {
+        return defiTransactionApi.buildDeFiRedeemTransaction(
+                buildDeFiRedeemTransactionRequest, recvWindow, nonce);
+    }
+
+    /**
+     * Build LP Add Transaction Build the unsigned transaction calldata for adding liquidity.
+     * &#x60;tokenList&#x60; supports multiple tokens. Returns an ordered &#x60;dataList&#x60;
+     * (typically &#x60;[APPROVE, LP_ADD]&#x60;). **Tick range source (provide exactly one group)**:
+     * 1. &#x60;nftId&#x60; — append to an existing LP position (reuses its range). 2.
+     * &#x60;priceRange&#x60; — percentage band (e.g. &#x60;\&quot;5\&quot;&#x60; &#x3D; ±5%) for a
+     * new position. 3. &#x60;tickLower&#x60; + &#x60;tickUpper&#x60; — explicit raw
+     * &#x60;int24&#x60; pair for a new position. **Rules**: - If more than one group is supplied,
+     * only the highest-priority one above is used and the others are silently ignored (priority:
+     * &#x60;nftId&#x60; &gt; &#x60;priceRange&#x60; &gt; explicit tick pair). - If none is
+     * supplied, the request is rejected (&#x60;40453&#x60;). - &#x60;tickLower&#x60; /
+     * &#x60;tickUpper&#x60; are raw &#x60;int24&#x60; values and MUST be aligned to the pool&#39;s
+     * &#x60;tickSpacing&#x60;, otherwise the request is rejected (&#x60;40453&#x60;). - The caller
+     * does NOT pass &#x60;binanceChainId&#x60; — resolved from &#x60;investmentId&#x60;.
+     *
+     * @param buildLpAddTransactionRequest (required)
+     * @param recvWindow Allowed time deviation in milliseconds (default: 5000, max: 60000).
+     *     (optional)
+     * @param nonce Unique request identifier for anti-replay; falls back to X-OC-SIGN if omitted.
+     *     (optional)
+     * @return ApiResponse&lt;BuildLpAddTransactionResponse&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the
+     *     response body
+     * @http.response.details
+     *     <table border="1">
+     * <caption>Response Details</caption>
+     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+     * <tr><td> 200 </td><td> LP add transaction calldata returned successfully. </td><td>  -  </td></tr>
+     * <tr><td> 401 </td><td> Unauthorized. The request is missing or contains an invalid API key. </td><td>  -  </td></tr>
+     * <tr><td> 403 </td><td> Forbidden. The API key does not have permission to access this endpoint. </td><td>  -  </td></tr>
+     * <tr><td> 404 </td><td> Not Found. The requested resource or endpoint does not exist. </td><td>  -  </td></tr>
+     * </table>
+     *
+     * @see <a
+     *     href="https://web3.binance.com/en/dev-docs/catalog/web3-wallet/api/rest-api/defi-transaction#build-lp-add-transaction">Build
+     *     LP Add Transaction Documentation</a>
+     */
+    public ApiResponse<BuildLpAddTransactionResponse> buildLpAddTransaction(
+            BuildLpAddTransactionRequest buildLpAddTransactionRequest,
+            Long recvWindow,
+            String nonce)
+            throws ApiException {
+        return defiTransactionApi.buildLpAddTransaction(
+                buildLpAddTransactionRequest, recvWindow, nonce);
+    }
+
+    /**
+     * Build LP Remove Transaction Build the unsigned transaction calldata for removing liquidity.
+     * Removal is by &#x60;nftId&#x60; + &#x60;ratio&#x60; (range &#x60;(0, 1]&#x60;) — no
+     * &#x60;tokenList&#x60; is needed; the per-token amounts are derived from the on-chain
+     * position. Returns an ordered &#x60;dataList&#x60; (typically &#x60;[LP_REMOVE]&#x60;).
+     * &#x60;slippageBps&#x60; is the LP-leg slippage tolerance in basis points. The caller does NOT
+     * pass &#x60;binanceChainId&#x60; — resolved from &#x60;investmentId&#x60;.
+     *
+     * @param buildLpRemoveTransactionRequest (required)
+     * @param recvWindow Allowed time deviation in milliseconds (default: 5000, max: 60000).
+     *     (optional)
+     * @param nonce Unique request identifier for anti-replay; falls back to X-OC-SIGN if omitted.
+     *     (optional)
+     * @return ApiResponse&lt;BuildLpRemoveTransactionResponse&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the
+     *     response body
+     * @http.response.details
+     *     <table border="1">
+     * <caption>Response Details</caption>
+     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+     * <tr><td> 200 </td><td> LP remove transaction calldata returned successfully. </td><td>  -  </td></tr>
+     * <tr><td> 401 </td><td> Unauthorized. The request is missing or contains an invalid API key. </td><td>  -  </td></tr>
+     * <tr><td> 403 </td><td> Forbidden. The API key does not have permission to access this endpoint. </td><td>  -  </td></tr>
+     * <tr><td> 404 </td><td> Not Found. The requested resource or endpoint does not exist. </td><td>  -  </td></tr>
+     * </table>
+     *
+     * @see <a
+     *     href="https://web3.binance.com/en/dev-docs/catalog/web3-wallet/api/rest-api/defi-transaction#build-lp-remove-transaction">Build
+     *     LP Remove Transaction Documentation</a>
+     */
+    public ApiResponse<BuildLpRemoveTransactionResponse> buildLpRemoveTransaction(
+            BuildLpRemoveTransactionRequest buildLpRemoveTransactionRequest,
+            Long recvWindow,
+            String nonce)
+            throws ApiException {
+        return defiTransactionApi.buildLpRemoveTransaction(
+                buildLpRemoveTransactionRequest, recvWindow, nonce);
+    }
+
+    /**
+     * Calculate LP Add Paired Amounts Given a single input token, calculate the paired token amount
+     * needed for an LP add. This is a **pure computation endpoint** — it does not touch the chain
+     * and does not deduct any fee. Use it before &#x60;/transaction/lp-add&#x60; to size the paired
+     * token when only one side is supplied. Tick range source rules are the same as
+     * &#x60;/lp-add&#x60; — provide exactly one group: &#x60;nftId&#x60; (existing position),
+     * &#x60;priceRange&#x60;, or &#x60;tickLower&#x60;+&#x60;tickUpper&#x60;. - If more than one
+     * group is supplied, only the highest-priority one is used and the others are silently ignored
+     * (priority: &#x60;nftId&#x60; &gt; &#x60;priceRange&#x60; &gt; explicit tick pair). - If none
+     * is supplied, the request is rejected. - The caller does NOT pass &#x60;binanceChainId&#x60; —
+     * resolved from &#x60;investmentId&#x60;.
+     *
+     * @param calculateLpAddPairedAmountsRequest (required)
+     * @param recvWindow Allowed time deviation in milliseconds (default: 5000, max: 60000).
+     *     (optional)
+     * @param nonce Unique request identifier for anti-replay; falls back to X-OC-SIGN if omitted.
+     *     (optional)
+     * @return ApiResponse&lt;CalculateLpAddPairedAmountsResponse&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the
+     *     response body
+     * @http.response.details
+     *     <table border="1">
+     * <caption>Response Details</caption>
+     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+     * <tr><td> 200 </td><td> Paired token amounts returned successfully. </td><td>  -  </td></tr>
+     * <tr><td> 401 </td><td> Unauthorized. The request is missing or contains an invalid API key. </td><td>  -  </td></tr>
+     * <tr><td> 403 </td><td> Forbidden. The API key does not have permission to access this endpoint. </td><td>  -  </td></tr>
+     * <tr><td> 404 </td><td> Not Found. The requested resource or endpoint does not exist. </td><td>  -  </td></tr>
+     * </table>
+     *
+     * @see <a
+     *     href="https://web3.binance.com/en/dev-docs/catalog/web3-wallet/api/rest-api/defi-transaction#calculate-lp-add-paired-amounts">Calculate
+     *     LP Add Paired Amounts Documentation</a>
+     */
+    public ApiResponse<CalculateLpAddPairedAmountsResponse> calculateLpAddPairedAmounts(
+            CalculateLpAddPairedAmountsRequest calculateLpAddPairedAmountsRequest,
+            Long recvWindow,
+            String nonce)
+            throws ApiException {
+        return defiTransactionApi.calculateLpAddPairedAmounts(
+                calculateLpAddPairedAmountsRequest, recvWindow, nonce);
     }
 
     public ApiResponse<GetCandlesResponse> getCandles(GeneralDataApi.GetCandlesRequest request) {
@@ -2535,17 +3230,18 @@ public class Web3WalletRestApi {
     }
 
     /**
-     * Get All Token Balances by Address Return all token balances held by an address across one or
-     * more chains, with pagination support. Set &#x60;excludeRiskToken&#x3D;true&#x60; to filter
-     * out airdrop-risk and honeypot tokens (honeypot detection currently applies only to ETH / BSC
-     * / SOL / BASE).
+     * Get All Token Balances by Address Return all token balances held by an address on a single
+     * chain, with pagination support. Set &#x60;excludeRiskToken&#x3D;true&#x60; to filter out
+     * airdrop-risk and honeypot tokens (honeypot detection currently applies only to ETH / BSC /
+     * SOL / BASE).
      *
      * @param recvWindow Allowed time deviation in milliseconds (default: 5000, max: 60000).
      *     (optional)
      * @param nonce Unique request identifier for anti-replay; falls back to X-OC-SIGN if omitted.
      *     (optional)
      * @param address Wallet address to query. (optional)
-     * @param chains Comma-separated list of chain identifiers. (optional)
+     * @param chains Currently only a single chain is supported. Passing multiple comma-separated
+     *     chain IDs returns an error; multi-chain support may be added in the future. (optional)
      * @param excludeRiskToken Whether to exclude risk-flagged tokens. (optional)
      * @param page Page number. Defaults to 1. (optional)
      * @param pageSize Page size. Range 1–100. Defaults to 20. (optional)
@@ -2757,5 +3453,37 @@ public class Web3WalletRestApi {
     public ApiResponse<GetWalletSupportedChainsResponse> getWalletSupportedChains(
             Long recvWindow, String nonce, String binanceChainId) throws ApiException {
         return walletApi.getWalletSupportedChains(recvWindow, nonce, binanceChainId);
+    }
+
+    public ApiResponse<GetWebSocketAuthTokenResponse> getWebSocketAuthToken(
+            WebSocketApi.GetWebSocketAuthTokenRequest request) {
+        return webSocketApi.getWebSocketAuthToken(request);
+    }
+
+    /**
+     * Get WebSocket Auth Token Get a WebSocket auth token before connecting to the WebSocket stream
+     * service.
+     *
+     * @param recvWindow Allowed time deviation in milliseconds (default: 5000, max: 60000).
+     *     (optional)
+     * @param nonce Unique request identifier for anti-replay; falls back to X-OC-SIGN if omitted.
+     *     (optional)
+     * @return ApiResponse&lt;GetWebSocketAuthTokenResponse&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the
+     *     response body
+     * @http.response.details
+     *     <table border="1">
+     * <caption>Response Details</caption>
+     * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+     * <tr><td> 200 </td><td> WebSocket auth token returned successfully. </td><td>  -  </td></tr>
+     * </table>
+     *
+     * @see <a
+     *     href="https://web3.binance.com/en/dev-docs/catalog/web3-wallet/api/rest-api/web-socket-api#get-web-socket-auth-token">Get
+     *     WebSocket Auth Token Documentation</a>
+     */
+    public ApiResponse<GetWebSocketAuthTokenResponse> getWebSocketAuthToken(
+            Long recvWindow, String nonce) throws ApiException {
+        return webSocketApi.getWebSocketAuthToken(recvWindow, nonce);
     }
 }

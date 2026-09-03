@@ -14,6 +14,46 @@
 
 [GET /api/v1/dex/market/address-tracker/trades](https://web3.binance.com/en/dev-docs/catalog/web3-wallet/api/rest-api/address-portfolio#get-tracked-trades) - getTrackedTrades - [GetTrackedTradesExample.java:38](/examples/web3-wallet/src/main/java/com/binance/connector/client/web3_wallet/rest/addressportfolio/GetTrackedTradesExample.java#L38)
 
+## B402Payments
+
+[POST /api/v1/b402/supported](https://web3.binance.com/en/dev-docs/catalog/web3-wallet/api/rest-api/b402-payments#get-b402-supported-configurations-v1) - getB402SupportedConfigurationsV1 - [GetB402SupportedConfigurationsV1Example.java:38](/examples/web3-wallet/src/main/java/com/binance/connector/client/web3_wallet/rest/b402payments/GetB402SupportedConfigurationsV1Example.java#L38)
+
+[POST /api/v2/b402/supported](https://web3.binance.com/en/dev-docs/catalog/web3-wallet/api/rest-api/b402-payments#get-b402-supported-configurations-v2) - getB402SupportedConfigurationsV2 - [GetB402SupportedConfigurationsV2Example.java:38](/examples/web3-wallet/src/main/java/com/binance/connector/client/web3_wallet/rest/b402payments/GetB402SupportedConfigurationsV2Example.java#L38)
+
+[POST /api/v1/b402/settle](https://web3.binance.com/en/dev-docs/catalog/web3-wallet/api/rest-api/b402-payments#settle-b402-payment-v1) - settleB402PaymentV1 - [SettleB402PaymentV1Example.java:38](/examples/web3-wallet/src/main/java/com/binance/connector/client/web3_wallet/rest/b402payments/SettleB402PaymentV1Example.java#L38)
+
+[POST /api/v2/b402/settle](https://web3.binance.com/en/dev-docs/catalog/web3-wallet/api/rest-api/b402-payments#settle-b402-payment-v2) - settleB402PaymentV2 - [SettleB402PaymentV2Example.java:39](/examples/web3-wallet/src/main/java/com/binance/connector/client/web3_wallet/rest/b402payments/SettleB402PaymentV2Example.java#L39)
+
+[POST /api/v1/b402/verify](https://web3.binance.com/en/dev-docs/catalog/web3-wallet/api/rest-api/b402-payments#verify-b402-payment-v1) - verifyB402PaymentV1 - [VerifyB402PaymentV1Example.java:38](/examples/web3-wallet/src/main/java/com/binance/connector/client/web3_wallet/rest/b402payments/VerifyB402PaymentV1Example.java#L38)
+
+[POST /api/v2/b402/verify](https://web3.binance.com/en/dev-docs/catalog/web3-wallet/api/rest-api/b402-payments#verify-b402-payment-v2) - verifyB402PaymentV2 - [VerifyB402PaymentV2Example.java:39](/examples/web3-wallet/src/main/java/com/binance/connector/client/web3_wallet/rest/b402payments/VerifyB402PaymentV2Example.java#L39)
+
+## DefiData
+
+[POST /api/v1/defi/data/position/list](https://web3.binance.com/en/dev-docs/catalog/web3-wallet/api/rest-api/defi-data#get-de-fi-positions) - getDeFiPositions - []()
+
+[POST /api/v1/defi/data/investment/detail](https://web3.binance.com/en/dev-docs/catalog/web3-wallet/api/rest-api/defi-data#get-investment-detail) - getInvestmentDetail - []()
+
+[POST /api/v1/defi/data/protocol/detail](https://web3.binance.com/en/dev-docs/catalog/web3-wallet/api/rest-api/defi-data#get-protocol-detail) - getProtocolDetail - []()
+
+[POST /api/v1/defi/data/investment/list](https://web3.binance.com/en/dev-docs/catalog/web3-wallet/api/rest-api/defi-data#list-de-fi-investments) - listDeFiInvestments - []()
+
+[POST /api/v1/defi/data/protocol/list](https://web3.binance.com/en/dev-docs/catalog/web3-wallet/api/rest-api/defi-data#list-de-fi-protocols) - listDeFiProtocols - []()
+
+## DefiTransaction
+
+[POST /api/v1/defi/transaction/claim](https://web3.binance.com/en/dev-docs/catalog/web3-wallet/api/rest-api/defi-transaction#build-de-fi-claim-transaction) - buildDeFiClaimTransaction - []()
+
+[POST /api/v1/defi/transaction/deposit](https://web3.binance.com/en/dev-docs/catalog/web3-wallet/api/rest-api/defi-transaction#build-de-fi-deposit-transaction) - buildDeFiDepositTransaction - []()
+
+[POST /api/v1/defi/transaction/redeem](https://web3.binance.com/en/dev-docs/catalog/web3-wallet/api/rest-api/defi-transaction#build-de-fi-redeem-transaction) - buildDeFiRedeemTransaction - []()
+
+[POST /api/v1/defi/transaction/lp-add](https://web3.binance.com/en/dev-docs/catalog/web3-wallet/api/rest-api/defi-transaction#build-lp-add-transaction) - buildLpAddTransaction - []()
+
+[POST /api/v1/defi/transaction/lp-remove](https://web3.binance.com/en/dev-docs/catalog/web3-wallet/api/rest-api/defi-transaction#build-lp-remove-transaction) - buildLpRemoveTransaction - []()
+
+[POST /api/v1/defi/transaction/lp-add/calculate](https://web3.binance.com/en/dev-docs/catalog/web3-wallet/api/rest-api/defi-transaction#calculate-lp-add-paired-amounts) - calculateLpAddPairedAmounts - []()
+
 ## GeneralData
 
 [GET /api/v1/dex/market/candles](https://web3.binance.com/en/dev-docs/catalog/web3-wallet/api/rest-api/general-data#get-candles) - getCandles - [GetCandlesExample.java:37](/examples/web3-wallet/src/main/java/com/binance/connector/client/web3_wallet/rest/generaldata/GetCandlesExample.java#L37)
@@ -103,4 +143,8 @@
 [GET /api/v1/dex/post-transaction/transactions-by-address](https://web3.binance.com/en/dev-docs/catalog/web3-wallet/api/rest-api/wallet-api#get-transactions-by-address) - getTransactionsByAddress - []()
 
 [GET /api/v1/dex/balance/supported/chain](https://web3.binance.com/en/dev-docs/catalog/web3-wallet/api/rest-api/wallet-api#get-wallet-supported-chains) - getWalletSupportedChains - []()
+
+## WebSocket
+
+[GET /api/v1/dex/market/wss/auth/token](https://web3.binance.com/en/dev-docs/catalog/web3-wallet/api/rest-api/web-socket-api#get-web-socket-auth-token) - getWebSocketAuthToken - [GetWebSocketAuthTokenExample.java:36](/examples/web3-wallet/src/main/java/com/binance/connector/client/web3_wallet/rest/websocket/GetWebSocketAuthTokenExample.java#L36)
 

@@ -17,7 +17,7 @@ All URIs are relative to *https://web3.binance.com/build*
 
 Get All Token Balances by Address
 
-Return all token balances held by an address across one or more chains, with pagination support. Set &#x60;excludeRiskToken&#x3D;true&#x60; to filter out airdrop-risk and honeypot tokens (honeypot detection currently applies only to ETH / BSC / SOL / BASE).
+Return all token balances held by an address on a single chain, with pagination support. Set &#x60;excludeRiskToken&#x3D;true&#x60; to filter out airdrop-risk and honeypot tokens (honeypot detection currently applies only to ETH / BSC / SOL / BASE).
 
 ### Example
 ```java
@@ -37,7 +37,7 @@ public class Example {
     Long recvWindow = 5000L; // Long | Allowed time deviation in milliseconds (default: 5000, max: 60000).
     String nonce = "unique-nonce-string"; // String | Unique request identifier for anti-replay; falls back to X-OC-SIGN if omitted.
     String address = "0xed0c6079229e2d407672a117c22b62064f4a4312"; // String | Wallet address to query.
-    String chains = "1,56"; // String | Comma-separated list of chain identifiers.
+    String chains = "1"; // String | Currently only a single chain is supported. Passing multiple comma-separated chain IDs returns an error; multi-chain support may be added in the future.
     Boolean excludeRiskToken = true; // Boolean | Whether to exclude risk-flagged tokens.
     Long page = 1L; // Long | Page number. Defaults to 1.
     Integer pageSize = 20; // Integer | Page size. Range 1–100. Defaults to 20.
@@ -70,7 +70,7 @@ public class Example {
 | **recvWindow** | **Long**| Allowed time deviation in milliseconds (default: 5000, max: 60000). | [optional] |
 | **nonce** | **String**| Unique request identifier for anti-replay; falls back to X-OC-SIGN if omitted. | [optional] |
 | **address** | **String**| Wallet address to query. | [optional] |
-| **chains** | **String**| Comma-separated list of chain identifiers. | [optional] |
+| **chains** | **String**| Currently only a single chain is supported. Passing multiple comma-separated chain IDs returns an error; multi-chain support may be added in the future. | [optional] |
 | **excludeRiskToken** | **Boolean**| Whether to exclude risk-flagged tokens. | [optional] |
 | **page** | **Long**| Page number. Defaults to 1. | [optional] |
 | **pageSize** | **Integer**| Page size. Range 1–100. Defaults to 20. | [optional] |
