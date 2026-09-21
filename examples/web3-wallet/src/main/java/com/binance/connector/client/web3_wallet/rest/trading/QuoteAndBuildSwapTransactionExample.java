@@ -9,6 +9,7 @@ import com.binance.connector.client.web3_wallet.rest.api.TradingApi;
 import com.binance.connector.client.web3_wallet.rest.api.Web3WalletRestApi;
 import com.binance.connector.client.web3_wallet.rest.model.ApproveTransaction;
 import com.binance.connector.client.web3_wallet.rest.model.AutoSlippage;
+import com.binance.connector.client.web3_wallet.rest.model.EnableRFQ;
 import com.binance.connector.client.web3_wallet.rest.model.GasLevel;
 import com.binance.connector.client.web3_wallet.rest.model.QuoteAndBuildSwapTransactionResponse;
 import com.binance.connector.client.web3_wallet.rest.model.Vendor;
@@ -53,6 +54,8 @@ public class QuoteAndBuildSwapTransactionExample {
         Long recvWindow = 5000L;
         String nonce = "unique-nonce-string";
         String slippagePercent = "0.5";
+        String excludeDexes = "Pancakeswap V4,Pancakeswap V3";
+        EnableRFQ enableRFQ = EnableRFQ.TRUE;
         ApproveTransaction approveTransaction = ApproveTransaction.TRUE;
         String approveAmount = "1000000";
         String gasLimit = "200000";

@@ -13,7 +13,7 @@ All URIs are relative to *https://web3.binance.com/build*
 
 Get WebSocket Auth Token
 
-Get a WebSocket auth token before connecting to the WebSocket stream service. 
+Get a WebSocket auth token before connecting to the WebSocket stream service. For details on WebSocket usage, please refer to the [WebSocket documentation](/products/websocket-api/introduction). 
 
 ### Example
 ```java

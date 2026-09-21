@@ -29,7 +29,9 @@ public class GetWebSocketAuthTokenExample {
     /**
      * Get WebSocket Auth Token
      *
-     * <p>Get a WebSocket auth token before connecting to the WebSocket stream service.
+     * <p>Get a WebSocket auth token before connecting to the WebSocket stream service. For details
+     * on WebSocket usage, please refer to the [WebSocket
+     * documentation](/products/websocket-api/introduction).
      *
      * @throws ApiException if the Api call fails
      */
