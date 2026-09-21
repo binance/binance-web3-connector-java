@@ -1,0 +1,166 @@
+package com.binance.connector.client.web3.common.websocket.adapter.stream;
+
+import com.binance.connector.client.common.SystemUtil;
+import com.binance.connector.client.common.websocket.adapter.ConnectionWrapper;
+import com.binance.connector.client.common.websocket.adapter.stream.StreamConnectionInterface;
+import com.binance.connector.client.common.websocket.dtos.RequestWrapperDTO;
+import com.binance.connector.client.common.websocket.service.StreamBlockingQueue;
+import com.binance.connector.client.common.websocket.service.StreamBlockingQueueWrapper;
+import com.binance.connector.client.web3.common.websocket.configuration.Web3WebSocketClientConfiguration;
+import com.google.gson.Gson;
+
+import java.util.*;
+
+public class Web3StreamConnectionPoolWrapper implements StreamConnectionInterface {
+
+    private final LinkedList<Web3StreamConnectionWrapper> connectionList = new LinkedList<>();
+    private ListIterator<Web3StreamConnectionWrapper> pool;
+    private Boolean isConnected = false;
+    private String userAgent =
+            String.format(
+                    "binance-web3-connector-java/1.1.0 (Java/%s; %s; %s)",
+                    SystemUtil.getJavaVersion(), SystemUtil.getOs(), SystemUtil.getArch());
+
+    private final Map<String, Web3StreamConnectionWrapper> connectionStreamMap = new HashMap<>();
+
+    public Web3StreamConnectionPoolWrapper(Web3WebSocketClientConfiguration clientConfiguration) {
+        this(clientConfiguration, null);
+    }
+
+    public Web3StreamConnectionPoolWrapper(
+            Web3WebSocketClientConfiguration clientConfiguration, Gson gson) {
+        this(clientConfiguration, gson, null);
+    }
+
+    public Web3StreamConnectionPoolWrapper(
+            Web3WebSocketClientConfiguration clientConfiguration, Gson gson, String userToken) {
+        Integer poolSize = clientConfiguration.getPoolSize();
+        Integer batchSize = clientConfiguration.getReconnectBatchSize();
+        Integer reconnectAfter = clientConfiguration.getReconnectIntervalTime();
+        for (int i = 0; i < poolSize; i++) {
+            Web3StreamConnectionWrapper connectionWrapper =
+                    new Web3StreamConnectionWrapper(clientConfiguration, gson, userToken);
+            connectionList.add(connectionWrapper);
+        }
+
+        // Scheduler to reconnect by batch every 6 days (configurable)
+        new Timer()
+                .scheduleAtFixedRate(
+                        new TimerTask() {
+                            @Override
+                            public void run() {
+                                try {
+                                    for (int i = 0; i < batchSize; i++) {
+                                        int currentBatchSize = (poolSize / batchSize);
+                                        if (i == batchSize - 1) {
+                                            currentBatchSize += poolSize % batchSize;
+                                        }
+
+                                        for (int j = 0; j < currentBatchSize; j++) {
+                                            int connectionIndex = ((poolSize / batchSize) * i) + j;
+                                            ConnectionWrapper connectionWrapper =
+                                                    connectionList.get(connectionIndex);
+                                            if (connectionWrapper.canReconnect()) {
+                                                connectionWrapper.connect();
+                                            }
+                                        }
+                                    }
+                                } catch (Exception e) {
+                                    throw new RuntimeException(e);
+                                }
+                            }
+                        },
+                        reconnectAfter,
+                        reconnectAfter);
+
+        pool = connectionList.listIterator();
+    }
+
+    @Override
+    public void connect() {
+        for (ConnectionWrapper connectionWrapper : connectionList) {
+            connectionWrapper.setUserAgent(userAgent);
+            connectionWrapper.connect();
+        }
+        isConnected = true;
+    }
+
+    @Override
+    public void disconnect() {
+        for (ConnectionWrapper connectionWrapper : connectionList) {
+            connectionWrapper.disconnect();
+        }
+        isConnected = false;
+    }
+
+    public Map<String, StreamBlockingQueue<String>> subscribe(
+            RequestWrapperDTO<Set<String>, Object> requestWrapperDTO) {
+        Set<String> params = requestWrapperDTO.getParams();
+        Map<String, StreamBlockingQueue<String>> queueMap = new HashMap<>();
+        for (String identifier : params) {
+            Web3StreamConnectionWrapper connection = getConnection(identifier);
+            queueMap.putAll(connection.subscribe(requestWrapperDTO));
+        }
+        return queueMap;
+    }
+
+    @Override
+    public void unsubscribe(StreamBlockingQueueWrapper queue) {
+        unsubscribe(queue.getInnerQueue());
+    }
+
+    @Override
+    public void unsubscribe(StreamBlockingQueue queue) {
+        Web3StreamConnectionWrapper connection = getConnection(queue.getOperationId());
+        connection.unsubscribe(queue);
+        connectionStreamMap.remove(queue.getOperationId());
+    }
+
+    public Web3StreamConnectionWrapper getConnection(String identifier) {
+        if (connectionStreamMap.containsKey(identifier)) {
+            return connectionStreamMap.get(identifier);
+        }
+
+        Web3StreamConnectionWrapper connection = getConnection();
+        connectionStreamMap.put(identifier, connection);
+
+        return connection;
+    }
+
+    /**
+     * @return the next connection from the pool, using round-robin
+     */
+    public Web3StreamConnectionWrapper getConnection() {
+        if (!pool.hasNext()) {
+            pool = connectionList.listIterator();
+        }
+        Web3StreamConnectionWrapper connection = pool.next();
+        while (!connection.isReady()) {
+            if (!pool.hasNext()) {
+                pool = connectionList.listIterator();
+            } else {
+                connection = pool.next();
+            }
+        }
+
+        return connection;
+    }
+
+    @Override
+    public void setUserAgent(String userAgent) {
+        this.userAgent = userAgent;
+    }
+
+    @Override
+    public boolean isConnected() {
+        return isConnected;
+    }
+
+    @Override
+    public void stop() throws Exception {
+        for (ConnectionWrapper connectionWrapper : connectionList) {
+            connectionWrapper.stop();
+        }
+        isConnected = false;
+    }
+}

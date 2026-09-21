@@ -45,7 +45,7 @@ public class SubmitRfqOrderExample {
         SubmitRfqOrderRequest submitRfqOrderRequest = new SubmitRfqOrderRequest();
         submitRfqOrderRequest.requestId("550e8400-e29b-41d4-a716-446655440000");
         submitRfqOrderRequest.userSignature("0x1234abcd...5678ef");
-        submitRfqOrderRequest.vendor("PcsXRfq");
+        submitRfqOrderRequest.vendor(SubmitRfqOrderRequest.VendorEnum.PcsXRfq);
         submitRfqOrderRequest.quoteId("a1b2c3d4e5f64a8b9c0d1e2f3a4b5c6d");
         Long recvWindow = 5000L;
         String nonce = "unique-nonce-string";

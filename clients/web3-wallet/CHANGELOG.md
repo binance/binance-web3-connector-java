@@ -1,5 +1,15 @@
 # Changelog
 
+## 4.4.0 - 2026-09-21
+
+### Added (1)
+
+- Support WS Streams.
+
+### Changed (1)
+
+- Update `web3-common` to version `1.1.0`.
+
 ## 4.3.0 - 2026-09-21
 
 ### Changed (2)

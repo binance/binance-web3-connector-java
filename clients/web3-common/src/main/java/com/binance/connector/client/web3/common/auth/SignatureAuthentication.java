@@ -43,7 +43,7 @@ public class SignatureAuthentication extends BinanceBaseAuthentication {
             allParametersAsString += payload;
         }
 
-        String preHash = timestamp + method + uri.getPath() + "?" + allParametersAsString;
+        String preHash = timestamp + method + uri.getPath() + (StringUtils.isNotEmpty(allParametersAsString) ? "?" + allParametersAsString : "");
         try {
             headerParams.put("X-OC-SIGN", Base64.getEncoder().encodeToString(generator.sign(preHash)));
         } catch (CryptoException e) {
