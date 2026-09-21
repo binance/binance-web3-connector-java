@@ -24,6 +24,7 @@ import com.binance.connector.client.web3_wallet.rest.model.AutoSlippage;
 import com.binance.connector.client.web3_wallet.rest.model.BinanceChainId;
 import com.binance.connector.client.web3_wallet.rest.model.BuildSolanaSwapInstructionsResponse;
 import com.binance.connector.client.web3_wallet.rest.model.BuildSwapTransactionResponse;
+import com.binance.connector.client.web3_wallet.rest.model.EnableRFQ;
 import com.binance.connector.client.web3_wallet.rest.model.FeeSource;
 import com.binance.connector.client.web3_wallet.rest.model.GasLevel;
 import com.binance.connector.client.web3_wallet.rest.model.GetAggregatedQuoteResponse;
@@ -58,7 +59,7 @@ public class TradingApi {
 
     private static final String USER_AGENT =
             String.format(
-                    "binance-web3-wallet/4.2.0 (Java/%s; %s; %s)",
+                    "binance-web3-wallet/4.3.0 (Java/%s; %s; %s)",
                     SystemUtil.getJavaVersion(), SystemUtil.getOs(), SystemUtil.getArch());
     private static final boolean HAS_TIME_UNIT = false;
 
@@ -2656,6 +2657,8 @@ public class TradingApi {
             Long recvWindow,
             String nonce,
             String slippagePercent,
+            String excludeDexes,
+            EnableRFQ enableRFQ,
             ApproveTransaction approveTransaction,
             String approveAmount,
             String gasLimit,
@@ -2725,6 +2728,15 @@ public class TradingApi {
 
         if (vendor != null) {
             localVarQueryParams.addAll(localVarApiClient.parameterToPair("vendor", vendor));
+        }
+
+        if (excludeDexes != null) {
+            localVarQueryParams.addAll(
+                    localVarApiClient.parameterToPair("excludeDexes", excludeDexes));
+        }
+
+        if (enableRFQ != null) {
+            localVarQueryParams.addAll(localVarApiClient.parameterToPair("enableRFQ", enableRFQ));
         }
 
         if (approveTransaction != null) {
@@ -2842,6 +2854,8 @@ public class TradingApi {
             Long recvWindow,
             String nonce,
             String slippagePercent,
+            String excludeDexes,
+            EnableRFQ enableRFQ,
             ApproveTransaction approveTransaction,
             String approveAmount,
             String gasLimit,
@@ -2875,6 +2889,8 @@ public class TradingApi {
                 recvWindow,
                 nonce,
                 slippagePercent,
+                excludeDexes,
+                enableRFQ,
                 approveTransaction,
                 approveAmount,
                 gasLimit,
@@ -2902,6 +2918,8 @@ public class TradingApi {
                                     Long.class,
                                     String.class,
                                     String.class,
+                                    String.class,
+                                    EnableRFQ.class,
                                     ApproveTransaction.class,
                                     String.class,
                                     String.class,
@@ -2929,6 +2947,8 @@ public class TradingApi {
                         recvWindow,
                         nonce,
                         slippagePercent,
+                        excludeDexes,
+                        enableRFQ,
                         approveTransaction,
                         approveAmount,
                         gasLimit,
@@ -2964,6 +2984,8 @@ public class TradingApi {
             Long recvWindow,
             String nonce,
             String slippagePercent,
+            String excludeDexes,
+            EnableRFQ enableRFQ,
             ApproveTransaction approveTransaction,
             String approveAmount,
             String gasLimit,
@@ -2989,6 +3011,8 @@ public class TradingApi {
                         recvWindow,
                         nonce,
                         slippagePercent,
+                        excludeDexes,
+                        enableRFQ,
                         approveTransaction,
                         approveAmount,
                         gasLimit,
@@ -3019,6 +3043,8 @@ public class TradingApi {
                 request.getRecvWindow(),
                 request.getNonce(),
                 request.getSlippagePercent(),
+                request.getExcludeDexes(),
+                request.getEnableRFQ(),
                 request.getApproveTransaction(),
                 request.getApproveAmount(),
                 request.getGasLimit(),
@@ -3044,6 +3070,8 @@ public class TradingApi {
         private Long recvWindow;
         private String nonce;
         private String slippagePercent;
+        private String excludeDexes;
+        private EnableRFQ enableRFQ;
         private ApproveTransaction approveTransaction;
         private String approveAmount;
         private String gasLimit;
@@ -3092,6 +3120,14 @@ public class TradingApi {
 
         public String getSlippagePercent() {
             return slippagePercent;
+        }
+
+        public String getExcludeDexes() {
+            return excludeDexes;
+        }
+
+        public EnableRFQ getEnableRFQ() {
+            return enableRFQ;
         }
 
         public ApproveTransaction getApproveTransaction() {
@@ -3199,6 +3235,38 @@ public class TradingApi {
          */
         public QuoteAndBuildSwapTransactionRequest slippagePercent(String slippagePercent) {
             this.slippagePercent = slippagePercent;
+            return this;
+        }
+
+        /**
+         * Set excludeDexes
+         *
+         * @param excludeDexes Comma-separated list of DEXes to exclude from routing. Pass the
+         *     &#x60;dexName&#x60; values returned in the response
+         *     &#x60;routerResult.dexRouterList&#x60; as-is (e.g. &#x60;\&quot;Pancakeswap
+         *     V4,Pancakeswap V3\&quot;&#x60;). On EVM/Sui/Tron chains they are normalized
+         *     automatically; on Solana the value is case-sensitive and must match the response
+         *     exactly. Omit or leave empty to exclude nothing. (optional)
+         * @return QuoteAndBuildSwapTransactionRequest
+         */
+        public QuoteAndBuildSwapTransactionRequest excludeDexes(String excludeDexes) {
+            this.excludeDexes = excludeDexes;
+            return this;
+        }
+
+        /**
+         * Set enableRFQ
+         *
+         * @param enableRFQ Whether to enable RFQ liquidity sources for routing. Default depends on
+         *     the token pair: **BStock pairs default to &#x60;\&quot;true\&quot;&#x60; (RFQ
+         *     enabled)**; all other tokens default to &#x60;\&quot;false\&quot;&#x60; (RFQ
+         *     disabled, AMM-only routing). An explicit value always overrides the default.
+         *     &#x60;\&quot;true\&quot;&#x60; may return better pricing, but the returned calldata
+         *     may embed RFQ settlements with a short (~30s) deadline. (optional)
+         * @return QuoteAndBuildSwapTransactionRequest
+         */
+        public QuoteAndBuildSwapTransactionRequest enableRFQ(EnableRFQ enableRFQ) {
+            this.enableRFQ = enableRFQ;
             return this;
         }
 

@@ -1,5 +1,16 @@
 # Changelog
 
+## 4.3.0 - 2026-09-21
+
+### Changed (2)
+
+- Added parameter `enableRFQ`
+  - affected methods:
+    - `quoteAndBuildSwapTransaction()` (`GET /api/v1/dex/aggregator/quote-and-swap`)
+- Added parameter `excludeDexes`
+  - affected methods:
+    - `quoteAndBuildSwapTransaction()` (`GET /api/v1/dex/aggregator/quote-and-swap`)
+
 ## 4.2.0 - 2026-09-02
 
 ### Added (1)
@@ -68,7 +79,7 @@
   - `data`.`routerResult`: property `feeAmount` added
   - `data`.`routerResult`: property `actualSwapAmount` added
 
-## 1.0.0 - 2026-07-24
+## 1.0.0 - 2026-07-24 
 
 ### Changed (1)
 

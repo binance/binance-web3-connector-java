@@ -643,7 +643,7 @@ No authorization required
 
 <a id="quoteAndBuildSwapTransaction"></a>
 # **quoteAndBuildSwapTransaction**
-> QuoteAndBuildSwapTransactionResponse quoteAndBuildSwapTransaction(binanceChainId, amount, fromTokenAddress, toTokenAddress, userWalletAddress, vendor).recvWindow(recvWindow).nonce(nonce).slippagePercent(slippagePercent).approveTransaction(approveTransaction).approveAmount(approveAmount).gasLimit(gasLimit).gasLevel(gasLevel).priceImpactProtectionPercent(priceImpactProtectionPercent).autoSlippage(autoSlippage).maxAutoSlippagePercent(maxAutoSlippagePercent).computeUnitLimit(computeUnitLimit).computeUnitPrice(computeUnitPrice).tips(tips).feePercent(feePercent).fromTokenReferrerWalletAddress(fromTokenReferrerWalletAddress).toTokenReferrerWalletAddress(toTokenReferrerWalletAddress).execute();
+> QuoteAndBuildSwapTransactionResponse quoteAndBuildSwapTransaction(binanceChainId, amount, fromTokenAddress, toTokenAddress, userWalletAddress, vendor).recvWindow(recvWindow).nonce(nonce).slippagePercent(slippagePercent).excludeDexes(excludeDexes).enableRFQ(enableRFQ).approveTransaction(approveTransaction).approveAmount(approveAmount).gasLimit(gasLimit).gasLevel(gasLevel).priceImpactProtectionPercent(priceImpactProtectionPercent).autoSlippage(autoSlippage).maxAutoSlippagePercent(maxAutoSlippagePercent).computeUnitLimit(computeUnitLimit).computeUnitPrice(computeUnitPrice).tips(tips).feePercent(feePercent).fromTokenReferrerWalletAddress(fromTokenReferrerWalletAddress).toTokenReferrerWalletAddress(toTokenReferrerWalletAddress).execute();
 
 Quote and Build Swap Transaction (Flash API)
 
@@ -673,6 +673,8 @@ public class Example {
     Long recvWindow = 5000L; // Long | Allowed time deviation in milliseconds (default: 5000, max: 60000).
     String nonce = "unique-nonce-string"; // String | Unique request identifier for anti-replay; falls back to X-OC-SIGN if omitted.
     String slippagePercent = "0.5"; // String | Maximum slippage tolerance as a percentage string. Required unless `autoSlippage=true`.  **Range by chain:** - EVM chains (BSC, Ethereum, Base, etc.): `0` to `100` (inclusive) - Solana (`CT_501`): `0` to less than `100` (i.e. `< 100`)  `\"0.5\"` means 0.5% maximum slippage. When `autoSlippage=true` this field is overridden by the auto-computed value.
+    String excludeDexes = "Pancakeswap V4,Pancakeswap V3"; // String | Comma-separated list of DEXes to exclude from routing. Pass the `dexName` values returned in the response `routerResult.dexRouterList` as-is (e.g. `\"Pancakeswap V4,Pancakeswap V3\"`). On EVM/Sui/Tron chains they are normalized automatically; on Solana the value is case-sensitive and must match the response exactly. Omit or leave empty to exclude nothing.
+    EnableRFQ enableRFQ = EnableRFQ.fromValue("true"); // EnableRFQ | Whether to enable RFQ liquidity sources for routing. Default depends on the token pair: **BStock pairs default to `\"true\"` (RFQ enabled)**; all other tokens default to `\"false\"` (RFQ disabled, AMM-only routing). An explicit value always overrides the default. `\"true\"` may return better pricing, but the returned calldata may embed RFQ settlements with a short (~30s) deadline.
     ApproveTransaction approveTransaction = ApproveTransaction.fromValue("true"); // ApproveTransaction | When \"true\", `signatureData` includes the spender address and approve calldata so the client can submit it before the swap. Defaults to false.
     String approveAmount = "1000000"; // String | Override approve amount (smallest unit, positive integer string). Defaults to the swap amount.
     String gasLimit = "200000"; // String | Gas limit override (positive integer string). EVM only.
@@ -691,6 +693,8 @@ public class Example {
             .recvWindow(recvWindow)
             .nonce(nonce)
             .slippagePercent(slippagePercent)
+            .excludeDexes(excludeDexes)
+            .enableRFQ(enableRFQ)
             .approveTransaction(approveTransaction)
             .approveAmount(approveAmount)
             .gasLimit(gasLimit)
@@ -730,6 +734,8 @@ public class Example {
 | **recvWindow** | **Long**| Allowed time deviation in milliseconds (default: 5000, max: 60000). | [optional] |
 | **nonce** | **String**| Unique request identifier for anti-replay; falls back to X-OC-SIGN if omitted. | [optional] |
 | **slippagePercent** | **String**| Maximum slippage tolerance as a percentage string. Required unless &#x60;autoSlippage&#x3D;true&#x60;.  **Range by chain:** - EVM chains (BSC, Ethereum, Base, etc.): &#x60;0&#x60; to &#x60;100&#x60; (inclusive) - Solana (&#x60;CT_501&#x60;): &#x60;0&#x60; to less than &#x60;100&#x60; (i.e. &#x60;&lt; 100&#x60;)  &#x60;\&quot;0.5\&quot;&#x60; means 0.5% maximum slippage. When &#x60;autoSlippage&#x3D;true&#x60; this field is overridden by the auto-computed value. | [optional] |
+| **excludeDexes** | **String**| Comma-separated list of DEXes to exclude from routing. Pass the &#x60;dexName&#x60; values returned in the response &#x60;routerResult.dexRouterList&#x60; as-is (e.g. &#x60;\&quot;Pancakeswap V4,Pancakeswap V3\&quot;&#x60;). On EVM/Sui/Tron chains they are normalized automatically; on Solana the value is case-sensitive and must match the response exactly. Omit or leave empty to exclude nothing. | [optional] |
+| **enableRFQ** | [**EnableRFQ**](.md)| Whether to enable RFQ liquidity sources for routing. Default depends on the token pair: **BStock pairs default to &#x60;\&quot;true\&quot;&#x60; (RFQ enabled)**; all other tokens default to &#x60;\&quot;false\&quot;&#x60; (RFQ disabled, AMM-only routing). An explicit value always overrides the default. &#x60;\&quot;true\&quot;&#x60; may return better pricing, but the returned calldata may embed RFQ settlements with a short (~30s) deadline. | [optional] [enum: true, false] |
 | **approveTransaction** | [**ApproveTransaction**](.md)| When \&quot;true\&quot;, &#x60;signatureData&#x60; includes the spender address and approve calldata so the client can submit it before the swap. Defaults to false. | [optional] [enum: true, false] |
 | **approveAmount** | **String**| Override approve amount (smallest unit, positive integer string). Defaults to the swap amount. | [optional] |
 | **gasLimit** | **String**| Gas limit override (positive integer string). EVM only. | [optional] |

@@ -112,7 +112,7 @@
 
 [GET /api/v1/dex/aggregator/history](https://web3.binance.com/en/dev-docs/catalog/web3-wallet/api/rest-api/trading-api#get-transaction-status) - getTransactionStatus - [GetTransactionStatusExample.java:42](/examples/web3-wallet/src/main/java/com/binance/connector/client/web3_wallet/rest/trading/GetTransactionStatusExample.java#L42)
 
-[GET /api/v1/dex/aggregator/quote-and-swap](https://web3.binance.com/en/dev-docs/catalog/web3-wallet/api/rest-api/trading-api#quote-and-build-swap-transaction) - quoteAndBuildSwapTransaction - [QuoteAndBuildSwapTransactionExample.java:46](/examples/web3-wallet/src/main/java/com/binance/connector/client/web3_wallet/rest/trading/QuoteAndBuildSwapTransactionExample.java#L46)
+[GET /api/v1/dex/aggregator/quote-and-swap](https://web3.binance.com/en/dev-docs/catalog/web3-wallet/api/rest-api/trading-api#quote-and-build-swap-transaction) - quoteAndBuildSwapTransaction - [QuoteAndBuildSwapTransactionExample.java:47](/examples/web3-wallet/src/main/java/com/binance/connector/client/web3_wallet/rest/trading/QuoteAndBuildSwapTransactionExample.java#L47)
 
 [POST /api/v1/dex/aggregator/order/submit](https://web3.binance.com/en/dev-docs/catalog/web3-wallet/api/rest-api/trading-api#submit-rfq-order) - submitRfqOrder - [SubmitRfqOrderExample.java:44](/examples/web3-wallet/src/main/java/com/binance/connector/client/web3_wallet/rest/trading/SubmitRfqOrderExample.java#L44)
 
@@ -146,5 +146,5 @@
 
 ## WebSocket
 
-[GET /api/v1/dex/market/wss/auth/token](https://web3.binance.com/en/dev-docs/catalog/web3-wallet/api/rest-api/web-socket-api#get-web-socket-auth-token) - getWebSocketAuthToken - [GetWebSocketAuthTokenExample.java:36](/examples/web3-wallet/src/main/java/com/binance/connector/client/web3_wallet/rest/websocket/GetWebSocketAuthTokenExample.java#L36)
+[GET /api/v1/dex/market/wss/auth/token](https://web3.binance.com/en/dev-docs/catalog/web3-wallet/api/rest-api/web-socket-api#get-web-socket-auth-token) - getWebSocketAuthToken - [GetWebSocketAuthTokenExample.java:38](/examples/web3-wallet/src/main/java/com/binance/connector/client/web3_wallet/rest/websocket/GetWebSocketAuthTokenExample.java#L38)
 

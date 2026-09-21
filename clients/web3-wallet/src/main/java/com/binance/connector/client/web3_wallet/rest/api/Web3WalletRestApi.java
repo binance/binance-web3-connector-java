@@ -25,6 +25,7 @@ import com.binance.connector.client.web3_wallet.rest.model.BuildSolanaSwapInstru
 import com.binance.connector.client.web3_wallet.rest.model.BuildSwapTransactionResponse;
 import com.binance.connector.client.web3_wallet.rest.model.CalculateLpAddPairedAmountsRequest;
 import com.binance.connector.client.web3_wallet.rest.model.CalculateLpAddPairedAmountsResponse;
+import com.binance.connector.client.web3_wallet.rest.model.EnableRFQ;
 import com.binance.connector.client.web3_wallet.rest.model.FeeSource;
 import com.binance.connector.client.web3_wallet.rest.model.GasLevel;
 import com.binance.connector.client.web3_wallet.rest.model.GetAddressPnLForSpecificTokenResponse;
@@ -2785,6 +2786,18 @@ public class Web3WalletRestApi {
      *     &#x60;\&quot;0.5\&quot;&#x60; means 0.5% maximum slippage. When
      *     &#x60;autoSlippage&#x3D;true&#x60; this field is overridden by the auto-computed value.
      *     (optional)
+     * @param excludeDexes Comma-separated list of DEXes to exclude from routing. Pass the
+     *     &#x60;dexName&#x60; values returned in the response
+     *     &#x60;routerResult.dexRouterList&#x60; as-is (e.g. &#x60;\&quot;Pancakeswap
+     *     V4,Pancakeswap V3\&quot;&#x60;). On EVM/Sui/Tron chains they are normalized
+     *     automatically; on Solana the value is case-sensitive and must match the response exactly.
+     *     Omit or leave empty to exclude nothing. (optional)
+     * @param enableRFQ Whether to enable RFQ liquidity sources for routing. Default depends on the
+     *     token pair: **BStock pairs default to &#x60;\&quot;true\&quot;&#x60; (RFQ enabled)**; all
+     *     other tokens default to &#x60;\&quot;false\&quot;&#x60; (RFQ disabled, AMM-only routing).
+     *     An explicit value always overrides the default. &#x60;\&quot;true\&quot;&#x60; may return
+     *     better pricing, but the returned calldata may embed RFQ settlements with a short (~30s)
+     *     deadline. (optional)
      * @param approveTransaction When \&quot;true\&quot;, &#x60;signatureData&#x60; includes the
      *     spender address and approve calldata so the client can submit it before the swap.
      *     Defaults to false. (optional)
@@ -2863,6 +2876,8 @@ public class Web3WalletRestApi {
             Long recvWindow,
             String nonce,
             String slippagePercent,
+            String excludeDexes,
+            EnableRFQ enableRFQ,
             ApproveTransaction approveTransaction,
             String approveAmount,
             String gasLimit,
@@ -2887,6 +2902,8 @@ public class Web3WalletRestApi {
                 recvWindow,
                 nonce,
                 slippagePercent,
+                excludeDexes,
+                enableRFQ,
                 approveTransaction,
                 approveAmount,
                 gasLimit,
@@ -3462,7 +3479,8 @@ public class Web3WalletRestApi {
 
     /**
      * Get WebSocket Auth Token Get a WebSocket auth token before connecting to the WebSocket stream
-     * service.
+     * service. For details on WebSocket usage, please refer to the [WebSocket
+     * documentation](/products/websocket-api/introduction).
      *
      * @param recvWindow Allowed time deviation in milliseconds (default: 5000, max: 60000).
      *     (optional)
