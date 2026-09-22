@@ -42,7 +42,7 @@ Since this repository contains auto-generated code using OpenAPI Generator, we e
 2. Allow maintainers to implement necessary changes through the code generation process
 
 ## Examples
-**Wallet**: [Rest API](clients/web3-wallet/example_rest.md)
+**Wallet**: [Rest API](clients/web3-wallet/example_rest.md) - [WebSocket Streams](clients/web3-wallet/example_websocket_stream.md)
 
 ## License
 
