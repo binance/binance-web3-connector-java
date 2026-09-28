@@ -14,7 +14,6 @@ package com.binance.connector.client.web3_wallet.rest.api;
 
 import com.binance.connector.client.common.ApiException;
 import com.binance.connector.client.common.ApiResponse;
-import com.binance.connector.client.common.JSON;
 import com.binance.connector.client.common.Pair;
 import com.binance.connector.client.common.SystemUtil;
 import com.binance.connector.client.common.configuration.ClientConfiguration;
@@ -115,72 +114,34 @@ public class DefiTransactionApi {
         // create path and map variables
         String localVarPath = "/api/v1/defi/transaction/claim";
 
+        List<Object> bodyParams = new ArrayList();
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
         Map<String, String> localVarHeaderParams = new HashMap<String, String>();
         Map<String, String> localVarCookieParams = new HashMap<String, String>();
         Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
-        if (buildDeFiClaimTransactionRequest.getAddress() != null) {
-            localVarFormParams.put("address", buildDeFiClaimTransactionRequest.getAddress());
-        }
-
-        if (buildDeFiClaimTransactionRequest.getBinanceChainId() != null) {
-            localVarFormParams.put(
-                    "binanceChainId", buildDeFiClaimTransactionRequest.getBinanceChainId());
-        }
-
-        if (buildDeFiClaimTransactionRequest.getClaimType() != null) {
-            localVarFormParams.put("claimType", buildDeFiClaimTransactionRequest.getClaimType());
-        }
-
-        if (buildDeFiClaimTransactionRequest.getInvestmentId() != null) {
-            localVarFormParams.put(
-                    "investmentId", buildDeFiClaimTransactionRequest.getInvestmentId());
-        }
-
-        if (buildDeFiClaimTransactionRequest.getDefiProtocolId() != null) {
-            localVarFormParams.put(
-                    "defiProtocolId", buildDeFiClaimTransactionRequest.getDefiProtocolId());
-        }
-
-        if (buildDeFiClaimTransactionRequest.getNftId() != null) {
-            localVarFormParams.put("nftId", buildDeFiClaimTransactionRequest.getNftId());
-        }
-
-        if (buildDeFiClaimTransactionRequest.getRedemptionId() != null) {
-            localVarFormParams.put(
-                    "redemptionId", buildDeFiClaimTransactionRequest.getRedemptionId());
-        }
-
-        if (buildDeFiClaimTransactionRequest.getTokenAddressList() != null) {
-            localVarFormParams.put(
-                    "tokenAddressList", buildDeFiClaimTransactionRequest.getTokenAddressList());
-        }
-
-        if (buildDeFiClaimTransactionRequest.getSimulate() != null) {
-            localVarFormParams.put("simulate", buildDeFiClaimTransactionRequest.getSimulate());
-        }
-
+        bodyParams.add(buildDeFiClaimTransactionRequest);
         final String[] localVarAccepts = {"application/json"};
         final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
         if (localVarAccept != null) {
             localVarHeaderParams.put("Accept", localVarAccept);
         }
 
-        final String[] localVarContentTypes = {"application/x-www-form-urlencoded"};
+        final String[] localVarContentTypes = {"application/json"};
         final String localVarContentType =
                 localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (!localVarFormParams.isEmpty() && localVarContentType != null) {
+        if (localVarContentType != null) {
             localVarHeaderParams.put("Content-Type", localVarContentType);
         }
 
         if (recvWindow != null) {
-            localVarHeaderParams.put("recvWindow", localVarApiClient.parameterToString(recvWindow));
+            localVarHeaderParams.put(
+                    "X-OC-RECV-WINDOW", localVarApiClient.parameterToString(recvWindow));
         }
 
         if (nonce != null) {
-            localVarHeaderParams.put("nonce", localVarApiClient.parameterToString(nonce));
+            localVarHeaderParams.put("X-OC-NONCE", localVarApiClient.parameterToString(nonce));
         }
 
         Set<String> localVarAuthNames = new HashSet<>();
@@ -194,7 +155,7 @@ public class DefiTransactionApi {
                 "POST",
                 localVarQueryParams,
                 localVarCollectionQueryParams,
-                localVarPostBody,
+                bodyParams.isEmpty() ? null : bodyParams.get(0),
                 localVarHeaderParams,
                 localVarCookieParams,
                 localVarFormParams,
@@ -278,49 +239,34 @@ public class DefiTransactionApi {
         // create path and map variables
         String localVarPath = "/api/v1/defi/transaction/deposit";
 
+        List<Object> bodyParams = new ArrayList();
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
         Map<String, String> localVarHeaderParams = new HashMap<String, String>();
         Map<String, String> localVarCookieParams = new HashMap<String, String>();
         Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
-        if (buildDeFiDepositTransactionRequest.getAddress() != null) {
-            localVarFormParams.put("address", buildDeFiDepositTransactionRequest.getAddress());
-        }
-
-        if (buildDeFiDepositTransactionRequest.getInvestmentId() != null) {
-            localVarFormParams.put(
-                    "investmentId", buildDeFiDepositTransactionRequest.getInvestmentId());
-        }
-
-        if (buildDeFiDepositTransactionRequest.getToken() != null) {
-            String json = JSON.getGson().toJson(buildDeFiDepositTransactionRequest.getToken());
-            localVarFormParams.put("token", json);
-        }
-
-        if (buildDeFiDepositTransactionRequest.getSimulate() != null) {
-            localVarFormParams.put("simulate", buildDeFiDepositTransactionRequest.getSimulate());
-        }
-
+        bodyParams.add(buildDeFiDepositTransactionRequest);
         final String[] localVarAccepts = {"application/json"};
         final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
         if (localVarAccept != null) {
             localVarHeaderParams.put("Accept", localVarAccept);
         }
 
-        final String[] localVarContentTypes = {"application/x-www-form-urlencoded"};
+        final String[] localVarContentTypes = {"application/json"};
         final String localVarContentType =
                 localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (!localVarFormParams.isEmpty() && localVarContentType != null) {
+        if (localVarContentType != null) {
             localVarHeaderParams.put("Content-Type", localVarContentType);
         }
 
         if (recvWindow != null) {
-            localVarHeaderParams.put("recvWindow", localVarApiClient.parameterToString(recvWindow));
+            localVarHeaderParams.put(
+                    "X-OC-RECV-WINDOW", localVarApiClient.parameterToString(recvWindow));
         }
 
         if (nonce != null) {
-            localVarHeaderParams.put("nonce", localVarApiClient.parameterToString(nonce));
+            localVarHeaderParams.put("X-OC-NONCE", localVarApiClient.parameterToString(nonce));
         }
 
         Set<String> localVarAuthNames = new HashSet<>();
@@ -334,7 +280,7 @@ public class DefiTransactionApi {
                 "POST",
                 localVarQueryParams,
                 localVarCollectionQueryParams,
-                localVarPostBody,
+                bodyParams.isEmpty() ? null : bodyParams.get(0),
                 localVarHeaderParams,
                 localVarCookieParams,
                 localVarFormParams,
@@ -418,58 +364,34 @@ public class DefiTransactionApi {
         // create path and map variables
         String localVarPath = "/api/v1/defi/transaction/redeem";
 
+        List<Object> bodyParams = new ArrayList();
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
         Map<String, String> localVarHeaderParams = new HashMap<String, String>();
         Map<String, String> localVarCookieParams = new HashMap<String, String>();
         Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
-        if (buildDeFiRedeemTransactionRequest.getAddress() != null) {
-            localVarFormParams.put("address", buildDeFiRedeemTransactionRequest.getAddress());
-        }
-
-        if (buildDeFiRedeemTransactionRequest.getInvestmentId() != null) {
-            localVarFormParams.put(
-                    "investmentId", buildDeFiRedeemTransactionRequest.getInvestmentId());
-        }
-
-        if (buildDeFiRedeemTransactionRequest.getToken() != null) {
-            String json = JSON.getGson().toJson(buildDeFiRedeemTransactionRequest.getToken());
-            localVarFormParams.put("token", json);
-        }
-
-        if (buildDeFiRedeemTransactionRequest.getRatio() != null) {
-            localVarFormParams.put("ratio", buildDeFiRedeemTransactionRequest.getRatio());
-        }
-
-        if (buildDeFiRedeemTransactionRequest.getSlippageBps() != null) {
-            localVarFormParams.put(
-                    "slippageBps", buildDeFiRedeemTransactionRequest.getSlippageBps());
-        }
-
-        if (buildDeFiRedeemTransactionRequest.getSimulate() != null) {
-            localVarFormParams.put("simulate", buildDeFiRedeemTransactionRequest.getSimulate());
-        }
-
+        bodyParams.add(buildDeFiRedeemTransactionRequest);
         final String[] localVarAccepts = {"application/json"};
         final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
         if (localVarAccept != null) {
             localVarHeaderParams.put("Accept", localVarAccept);
         }
 
-        final String[] localVarContentTypes = {"application/x-www-form-urlencoded"};
+        final String[] localVarContentTypes = {"application/json"};
         final String localVarContentType =
                 localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (!localVarFormParams.isEmpty() && localVarContentType != null) {
+        if (localVarContentType != null) {
             localVarHeaderParams.put("Content-Type", localVarContentType);
         }
 
         if (recvWindow != null) {
-            localVarHeaderParams.put("recvWindow", localVarApiClient.parameterToString(recvWindow));
+            localVarHeaderParams.put(
+                    "X-OC-RECV-WINDOW", localVarApiClient.parameterToString(recvWindow));
         }
 
         if (nonce != null) {
-            localVarHeaderParams.put("nonce", localVarApiClient.parameterToString(nonce));
+            localVarHeaderParams.put("X-OC-NONCE", localVarApiClient.parameterToString(nonce));
         }
 
         Set<String> localVarAuthNames = new HashSet<>();
@@ -483,7 +405,7 @@ public class DefiTransactionApi {
                 "POST",
                 localVarQueryParams,
                 localVarCollectionQueryParams,
-                localVarPostBody,
+                bodyParams.isEmpty() ? null : bodyParams.get(0),
                 localVarHeaderParams,
                 localVarCookieParams,
                 localVarFormParams,
@@ -567,68 +489,34 @@ public class DefiTransactionApi {
         // create path and map variables
         String localVarPath = "/api/v1/defi/transaction/lp-add";
 
+        List<Object> bodyParams = new ArrayList();
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
         Map<String, String> localVarHeaderParams = new HashMap<String, String>();
         Map<String, String> localVarCookieParams = new HashMap<String, String>();
         Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
-        if (buildLpAddTransactionRequest.getAddress() != null) {
-            localVarFormParams.put("address", buildLpAddTransactionRequest.getAddress());
-        }
-
-        if (buildLpAddTransactionRequest.getInvestmentId() != null) {
-            localVarFormParams.put("investmentId", buildLpAddTransactionRequest.getInvestmentId());
-        }
-
-        if (buildLpAddTransactionRequest.getTokenList() != null) {
-            String json = JSON.getGson().toJson(buildLpAddTransactionRequest.getTokenList());
-            localVarFormParams.put("tokenList", json);
-        }
-
-        if (buildLpAddTransactionRequest.getTickLower() != null) {
-            localVarFormParams.put("tickLower", buildLpAddTransactionRequest.getTickLower());
-        }
-
-        if (buildLpAddTransactionRequest.getTickUpper() != null) {
-            localVarFormParams.put("tickUpper", buildLpAddTransactionRequest.getTickUpper());
-        }
-
-        if (buildLpAddTransactionRequest.getPriceRange() != null) {
-            localVarFormParams.put("priceRange", buildLpAddTransactionRequest.getPriceRange());
-        }
-
-        if (buildLpAddTransactionRequest.getNftId() != null) {
-            localVarFormParams.put("nftId", buildLpAddTransactionRequest.getNftId());
-        }
-
-        if (buildLpAddTransactionRequest.getSlippageBps() != null) {
-            localVarFormParams.put("slippageBps", buildLpAddTransactionRequest.getSlippageBps());
-        }
-
-        if (buildLpAddTransactionRequest.getSimulate() != null) {
-            localVarFormParams.put("simulate", buildLpAddTransactionRequest.getSimulate());
-        }
-
+        bodyParams.add(buildLpAddTransactionRequest);
         final String[] localVarAccepts = {"application/json"};
         final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
         if (localVarAccept != null) {
             localVarHeaderParams.put("Accept", localVarAccept);
         }
 
-        final String[] localVarContentTypes = {"application/x-www-form-urlencoded"};
+        final String[] localVarContentTypes = {"application/json"};
         final String localVarContentType =
                 localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (!localVarFormParams.isEmpty() && localVarContentType != null) {
+        if (localVarContentType != null) {
             localVarHeaderParams.put("Content-Type", localVarContentType);
         }
 
         if (recvWindow != null) {
-            localVarHeaderParams.put("recvWindow", localVarApiClient.parameterToString(recvWindow));
+            localVarHeaderParams.put(
+                    "X-OC-RECV-WINDOW", localVarApiClient.parameterToString(recvWindow));
         }
 
         if (nonce != null) {
-            localVarHeaderParams.put("nonce", localVarApiClient.parameterToString(nonce));
+            localVarHeaderParams.put("X-OC-NONCE", localVarApiClient.parameterToString(nonce));
         }
 
         Set<String> localVarAuthNames = new HashSet<>();
@@ -642,7 +530,7 @@ public class DefiTransactionApi {
                 "POST",
                 localVarQueryParams,
                 localVarCollectionQueryParams,
-                localVarPostBody,
+                bodyParams.isEmpty() ? null : bodyParams.get(0),
                 localVarHeaderParams,
                 localVarCookieParams,
                 localVarFormParams,
@@ -725,56 +613,34 @@ public class DefiTransactionApi {
         // create path and map variables
         String localVarPath = "/api/v1/defi/transaction/lp-remove";
 
+        List<Object> bodyParams = new ArrayList();
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
         Map<String, String> localVarHeaderParams = new HashMap<String, String>();
         Map<String, String> localVarCookieParams = new HashMap<String, String>();
         Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
-        if (buildLpRemoveTransactionRequest.getAddress() != null) {
-            localVarFormParams.put("address", buildLpRemoveTransactionRequest.getAddress());
-        }
-
-        if (buildLpRemoveTransactionRequest.getInvestmentId() != null) {
-            localVarFormParams.put(
-                    "investmentId", buildLpRemoveTransactionRequest.getInvestmentId());
-        }
-
-        if (buildLpRemoveTransactionRequest.getNftId() != null) {
-            localVarFormParams.put("nftId", buildLpRemoveTransactionRequest.getNftId());
-        }
-
-        if (buildLpRemoveTransactionRequest.getRatio() != null) {
-            localVarFormParams.put("ratio", buildLpRemoveTransactionRequest.getRatio());
-        }
-
-        if (buildLpRemoveTransactionRequest.getSlippageBps() != null) {
-            localVarFormParams.put("slippageBps", buildLpRemoveTransactionRequest.getSlippageBps());
-        }
-
-        if (buildLpRemoveTransactionRequest.getSimulate() != null) {
-            localVarFormParams.put("simulate", buildLpRemoveTransactionRequest.getSimulate());
-        }
-
+        bodyParams.add(buildLpRemoveTransactionRequest);
         final String[] localVarAccepts = {"application/json"};
         final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
         if (localVarAccept != null) {
             localVarHeaderParams.put("Accept", localVarAccept);
         }
 
-        final String[] localVarContentTypes = {"application/x-www-form-urlencoded"};
+        final String[] localVarContentTypes = {"application/json"};
         final String localVarContentType =
                 localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (!localVarFormParams.isEmpty() && localVarContentType != null) {
+        if (localVarContentType != null) {
             localVarHeaderParams.put("Content-Type", localVarContentType);
         }
 
         if (recvWindow != null) {
-            localVarHeaderParams.put("recvWindow", localVarApiClient.parameterToString(recvWindow));
+            localVarHeaderParams.put(
+                    "X-OC-RECV-WINDOW", localVarApiClient.parameterToString(recvWindow));
         }
 
         if (nonce != null) {
-            localVarHeaderParams.put("nonce", localVarApiClient.parameterToString(nonce));
+            localVarHeaderParams.put("X-OC-NONCE", localVarApiClient.parameterToString(nonce));
         }
 
         Set<String> localVarAuthNames = new HashSet<>();
@@ -788,7 +654,7 @@ public class DefiTransactionApi {
                 "POST",
                 localVarQueryParams,
                 localVarCollectionQueryParams,
-                localVarPostBody,
+                bodyParams.isEmpty() ? null : bodyParams.get(0),
                 localVarHeaderParams,
                 localVarCookieParams,
                 localVarFormParams,
@@ -872,62 +738,34 @@ public class DefiTransactionApi {
         // create path and map variables
         String localVarPath = "/api/v1/defi/transaction/lp-add/calculate";
 
+        List<Object> bodyParams = new ArrayList();
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
         Map<String, String> localVarHeaderParams = new HashMap<String, String>();
         Map<String, String> localVarCookieParams = new HashMap<String, String>();
         Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
-        if (calculateLpAddPairedAmountsRequest.getAddress() != null) {
-            localVarFormParams.put("address", calculateLpAddPairedAmountsRequest.getAddress());
-        }
-
-        if (calculateLpAddPairedAmountsRequest.getInvestmentId() != null) {
-            localVarFormParams.put(
-                    "investmentId", calculateLpAddPairedAmountsRequest.getInvestmentId());
-        }
-
-        if (calculateLpAddPairedAmountsRequest.getTickLower() != null) {
-            localVarFormParams.put("tickLower", calculateLpAddPairedAmountsRequest.getTickLower());
-        }
-
-        if (calculateLpAddPairedAmountsRequest.getTickUpper() != null) {
-            localVarFormParams.put("tickUpper", calculateLpAddPairedAmountsRequest.getTickUpper());
-        }
-
-        if (calculateLpAddPairedAmountsRequest.getPriceRange() != null) {
-            localVarFormParams.put(
-                    "priceRange", calculateLpAddPairedAmountsRequest.getPriceRange());
-        }
-
-        if (calculateLpAddPairedAmountsRequest.getNftId() != null) {
-            localVarFormParams.put("nftId", calculateLpAddPairedAmountsRequest.getNftId());
-        }
-
-        if (calculateLpAddPairedAmountsRequest.getInputToken() != null) {
-            String json = JSON.getGson().toJson(calculateLpAddPairedAmountsRequest.getInputToken());
-            localVarFormParams.put("inputToken", json);
-        }
-
+        bodyParams.add(calculateLpAddPairedAmountsRequest);
         final String[] localVarAccepts = {"application/json"};
         final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
         if (localVarAccept != null) {
             localVarHeaderParams.put("Accept", localVarAccept);
         }
 
-        final String[] localVarContentTypes = {"application/x-www-form-urlencoded"};
+        final String[] localVarContentTypes = {"application/json"};
         final String localVarContentType =
                 localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (!localVarFormParams.isEmpty() && localVarContentType != null) {
+        if (localVarContentType != null) {
             localVarHeaderParams.put("Content-Type", localVarContentType);
         }
 
         if (recvWindow != null) {
-            localVarHeaderParams.put("recvWindow", localVarApiClient.parameterToString(recvWindow));
+            localVarHeaderParams.put(
+                    "X-OC-RECV-WINDOW", localVarApiClient.parameterToString(recvWindow));
         }
 
         if (nonce != null) {
-            localVarHeaderParams.put("nonce", localVarApiClient.parameterToString(nonce));
+            localVarHeaderParams.put("X-OC-NONCE", localVarApiClient.parameterToString(nonce));
         }
 
         Set<String> localVarAuthNames = new HashSet<>();
@@ -941,7 +779,7 @@ public class DefiTransactionApi {
                 "POST",
                 localVarQueryParams,
                 localVarCollectionQueryParams,
-                localVarPostBody,
+                bodyParams.isEmpty() ? null : bodyParams.get(0),
                 localVarHeaderParams,
                 localVarCookieParams,
                 localVarFormParams,

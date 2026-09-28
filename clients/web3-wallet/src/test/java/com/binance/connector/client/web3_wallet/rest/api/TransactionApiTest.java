@@ -99,8 +99,8 @@ public class TransactionApiTest {
         Call captorValue = callArgumentCaptor.getValue();
         Request actualRequest = captorValue.request();
 
-        assertEquals("timestamp=1736393892000address=0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045&signedTransaction=0xf86c808504a817c80082520894d8da6bf26964af9d7eed9e03e53415d37aa96045880de0b6b3a76400008025a0...&binanceChainId=1", signInputCaptor.getValue());
-        assertEquals("66b7a8a0ef786de8ddd3f218bf9ba196221f60fbfcdb12926a2f1cbc624f84bb", actualRequest.url().queryParameter("signature"));
+        assertEquals("timestamp=1736393892000{\"binanceChainId\":\"1\",\"signedTransaction\":\"0xf86c808504a817c80082520894d8da6bf26964af9d7eed9e03e53415d37aa96045880de0b6b3a76400008025a0...\",\"address\":\"0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045\"}", signInputCaptor.getValue());
+        assertEquals("220e960d42e8de9d936d149cb805d09667117b90c3f0ab28dd1f09cc44525863", actualRequest.url().queryParameter("signature"));
         assertEquals("/api/v1/dex/pre-transaction/broadcast-transaction", actualRequest.url().encodedPath());
     }
 
@@ -177,8 +177,8 @@ public class TransactionApiTest {
         Call captorValue = callArgumentCaptor.getValue();
         Request actualRequest = captorValue.request();
 
-        assertEquals("timestamp=1736393892000evmTx=%7B%22from%22%3A%22from%22%2C%22to%22%3A%22to%22%2C%22value%22%3A%22abc%22%2C%22data%22%3A%22123%22%7D&binanceChainId=1&solTx=%7B%22base64Tx%22%3A%22abc123%22%7D&tronTx=%7B%22from%22%3A%22from%22%2C%22txType%22%3A%22TRANSFER_CONTRACT%22%7D", signInputCaptor.getValue());
-        assertEquals("c6047dad58e8404a6da4dc7e017f55d93039aae17515da45beabf88cc8a99f12", actualRequest.url().queryParameter("signature"));
+        assertEquals("timestamp=1736393892000{\"binanceChainId\":\"1\",\"evmTx\":{\"from\":\"from\",\"to\":\"to\",\"value\":\"abc\",\"data\":\"123\"},\"solTx\":{\"base64Tx\":\"abc123\"},\"tronTx\":{\"from\":\"from\",\"txType\":\"TRANSFER_CONTRACT\"}}", signInputCaptor.getValue());
+        assertEquals("fdfc79d1ed2cddab8d8953bfc45f2461a61ae6a59d1b5cc51b74a9c6cce94aea", actualRequest.url().queryParameter("signature"));
         assertEquals("/api/v1/dex/pre-transaction/gas-limit", actualRequest.url().encodedPath());
     }
 
@@ -278,8 +278,8 @@ public class TransactionApiTest {
         Call captorValue = callArgumentCaptor.getValue();
         Request actualRequest = captorValue.request();
 
-        assertEquals("timestamp=1736393892000evmTx=%7B%22from%22%3A%22from%22%2C%22to%22%3A%22to%22%2C%22value%22%3A%22abc%22%2C%22data%22%3A%22abc%22%7D&binanceChainId=1&solTx=%7B%22base64Tx%22%3A%22abc123%22%2C%22address%22%3A%22abc%22%7D&tronTx=%7B%22from%22%3A%22from%22%2C%22txType%22%3A%22TRANSFER_CONTRACT%22%7D", signInputCaptor.getValue());
-        assertEquals("9a0ffaede39a39b82fdd291003ca0a590d637706a55fdc2303c4cfed80e2ade2", actualRequest.url().queryParameter("signature"));
+        assertEquals("timestamp=1736393892000{\"binanceChainId\":\"1\",\"evmTx\":{\"from\":\"from\",\"to\":\"to\",\"value\":\"abc\",\"data\":\"abc\"},\"solTx\":{\"base64Tx\":\"abc123\",\"address\":\"abc\"},\"tronTx\":{\"from\":\"from\",\"txType\":\"TRANSFER_CONTRACT\"}}", signInputCaptor.getValue());
+        assertEquals("55be20e06b32534d636f7eb51536de2fff43d8822f5958b09fb9de780cd96a69", actualRequest.url().queryParameter("signature"));
         assertEquals("/api/v1/dex/pre-transaction/simulate", actualRequest.url().encodedPath());
     }
 

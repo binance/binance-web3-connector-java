@@ -14,7 +14,6 @@ package com.binance.connector.client.web3_wallet.rest.api;
 
 import com.binance.connector.client.common.ApiException;
 import com.binance.connector.client.common.ApiResponse;
-import com.binance.connector.client.common.JSON;
 import com.binance.connector.client.common.Pair;
 import com.binance.connector.client.common.SystemUtil;
 import com.binance.connector.client.common.configuration.ClientConfiguration;
@@ -113,50 +112,34 @@ public class TransactionApi {
         // create path and map variables
         String localVarPath = "/api/v1/dex/pre-transaction/broadcast-transaction";
 
+        List<Object> bodyParams = new ArrayList();
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
         Map<String, String> localVarHeaderParams = new HashMap<String, String>();
         Map<String, String> localVarCookieParams = new HashMap<String, String>();
         Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
-        if (broadcastTransactionsRequest.getBinanceChainId() != null) {
-            localVarFormParams.put(
-                    "binanceChainId", broadcastTransactionsRequest.getBinanceChainId());
-        }
-
-        if (broadcastTransactionsRequest.getSignedTransaction() != null) {
-            localVarFormParams.put(
-                    "signedTransaction", broadcastTransactionsRequest.getSignedTransaction());
-        }
-
-        if (broadcastTransactionsRequest.getAddress() != null) {
-            localVarFormParams.put("address", broadcastTransactionsRequest.getAddress());
-        }
-
-        if (broadcastTransactionsRequest.getEnableMevProtection() != null) {
-            localVarFormParams.put(
-                    "enableMevProtection", broadcastTransactionsRequest.getEnableMevProtection());
-        }
-
+        bodyParams.add(broadcastTransactionsRequest);
         final String[] localVarAccepts = {"application/json"};
         final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
         if (localVarAccept != null) {
             localVarHeaderParams.put("Accept", localVarAccept);
         }
 
-        final String[] localVarContentTypes = {"application/x-www-form-urlencoded"};
+        final String[] localVarContentTypes = {"application/json"};
         final String localVarContentType =
                 localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (!localVarFormParams.isEmpty() && localVarContentType != null) {
+        if (localVarContentType != null) {
             localVarHeaderParams.put("Content-Type", localVarContentType);
         }
 
         if (recvWindow != null) {
-            localVarHeaderParams.put("recvWindow", localVarApiClient.parameterToString(recvWindow));
+            localVarHeaderParams.put(
+                    "X-OC-RECV-WINDOW", localVarApiClient.parameterToString(recvWindow));
         }
 
         if (nonce != null) {
-            localVarHeaderParams.put("nonce", localVarApiClient.parameterToString(nonce));
+            localVarHeaderParams.put("X-OC-NONCE", localVarApiClient.parameterToString(nonce));
         }
 
         Set<String> localVarAuthNames = new HashSet<>();
@@ -170,7 +153,7 @@ public class TransactionApi {
                 "POST",
                 localVarQueryParams,
                 localVarCollectionQueryParams,
-                localVarPostBody,
+                bodyParams.isEmpty() ? null : bodyParams.get(0),
                 localVarHeaderParams,
                 localVarCookieParams,
                 localVarFormParams,
@@ -258,6 +241,7 @@ public class TransactionApi {
         // create path and map variables
         String localVarPath = "/api/v1/dex/post-transaction/orders";
 
+        List<Object> bodyParams = new ArrayList();
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
         Map<String, String> localVarHeaderParams = new HashMap<String, String>();
@@ -295,19 +279,20 @@ public class TransactionApi {
             localVarHeaderParams.put("Accept", localVarAccept);
         }
 
-        final String[] localVarContentTypes = {"application/x-www-form-urlencoded"};
+        final String[] localVarContentTypes = {"application/json"};
         final String localVarContentType =
                 localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (!localVarFormParams.isEmpty() && localVarContentType != null) {
+        if (localVarContentType != null) {
             localVarHeaderParams.put("Content-Type", localVarContentType);
         }
 
         if (recvWindow != null) {
-            localVarHeaderParams.put("recvWindow", localVarApiClient.parameterToString(recvWindow));
+            localVarHeaderParams.put(
+                    "X-OC-RECV-WINDOW", localVarApiClient.parameterToString(recvWindow));
         }
 
         if (nonce != null) {
-            localVarHeaderParams.put("nonce", localVarApiClient.parameterToString(nonce));
+            localVarHeaderParams.put("X-OC-NONCE", localVarApiClient.parameterToString(nonce));
         }
 
         Set<String> localVarAuthNames = new HashSet<>();
@@ -321,7 +306,7 @@ public class TransactionApi {
                 "GET",
                 localVarQueryParams,
                 localVarCollectionQueryParams,
-                localVarPostBody,
+                bodyParams.isEmpty() ? null : bodyParams.get(0),
                 localVarHeaderParams,
                 localVarCookieParams,
                 localVarFormParams,
@@ -566,50 +551,34 @@ public class TransactionApi {
         // create path and map variables
         String localVarPath = "/api/v1/dex/pre-transaction/gas-limit";
 
+        List<Object> bodyParams = new ArrayList();
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
         Map<String, String> localVarHeaderParams = new HashMap<String, String>();
         Map<String, String> localVarCookieParams = new HashMap<String, String>();
         Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
-        if (getGasLimitRequest.getBinanceChainId() != null) {
-            localVarFormParams.put("binanceChainId", getGasLimitRequest.getBinanceChainId());
-        }
-
-        if (getGasLimitRequest.getEvmTx() != null) {
-            String json = JSON.getGson().toJson(getGasLimitRequest.getEvmTx());
-            localVarFormParams.put("evmTx", json);
-        }
-
-        if (getGasLimitRequest.getSolTx() != null) {
-            String json = JSON.getGson().toJson(getGasLimitRequest.getSolTx());
-            localVarFormParams.put("solTx", json);
-        }
-
-        if (getGasLimitRequest.getTronTx() != null) {
-            String json = JSON.getGson().toJson(getGasLimitRequest.getTronTx());
-            localVarFormParams.put("tronTx", json);
-        }
-
+        bodyParams.add(getGasLimitRequest);
         final String[] localVarAccepts = {"application/json"};
         final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
         if (localVarAccept != null) {
             localVarHeaderParams.put("Accept", localVarAccept);
         }
 
-        final String[] localVarContentTypes = {"application/x-www-form-urlencoded"};
+        final String[] localVarContentTypes = {"application/json"};
         final String localVarContentType =
                 localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (!localVarFormParams.isEmpty() && localVarContentType != null) {
+        if (localVarContentType != null) {
             localVarHeaderParams.put("Content-Type", localVarContentType);
         }
 
         if (recvWindow != null) {
-            localVarHeaderParams.put("recvWindow", localVarApiClient.parameterToString(recvWindow));
+            localVarHeaderParams.put(
+                    "X-OC-RECV-WINDOW", localVarApiClient.parameterToString(recvWindow));
         }
 
         if (nonce != null) {
-            localVarHeaderParams.put("nonce", localVarApiClient.parameterToString(nonce));
+            localVarHeaderParams.put("X-OC-NONCE", localVarApiClient.parameterToString(nonce));
         }
 
         Set<String> localVarAuthNames = new HashSet<>();
@@ -623,7 +592,7 @@ public class TransactionApi {
                 "POST",
                 localVarQueryParams,
                 localVarCollectionQueryParams,
-                localVarPostBody,
+                bodyParams.isEmpty() ? null : bodyParams.get(0),
                 localVarHeaderParams,
                 localVarCookieParams,
                 localVarFormParams,
@@ -698,6 +667,7 @@ public class TransactionApi {
         // create path and map variables
         String localVarPath = "/api/v1/dex/pre-transaction/gas-price";
 
+        List<Object> bodyParams = new ArrayList();
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
         Map<String, String> localVarHeaderParams = new HashMap<String, String>();
@@ -715,19 +685,20 @@ public class TransactionApi {
             localVarHeaderParams.put("Accept", localVarAccept);
         }
 
-        final String[] localVarContentTypes = {"application/x-www-form-urlencoded"};
+        final String[] localVarContentTypes = {"application/json"};
         final String localVarContentType =
                 localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (!localVarFormParams.isEmpty() && localVarContentType != null) {
+        if (localVarContentType != null) {
             localVarHeaderParams.put("Content-Type", localVarContentType);
         }
 
         if (recvWindow != null) {
-            localVarHeaderParams.put("recvWindow", localVarApiClient.parameterToString(recvWindow));
+            localVarHeaderParams.put(
+                    "X-OC-RECV-WINDOW", localVarApiClient.parameterToString(recvWindow));
         }
 
         if (nonce != null) {
-            localVarHeaderParams.put("nonce", localVarApiClient.parameterToString(nonce));
+            localVarHeaderParams.put("X-OC-NONCE", localVarApiClient.parameterToString(nonce));
         }
 
         Set<String> localVarAuthNames = new HashSet<>();
@@ -741,7 +712,7 @@ public class TransactionApi {
                 "GET",
                 localVarQueryParams,
                 localVarCollectionQueryParams,
-                localVarPostBody,
+                bodyParams.isEmpty() ? null : bodyParams.get(0),
                 localVarHeaderParams,
                 localVarCookieParams,
                 localVarFormParams,
@@ -861,6 +832,7 @@ public class TransactionApi {
         // create path and map variables
         String localVarPath = "/api/v1/dex/pre-transaction/block-height";
 
+        List<Object> bodyParams = new ArrayList();
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
         Map<String, String> localVarHeaderParams = new HashMap<String, String>();
@@ -878,19 +850,20 @@ public class TransactionApi {
             localVarHeaderParams.put("Accept", localVarAccept);
         }
 
-        final String[] localVarContentTypes = {"application/x-www-form-urlencoded"};
+        final String[] localVarContentTypes = {"application/json"};
         final String localVarContentType =
                 localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (!localVarFormParams.isEmpty() && localVarContentType != null) {
+        if (localVarContentType != null) {
             localVarHeaderParams.put("Content-Type", localVarContentType);
         }
 
         if (recvWindow != null) {
-            localVarHeaderParams.put("recvWindow", localVarApiClient.parameterToString(recvWindow));
+            localVarHeaderParams.put(
+                    "X-OC-RECV-WINDOW", localVarApiClient.parameterToString(recvWindow));
         }
 
         if (nonce != null) {
-            localVarHeaderParams.put("nonce", localVarApiClient.parameterToString(nonce));
+            localVarHeaderParams.put("X-OC-NONCE", localVarApiClient.parameterToString(nonce));
         }
 
         Set<String> localVarAuthNames = new HashSet<>();
@@ -904,7 +877,7 @@ public class TransactionApi {
                 "GET",
                 localVarQueryParams,
                 localVarCollectionQueryParams,
-                localVarPostBody,
+                bodyParams.isEmpty() ? null : bodyParams.get(0),
                 localVarHeaderParams,
                 localVarCookieParams,
                 localVarFormParams,
@@ -1026,6 +999,7 @@ public class TransactionApi {
         // create path and map variables
         String localVarPath = "/api/v1/dex/pre-transaction/supported/chain";
 
+        List<Object> bodyParams = new ArrayList();
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
         Map<String, String> localVarHeaderParams = new HashMap<String, String>();
@@ -1038,19 +1012,20 @@ public class TransactionApi {
             localVarHeaderParams.put("Accept", localVarAccept);
         }
 
-        final String[] localVarContentTypes = {"application/x-www-form-urlencoded"};
+        final String[] localVarContentTypes = {"application/json"};
         final String localVarContentType =
                 localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (!localVarFormParams.isEmpty() && localVarContentType != null) {
+        if (localVarContentType != null) {
             localVarHeaderParams.put("Content-Type", localVarContentType);
         }
 
         if (recvWindow != null) {
-            localVarHeaderParams.put("recvWindow", localVarApiClient.parameterToString(recvWindow));
+            localVarHeaderParams.put(
+                    "X-OC-RECV-WINDOW", localVarApiClient.parameterToString(recvWindow));
         }
 
         if (nonce != null) {
-            localVarHeaderParams.put("nonce", localVarApiClient.parameterToString(nonce));
+            localVarHeaderParams.put("X-OC-NONCE", localVarApiClient.parameterToString(nonce));
         }
 
         Set<String> localVarAuthNames = new HashSet<>();
@@ -1064,7 +1039,7 @@ public class TransactionApi {
                 "GET",
                 localVarQueryParams,
                 localVarCollectionQueryParams,
-                localVarPostBody,
+                bodyParams.isEmpty() ? null : bodyParams.get(0),
                 localVarHeaderParams,
                 localVarCookieParams,
                 localVarFormParams,
@@ -1178,51 +1153,34 @@ public class TransactionApi {
         // create path and map variables
         String localVarPath = "/api/v1/dex/pre-transaction/simulate";
 
+        List<Object> bodyParams = new ArrayList();
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
         Map<String, String> localVarHeaderParams = new HashMap<String, String>();
         Map<String, String> localVarCookieParams = new HashMap<String, String>();
         Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
-        if (simulateTransactionsRequest.getBinanceChainId() != null) {
-            localVarFormParams.put(
-                    "binanceChainId", simulateTransactionsRequest.getBinanceChainId());
-        }
-
-        if (simulateTransactionsRequest.getEvmTx() != null) {
-            String json = JSON.getGson().toJson(simulateTransactionsRequest.getEvmTx());
-            localVarFormParams.put("evmTx", json);
-        }
-
-        if (simulateTransactionsRequest.getSolTx() != null) {
-            String json = JSON.getGson().toJson(simulateTransactionsRequest.getSolTx());
-            localVarFormParams.put("solTx", json);
-        }
-
-        if (simulateTransactionsRequest.getTronTx() != null) {
-            String json = JSON.getGson().toJson(simulateTransactionsRequest.getTronTx());
-            localVarFormParams.put("tronTx", json);
-        }
-
+        bodyParams.add(simulateTransactionsRequest);
         final String[] localVarAccepts = {"application/json"};
         final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
         if (localVarAccept != null) {
             localVarHeaderParams.put("Accept", localVarAccept);
         }
 
-        final String[] localVarContentTypes = {"application/x-www-form-urlencoded"};
+        final String[] localVarContentTypes = {"application/json"};
         final String localVarContentType =
                 localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (!localVarFormParams.isEmpty() && localVarContentType != null) {
+        if (localVarContentType != null) {
             localVarHeaderParams.put("Content-Type", localVarContentType);
         }
 
         if (recvWindow != null) {
-            localVarHeaderParams.put("recvWindow", localVarApiClient.parameterToString(recvWindow));
+            localVarHeaderParams.put(
+                    "X-OC-RECV-WINDOW", localVarApiClient.parameterToString(recvWindow));
         }
 
         if (nonce != null) {
-            localVarHeaderParams.put("nonce", localVarApiClient.parameterToString(nonce));
+            localVarHeaderParams.put("X-OC-NONCE", localVarApiClient.parameterToString(nonce));
         }
 
         Set<String> localVarAuthNames = new HashSet<>();
@@ -1236,7 +1194,7 @@ public class TransactionApi {
                 "POST",
                 localVarQueryParams,
                 localVarCollectionQueryParams,
-                localVarPostBody,
+                bodyParams.isEmpty() ? null : bodyParams.get(0),
                 localVarHeaderParams,
                 localVarCookieParams,
                 localVarFormParams,

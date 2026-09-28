@@ -110,39 +110,34 @@ public class DefiDataApi {
         // create path and map variables
         String localVarPath = "/api/v1/defi/data/position/list";
 
+        List<Object> bodyParams = new ArrayList();
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
         Map<String, String> localVarHeaderParams = new HashMap<String, String>();
         Map<String, String> localVarCookieParams = new HashMap<String, String>();
         Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
-        if (getDeFiPositionsRequest.getAddresses() != null) {
-            localVarFormParams.put("addresses", getDeFiPositionsRequest.getAddresses());
-        }
-
-        if (getDeFiPositionsRequest.getBinanceChainIds() != null) {
-            localVarFormParams.put("binanceChainIds", getDeFiPositionsRequest.getBinanceChainIds());
-        }
-
+        bodyParams.add(getDeFiPositionsRequest);
         final String[] localVarAccepts = {"application/json"};
         final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
         if (localVarAccept != null) {
             localVarHeaderParams.put("Accept", localVarAccept);
         }
 
-        final String[] localVarContentTypes = {"application/x-www-form-urlencoded"};
+        final String[] localVarContentTypes = {"application/json"};
         final String localVarContentType =
                 localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (!localVarFormParams.isEmpty() && localVarContentType != null) {
+        if (localVarContentType != null) {
             localVarHeaderParams.put("Content-Type", localVarContentType);
         }
 
         if (recvWindow != null) {
-            localVarHeaderParams.put("recvWindow", localVarApiClient.parameterToString(recvWindow));
+            localVarHeaderParams.put(
+                    "X-OC-RECV-WINDOW", localVarApiClient.parameterToString(recvWindow));
         }
 
         if (nonce != null) {
-            localVarHeaderParams.put("nonce", localVarApiClient.parameterToString(nonce));
+            localVarHeaderParams.put("X-OC-NONCE", localVarApiClient.parameterToString(nonce));
         }
 
         Set<String> localVarAuthNames = new HashSet<>();
@@ -156,7 +151,7 @@ public class DefiDataApi {
                 "POST",
                 localVarQueryParams,
                 localVarCollectionQueryParams,
-                localVarPostBody,
+                bodyParams.isEmpty() ? null : bodyParams.get(0),
                 localVarHeaderParams,
                 localVarCookieParams,
                 localVarFormParams,
@@ -234,35 +229,34 @@ public class DefiDataApi {
         // create path and map variables
         String localVarPath = "/api/v1/defi/data/investment/detail";
 
+        List<Object> bodyParams = new ArrayList();
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
         Map<String, String> localVarHeaderParams = new HashMap<String, String>();
         Map<String, String> localVarCookieParams = new HashMap<String, String>();
         Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
-        if (getInvestmentDetailRequest.getInvestmentId() != null) {
-            localVarFormParams.put("investmentId", getInvestmentDetailRequest.getInvestmentId());
-        }
-
+        bodyParams.add(getInvestmentDetailRequest);
         final String[] localVarAccepts = {"application/json"};
         final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
         if (localVarAccept != null) {
             localVarHeaderParams.put("Accept", localVarAccept);
         }
 
-        final String[] localVarContentTypes = {"application/x-www-form-urlencoded"};
+        final String[] localVarContentTypes = {"application/json"};
         final String localVarContentType =
                 localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (!localVarFormParams.isEmpty() && localVarContentType != null) {
+        if (localVarContentType != null) {
             localVarHeaderParams.put("Content-Type", localVarContentType);
         }
 
         if (recvWindow != null) {
-            localVarHeaderParams.put("recvWindow", localVarApiClient.parameterToString(recvWindow));
+            localVarHeaderParams.put(
+                    "X-OC-RECV-WINDOW", localVarApiClient.parameterToString(recvWindow));
         }
 
         if (nonce != null) {
-            localVarHeaderParams.put("nonce", localVarApiClient.parameterToString(nonce));
+            localVarHeaderParams.put("X-OC-NONCE", localVarApiClient.parameterToString(nonce));
         }
 
         Set<String> localVarAuthNames = new HashSet<>();
@@ -276,7 +270,7 @@ public class DefiDataApi {
                 "POST",
                 localVarQueryParams,
                 localVarCollectionQueryParams,
-                localVarPostBody,
+                bodyParams.isEmpty() ? null : bodyParams.get(0),
                 localVarHeaderParams,
                 localVarCookieParams,
                 localVarFormParams,
@@ -355,35 +349,34 @@ public class DefiDataApi {
         // create path and map variables
         String localVarPath = "/api/v1/defi/data/protocol/detail";
 
+        List<Object> bodyParams = new ArrayList();
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
         Map<String, String> localVarHeaderParams = new HashMap<String, String>();
         Map<String, String> localVarCookieParams = new HashMap<String, String>();
         Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
-        if (getProtocolDetailRequest.getDefiProtocolId() != null) {
-            localVarFormParams.put("defiProtocolId", getProtocolDetailRequest.getDefiProtocolId());
-        }
-
+        bodyParams.add(getProtocolDetailRequest);
         final String[] localVarAccepts = {"application/json"};
         final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
         if (localVarAccept != null) {
             localVarHeaderParams.put("Accept", localVarAccept);
         }
 
-        final String[] localVarContentTypes = {"application/x-www-form-urlencoded"};
+        final String[] localVarContentTypes = {"application/json"};
         final String localVarContentType =
                 localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (!localVarFormParams.isEmpty() && localVarContentType != null) {
+        if (localVarContentType != null) {
             localVarHeaderParams.put("Content-Type", localVarContentType);
         }
 
         if (recvWindow != null) {
-            localVarHeaderParams.put("recvWindow", localVarApiClient.parameterToString(recvWindow));
+            localVarHeaderParams.put(
+                    "X-OC-RECV-WINDOW", localVarApiClient.parameterToString(recvWindow));
         }
 
         if (nonce != null) {
-            localVarHeaderParams.put("nonce", localVarApiClient.parameterToString(nonce));
+            localVarHeaderParams.put("X-OC-NONCE", localVarApiClient.parameterToString(nonce));
         }
 
         Set<String> localVarAuthNames = new HashSet<>();
@@ -397,7 +390,7 @@ public class DefiDataApi {
                 "POST",
                 localVarQueryParams,
                 localVarCollectionQueryParams,
-                localVarPostBody,
+                bodyParams.isEmpty() ? null : bodyParams.get(0),
                 localVarHeaderParams,
                 localVarCookieParams,
                 localVarFormParams,
@@ -475,66 +468,34 @@ public class DefiDataApi {
         // create path and map variables
         String localVarPath = "/api/v1/defi/data/investment/list";
 
+        List<Object> bodyParams = new ArrayList();
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
         Map<String, String> localVarHeaderParams = new HashMap<String, String>();
         Map<String, String> localVarCookieParams = new HashMap<String, String>();
         Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
-        if (listDeFiInvestmentsRequest.getInvestType() != null) {
-            localVarFormParams.put("investType", listDeFiInvestmentsRequest.getInvestType());
-        }
-
-        if (listDeFiInvestmentsRequest.getDefiProtocolId() != null) {
-            localVarFormParams.put(
-                    "defiProtocolId", listDeFiInvestmentsRequest.getDefiProtocolId());
-        }
-
-        if (listDeFiInvestmentsRequest.getTokenAddressList() != null) {
-            localVarFormParams.put(
-                    "tokenAddressList", listDeFiInvestmentsRequest.getTokenAddressList());
-        }
-
-        if (listDeFiInvestmentsRequest.getBinanceChainId() != null) {
-            localVarFormParams.put(
-                    "binanceChainId", listDeFiInvestmentsRequest.getBinanceChainId());
-        }
-
-        if (listDeFiInvestmentsRequest.getSortField() != null) {
-            localVarFormParams.put("sortField", listDeFiInvestmentsRequest.getSortField());
-        }
-
-        if (listDeFiInvestmentsRequest.getSortDirection() != null) {
-            localVarFormParams.put("sortDirection", listDeFiInvestmentsRequest.getSortDirection());
-        }
-
-        if (listDeFiInvestmentsRequest.getPage() != null) {
-            localVarFormParams.put("page", listDeFiInvestmentsRequest.getPage());
-        }
-
-        if (listDeFiInvestmentsRequest.getSize() != null) {
-            localVarFormParams.put("size", listDeFiInvestmentsRequest.getSize());
-        }
-
+        bodyParams.add(listDeFiInvestmentsRequest);
         final String[] localVarAccepts = {"application/json"};
         final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
         if (localVarAccept != null) {
             localVarHeaderParams.put("Accept", localVarAccept);
         }
 
-        final String[] localVarContentTypes = {"application/x-www-form-urlencoded"};
+        final String[] localVarContentTypes = {"application/json"};
         final String localVarContentType =
                 localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (!localVarFormParams.isEmpty() && localVarContentType != null) {
+        if (localVarContentType != null) {
             localVarHeaderParams.put("Content-Type", localVarContentType);
         }
 
         if (recvWindow != null) {
-            localVarHeaderParams.put("recvWindow", localVarApiClient.parameterToString(recvWindow));
+            localVarHeaderParams.put(
+                    "X-OC-RECV-WINDOW", localVarApiClient.parameterToString(recvWindow));
         }
 
         if (nonce != null) {
-            localVarHeaderParams.put("nonce", localVarApiClient.parameterToString(nonce));
+            localVarHeaderParams.put("X-OC-NONCE", localVarApiClient.parameterToString(nonce));
         }
 
         Set<String> localVarAuthNames = new HashSet<>();
@@ -548,7 +509,7 @@ public class DefiDataApi {
                 "POST",
                 localVarQueryParams,
                 localVarCollectionQueryParams,
-                localVarPostBody,
+                bodyParams.isEmpty() ? null : bodyParams.get(0),
                 localVarHeaderParams,
                 localVarCookieParams,
                 localVarFormParams,
@@ -607,7 +568,7 @@ public class DefiDataApi {
     }
 
     private okhttp3.Call listDeFiProtocolsCall(
-            Long recvWindow, String nonce, com.binance.connector.client.web3_wallet.rest.model.ListDeFiProtocolsRequest listDeFiProtocolsRequest)
+            Long recvWindow, String nonce, ListDeFiProtocolsRequest listDeFiProtocolsRequest)
             throws ApiException {
         String basePath = null;
         // Operation Servers
@@ -627,55 +588,34 @@ public class DefiDataApi {
         // create path and map variables
         String localVarPath = "/api/v1/defi/data/protocol/list";
 
+        List<Object> bodyParams = new ArrayList();
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
         Map<String, String> localVarHeaderParams = new HashMap<String, String>();
         Map<String, String> localVarCookieParams = new HashMap<String, String>();
         Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
-        if (listDeFiProtocolsRequest.getBinanceChainId() != null) {
-            localVarFormParams.put("binanceChainId", listDeFiProtocolsRequest.getBinanceChainId());
-        }
-
-        if (listDeFiProtocolsRequest.getInvestType() != null) {
-            localVarFormParams.put("investType", listDeFiProtocolsRequest.getInvestType());
-        }
-
-        if (listDeFiProtocolsRequest.getSortField() != null) {
-            localVarFormParams.put("sortField", listDeFiProtocolsRequest.getSortField());
-        }
-
-        if (listDeFiProtocolsRequest.getSortDirection() != null) {
-            localVarFormParams.put("sortDirection", listDeFiProtocolsRequest.getSortDirection());
-        }
-
-        if (listDeFiProtocolsRequest.getPage() != null) {
-            localVarFormParams.put("page", listDeFiProtocolsRequest.getPage());
-        }
-
-        if (listDeFiProtocolsRequest.getSize() != null) {
-            localVarFormParams.put("size", listDeFiProtocolsRequest.getSize());
-        }
-
+        bodyParams.add(listDeFiProtocolsRequest);
         final String[] localVarAccepts = {"application/json"};
         final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
         if (localVarAccept != null) {
             localVarHeaderParams.put("Accept", localVarAccept);
         }
 
-        final String[] localVarContentTypes = {"application/x-www-form-urlencoded"};
+        final String[] localVarContentTypes = {"application/json"};
         final String localVarContentType =
                 localVarApiClient.selectHeaderContentType(localVarContentTypes);
-        if (!localVarFormParams.isEmpty() && localVarContentType != null) {
+        if (localVarContentType != null) {
             localVarHeaderParams.put("Content-Type", localVarContentType);
         }
 
         if (recvWindow != null) {
-            localVarHeaderParams.put("recvWindow", localVarApiClient.parameterToString(recvWindow));
+            localVarHeaderParams.put(
+                    "X-OC-RECV-WINDOW", localVarApiClient.parameterToString(recvWindow));
         }
 
         if (nonce != null) {
-            localVarHeaderParams.put("nonce", localVarApiClient.parameterToString(nonce));
+            localVarHeaderParams.put("X-OC-NONCE", localVarApiClient.parameterToString(nonce));
         }
 
         Set<String> localVarAuthNames = new HashSet<>();
@@ -689,7 +629,7 @@ public class DefiDataApi {
                 "POST",
                 localVarQueryParams,
                 localVarCollectionQueryParams,
-                localVarPostBody,
+                bodyParams.isEmpty() ? null : bodyParams.get(0),
                 localVarHeaderParams,
                 localVarCookieParams,
                 localVarFormParams,
@@ -698,7 +638,7 @@ public class DefiDataApi {
 
     @SuppressWarnings("rawtypes")
     private okhttp3.Call listDeFiProtocolsValidateBeforeCall(
-            Long recvWindow, String nonce, com.binance.connector.client.web3_wallet.rest.model.ListDeFiProtocolsRequest listDeFiProtocolsRequest)
+            Long recvWindow, String nonce, ListDeFiProtocolsRequest listDeFiProtocolsRequest)
             throws ApiException {
         try {
             Validator validator =
@@ -735,7 +675,7 @@ public class DefiDataApi {
     }
 
     public ApiResponse<ListDeFiProtocolsResponse> listDeFiProtocols(
-            Long recvWindow, String nonce, @Valid com.binance.connector.client.web3_wallet.rest.model.ListDeFiProtocolsRequest listDeFiProtocolsRequest)
+            Long recvWindow, String nonce, @Valid ListDeFiProtocolsRequest listDeFiProtocolsRequest)
             throws ApiException {
         okhttp3.Call localVarCall =
                 listDeFiProtocolsValidateBeforeCall(recvWindow, nonce, listDeFiProtocolsRequest);
@@ -753,7 +693,7 @@ public class DefiDataApi {
     public static class ListDeFiProtocolsRequest {
         private Long recvWindow;
         private String nonce;
-        private com.binance.connector.client.web3_wallet.rest.model.ListDeFiProtocolsRequest listDeFiProtocolsRequest;
+        private ListDeFiProtocolsRequest listDeFiProtocolsRequest;
 
         public Long getRecvWindow() {
             return recvWindow;
@@ -763,7 +703,7 @@ public class DefiDataApi {
             return nonce;
         }
 
-        public com.binance.connector.client.web3_wallet.rest.model.ListDeFiProtocolsRequest getListDeFiProtocolsRequest() {
+        public ListDeFiProtocolsRequest getListDeFiProtocolsRequest() {
             return listDeFiProtocolsRequest;
         }
 
@@ -800,7 +740,7 @@ public class DefiDataApi {
          * @return ListDeFiProtocolsRequest
          */
         public ListDeFiProtocolsRequest listDeFiProtocolsRequest(
-                com.binance.connector.client.web3_wallet.rest.model.ListDeFiProtocolsRequest listDeFiProtocolsRequest) {
+                ListDeFiProtocolsRequest listDeFiProtocolsRequest) {
             this.listDeFiProtocolsRequest = listDeFiProtocolsRequest;
             return this;
         }

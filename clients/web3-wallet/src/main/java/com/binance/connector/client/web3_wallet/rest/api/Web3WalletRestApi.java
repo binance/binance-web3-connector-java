@@ -931,7 +931,7 @@ public class Web3WalletRestApi {
      *     DeFi Protocols Documentation</a>
      */
     public ApiResponse<ListDeFiProtocolsResponse> listDeFiProtocols(
-            Long recvWindow, String nonce, ListDeFiProtocolsRequest listDeFiProtocolsRequest)
+            Long recvWindow, String nonce, com.binance.connector.client.web3_wallet.rest.api.DefiDataApi.ListDeFiProtocolsRequest listDeFiProtocolsRequest)
             throws ApiException {
         return defiDataApi.listDeFiProtocols(recvWindow, nonce, listDeFiProtocolsRequest);
     }
