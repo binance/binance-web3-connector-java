@@ -1,5 +1,9 @@
 # Changelog
 
+## 4.4.1 - 2026-09-28
+
+- Fix signature generation for POST requests.
+
 ## 4.4.0 - 2026-09-21
 
 ### Added (1)

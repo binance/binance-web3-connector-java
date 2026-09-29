@@ -21,7 +21,7 @@ import java.util.UUID;
 public class Web3WalletWebSocketStreams {
     private static final String USER_AGENT =
             String.format(
-                    "binance-web3-wallet/5.0.0 (Java/%s; %s; %s)",
+                    "binance-web3-wallet/4.4.0 (Java/%s; %s; %s)",
                     SystemUtil.getJavaVersion(), SystemUtil.getOs(), SystemUtil.getArch());
 
     private final StreamConnectionInterface connection;
@@ -35,11 +35,14 @@ public class Web3WalletWebSocketStreams {
                         : new Web3StreamConnectionWrapper(configuration, JSON.getGson()));
     }
 
-    public Web3WalletWebSocketStreams(Web3WebSocketClientConfiguration configuration, String userToken) {
+    public Web3WalletWebSocketStreams(
+            Web3WebSocketClientConfiguration configuration, String userToken) {
         this(
                 configuration.getUsePool()
-                        ? new Web3StreamConnectionPoolWrapper(configuration, JSON.getGson(), userToken)
-                        : new Web3StreamConnectionWrapper(configuration, JSON.getGson(), userToken));
+                        ? new Web3StreamConnectionPoolWrapper(
+                                configuration, JSON.getGson(), userToken)
+                        : new Web3StreamConnectionWrapper(
+                                configuration, JSON.getGson(), userToken));
     }
 
     public Web3WalletWebSocketStreams(StreamConnectionInterface connection) {

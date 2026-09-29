@@ -141,8 +141,8 @@ public class WalletApiTest {
         Call captorValue = callArgumentCaptor.getValue();
         Request actualRequest = captorValue.request();
 
-        assertEquals("timestamp=1736393892000tokenContractAddresses=%5B%7B%22binanceChainId%22%3A%221%22%2C%22tokenContractAddress%22%3A%220x2260fac5e5542a773aa44fbcfedf7c193bc2c599%22%7D%5D&address=0x50c476a139aab23fdaf9bca12614cdd54a4244e3", signInputCaptor.getValue());
-        assertEquals("7d9d5a78a341ecd7ec35e884de59ef908d4d8efbe8e266d775253f546c1cb8d7", actualRequest.url().queryParameter("signature"));
+        assertEquals("timestamp=1736393892000{\"address\":\"0x50c476a139aab23fdaf9bca12614cdd54a4244e3\",\"tokenContractAddresses\":[{\"binanceChainId\":\"1\",\"tokenContractAddress\":\"0x2260fac5e5542a773aa44fbcfedf7c193bc2c599\"}]}", signInputCaptor.getValue());
+        assertEquals("7f8024ea2102536ab1ce8635a05d6e51a65e428250df2eac957d14b115ff525b", actualRequest.url().queryParameter("signature"));
         assertEquals("/api/v1/dex/balance/token-balances-by-address", actualRequest.url().encodedPath());
     }
 
