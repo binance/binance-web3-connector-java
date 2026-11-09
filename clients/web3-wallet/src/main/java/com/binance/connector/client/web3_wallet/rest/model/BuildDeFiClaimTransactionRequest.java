@@ -29,12 +29,14 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 import org.hibernate.validator.constraints.*;
+import org.openapitools.jackson.nullable.JsonNullable;
 
 /** BuildDeFiClaimTransactionRequest */
 @jakarta.annotation.Generated(
@@ -59,19 +61,30 @@ public class BuildDeFiClaimTransactionRequest {
      * &#x60;defiProtocolId&#x60; + &#x60;binanceChainId&#x60; - &#x60;REWARD_INVESTMENT&#x60;:
      * per-investment rewards — requires &#x60;investmentId&#x60; - &#x60;LP_FEE&#x60;: Uniswap
      * V3/V4 LP fees — requires &#x60;investmentId&#x60; + &#x60;nftId&#x60; -
-     * &#x60;REDEMPTION&#x60;: redeem principal (Lista / Aster / Solv etc.) — requires
-     * &#x60;investmentId&#x60; + &#x60;redemptionId&#x60; **Protocol constraints** — not every
-     * &#x60;claimType&#x60; is valid for every protocol; an invalid combination is rejected
-     * (&#x60;40453&#x60; or &#x60;40454&#x60;): - &#x60;REWARD_PROTOCOL&#x60; is **not** supported
-     * for LP (liquidity-pool) protocols in this release. - &#x60;REWARD_INVESTMENT&#x60; is not
-     * supported for PancakeSwap V3 farming positions; use &#x60;LP_FEE&#x60; to claim farming
-     * incentives there. - &#x60;LP_FEE&#x60; applies only to concentrated-liquidity (V3/V4) LP
-     * positions. - &#x60;REDEMPTION&#x60; applies only to protocols with a redemption / lock-up
-     * flow (Lista, Aster, Solv). The valid &#x60;claimType&#x60;s for a specific position are
-     * returned in that position&#39;s &#x60;positionDetail.claimTypes&#x60; (see the position list)
-     * — branch on that rather than hard-coding the mapping. Note: error messages may surface the
-     * protocol id with a chain prefix (e.g. &#x60;bsc_pancakeswap4&#x60;); the canonical id in API
-     * fields is the un-prefixed form (e.g. &#x60;pancakeswap4&#x60;).
+     * &#x60;REDEMPTION&#x60;: redeem principal. Requires &#x60;investmentId&#x60; +
+     * &#x60;redemptionId&#x60; for EVM protocols (Lista, Aster, Solv) and for Solana protocols
+     * whose redeem mints a withdrawal ticket (&#x60;renzo&#x60;, &#x60;marinadefinance&#x60;
+     * liquid, &#x60;jito&#x60;, &#x60;solayer&#x60;, &#x60;fragmetric&#x60;, &#x60;jupiter&#x60;
+     * Stake JUP) — the &#x60;redemptionId&#x60; comes from the position list and is populated once
+     * the cooldown ends (&#x60;unlockTimeReached &#x3D; true&#x60;). For Solana native staking
+     * (&#x60;sol_staking&#x60;) and Jupiter jupSOL (whose claim handle surfaces under
+     * &#x60;sol_staking&#x60;), substitute &#x60;stakeAccounts&#x60; for &#x60;redemptionId&#x60;
+     * (no redemption record). **Protocol constraints** — not every &#x60;claimType&#x60; is valid
+     * for every protocol; an invalid combination is rejected (&#x60;40453&#x60; or
+     * &#x60;40454&#x60;): - &#x60;REWARD_PROTOCOL&#x60; is **not** supported for LP
+     * (liquidity-pool) protocols in this release. - &#x60;REWARD_INVESTMENT&#x60; is not supported
+     * for PancakeSwap V3 farming positions; use &#x60;LP_FEE&#x60; to claim farming incentives
+     * there. - &#x60;LP_FEE&#x60; applies only to concentrated-liquidity (V3/V4) LP positions,
+     * including Solana CLMM (&#x60;raydium3&#x60;, &#x60;orca3&#x60;). - &#x60;REDEMPTION&#x60;
+     * applies only to protocols with a redemption / lock-up flow: EVM Lista / Aster / Solv, and on
+     * Solana &#x60;sol_staking&#x60;, &#x60;renzo&#x60;, &#x60;marinadefinance&#x60;,
+     * &#x60;jito&#x60;, &#x60;solayer&#x60;, &#x60;fragmetric&#x60;, and &#x60;jupiter&#x60; stake
+     * surfaces. - Some Solana protocols auto-compound rewards into the position value (e.g.
+     * &#x60;sol_staking&#x60;, &#x60;marinadefinance&#x60;, &#x60;jito&#x60;); their
+     * &#x60;claimReward&#x60; (&#x60;REWARD_PROTOCOL&#x60; / &#x60;REWARD_INVESTMENT&#x60;) is not
+     * supported and is rejected with &#x60;40481&#x60;. For a given position, prefer the
+     * &#x60;claimTypes&#x60; / &#x60;redemptionId&#x60; / &#x60;userStakeAccount&#x60; fields
+     * returned by the position list to decide the claim path — see Integration Flow.
      */
     @JsonAdapter(ClaimTypeEnum.Adapter.class)
     public enum ClaimTypeEnum {
@@ -157,6 +170,12 @@ public class BuildDeFiClaimTransactionRequest {
     @jakarta.annotation.Nullable
     private String redemptionId;
 
+    public static final String SERIALIZED_NAME_STAKE_ACCOUNTS = "stakeAccounts";
+
+    @SerializedName(SERIALIZED_NAME_STAKE_ACCOUNTS)
+    @jakarta.annotation.Nullable
+    private List<String> stakeAccounts;
+
     public static final String SERIALIZED_NAME_TOKEN_ADDRESS_LIST = "tokenAddressList";
 
     @SerializedName(SERIALIZED_NAME_TOKEN_ADDRESS_LIST)
@@ -227,19 +246,30 @@ public class BuildDeFiClaimTransactionRequest {
      * &#x60;defiProtocolId&#x60; + &#x60;binanceChainId&#x60; - &#x60;REWARD_INVESTMENT&#x60;:
      * per-investment rewards — requires &#x60;investmentId&#x60; - &#x60;LP_FEE&#x60;: Uniswap
      * V3/V4 LP fees — requires &#x60;investmentId&#x60; + &#x60;nftId&#x60; -
-     * &#x60;REDEMPTION&#x60;: redeem principal (Lista / Aster / Solv etc.) — requires
-     * &#x60;investmentId&#x60; + &#x60;redemptionId&#x60; **Protocol constraints** — not every
-     * &#x60;claimType&#x60; is valid for every protocol; an invalid combination is rejected
-     * (&#x60;40453&#x60; or &#x60;40454&#x60;): - &#x60;REWARD_PROTOCOL&#x60; is **not** supported
-     * for LP (liquidity-pool) protocols in this release. - &#x60;REWARD_INVESTMENT&#x60; is not
-     * supported for PancakeSwap V3 farming positions; use &#x60;LP_FEE&#x60; to claim farming
-     * incentives there. - &#x60;LP_FEE&#x60; applies only to concentrated-liquidity (V3/V4) LP
-     * positions. - &#x60;REDEMPTION&#x60; applies only to protocols with a redemption / lock-up
-     * flow (Lista, Aster, Solv). The valid &#x60;claimType&#x60;s for a specific position are
-     * returned in that position&#39;s &#x60;positionDetail.claimTypes&#x60; (see the position list)
-     * — branch on that rather than hard-coding the mapping. Note: error messages may surface the
-     * protocol id with a chain prefix (e.g. &#x60;bsc_pancakeswap4&#x60;); the canonical id in API
-     * fields is the un-prefixed form (e.g. &#x60;pancakeswap4&#x60;).
+     * &#x60;REDEMPTION&#x60;: redeem principal. Requires &#x60;investmentId&#x60; +
+     * &#x60;redemptionId&#x60; for EVM protocols (Lista, Aster, Solv) and for Solana protocols
+     * whose redeem mints a withdrawal ticket (&#x60;renzo&#x60;, &#x60;marinadefinance&#x60;
+     * liquid, &#x60;jito&#x60;, &#x60;solayer&#x60;, &#x60;fragmetric&#x60;, &#x60;jupiter&#x60;
+     * Stake JUP) — the &#x60;redemptionId&#x60; comes from the position list and is populated once
+     * the cooldown ends (&#x60;unlockTimeReached &#x3D; true&#x60;). For Solana native staking
+     * (&#x60;sol_staking&#x60;) and Jupiter jupSOL (whose claim handle surfaces under
+     * &#x60;sol_staking&#x60;), substitute &#x60;stakeAccounts&#x60; for &#x60;redemptionId&#x60;
+     * (no redemption record). **Protocol constraints** — not every &#x60;claimType&#x60; is valid
+     * for every protocol; an invalid combination is rejected (&#x60;40453&#x60; or
+     * &#x60;40454&#x60;): - &#x60;REWARD_PROTOCOL&#x60; is **not** supported for LP
+     * (liquidity-pool) protocols in this release. - &#x60;REWARD_INVESTMENT&#x60; is not supported
+     * for PancakeSwap V3 farming positions; use &#x60;LP_FEE&#x60; to claim farming incentives
+     * there. - &#x60;LP_FEE&#x60; applies only to concentrated-liquidity (V3/V4) LP positions,
+     * including Solana CLMM (&#x60;raydium3&#x60;, &#x60;orca3&#x60;). - &#x60;REDEMPTION&#x60;
+     * applies only to protocols with a redemption / lock-up flow: EVM Lista / Aster / Solv, and on
+     * Solana &#x60;sol_staking&#x60;, &#x60;renzo&#x60;, &#x60;marinadefinance&#x60;,
+     * &#x60;jito&#x60;, &#x60;solayer&#x60;, &#x60;fragmetric&#x60;, and &#x60;jupiter&#x60; stake
+     * surfaces. - Some Solana protocols auto-compound rewards into the position value (e.g.
+     * &#x60;sol_staking&#x60;, &#x60;marinadefinance&#x60;, &#x60;jito&#x60;); their
+     * &#x60;claimReward&#x60; (&#x60;REWARD_PROTOCOL&#x60; / &#x60;REWARD_INVESTMENT&#x60;) is not
+     * supported and is rejected with &#x60;40481&#x60;. For a given position, prefer the
+     * &#x60;claimTypes&#x60; / &#x60;redemptionId&#x60; / &#x60;userStakeAccount&#x60; fields
+     * returned by the position list to decide the claim path — see Integration Flow.
      *
      * @return claimType
      */
@@ -323,8 +353,16 @@ public class BuildDeFiClaimTransactionRequest {
     }
 
     /**
-     * Required for &#x60;REDEMPTION&#x60;. Maps to the &#x60;redemptionId&#x60; returned in the
-     * position list (the on-line position index).
+     * Required for &#x60;REDEMPTION&#x60; on EVM and on the Solana protocols whose redeem mints a
+     * withdrawal ticket / record (&#x60;renzo&#x60;, &#x60;marinadefinance&#x60; liquid,
+     * &#x60;jito&#x60;, &#x60;solayer&#x60;, &#x60;fragmetric&#x60;, &#x60;jupiter&#x60; Stake
+     * JUP). Maps to the &#x60;redemptionId&#x60; returned in the position list (the on-line
+     * position index), and is only populated once the cooldown ends (&#x60;unlockTimeReached &#x3D;
+     * true&#x60;; &#x60;null&#x60; while cooling down). For Solana native staking
+     * (&#x60;sol_staking&#x60;) and Jupiter jupSOL (&#x60;jupiter&#x60; stake surfaces) under
+     * &#x60;REDEMPTION&#x60;, pass &#x60;stakeAccounts&#x60; instead — these have no redemption
+     * record, so &#x60;redemptionId&#x60; becomes optional when &#x60;stakeAccounts&#x60; is
+     * supplied.
      *
      * @return redemptionId
      */
@@ -335,6 +373,44 @@ public class BuildDeFiClaimTransactionRequest {
 
     public void setRedemptionId(@jakarta.annotation.Nullable String redemptionId) {
         this.redemptionId = redemptionId;
+    }
+
+    public BuildDeFiClaimTransactionRequest stakeAccounts(
+            @jakarta.annotation.Nullable List<String> stakeAccounts) {
+        this.stakeAccounts = stakeAccounts;
+        return this;
+    }
+
+    public BuildDeFiClaimTransactionRequest addStakeAccountsItem(String stakeAccountsItem) {
+        if (this.stakeAccounts == null) {
+            this.stakeAccounts = new ArrayList<>();
+        }
+        this.stakeAccounts.add(stakeAccountsItem);
+        return this;
+    }
+
+    /**
+     * Base58 stake account address(es) — the account(s) to withdraw after the deactivation
+     * cooldown. Required for &#x60;REDEMPTION&#x60; on Solana native staking
+     * (&#x60;sol_staking&#x60;) and Jupiter jupSOL (claimed under &#x60;sol_staking&#x60; in the
+     * position list; pass the &#x60;sol_staking&#x60; or the jupSOL &#x60;investmentId&#x60; + this
+     * address). Makes &#x60;redemptionId&#x60; optional for these (no redemption record). Do
+     * **not** pass &#x60;stakeAccounts&#x60; for Stake JUP (&#x60;jupiter&#x60;
+     * &#x60;stake_jup&#x60;) — it uses &#x60;redemptionId&#x60;, and passing
+     * &#x60;stakeAccounts&#x60; builds a transaction that fails on-chain. Passing
+     * &#x60;stakeAccounts&#x60; for any other protocol (EVM, LP, or other Solana protocols whose
+     * redeem produces a ticket — those use &#x60;redemptionId&#x60;) is also a parameter error.
+     * This release supports exactly one element (length at most 1).
+     *
+     * @return stakeAccounts
+     */
+    @jakarta.annotation.Nullable
+    public List<String> getStakeAccounts() {
+        return stakeAccounts;
+    }
+
+    public void setStakeAccounts(@jakarta.annotation.Nullable List<String> stakeAccounts) {
+        this.stakeAccounts = stakeAccounts;
     }
 
     public BuildDeFiClaimTransactionRequest tokenAddressList(
@@ -408,8 +484,19 @@ public class BuildDeFiClaimTransactionRequest {
                 && Objects.equals(this.nftId, buildDeFiClaimTransactionRequest.nftId)
                 && Objects.equals(this.redemptionId, buildDeFiClaimTransactionRequest.redemptionId)
                 && Objects.equals(
+                        this.stakeAccounts, buildDeFiClaimTransactionRequest.stakeAccounts)
+                && Objects.equals(
                         this.tokenAddressList, buildDeFiClaimTransactionRequest.tokenAddressList)
                 && Objects.equals(this.simulate, buildDeFiClaimTransactionRequest.simulate);
+    }
+
+    private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
+        return a == b
+                || (a != null
+                        && b != null
+                        && a.isPresent()
+                        && b.isPresent()
+                        && Objects.deepEquals(a.get(), b.get()));
     }
 
     @Override
@@ -422,8 +509,16 @@ public class BuildDeFiClaimTransactionRequest {
                 defiProtocolId,
                 nftId,
                 redemptionId,
+                stakeAccounts,
                 tokenAddressList,
                 simulate);
+    }
+
+    private static <T> int hashCodeNullable(JsonNullable<T> a) {
+        if (a == null) {
+            return 1;
+        }
+        return a.isPresent() ? Arrays.deepHashCode(new Object[] {a.get()}) : 31;
     }
 
     @Override
@@ -437,6 +532,7 @@ public class BuildDeFiClaimTransactionRequest {
         sb.append("		defiProtocolId: ").append(toIndentedString(defiProtocolId)).append("\n");
         sb.append("		nftId: ").append(toIndentedString(nftId)).append("\n");
         sb.append("		redemptionId: ").append(toIndentedString(redemptionId)).append("\n");
+        sb.append("		stakeAccounts: ").append(toIndentedString(stakeAccounts)).append("\n");
         sb.append("		tokenAddressList: ").append(toIndentedString(tokenAddressList)).append("\n");
         sb.append("		simulate: ").append(toIndentedString(simulate)).append("\n");
         sb.append("}");
@@ -474,6 +570,13 @@ public class BuildDeFiClaimTransactionRequest {
         String redemptionIdValueAsString = "";
         redemptionIdValueAsString = redemptionIdValue.toString();
         sb.append("redemptionId=").append(urlEncode(redemptionIdValueAsString)).append("");
+        Object stakeAccountsValue = getStakeAccounts();
+        String stakeAccountsValueAsString = "";
+        stakeAccountsValueAsString =
+                (String)
+                        ((Collection) stakeAccountsValue)
+                                .stream().map(Object::toString).collect(Collectors.joining(","));
+        sb.append("stakeAccounts=").append(urlEncode(stakeAccountsValueAsString)).append("");
         Object tokenAddressListValue = getTokenAddressList();
         String tokenAddressListValueAsString = "";
         tokenAddressListValueAsString =
@@ -520,6 +623,7 @@ public class BuildDeFiClaimTransactionRequest {
         openapiFields.add("defiProtocolId");
         openapiFields.add("nftId");
         openapiFields.add("redemptionId");
+        openapiFields.add("stakeAccounts");
         openapiFields.add("tokenAddressList");
         openapiFields.add("simulate");
 
@@ -613,6 +717,16 @@ public class BuildDeFiClaimTransactionRequest {
                             "Expected the field `redemptionId` to be a primitive type in the JSON"
                                     + " string but got `%s`",
                             jsonObj.get("redemptionId").toString()));
+        }
+        // ensure the optional json data is an array if present
+        if (jsonObj.get("stakeAccounts") != null
+                && !jsonObj.get("stakeAccounts").isJsonNull()
+                && !jsonObj.get("stakeAccounts").isJsonArray()) {
+            throw new IllegalArgumentException(
+                    String.format(
+                            "Expected the field `stakeAccounts` to be an array in the JSON string"
+                                    + " but got `%s`",
+                            jsonObj.get("stakeAccounts").toString()));
         }
         // ensure the optional json data is an array if present
         if (jsonObj.get("tokenAddressList") != null

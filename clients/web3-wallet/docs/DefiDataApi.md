@@ -17,7 +17,7 @@ All URIs are relative to *https://web3.binance.com/build*
 
 Get DeFi Positions
 
-Query DeFi positions for one or more wallet addresses on BSC. Returns protocol-level position summaries with token breakdowns. Optionally filter by specific chains via &#x60;binanceChainIds&#x60;. Position coverage is wider than the protocol list used by data queries and transaction building — see [Supported Chains &amp; Protocols](../supported-chains) for the difference.
+Query DeFi positions for one or more wallet addresses across the supported chains. Returns protocol-level position summaries with token breakdowns. Optionally filter by specific chains via &#x60;binanceChainIds&#x60;; when omitted, positions across all supported chains are returned. Position coverage is wider than the protocol list used by data queries and transaction building — see Supported Chains &amp; Protocols for the difference.
 
 ### Example
 ```java
@@ -79,9 +79,6 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | DeFi positions returned successfully. |  -  |
-| **401** | Unauthorized. The request is missing or contains an invalid API key. |  -  |
-| **403** | Forbidden. The API key does not have permission to access this endpoint. |  -  |
-| **404** | Not Found. The requested resource or endpoint does not exist. |  -  |
 
 <a id="getInvestmentDetail"></a>
 # **getInvestmentDetail**
@@ -151,9 +148,6 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Investment detail returned successfully. |  -  |
-| **401** | Unauthorized. The request is missing or contains an invalid API key. |  -  |
-| **403** | Forbidden. The API key does not have permission to access this endpoint. |  -  |
-| **404** | Not Found. The requested resource or endpoint does not exist. |  -  |
 
 <a id="getProtocolDetail"></a>
 # **getProtocolDetail**
@@ -223,9 +217,6 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Protocol detail returned successfully. |  -  |
-| **401** | Unauthorized. The request is missing or contains an invalid API key. |  -  |
-| **403** | Forbidden. The API key does not have permission to access this endpoint. |  -  |
-| **404** | Not Found. The requested resource or endpoint does not exist. |  -  |
 
 <a id="listDeFiInvestments"></a>
 # **listDeFiInvestments**
@@ -295,9 +286,6 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Investment list returned successfully. |  -  |
-| **401** | Unauthorized. The request is missing or contains an invalid API key. |  -  |
-| **403** | Forbidden. The API key does not have permission to access this endpoint. |  -  |
-| **404** | Not Found. The requested resource or endpoint does not exist. |  -  |
 
 <a id="listDeFiProtocols"></a>
 # **listDeFiProtocols**
@@ -368,7 +356,4 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Protocol list returned successfully. |  -  |
-| **401** | Unauthorized. The request is missing or contains an invalid API key. |  -  |
-| **403** | Forbidden. The API key does not have permission to access this endpoint. |  -  |
-| **404** | Not Found. The requested resource or endpoint does not exist. |  -  |
 

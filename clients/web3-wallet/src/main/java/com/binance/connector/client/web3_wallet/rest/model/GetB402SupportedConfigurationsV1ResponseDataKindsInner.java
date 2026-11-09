@@ -32,39 +32,39 @@ import java.util.HashSet;
 import java.util.Objects;
 import org.hibernate.validator.constraints.*;
 
-/** GetB402SupportedConfigurationsV2Response1DataKindsInner */
+/** GetB402SupportedConfigurationsV1ResponseDataKindsInner */
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
         comments = "Generator version: 7.22.0")
-public class GetB402SupportedConfigurationsV2Response1DataKindsInner {
+public class GetB402SupportedConfigurationsV1ResponseDataKindsInner {
     public static final String SERIALIZED_NAME_X402_VERSION = "x402Version";
 
     @SerializedName(SERIALIZED_NAME_X402_VERSION)
-    @jakarta.annotation.Nonnull
+    @jakarta.annotation.Nullable
     private Integer x402Version;
 
     public static final String SERIALIZED_NAME_SCHEME = "scheme";
 
     @SerializedName(SERIALIZED_NAME_SCHEME)
-    @jakarta.annotation.Nonnull
+    @jakarta.annotation.Nullable
     private String scheme;
 
     public static final String SERIALIZED_NAME_NETWORK = "network";
 
     @SerializedName(SERIALIZED_NAME_NETWORK)
-    @jakarta.annotation.Nonnull
+    @jakarta.annotation.Nullable
     private String network;
 
     public static final String SERIALIZED_NAME_EXTRA = "extra";
 
     @SerializedName(SERIALIZED_NAME_EXTRA)
-    @jakarta.annotation.Nonnull
-    private GetB402SupportedConfigurationsV2Response1DataKindsInnerExtra extra;
+    @jakarta.annotation.Nullable
+    private GetB402SupportedConfigurationsV1ResponseDataKindsInnerExtra extra;
 
-    public GetB402SupportedConfigurationsV2Response1DataKindsInner() {}
+    public GetB402SupportedConfigurationsV1ResponseDataKindsInner() {}
 
-    public GetB402SupportedConfigurationsV2Response1DataKindsInner x402Version(
-            @jakarta.annotation.Nonnull Integer x402Version) {
+    public GetB402SupportedConfigurationsV1ResponseDataKindsInner x402Version(
+            @jakarta.annotation.Nullable Integer x402Version) {
         this.x402Version = x402Version;
         return this;
     }
@@ -74,18 +74,17 @@ public class GetB402SupportedConfigurationsV2Response1DataKindsInner {
      *
      * @return x402Version
      */
-    @jakarta.annotation.Nonnull
-    @NotNull
+    @jakarta.annotation.Nullable
     public Integer getX402Version() {
         return x402Version;
     }
 
-    public void setX402Version(@jakarta.annotation.Nonnull Integer x402Version) {
+    public void setX402Version(@jakarta.annotation.Nullable Integer x402Version) {
         this.x402Version = x402Version;
     }
 
-    public GetB402SupportedConfigurationsV2Response1DataKindsInner scheme(
-            @jakarta.annotation.Nonnull String scheme) {
+    public GetB402SupportedConfigurationsV1ResponseDataKindsInner scheme(
+            @jakarta.annotation.Nullable String scheme) {
         this.scheme = scheme;
         return this;
     }
@@ -95,18 +94,17 @@ public class GetB402SupportedConfigurationsV2Response1DataKindsInner {
      *
      * @return scheme
      */
-    @jakarta.annotation.Nonnull
-    @NotNull
+    @jakarta.annotation.Nullable
     public String getScheme() {
         return scheme;
     }
 
-    public void setScheme(@jakarta.annotation.Nonnull String scheme) {
+    public void setScheme(@jakarta.annotation.Nullable String scheme) {
         this.scheme = scheme;
     }
 
-    public GetB402SupportedConfigurationsV2Response1DataKindsInner network(
-            @jakarta.annotation.Nonnull String network) {
+    public GetB402SupportedConfigurationsV1ResponseDataKindsInner network(
+            @jakarta.annotation.Nullable String network) {
         this.network = network;
         return this;
     }
@@ -116,19 +114,18 @@ public class GetB402SupportedConfigurationsV2Response1DataKindsInner {
      *
      * @return network
      */
-    @jakarta.annotation.Nonnull
-    @NotNull
+    @jakarta.annotation.Nullable
     public String getNetwork() {
         return network;
     }
 
-    public void setNetwork(@jakarta.annotation.Nonnull String network) {
+    public void setNetwork(@jakarta.annotation.Nullable String network) {
         this.network = network;
     }
 
-    public GetB402SupportedConfigurationsV2Response1DataKindsInner extra(
-            @jakarta.annotation.Nonnull
-                    GetB402SupportedConfigurationsV2Response1DataKindsInnerExtra extra) {
+    public GetB402SupportedConfigurationsV1ResponseDataKindsInner extra(
+            @jakarta.annotation.Nullable
+                    GetB402SupportedConfigurationsV1ResponseDataKindsInnerExtra extra) {
         this.extra = extra;
         return this;
     }
@@ -138,16 +135,15 @@ public class GetB402SupportedConfigurationsV2Response1DataKindsInner {
      *
      * @return extra
      */
-    @jakarta.annotation.Nonnull
-    @NotNull
+    @jakarta.annotation.Nullable
     @Valid
-    public GetB402SupportedConfigurationsV2Response1DataKindsInnerExtra getExtra() {
+    public GetB402SupportedConfigurationsV1ResponseDataKindsInnerExtra getExtra() {
         return extra;
     }
 
     public void setExtra(
-            @jakarta.annotation.Nonnull
-                    GetB402SupportedConfigurationsV2Response1DataKindsInnerExtra extra) {
+            @jakarta.annotation.Nullable
+                    GetB402SupportedConfigurationsV1ResponseDataKindsInnerExtra extra) {
         this.extra = extra;
     }
 
@@ -159,19 +155,19 @@ public class GetB402SupportedConfigurationsV2Response1DataKindsInner {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        GetB402SupportedConfigurationsV2Response1DataKindsInner
-                getB402SupportedConfigurationsV2Response1DataKindsInner =
-                        (GetB402SupportedConfigurationsV2Response1DataKindsInner) o;
+        GetB402SupportedConfigurationsV1ResponseDataKindsInner
+                getB402SupportedConfigurationsV1ResponseDataKindsInner =
+                        (GetB402SupportedConfigurationsV1ResponseDataKindsInner) o;
         return Objects.equals(
                         this.x402Version,
-                        getB402SupportedConfigurationsV2Response1DataKindsInner.x402Version)
+                        getB402SupportedConfigurationsV1ResponseDataKindsInner.x402Version)
                 && Objects.equals(
-                        this.scheme, getB402SupportedConfigurationsV2Response1DataKindsInner.scheme)
+                        this.scheme, getB402SupportedConfigurationsV1ResponseDataKindsInner.scheme)
                 && Objects.equals(
                         this.network,
-                        getB402SupportedConfigurationsV2Response1DataKindsInner.network)
+                        getB402SupportedConfigurationsV1ResponseDataKindsInner.network)
                 && Objects.equals(
-                        this.extra, getB402SupportedConfigurationsV2Response1DataKindsInner.extra);
+                        this.extra, getB402SupportedConfigurationsV1ResponseDataKindsInner.extra);
     }
 
     @Override
@@ -182,7 +178,7 @@ public class GetB402SupportedConfigurationsV2Response1DataKindsInner {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("class GetB402SupportedConfigurationsV2Response1DataKindsInner {\n");
+        sb.append("class GetB402SupportedConfigurationsV1ResponseDataKindsInner {\n");
         sb.append("		x402Version: ").append(toIndentedString(x402Version)).append("\n");
         sb.append("		scheme: ").append(toIndentedString(scheme)).append("\n");
         sb.append("		network: ").append(toIndentedString(network)).append("\n");
@@ -245,10 +241,6 @@ public class GetB402SupportedConfigurationsV2Response1DataKindsInner {
 
         // a set of required properties/fields (JSON key names)
         openapiRequiredFields = new HashSet<String>();
-        openapiRequiredFields.add("x402Version");
-        openapiRequiredFields.add("scheme");
-        openapiRequiredFields.add("network");
-        openapiRequiredFields.add("extra");
     }
 
     /**
@@ -256,83 +248,76 @@ public class GetB402SupportedConfigurationsV2Response1DataKindsInner {
      *
      * @param jsonElement JSON Element
      * @throws IOException if the JSON Element is invalid with respect to
-     *     GetB402SupportedConfigurationsV2Response1DataKindsInner
+     *     GetB402SupportedConfigurationsV1ResponseDataKindsInner
      */
     public static void validateJsonElement(JsonElement jsonElement) throws IOException {
         if (jsonElement == null) {
-            if (!GetB402SupportedConfigurationsV2Response1DataKindsInner.openapiRequiredFields
+            if (!GetB402SupportedConfigurationsV1ResponseDataKindsInner.openapiRequiredFields
                     .isEmpty()) { // has required fields but JSON element is null
                 throw new IllegalArgumentException(
                         String.format(
                                 "The required field(s) %s in"
-                                    + " GetB402SupportedConfigurationsV2Response1DataKindsInner is"
+                                    + " GetB402SupportedConfigurationsV1ResponseDataKindsInner is"
                                     + " not found in the empty JSON string",
-                                GetB402SupportedConfigurationsV2Response1DataKindsInner
+                                GetB402SupportedConfigurationsV1ResponseDataKindsInner
                                         .openapiRequiredFields
                                         .toString()));
             }
         }
-
-        // check to make sure all required properties/fields are present in the JSON string
-        for (String requiredField :
-                GetB402SupportedConfigurationsV2Response1DataKindsInner.openapiRequiredFields) {
-            if (jsonElement.getAsJsonObject().get(requiredField) == null) {
-                throw new IllegalArgumentException(
-                        String.format(
-                                "The required field `%s` is not found in the JSON string: %s",
-                                requiredField, jsonElement.toString()));
-            }
-        }
         JsonObject jsonObj = jsonElement.getAsJsonObject();
-        if (!jsonObj.get("scheme").isJsonPrimitive()) {
+        if ((jsonObj.get("scheme") != null && !jsonObj.get("scheme").isJsonNull())
+                && !jsonObj.get("scheme").isJsonPrimitive()) {
             throw new IllegalArgumentException(
                     String.format(
                             "Expected the field `scheme` to be a primitive type in the JSON string"
                                     + " but got `%s`",
                             jsonObj.get("scheme").toString()));
         }
-        if (!jsonObj.get("network").isJsonPrimitive()) {
+        if ((jsonObj.get("network") != null && !jsonObj.get("network").isJsonNull())
+                && !jsonObj.get("network").isJsonPrimitive()) {
             throw new IllegalArgumentException(
                     String.format(
                             "Expected the field `network` to be a primitive type in the JSON string"
                                     + " but got `%s`",
                             jsonObj.get("network").toString()));
         }
-        // validate the required field `extra`
-        GetB402SupportedConfigurationsV2Response1DataKindsInnerExtra.validateJsonElement(
-                jsonObj.get("extra"));
+        // validate the optional field `extra`
+        if (jsonObj.get("extra") != null && !jsonObj.get("extra").isJsonNull()) {
+            GetB402SupportedConfigurationsV1ResponseDataKindsInnerExtra.validateJsonElement(
+                    jsonObj.get("extra"));
+        }
     }
 
     public static class CustomTypeAdapterFactory implements TypeAdapterFactory {
         @SuppressWarnings("unchecked")
         @Override
         public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
-            if (!GetB402SupportedConfigurationsV2Response1DataKindsInner.class.isAssignableFrom(
+            if (!GetB402SupportedConfigurationsV1ResponseDataKindsInner.class.isAssignableFrom(
                     type.getRawType())) {
                 return null; // this class only serializes
-                // 'GetB402SupportedConfigurationsV2Response1DataKindsInner' and its
+                // 'GetB402SupportedConfigurationsV1ResponseDataKindsInner' and its
                 // subtypes
             }
             final TypeAdapter<JsonElement> elementAdapter = gson.getAdapter(JsonElement.class);
-            final TypeAdapter<GetB402SupportedConfigurationsV2Response1DataKindsInner> thisAdapter =
+            final TypeAdapter<GetB402SupportedConfigurationsV1ResponseDataKindsInner> thisAdapter =
                     gson.getDelegateAdapter(
                             this,
                             TypeToken.get(
-                                    GetB402SupportedConfigurationsV2Response1DataKindsInner.class));
+                                    GetB402SupportedConfigurationsV1ResponseDataKindsInner.class));
 
             return (TypeAdapter<T>)
-                    new TypeAdapter<GetB402SupportedConfigurationsV2Response1DataKindsInner>() {
+                    new TypeAdapter<GetB402SupportedConfigurationsV1ResponseDataKindsInner>() {
                         @Override
                         public void write(
                                 JsonWriter out,
-                                GetB402SupportedConfigurationsV2Response1DataKindsInner value)
+                                GetB402SupportedConfigurationsV1ResponseDataKindsInner value)
                                 throws IOException {
                             JsonElement obj = thisAdapter.toJsonTree(value).getAsJsonObject();
                             elementAdapter.write(out, obj);
                         }
 
                         @Override
-                        public GetB402SupportedConfigurationsV2Response1DataKindsInner read(
+                        public GetB402SupportedConfigurationsV1ResponseDataKindsInner read(
                                 JsonReader in) throws IOException {
                             JsonElement jsonElement = elementAdapter.read(in);
                             // validateJsonElement(jsonElement);
@@ -343,23 +328,22 @@ public class GetB402SupportedConfigurationsV2Response1DataKindsInner {
     }
 
     /**
-     * Create an instance of GetB402SupportedConfigurationsV2Response1DataKindsInner given an JSON
+     * Create an instance of GetB402SupportedConfigurationsV1ResponseDataKindsInner given an JSON
      * string
      *
      * @param jsonString JSON string
-     * @return An instance of GetB402SupportedConfigurationsV2Response1DataKindsInner
+     * @return An instance of GetB402SupportedConfigurationsV1ResponseDataKindsInner
      * @throws IOException if the JSON string is invalid with respect to
-     *     GetB402SupportedConfigurationsV2Response1DataKindsInner
+     *     GetB402SupportedConfigurationsV1ResponseDataKindsInner
      */
-    public static GetB402SupportedConfigurationsV2Response1DataKindsInner fromJson(
-            String jsonString) throws IOException {
+    public static GetB402SupportedConfigurationsV1ResponseDataKindsInner fromJson(String jsonString)
+            throws IOException {
         return JSON.getGson()
-                .fromJson(
-                        jsonString, GetB402SupportedConfigurationsV2Response1DataKindsInner.class);
+                .fromJson(jsonString, GetB402SupportedConfigurationsV1ResponseDataKindsInner.class);
     }
 
     /**
-     * Convert an instance of GetB402SupportedConfigurationsV2Response1DataKindsInner to an JSON
+     * Convert an instance of GetB402SupportedConfigurationsV1ResponseDataKindsInner to an JSON
      * string
      *
      * @return JSON string

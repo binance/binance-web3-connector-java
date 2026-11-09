@@ -12,8 +12,8 @@
 |**binanceChainId** | **String** | Chain identifier echoed from the request. |  [optional] |
 |**fromTokenAmount** | **String** | Sell amount echoed from the request (smallest unit, integer string). |  [optional] |
 |**toTokenAmount** | **String** | Estimated buy-token amount returned by the vendor (smallest unit, integer string). |  [optional] |
-|**tradeFee** | **String** | Estimated network fee for this route in USD. Null when the vendor does not return one. |  [optional] |
-|**estimateGasFee** | **String** | Estimated gas in the chain&#39;s smallest unit (e.g. wei). May be null on Solana. |  [optional] |
+|**tradeFee** | **String** | Estimated network fee for this route in USD. Null when the vendor does not return one. Note: this is an estimate for reference only and may be inaccurate. For accurate gas values, use the Transaction API &#x60;GET /api/v1/dex/pre-transaction/gas-price&#x60; and &#x60;POST /api/v1/dex/pre-transaction/gas-limit&#x60;. |  [optional] |
+|**estimateGasFee** | **String** | Estimated gas in the chain&#39;s smallest unit (e.g. wei). May be null on Solana. Note: this is an estimate for reference only and may be inaccurate. For accurate gas values, use the Transaction API &#x60;GET /api/v1/dex/pre-transaction/gas-price&#x60; and &#x60;POST /api/v1/dex/pre-transaction/gas-limit&#x60;. |  [optional] |
 |**priceImpactPercent** | **String** | Estimated price impact percentage. Null when the vendor does not return one. |  [optional] |
 |**router** | **String** | Routing path description, addresses joined with \&quot;--\&quot;. |  [optional] |
 |**fromToken** | [**GetAggregatedQuoteResponseDataInnerFromToken**](GetAggregatedQuoteResponseDataInnerFromToken.md) |  |  [optional] |

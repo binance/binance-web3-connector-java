@@ -253,7 +253,9 @@ public class ListDeFiInvestmentsRequest {
     }
 
     /**
-     * Filter by token addresses.
+     * Filter by token addresses. When this field is provided, &#x60;binanceChainId&#x60; is
+     * required — the same address can be a different token on different chains; omitting the chain
+     * returns 40001.
      *
      * @return tokenAddressList
      */
@@ -273,7 +275,9 @@ public class ListDeFiInvestmentsRequest {
     }
 
     /**
-     * Filter by Binance chain ID (e.g. \&quot;56\&quot;&#x3D;BSC).
+     * One of the supported chains — see Supported Chains &amp; Protocols for the supported chain ID
+     * values. Chains outside this whitelist are rejected with 40001. When omitted (or blank),
+     * results span all supported chains.
      *
      * @return binanceChainId
      */

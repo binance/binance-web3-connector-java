@@ -80,9 +80,6 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Claim transaction calldata returned successfully. |  -  |
-| **401** | Unauthorized. The request is missing or contains an invalid API key. |  -  |
-| **403** | Forbidden. The API key does not have permission to access this endpoint. |  -  |
-| **404** | Not Found. The requested resource or endpoint does not exist. |  -  |
 
 <a id="buildDeFiDepositTransaction"></a>
 # **buildDeFiDepositTransaction**
@@ -152,9 +149,6 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Deposit transaction calldata returned successfully. |  -  |
-| **401** | Unauthorized. The request is missing or contains an invalid API key. |  -  |
-| **403** | Forbidden. The API key does not have permission to access this endpoint. |  -  |
-| **404** | Not Found. The requested resource or endpoint does not exist. |  -  |
 
 <a id="buildDeFiRedeemTransaction"></a>
 # **buildDeFiRedeemTransaction**
@@ -224,9 +218,6 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Redeem transaction calldata returned successfully. |  -  |
-| **401** | Unauthorized. The request is missing or contains an invalid API key. |  -  |
-| **403** | Forbidden. The API key does not have permission to access this endpoint. |  -  |
-| **404** | Not Found. The requested resource or endpoint does not exist. |  -  |
 
 <a id="buildLpAddTransaction"></a>
 # **buildLpAddTransaction**
@@ -296,9 +287,6 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | LP add transaction calldata returned successfully. |  -  |
-| **401** | Unauthorized. The request is missing or contains an invalid API key. |  -  |
-| **403** | Forbidden. The API key does not have permission to access this endpoint. |  -  |
-| **404** | Not Found. The requested resource or endpoint does not exist. |  -  |
 
 <a id="buildLpRemoveTransaction"></a>
 # **buildLpRemoveTransaction**
@@ -368,9 +356,6 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | LP remove transaction calldata returned successfully. |  -  |
-| **401** | Unauthorized. The request is missing or contains an invalid API key. |  -  |
-| **403** | Forbidden. The API key does not have permission to access this endpoint. |  -  |
-| **404** | Not Found. The requested resource or endpoint does not exist. |  -  |
 
 <a id="calculateLpAddPairedAmounts"></a>
 # **calculateLpAddPairedAmounts**
@@ -440,7 +425,4 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Paired token amounts returned successfully. |  -  |
-| **401** | Unauthorized. The request is missing or contains an invalid API key. |  -  |
-| **403** | Forbidden. The API key does not have permission to access this endpoint. |  -  |
-| **404** | Not Found. The requested resource or endpoint does not exist. |  -  |
 

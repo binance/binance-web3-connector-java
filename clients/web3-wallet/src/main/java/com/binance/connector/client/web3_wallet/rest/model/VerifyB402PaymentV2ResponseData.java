@@ -33,11 +33,11 @@ import java.util.Objects;
 import org.hibernate.validator.constraints.*;
 import org.openapitools.jackson.nullable.JsonNullable;
 
-/** VerifyB402PaymentV2Response1Data */
+/** VerifyB402PaymentV2ResponseData */
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
         comments = "Generator version: 7.22.0")
-public class VerifyB402PaymentV2Response1Data {
+public class VerifyB402PaymentV2ResponseData {
     public static final String SERIALIZED_NAME_IS_VALID = "isValid";
 
     @SerializedName(SERIALIZED_NAME_IS_VALID)
@@ -62,9 +62,9 @@ public class VerifyB402PaymentV2Response1Data {
     @jakarta.annotation.Nullable
     private String invalidMessage;
 
-    public VerifyB402PaymentV2Response1Data() {}
+    public VerifyB402PaymentV2ResponseData() {}
 
-    public VerifyB402PaymentV2Response1Data isValid(@jakarta.annotation.Nonnull Boolean isValid) {
+    public VerifyB402PaymentV2ResponseData isValid(@jakarta.annotation.Nonnull Boolean isValid) {
         this.isValid = isValid;
         return this;
     }
@@ -84,7 +84,7 @@ public class VerifyB402PaymentV2Response1Data {
         this.isValid = isValid;
     }
 
-    public VerifyB402PaymentV2Response1Data payer(@jakarta.annotation.Nullable String payer) {
+    public VerifyB402PaymentV2ResponseData payer(@jakarta.annotation.Nullable String payer) {
         this.payer = payer;
         return this;
     }
@@ -103,7 +103,7 @@ public class VerifyB402PaymentV2Response1Data {
         this.payer = payer;
     }
 
-    public VerifyB402PaymentV2Response1Data invalidReason(
+    public VerifyB402PaymentV2ResponseData invalidReason(
             @jakarta.annotation.Nullable String invalidReason) {
         this.invalidReason = invalidReason;
         return this;
@@ -123,7 +123,7 @@ public class VerifyB402PaymentV2Response1Data {
         this.invalidReason = invalidReason;
     }
 
-    public VerifyB402PaymentV2Response1Data invalidMessage(
+    public VerifyB402PaymentV2ResponseData invalidMessage(
             @jakarta.annotation.Nullable String invalidMessage) {
         this.invalidMessage = invalidMessage;
         return this;
@@ -151,14 +151,13 @@ public class VerifyB402PaymentV2Response1Data {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        VerifyB402PaymentV2Response1Data verifyB402PaymentV2Response1Data =
-                (VerifyB402PaymentV2Response1Data) o;
-        return Objects.equals(this.isValid, verifyB402PaymentV2Response1Data.isValid)
-                && Objects.equals(this.payer, verifyB402PaymentV2Response1Data.payer)
+        VerifyB402PaymentV2ResponseData verifyB402PaymentV2ResponseData =
+                (VerifyB402PaymentV2ResponseData) o;
+        return Objects.equals(this.isValid, verifyB402PaymentV2ResponseData.isValid)
+                && Objects.equals(this.payer, verifyB402PaymentV2ResponseData.payer)
+                && Objects.equals(this.invalidReason, verifyB402PaymentV2ResponseData.invalidReason)
                 && Objects.equals(
-                        this.invalidReason, verifyB402PaymentV2Response1Data.invalidReason)
-                && Objects.equals(
-                        this.invalidMessage, verifyB402PaymentV2Response1Data.invalidMessage);
+                        this.invalidMessage, verifyB402PaymentV2ResponseData.invalidMessage);
     }
 
     private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
@@ -185,7 +184,7 @@ public class VerifyB402PaymentV2Response1Data {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("class VerifyB402PaymentV2Response1Data {\n");
+        sb.append("class VerifyB402PaymentV2ResponseData {\n");
         sb.append("		isValid: ").append(toIndentedString(isValid)).append("\n");
         sb.append("		payer: ").append(toIndentedString(payer)).append("\n");
         sb.append("		invalidReason: ").append(toIndentedString(invalidReason)).append("\n");
@@ -256,22 +255,22 @@ public class VerifyB402PaymentV2Response1Data {
      *
      * @param jsonElement JSON Element
      * @throws IOException if the JSON Element is invalid with respect to
-     *     VerifyB402PaymentV2Response1Data
+     *     VerifyB402PaymentV2ResponseData
      */
     public static void validateJsonElement(JsonElement jsonElement) throws IOException {
         if (jsonElement == null) {
-            if (!VerifyB402PaymentV2Response1Data.openapiRequiredFields
+            if (!VerifyB402PaymentV2ResponseData.openapiRequiredFields
                     .isEmpty()) { // has required fields but JSON element is null
                 throw new IllegalArgumentException(
                         String.format(
-                                "The required field(s) %s in VerifyB402PaymentV2Response1Data is"
-                                        + " not found in the empty JSON string",
-                                VerifyB402PaymentV2Response1Data.openapiRequiredFields.toString()));
+                                "The required field(s) %s in VerifyB402PaymentV2ResponseData is not"
+                                        + " found in the empty JSON string",
+                                VerifyB402PaymentV2ResponseData.openapiRequiredFields.toString()));
             }
         }
 
         // check to make sure all required properties/fields are present in the JSON string
-        for (String requiredField : VerifyB402PaymentV2Response1Data.openapiRequiredFields) {
+        for (String requiredField : VerifyB402PaymentV2ResponseData.openapiRequiredFields) {
             if (jsonElement.getAsJsonObject().get(requiredField) == null) {
                 throw new IllegalArgumentException(
                         String.format(
@@ -310,26 +309,26 @@ public class VerifyB402PaymentV2Response1Data {
         @SuppressWarnings("unchecked")
         @Override
         public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
-            if (!VerifyB402PaymentV2Response1Data.class.isAssignableFrom(type.getRawType())) {
-                return null; // this class only serializes 'VerifyB402PaymentV2Response1Data' and
-                // its subtypes
+            if (!VerifyB402PaymentV2ResponseData.class.isAssignableFrom(type.getRawType())) {
+                return null; // this class only serializes 'VerifyB402PaymentV2ResponseData' and its
+                // subtypes
             }
             final TypeAdapter<JsonElement> elementAdapter = gson.getAdapter(JsonElement.class);
-            final TypeAdapter<VerifyB402PaymentV2Response1Data> thisAdapter =
+            final TypeAdapter<VerifyB402PaymentV2ResponseData> thisAdapter =
                     gson.getDelegateAdapter(
-                            this, TypeToken.get(VerifyB402PaymentV2Response1Data.class));
+                            this, TypeToken.get(VerifyB402PaymentV2ResponseData.class));
 
             return (TypeAdapter<T>)
-                    new TypeAdapter<VerifyB402PaymentV2Response1Data>() {
+                    new TypeAdapter<VerifyB402PaymentV2ResponseData>() {
                         @Override
-                        public void write(JsonWriter out, VerifyB402PaymentV2Response1Data value)
+                        public void write(JsonWriter out, VerifyB402PaymentV2ResponseData value)
                                 throws IOException {
                             JsonElement obj = thisAdapter.toJsonTree(value).getAsJsonObject();
                             elementAdapter.write(out, obj);
                         }
 
                         @Override
-                        public VerifyB402PaymentV2Response1Data read(JsonReader in)
+                        public VerifyB402PaymentV2ResponseData read(JsonReader in)
                                 throws IOException {
                             JsonElement jsonElement = elementAdapter.read(in);
                             // validateJsonElement(jsonElement);
@@ -340,19 +339,19 @@ public class VerifyB402PaymentV2Response1Data {
     }
 
     /**
-     * Create an instance of VerifyB402PaymentV2Response1Data given an JSON string
+     * Create an instance of VerifyB402PaymentV2ResponseData given an JSON string
      *
      * @param jsonString JSON string
-     * @return An instance of VerifyB402PaymentV2Response1Data
+     * @return An instance of VerifyB402PaymentV2ResponseData
      * @throws IOException if the JSON string is invalid with respect to
-     *     VerifyB402PaymentV2Response1Data
+     *     VerifyB402PaymentV2ResponseData
      */
-    public static VerifyB402PaymentV2Response1Data fromJson(String jsonString) throws IOException {
-        return JSON.getGson().fromJson(jsonString, VerifyB402PaymentV2Response1Data.class);
+    public static VerifyB402PaymentV2ResponseData fromJson(String jsonString) throws IOException {
+        return JSON.getGson().fromJson(jsonString, VerifyB402PaymentV2ResponseData.class);
     }
 
     /**
-     * Convert an instance of VerifyB402PaymentV2Response1Data to an JSON string
+     * Convert an instance of VerifyB402PaymentV2ResponseData to an JSON string
      *
      * @return JSON string
      */

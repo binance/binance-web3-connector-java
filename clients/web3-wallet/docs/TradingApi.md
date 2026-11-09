@@ -125,9 +125,6 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Uncompiled Solana instruction list and ALT addresses returned successfully. |  -  |
-| **401** | Unauthorized. The request is missing or contains an invalid API key. |  -  |
-| **403** | Forbidden. The API key does not have permission to access this endpoint. |  -  |
-| **404** | Not Found. The requested resource or endpoint does not exist. |  -  |
 
 <a id="buildSwapTransaction"></a>
 # **buildSwapTransaction**
@@ -249,9 +246,6 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Swap transaction data returned successfully. |  -  |
-| **401** | Unauthorized. The request is missing or contains an invalid API key. |  -  |
-| **403** | Forbidden. The API key does not have permission to access this endpoint. |  -  |
-| **404** | Not Found. The requested resource or endpoint does not exist. |  -  |
 
 <a id="getAggregatedQuote"></a>
 # **getAggregatedQuote**
@@ -339,9 +333,6 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Quote routes returned successfully. |  -  |
-| **401** | Unauthorized. The request is missing or contains an invalid API key. |  -  |
-| **403** | Forbidden. The API key does not have permission to access this endpoint. |  -  |
-| **404** | Not Found. The requested resource or endpoint does not exist. |  -  |
 
 <a id="getAggregatorSupportedChains"></a>
 # **getAggregatorSupportedChains**
@@ -412,9 +403,6 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Supported chains returned successfully. |  -  |
-| **401** | Unauthorized. The request is missing or contains an invalid API key. |  -  |
-| **403** | Forbidden. The API key does not have permission to access this endpoint. |  -  |
-| **404** | Not Found. The requested resource or endpoint does not exist. |  -  |
 
 <a id="getErc20ApproveTransaction"></a>
 # **getErc20ApproveTransaction**
@@ -491,9 +479,6 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Approve transaction data returned successfully. |  -  |
-| **401** | Unauthorized. The request is missing or contains an invalid API key. |  -  |
-| **403** | Forbidden. The API key does not have permission to access this endpoint. |  -  |
-| **404** | Not Found. The requested resource or endpoint does not exist. |  -  |
 
 <a id="getRfqOrderStatus"></a>
 # **getRfqOrderStatus**
@@ -563,9 +548,6 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Order status returned successfully. |  -  |
-| **401** | Unauthorized. The request is missing or contains an invalid API key. |  -  |
-| **403** | Forbidden. The API key does not have permission to access this endpoint. |  -  |
-| **404** | Not Found. The requested resource or endpoint does not exist. |  -  |
 
 <a id="getTransactionStatus"></a>
 # **getTransactionStatus**
@@ -637,13 +619,10 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Transaction details. &#x60;data&#x60; is null when no record is found. |  -  |
-| **401** | Unauthorized. The request is missing or contains an invalid API key. |  -  |
-| **403** | Forbidden. The API key does not have permission to access this endpoint. |  -  |
-| **404** | Not Found. The requested resource or endpoint does not exist. |  -  |
 
 <a id="quoteAndBuildSwapTransaction"></a>
 # **quoteAndBuildSwapTransaction**
-> QuoteAndBuildSwapTransactionResponse quoteAndBuildSwapTransaction(binanceChainId, amount, fromTokenAddress, toTokenAddress, userWalletAddress, vendor).recvWindow(recvWindow).nonce(nonce).slippagePercent(slippagePercent).excludeDexes(excludeDexes).enableRFQ(enableRFQ).approveTransaction(approveTransaction).approveAmount(approveAmount).gasLimit(gasLimit).gasLevel(gasLevel).priceImpactProtectionPercent(priceImpactProtectionPercent).autoSlippage(autoSlippage).maxAutoSlippagePercent(maxAutoSlippagePercent).computeUnitLimit(computeUnitLimit).computeUnitPrice(computeUnitPrice).tips(tips).feePercent(feePercent).fromTokenReferrerWalletAddress(fromTokenReferrerWalletAddress).toTokenReferrerWalletAddress(toTokenReferrerWalletAddress).execute();
+> QuoteAndBuildSwapTransactionResponse quoteAndBuildSwapTransaction(binanceChainId, amount, fromTokenAddress, toTokenAddress, userWalletAddress, vendor).recvWindow(recvWindow).nonce(nonce).slippagePercent(slippagePercent).excludeDexes(excludeDexes).excludePools(excludePools).enableRFQ(enableRFQ).approveTransaction(approveTransaction).approveAmount(approveAmount).gasLimit(gasLimit).gasLevel(gasLevel).priceImpactProtectionPercent(priceImpactProtectionPercent).autoSlippage(autoSlippage).maxAutoSlippagePercent(maxAutoSlippagePercent).computeUnitLimit(computeUnitLimit).computeUnitPrice(computeUnitPrice).tips(tips).feePercent(feePercent).fromTokenReferrerWalletAddress(fromTokenReferrerWalletAddress).toTokenReferrerWalletAddress(toTokenReferrerWalletAddress).execute();
 
 Quote and Build Swap Transaction (Flash API)
 
@@ -674,6 +653,7 @@ public class Example {
     String nonce = "unique-nonce-string"; // String | Unique request identifier for anti-replay; falls back to X-OC-SIGN if omitted.
     String slippagePercent = "0.5"; // String | Maximum slippage tolerance as a percentage string. Required unless `autoSlippage=true`.  **Range by chain:** - EVM chains (BSC, Ethereum, Base, etc.): `0` to `100` (inclusive) - Solana (`CT_501`): `0` to less than `100` (i.e. `< 100`)  `\"0.5\"` means 0.5% maximum slippage. When `autoSlippage=true` this field is overridden by the auto-computed value.
     String excludeDexes = "Pancakeswap V4,Pancakeswap V3"; // String | Comma-separated list of DEXes to exclude from routing. Pass the `dexName` values returned in the response `routerResult.dexRouterList` as-is (e.g. `\"Pancakeswap V4,Pancakeswap V3\"`). On EVM/Sui/Tron chains they are normalized automatically; on Solana the value is case-sensitive and must match the response exactly. Omit or leave empty to exclude nothing.
+    String excludePools = "0x1fb9d973a8381752611a4e17d0de21ff95a1dbd5"; // String | Comma-separated list of liquidity pool identifiers to exclude from routing (block specific pools). Only effective when `vendor=LiquidMesh` — passed through to the LiquidMesh Flash API `excludePools` parameter. Pool identifier format: V2/V3 pools use the `0x` + 40-hex contract address, V4/Infinity pools use the `0x` + 64-hex poolId (`0x` prefix optional, case-insensitive). Values are trimmed, deduped and passed through as-is; the server only enforces a length cap (2000 chars), invalid values are rejected by the gateway. Omit or leave empty to exclude nothing (behavior unchanged).
     EnableRFQ enableRFQ = EnableRFQ.fromValue("true"); // EnableRFQ | Whether to enable RFQ liquidity sources for routing. Default depends on the token pair: **BStock pairs default to `\"true\"` (RFQ enabled)**; all other tokens default to `\"false\"` (RFQ disabled, AMM-only routing). An explicit value always overrides the default. `\"true\"` may return better pricing, but the returned calldata may embed RFQ settlements with a short (~30s) deadline.
     ApproveTransaction approveTransaction = ApproveTransaction.fromValue("true"); // ApproveTransaction | When \"true\", `signatureData` includes the spender address and approve calldata so the client can submit it before the swap. Defaults to false.
     String approveAmount = "1000000"; // String | Override approve amount (smallest unit, positive integer string). Defaults to the swap amount.
@@ -694,6 +674,7 @@ public class Example {
             .nonce(nonce)
             .slippagePercent(slippagePercent)
             .excludeDexes(excludeDexes)
+            .excludePools(excludePools)
             .enableRFQ(enableRFQ)
             .approveTransaction(approveTransaction)
             .approveAmount(approveAmount)
@@ -735,6 +716,7 @@ public class Example {
 | **nonce** | **String**| Unique request identifier for anti-replay; falls back to X-OC-SIGN if omitted. | [optional] |
 | **slippagePercent** | **String**| Maximum slippage tolerance as a percentage string. Required unless &#x60;autoSlippage&#x3D;true&#x60;.  **Range by chain:** - EVM chains (BSC, Ethereum, Base, etc.): &#x60;0&#x60; to &#x60;100&#x60; (inclusive) - Solana (&#x60;CT_501&#x60;): &#x60;0&#x60; to less than &#x60;100&#x60; (i.e. &#x60;&lt; 100&#x60;)  &#x60;\&quot;0.5\&quot;&#x60; means 0.5% maximum slippage. When &#x60;autoSlippage&#x3D;true&#x60; this field is overridden by the auto-computed value. | [optional] |
 | **excludeDexes** | **String**| Comma-separated list of DEXes to exclude from routing. Pass the &#x60;dexName&#x60; values returned in the response &#x60;routerResult.dexRouterList&#x60; as-is (e.g. &#x60;\&quot;Pancakeswap V4,Pancakeswap V3\&quot;&#x60;). On EVM/Sui/Tron chains they are normalized automatically; on Solana the value is case-sensitive and must match the response exactly. Omit or leave empty to exclude nothing. | [optional] |
+| **excludePools** | **String**| Comma-separated list of liquidity pool identifiers to exclude from routing (block specific pools). Only effective when &#x60;vendor&#x3D;LiquidMesh&#x60; — passed through to the LiquidMesh Flash API &#x60;excludePools&#x60; parameter. Pool identifier format: V2/V3 pools use the &#x60;0x&#x60; + 40-hex contract address, V4/Infinity pools use the &#x60;0x&#x60; + 64-hex poolId (&#x60;0x&#x60; prefix optional, case-insensitive). Values are trimmed, deduped and passed through as-is; the server only enforces a length cap (2000 chars), invalid values are rejected by the gateway. Omit or leave empty to exclude nothing (behavior unchanged). | [optional] |
 | **enableRFQ** | [**EnableRFQ**](.md)| Whether to enable RFQ liquidity sources for routing. Default depends on the token pair: **BStock pairs default to &#x60;\&quot;true\&quot;&#x60; (RFQ enabled)**; all other tokens default to &#x60;\&quot;false\&quot;&#x60; (RFQ disabled, AMM-only routing). An explicit value always overrides the default. &#x60;\&quot;true\&quot;&#x60; may return better pricing, but the returned calldata may embed RFQ settlements with a short (~30s) deadline. | [optional] [enum: true, false] |
 | **approveTransaction** | [**ApproveTransaction**](.md)| When \&quot;true\&quot;, &#x60;signatureData&#x60; includes the spender address and approve calldata so the client can submit it before the swap. Defaults to false. | [optional] [enum: true, false] |
 | **approveAmount** | **String**| Override approve amount (smallest unit, positive integer string). Defaults to the swap amount. | [optional] |
@@ -767,9 +749,6 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Swap transaction data returned successfully. |  -  |
-| **401** | Unauthorized. The request is missing or contains an invalid API key. |  -  |
-| **403** | Forbidden. The API key does not have permission to access this endpoint. |  -  |
-| **404** | Not Found. The requested resource or endpoint does not exist. |  -  |
 
 <a id="submitRfqOrder"></a>
 # **submitRfqOrder**
@@ -839,7 +818,4 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | RFQ order submitted successfully. |  -  |
-| **401** | Unauthorized. The request is missing or contains an invalid API key. |  -  |
-| **403** | Forbidden. The API key does not have permission to access this endpoint. |  -  |
-| **404** | Not Found. The requested resource or endpoint does not exist. |  -  |
 

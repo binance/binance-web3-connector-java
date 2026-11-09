@@ -198,7 +198,10 @@ public class BuildSwapTransactionResponseDataTx {
     }
 
     /**
-     * Gas limit estimate.
+     * Gas limit estimate. Note: this is an estimate for reference only and may be inaccurate. For
+     * accurate gas values, use the Transaction API &#x60;GET
+     * /api/v1/dex/pre-transaction/gas-price&#x60; and &#x60;POST
+     * /api/v1/dex/pre-transaction/gas-limit&#x60;.
      *
      * @return gas
      */
@@ -218,7 +221,10 @@ public class BuildSwapTransactionResponseDataTx {
     }
 
     /**
-     * Gas price (wei).
+     * Gas price (wei). Note: this is an estimate for reference only and may be inaccurate. For
+     * accurate gas values, use the Transaction API &#x60;GET
+     * /api/v1/dex/pre-transaction/gas-price&#x60; and &#x60;POST
+     * /api/v1/dex/pre-transaction/gas-limit&#x60;.
      *
      * @return gasPrice
      */
@@ -238,7 +244,10 @@ public class BuildSwapTransactionResponseDataTx {
     }
 
     /**
-     * EIP-1559 max priority fee per gas (wei).
+     * EIP-1559 max priority fee per gas (wei). Note: this is an estimate for reference only and may
+     * be inaccurate. For accurate gas values, use the Transaction API &#x60;GET
+     * /api/v1/dex/pre-transaction/gas-price&#x60; and &#x60;POST
+     * /api/v1/dex/pre-transaction/gas-limit&#x60;.
      *
      * @return maxPriorityFeePerGas
      */

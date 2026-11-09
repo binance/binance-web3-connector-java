@@ -101,9 +101,6 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Candle data returned successfully. |  -  |
-| **401** | Unauthorized. The request is missing or contains an invalid API key. |  -  |
-| **403** | Forbidden. The API key does not have permission to access this endpoint. |  -  |
-| **404** | Not Found. The requested resource or endpoint does not exist. |  -  |
 
 <a id="getHoldersRanking"></a>
 # **getHoldersRanking**
@@ -178,9 +175,6 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Holders ranking returned successfully. |  -  |
-| **401** | Unauthorized. The request is missing or contains an invalid API key. |  -  |
-| **403** | Forbidden. The API key does not have permission to access this endpoint. |  -  |
-| **404** | Not Found. The requested resource or endpoint does not exist. |  -  |
 
 <a id="getHotTokenList"></a>
 # **getHotTokenList**
@@ -403,9 +397,6 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Hot token list returned successfully. |  -  |
-| **401** | Unauthorized. The request is missing or contains an invalid API key. |  -  |
-| **403** | Forbidden. The API key does not have permission to access this endpoint. |  -  |
-| **404** | Not Found. The requested resource or endpoint does not exist. |  -  |
 
 <a id="getSupportedChains"></a>
 # **getSupportedChains**
@@ -473,9 +464,6 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Supported chains returned successfully. |  -  |
-| **401** | Unauthorized. The request is missing or contains an invalid API key. |  -  |
-| **403** | Forbidden. The API key does not have permission to access this endpoint. |  -  |
-| **404** | Not Found. The requested resource or endpoint does not exist. |  -  |
 
 <a id="getTokenAdvancedInfo"></a>
 # **getTokenAdvancedInfo**
@@ -547,9 +535,6 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Advanced token info returned successfully. |  -  |
-| **401** | Unauthorized. The request is missing or contains an invalid API key. |  -  |
-| **403** | Forbidden. The API key does not have permission to access this endpoint. |  -  |
-| **404** | Not Found. The requested resource or endpoint does not exist. |  -  |
 
 <a id="getTokenBasicInfo"></a>
 # **getTokenBasicInfo**
@@ -622,9 +607,6 @@ No authorization required
 |-------------|-------------|------------------|
 | **200** | Token basic info returned successfully. |  -  |
 | **201** | Created. |  -  |
-| **401** | Unauthorized. The request is missing or contains an invalid API key. |  -  |
-| **403** | Forbidden. The API key does not have permission to access this endpoint. |  -  |
-| **404** | Not Found. The requested resource or endpoint does not exist. |  -  |
 
 <a id="getTokenDevInfo"></a>
 # **getTokenDevInfo**
@@ -696,9 +678,6 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Token dev info returned successfully. |  -  |
-| **401** | Unauthorized. The request is missing or contains an invalid API key. |  -  |
-| **403** | Forbidden. The API key does not have permission to access this endpoint. |  -  |
-| **404** | Not Found. The requested resource or endpoint does not exist. |  -  |
 
 <a id="getTokenPrice"></a>
 # **getTokenPrice**
@@ -767,9 +746,6 @@ No authorization required
 |-------------|-------------|------------------|
 | **200** | Token prices returned successfully. |  -  |
 | **201** | Created. |  -  |
-| **401** | Unauthorized. The request is missing or contains an invalid API key. |  -  |
-| **403** | Forbidden. The API key does not have permission to access this endpoint. |  -  |
-| **404** | Not Found. The requested resource or endpoint does not exist. |  -  |
 
 <a id="getTokenTrades"></a>
 # **getTokenTrades**
@@ -853,9 +829,6 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Trade history returned successfully. |  -  |
-| **401** | Unauthorized. The request is missing or contains an invalid API key. |  -  |
-| **403** | Forbidden. The API key does not have permission to access this endpoint. |  -  |
-| **404** | Not Found. The requested resource or endpoint does not exist. |  -  |
 
 <a id="getTokenTradingInfo"></a>
 # **getTokenTradingInfo**
@@ -924,9 +897,6 @@ No authorization required
 |-------------|-------------|------------------|
 | **200** | Price info returned successfully. |  -  |
 | **201** | Created. |  -  |
-| **401** | Unauthorized. The request is missing or contains an invalid API key. |  -  |
-| **403** | Forbidden. The API key does not have permission to access this endpoint. |  -  |
-| **404** | Not Found. The requested resource or endpoint does not exist. |  -  |
 
 <a id="getTopLiquidityPools"></a>
 # **getTopLiquidityPools**
@@ -998,9 +968,6 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Top liquidity pools returned successfully. |  -  |
-| **401** | Unauthorized. The request is missing or contains an invalid API key. |  -  |
-| **403** | Forbidden. The API key does not have permission to access this endpoint. |  -  |
-| **404** | Not Found. The requested resource or endpoint does not exist. |  -  |
 
 <a id="getTopTraders"></a>
 # **getTopTraders**
@@ -1075,9 +1042,6 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Top traders returned successfully. |  -  |
-| **401** | Unauthorized. The request is missing or contains an invalid API key. |  -  |
-| **403** | Forbidden. The API key does not have permission to access this endpoint. |  -  |
-| **404** | Not Found. The requested resource or endpoint does not exist. |  -  |
 
 <a id="searchToken"></a>
 # **searchToken**
@@ -1149,7 +1113,4 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Search results returned successfully. |  -  |
-| **401** | Unauthorized. The request is missing or contains an invalid API key. |  -  |
-| **403** | Forbidden. The API key does not have permission to access this endpoint. |  -  |
-| **404** | Not Found. The requested resource or endpoint does not exist. |  -  |
 

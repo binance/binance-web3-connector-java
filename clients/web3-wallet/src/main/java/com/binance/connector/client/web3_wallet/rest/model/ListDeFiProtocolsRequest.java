@@ -184,7 +184,9 @@ public class ListDeFiProtocolsRequest {
     }
 
     /**
-     * Filter by Binance chain ID (e.g. \&quot;56\&quot;&#x3D;BSC).
+     * One of the supported chains — see Supported Chains &amp; Protocols for the supported chain ID
+     * values. Chains outside this whitelist are rejected with 40001. When omitted (or blank),
+     * results span all supported chains.
      *
      * @return binanceChainId
      */

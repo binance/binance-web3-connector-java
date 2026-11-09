@@ -1,6 +1,6 @@
 
 
-# VerifyB402PaymentV2Response1Data
+# VerifyB402PaymentV2ResponseData
 
 
 ## Properties

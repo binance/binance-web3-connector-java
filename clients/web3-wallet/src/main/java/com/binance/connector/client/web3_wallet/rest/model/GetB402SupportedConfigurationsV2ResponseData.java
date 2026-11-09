@@ -39,16 +39,16 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 import org.hibernate.validator.constraints.*;
 
-/** GetB402SupportedConfigurationsV2Response1Data */
+/** GetB402SupportedConfigurationsV2ResponseData */
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
         comments = "Generator version: 7.22.0")
-public class GetB402SupportedConfigurationsV2Response1Data {
+public class GetB402SupportedConfigurationsV2ResponseData {
     public static final String SERIALIZED_NAME_KINDS = "kinds";
 
     @SerializedName(SERIALIZED_NAME_KINDS)
     @jakarta.annotation.Nonnull
-    private List<@Valid GetB402SupportedConfigurationsV2Response1DataKindsInner> kinds;
+    private List<@Valid GetB402SupportedConfigurationsV2ResponseDataKindsInner> kinds;
 
     public static final String SERIALIZED_NAME_EXTENSIONS = "extensions";
 
@@ -62,17 +62,17 @@ public class GetB402SupportedConfigurationsV2Response1Data {
     @jakarta.annotation.Nonnull
     private Map<String, List<String>> signers;
 
-    public GetB402SupportedConfigurationsV2Response1Data() {}
+    public GetB402SupportedConfigurationsV2ResponseData() {}
 
-    public GetB402SupportedConfigurationsV2Response1Data kinds(
+    public GetB402SupportedConfigurationsV2ResponseData kinds(
             @jakarta.annotation.Nonnull
-                    List<@Valid GetB402SupportedConfigurationsV2Response1DataKindsInner> kinds) {
+                    List<@Valid GetB402SupportedConfigurationsV2ResponseDataKindsInner> kinds) {
         this.kinds = kinds;
         return this;
     }
 
-    public GetB402SupportedConfigurationsV2Response1Data addKindsItem(
-            GetB402SupportedConfigurationsV2Response1DataKindsInner kindsItem) {
+    public GetB402SupportedConfigurationsV2ResponseData addKindsItem(
+            GetB402SupportedConfigurationsV2ResponseDataKindsInner kindsItem) {
         if (this.kinds == null) {
             this.kinds = new ArrayList<>();
         }
@@ -88,23 +88,23 @@ public class GetB402SupportedConfigurationsV2Response1Data {
     @jakarta.annotation.Nonnull
     @NotNull
     @Valid
-    public List<@Valid GetB402SupportedConfigurationsV2Response1DataKindsInner> getKinds() {
+    public List<@Valid GetB402SupportedConfigurationsV2ResponseDataKindsInner> getKinds() {
         return kinds;
     }
 
     public void setKinds(
             @jakarta.annotation.Nonnull
-                    List<@Valid GetB402SupportedConfigurationsV2Response1DataKindsInner> kinds) {
+                    List<@Valid GetB402SupportedConfigurationsV2ResponseDataKindsInner> kinds) {
         this.kinds = kinds;
     }
 
-    public GetB402SupportedConfigurationsV2Response1Data extensions(
+    public GetB402SupportedConfigurationsV2ResponseData extensions(
             @jakarta.annotation.Nonnull List<String> extensions) {
         this.extensions = extensions;
         return this;
     }
 
-    public GetB402SupportedConfigurationsV2Response1Data addExtensionsItem(String extensionsItem) {
+    public GetB402SupportedConfigurationsV2ResponseData addExtensionsItem(String extensionsItem) {
         if (this.extensions == null) {
             this.extensions = new ArrayList<>();
         }
@@ -127,13 +127,13 @@ public class GetB402SupportedConfigurationsV2Response1Data {
         this.extensions = extensions;
     }
 
-    public GetB402SupportedConfigurationsV2Response1Data signers(
+    public GetB402SupportedConfigurationsV2ResponseData signers(
             @jakarta.annotation.Nonnull Map<String, List<String>> signers) {
         this.signers = signers;
         return this;
     }
 
-    public GetB402SupportedConfigurationsV2Response1Data putSignersItem(
+    public GetB402SupportedConfigurationsV2ResponseData putSignersItem(
             String key, List<String> signersItem) {
         if (this.signers == null) {
             this.signers = new HashMap<>();
@@ -166,14 +166,13 @@ public class GetB402SupportedConfigurationsV2Response1Data {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        GetB402SupportedConfigurationsV2Response1Data
-                getB402SupportedConfigurationsV2Response1Data =
-                        (GetB402SupportedConfigurationsV2Response1Data) o;
-        return Objects.equals(this.kinds, getB402SupportedConfigurationsV2Response1Data.kinds)
+        GetB402SupportedConfigurationsV2ResponseData getB402SupportedConfigurationsV2ResponseData =
+                (GetB402SupportedConfigurationsV2ResponseData) o;
+        return Objects.equals(this.kinds, getB402SupportedConfigurationsV2ResponseData.kinds)
                 && Objects.equals(
-                        this.extensions, getB402SupportedConfigurationsV2Response1Data.extensions)
+                        this.extensions, getB402SupportedConfigurationsV2ResponseData.extensions)
                 && Objects.equals(
-                        this.signers, getB402SupportedConfigurationsV2Response1Data.signers);
+                        this.signers, getB402SupportedConfigurationsV2ResponseData.signers);
     }
 
     @Override
@@ -184,7 +183,7 @@ public class GetB402SupportedConfigurationsV2Response1Data {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("class GetB402SupportedConfigurationsV2Response1Data {\n");
+        sb.append("class GetB402SupportedConfigurationsV2ResponseData {\n");
         sb.append("		kinds: ").append(toIndentedString(kinds)).append("\n");
         sb.append("		extensions: ").append(toIndentedString(extensions)).append("\n");
         sb.append("		signers: ").append(toIndentedString(signers)).append("\n");
@@ -257,25 +256,25 @@ public class GetB402SupportedConfigurationsV2Response1Data {
      *
      * @param jsonElement JSON Element
      * @throws IOException if the JSON Element is invalid with respect to
-     *     GetB402SupportedConfigurationsV2Response1Data
+     *     GetB402SupportedConfigurationsV2ResponseData
      */
     public static void validateJsonElement(JsonElement jsonElement) throws IOException {
         if (jsonElement == null) {
-            if (!GetB402SupportedConfigurationsV2Response1Data.openapiRequiredFields
+            if (!GetB402SupportedConfigurationsV2ResponseData.openapiRequiredFields
                     .isEmpty()) { // has required fields but JSON element is null
                 throw new IllegalArgumentException(
                         String.format(
                                 "The required field(s) %s in"
-                                    + " GetB402SupportedConfigurationsV2Response1Data is not found"
+                                    + " GetB402SupportedConfigurationsV2ResponseData is not found"
                                     + " in the empty JSON string",
-                                GetB402SupportedConfigurationsV2Response1Data.openapiRequiredFields
+                                GetB402SupportedConfigurationsV2ResponseData.openapiRequiredFields
                                         .toString()));
             }
         }
 
         // check to make sure all required properties/fields are present in the JSON string
         for (String requiredField :
-                GetB402SupportedConfigurationsV2Response1Data.openapiRequiredFields) {
+                GetB402SupportedConfigurationsV2ResponseData.openapiRequiredFields) {
             if (jsonElement.getAsJsonObject().get(requiredField) == null) {
                 throw new IllegalArgumentException(
                         String.format(
@@ -296,7 +295,7 @@ public class GetB402SupportedConfigurationsV2Response1Data {
         JsonArray jsonArraykinds = jsonObj.getAsJsonArray("kinds");
         // validate the required field `kinds` (array)
         for (int i = 0; i < jsonArraykinds.size(); i++) {
-            GetB402SupportedConfigurationsV2Response1DataKindsInner.validateJsonElement(
+            GetB402SupportedConfigurationsV2ResponseDataKindsInner.validateJsonElement(
                     jsonArraykinds.get(i));
         }
         ;
@@ -318,29 +317,29 @@ public class GetB402SupportedConfigurationsV2Response1Data {
         @SuppressWarnings("unchecked")
         @Override
         public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
-            if (!GetB402SupportedConfigurationsV2Response1Data.class.isAssignableFrom(
+            if (!GetB402SupportedConfigurationsV2ResponseData.class.isAssignableFrom(
                     type.getRawType())) {
                 return null; // this class only serializes
-                // 'GetB402SupportedConfigurationsV2Response1Data' and its subtypes
+                // 'GetB402SupportedConfigurationsV2ResponseData' and its subtypes
             }
             final TypeAdapter<JsonElement> elementAdapter = gson.getAdapter(JsonElement.class);
-            final TypeAdapter<GetB402SupportedConfigurationsV2Response1Data> thisAdapter =
+            final TypeAdapter<GetB402SupportedConfigurationsV2ResponseData> thisAdapter =
                     gson.getDelegateAdapter(
                             this,
-                            TypeToken.get(GetB402SupportedConfigurationsV2Response1Data.class));
+                            TypeToken.get(GetB402SupportedConfigurationsV2ResponseData.class));
 
             return (TypeAdapter<T>)
-                    new TypeAdapter<GetB402SupportedConfigurationsV2Response1Data>() {
+                    new TypeAdapter<GetB402SupportedConfigurationsV2ResponseData>() {
                         @Override
                         public void write(
-                                JsonWriter out, GetB402SupportedConfigurationsV2Response1Data value)
+                                JsonWriter out, GetB402SupportedConfigurationsV2ResponseData value)
                                 throws IOException {
                             JsonElement obj = thisAdapter.toJsonTree(value).getAsJsonObject();
                             elementAdapter.write(out, obj);
                         }
 
                         @Override
-                        public GetB402SupportedConfigurationsV2Response1Data read(JsonReader in)
+                        public GetB402SupportedConfigurationsV2ResponseData read(JsonReader in)
                                 throws IOException {
                             JsonElement jsonElement = elementAdapter.read(in);
                             // validateJsonElement(jsonElement);
@@ -351,21 +350,21 @@ public class GetB402SupportedConfigurationsV2Response1Data {
     }
 
     /**
-     * Create an instance of GetB402SupportedConfigurationsV2Response1Data given an JSON string
+     * Create an instance of GetB402SupportedConfigurationsV2ResponseData given an JSON string
      *
      * @param jsonString JSON string
-     * @return An instance of GetB402SupportedConfigurationsV2Response1Data
+     * @return An instance of GetB402SupportedConfigurationsV2ResponseData
      * @throws IOException if the JSON string is invalid with respect to
-     *     GetB402SupportedConfigurationsV2Response1Data
+     *     GetB402SupportedConfigurationsV2ResponseData
      */
-    public static GetB402SupportedConfigurationsV2Response1Data fromJson(String jsonString)
+    public static GetB402SupportedConfigurationsV2ResponseData fromJson(String jsonString)
             throws IOException {
         return JSON.getGson()
-                .fromJson(jsonString, GetB402SupportedConfigurationsV2Response1Data.class);
+                .fromJson(jsonString, GetB402SupportedConfigurationsV2ResponseData.class);
     }
 
     /**
-     * Convert an instance of GetB402SupportedConfigurationsV2Response1Data to an JSON string
+     * Convert an instance of GetB402SupportedConfigurationsV2ResponseData to an JSON string
      *
      * @return JSON string
      */

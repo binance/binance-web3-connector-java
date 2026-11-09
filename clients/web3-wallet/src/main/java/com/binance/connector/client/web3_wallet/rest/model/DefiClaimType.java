@@ -27,18 +27,29 @@ import org.hibernate.validator.constraints.*;
  * &#x60;defiProtocolId&#x60; + &#x60;binanceChainId&#x60; - &#x60;REWARD_INVESTMENT&#x60;:
  * per-investment rewards — requires &#x60;investmentId&#x60; - &#x60;LP_FEE&#x60;: Uniswap V3/V4 LP
  * fees — requires &#x60;investmentId&#x60; + &#x60;nftId&#x60; - &#x60;REDEMPTION&#x60;: redeem
- * principal (Lista / Aster / Solv etc.) — requires &#x60;investmentId&#x60; +
- * &#x60;redemptionId&#x60; **Protocol constraints** — not every &#x60;claimType&#x60; is valid for
- * every protocol; an invalid combination is rejected (&#x60;40453&#x60; or &#x60;40454&#x60;): -
- * &#x60;REWARD_PROTOCOL&#x60; is **not** supported for LP (liquidity-pool) protocols in this
- * release. - &#x60;REWARD_INVESTMENT&#x60; is not supported for PancakeSwap V3 farming positions;
- * use &#x60;LP_FEE&#x60; to claim farming incentives there. - &#x60;LP_FEE&#x60; applies only to
- * concentrated-liquidity (V3/V4) LP positions. - &#x60;REDEMPTION&#x60; applies only to protocols
- * with a redemption / lock-up flow (Lista, Aster, Solv). The valid &#x60;claimType&#x60;s for a
- * specific position are returned in that position&#39;s &#x60;positionDetail.claimTypes&#x60; (see
- * the position list) — branch on that rather than hard-coding the mapping. Note: error messages may
- * surface the protocol id with a chain prefix (e.g. &#x60;bsc_pancakeswap4&#x60;); the canonical id
- * in API fields is the un-prefixed form (e.g. &#x60;pancakeswap4&#x60;).
+ * principal. Requires &#x60;investmentId&#x60; + &#x60;redemptionId&#x60; for EVM protocols (Lista,
+ * Aster, Solv) and for Solana protocols whose redeem mints a withdrawal ticket (&#x60;renzo&#x60;,
+ * &#x60;marinadefinance&#x60; liquid, &#x60;jito&#x60;, &#x60;solayer&#x60;,
+ * &#x60;fragmetric&#x60;, &#x60;jupiter&#x60; Stake JUP) — the &#x60;redemptionId&#x60; comes from
+ * the position list and is populated once the cooldown ends (&#x60;unlockTimeReached &#x3D;
+ * true&#x60;). For Solana native staking (&#x60;sol_staking&#x60;) and Jupiter jupSOL (whose claim
+ * handle surfaces under &#x60;sol_staking&#x60;), substitute &#x60;stakeAccounts&#x60; for
+ * &#x60;redemptionId&#x60; (no redemption record). **Protocol constraints** — not every
+ * &#x60;claimType&#x60; is valid for every protocol; an invalid combination is rejected
+ * (&#x60;40453&#x60; or &#x60;40454&#x60;): - &#x60;REWARD_PROTOCOL&#x60; is **not** supported for
+ * LP (liquidity-pool) protocols in this release. - &#x60;REWARD_INVESTMENT&#x60; is not supported
+ * for PancakeSwap V3 farming positions; use &#x60;LP_FEE&#x60; to claim farming incentives there. -
+ * &#x60;LP_FEE&#x60; applies only to concentrated-liquidity (V3/V4) LP positions, including Solana
+ * CLMM (&#x60;raydium3&#x60;, &#x60;orca3&#x60;). - &#x60;REDEMPTION&#x60; applies only to
+ * protocols with a redemption / lock-up flow: EVM Lista / Aster / Solv, and on Solana
+ * &#x60;sol_staking&#x60;, &#x60;renzo&#x60;, &#x60;marinadefinance&#x60;, &#x60;jito&#x60;,
+ * &#x60;solayer&#x60;, &#x60;fragmetric&#x60;, and &#x60;jupiter&#x60; stake surfaces. - Some
+ * Solana protocols auto-compound rewards into the position value (e.g. &#x60;sol_staking&#x60;,
+ * &#x60;marinadefinance&#x60;, &#x60;jito&#x60;); their &#x60;claimReward&#x60;
+ * (&#x60;REWARD_PROTOCOL&#x60; / &#x60;REWARD_INVESTMENT&#x60;) is not supported and is rejected
+ * with &#x60;40481&#x60;. For a given position, prefer the &#x60;claimTypes&#x60; /
+ * &#x60;redemptionId&#x60; / &#x60;userStakeAccount&#x60; fields returned by the position list to
+ * decide the claim path — see Integration Flow.
  */
 @JsonAdapter(DefiClaimType.Adapter.class)
 public enum DefiClaimType {

@@ -11,7 +11,7 @@
 |**type** | **String** |  |  [optional] |
 |**code** | **String** |  |  [optional] |
 |**errorData** | **String** |  |  [optional] |
-|**data** | **Object** |  |  [optional] |
+|**data** | [**SettleB402PaymentV2ResponseData**](SettleB402PaymentV2ResponseData.md) |  |  [optional] |
 |**subData** | **Object** |  |  [optional] |
 |**params** | **Object** |  |  [optional] |
 

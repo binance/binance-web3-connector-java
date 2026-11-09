@@ -86,7 +86,9 @@ public class DefiPreviewFeeAndContractEstimatedNetworkFee {
     }
 
     /**
-     * Estimated gas fee in the gas-paying token (human-readable).
+     * Estimated gas fee in the fee-paying native coin (human-readable). On Solana this may be
+     * &#x60;null&#x60; even when fee estimation succeeded — use &#x60;valueUsd&#x60; as the
+     * reliable figure when &#x60;amount&#x60; is absent.
      *
      * @return amount
      */
@@ -146,7 +148,8 @@ public class DefiPreviewFeeAndContractEstimatedNetworkFee {
     }
 
     /**
-     * Storage / rent fee portion (human-readable), if applicable.
+     * Solana storage / rent fee portion (human-readable). &#x60;null&#x60; on EVM chains; only
+     * populated on Solana when the action creates an account (e.g. a first-time ATA).
      *
      * @return rentFeeAmount
      */
@@ -166,7 +169,7 @@ public class DefiPreviewFeeAndContractEstimatedNetworkFee {
     }
 
     /**
-     * USD value of the storage / rent fee, if applicable.
+     * USD value of the Solana rent fee. &#x60;null&#x60; on EVM chains; Solana-only.
      *
      * @return rentFeeValueUsd
      */
@@ -186,7 +189,7 @@ public class DefiPreviewFeeAndContractEstimatedNetworkFee {
     }
 
     /**
-     * Priority fee portion (human-readable), if broken out.
+     * Solana priority fee portion (human-readable). &#x60;null&#x60; on EVM chains; Solana-only.
      *
      * @return priorityFeeAmount
      */

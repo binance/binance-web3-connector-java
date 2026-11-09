@@ -11,7 +11,7 @@
 |**type** | **String** |  |  [optional] |
 |**code** | **String** |  |  [optional] |
 |**errorData** | **String** |  |  [optional] |
-|**data** | **Object** |  |  [optional] |
+|**data** | [**GetB402SupportedConfigurationsV1ResponseData**](GetB402SupportedConfigurationsV1ResponseData.md) |  |  [optional] |
 |**subData** | **Object** |  |  [optional] |
 |**params** | **Object** |  |  [optional] |
 

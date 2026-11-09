@@ -80,10 +80,6 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Legacy supported configurations or a B402 business error envelope. |  -  |
-| **401** | Unauthorized. The request is missing or contains invalid Web3 API credentials. |  -  |
-| **403** | Forbidden. Check the API Key&#39;s B402 Payments permission, IP whitelist, and endpoint allowlist. |  -  |
-| **429** | Rate limit exceeded. |  -  |
-| **503** | B402 is temporarily unavailable. |  -  |
 
 <a id="getB402SupportedConfigurationsV2"></a>
 # **getB402SupportedConfigurationsV2**
@@ -153,10 +149,6 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Supported configurations returned, or a B402 business error envelope. |  -  |
-| **401** | Unauthorized. The request is missing or contains invalid Web3 API credentials. |  -  |
-| **403** | Forbidden. Check the API Key&#39;s B402 Payments permission, IP whitelist, and endpoint allowlist. |  -  |
-| **429** | Rate limit exceeded. |  -  |
-| **503** | B402 is temporarily unavailable. |  -  |
 
 <a id="settleB402PaymentV1"></a>
 # **settleB402PaymentV1**
@@ -226,10 +218,6 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Legacy settlement result or a B402 business error envelope. |  -  |
-| **401** | Unauthorized. The request is missing or contains invalid Web3 API credentials. |  -  |
-| **403** | Forbidden. Check the API Key&#39;s B402 Payments permission, IP whitelist, and endpoint allowlist. |  -  |
-| **429** | Rate limit exceeded. |  -  |
-| **503** | B402 is temporarily unavailable. |  -  |
 
 <a id="settleB402PaymentV2"></a>
 # **settleB402PaymentV2**
@@ -299,10 +287,6 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Settlement result, or a B402 business error envelope. |  -  |
-| **401** | Unauthorized. The request is missing or contains invalid Web3 API credentials. |  -  |
-| **403** | Forbidden. Check the API Key&#39;s B402 Payments permission, IP whitelist, and endpoint allowlist. |  -  |
-| **429** | Rate limit exceeded. |  -  |
-| **503** | B402 is temporarily unavailable. |  -  |
 
 <a id="verifyB402PaymentV1"></a>
 # **verifyB402PaymentV1**
@@ -372,10 +356,6 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Legacy verification result or a B402 business error envelope. |  -  |
-| **401** | Unauthorized. The request is missing or contains invalid Web3 API credentials. |  -  |
-| **403** | Forbidden. Check the API Key&#39;s B402 Payments permission, IP whitelist, and endpoint allowlist. |  -  |
-| **429** | Rate limit exceeded. |  -  |
-| **503** | B402 is temporarily unavailable. |  -  |
 
 <a id="verifyB402PaymentV2"></a>
 # **verifyB402PaymentV2**
@@ -445,8 +425,4 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Verification result, or a B402 business error envelope. |  -  |
-| **401** | Unauthorized. The request is missing or contains invalid Web3 API credentials. |  -  |
-| **403** | Forbidden. Check the API Key&#39;s B402 Payments permission, IP whitelist, and endpoint allowlist. |  -  |
-| **429** | Rate limit exceeded. |  -  |
-| **503** | B402 is temporarily unavailable. |  -  |
 

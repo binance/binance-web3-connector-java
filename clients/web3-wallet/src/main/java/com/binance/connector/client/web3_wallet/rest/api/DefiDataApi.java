@@ -52,7 +52,7 @@ public class DefiDataApi {
 
     private static final String USER_AGENT =
             String.format(
-                    "binance-web3-wallet/4.4.0 (Java/%s; %s; %s)",
+                    "binance-web3-wallet/5.0.0 (Java/%s; %s; %s)",
                     SystemUtil.getJavaVersion(), SystemUtil.getOs(), SystemUtil.getArch());
     private static final boolean HAS_TIME_UNIT = false;
 
@@ -675,7 +675,7 @@ public class DefiDataApi {
     }
 
     public ApiResponse<ListDeFiProtocolsResponse> listDeFiProtocols(
-            Long recvWindow, String nonce, @Valid ListDeFiProtocolsRequest listDeFiProtocolsRequest)
+            Long recvWindow, String nonce, @Valid com.binance.connector.client.web3_wallet.rest.api.DefiDataApi.ListDeFiProtocolsRequest listDeFiProtocolsRequest)
             throws ApiException {
         okhttp3.Call localVarCall =
                 listDeFiProtocolsValidateBeforeCall(recvWindow, nonce, listDeFiProtocolsRequest);

@@ -170,6 +170,12 @@ public class PositionDetailResp {
     @jakarta.annotation.Nullable
     private String redemptionId;
 
+    public static final String SERIALIZED_NAME_USER_STAKE_ACCOUNT = "userStakeAccount";
+
+    @SerializedName(SERIALIZED_NAME_USER_STAKE_ACCOUNT)
+    @jakarta.annotation.Nullable
+    private String userStakeAccount;
+
     public PositionDetailResp() {}
 
     public PositionDetailResp positionIndex(@jakarta.annotation.Nullable String positionIndex) {
@@ -178,7 +184,13 @@ public class PositionDetailResp {
     }
 
     /**
-     * Position index (e.g. the Uniswap-V3-style position number).
+     * Position index / handle. For EVM concentrated-liquidity positions this is the
+     * Uniswap-V3-style position number. For Solana protocols whose redeem mints a withdrawal ticket
+     * (e.g. &#x60;renzo&#x60;, &#x60;marinadefinance&#x60; liquid, &#x60;jito&#x60;), this is the
+     * ticket / record PDA and is what &#x60;claim&#x60; &#x60;REDEMPTION&#x60; takes as
+     * &#x60;redemptionId&#x60; once the cooldown ends. For Jupiter Lend Borrow
+     * (&#x60;jupiter&#x60;, surface &#x60;lend_borrow_supply&#x60;), this is the position PDA
+     * passed to &#x60;redeem&#x60; as &#x60;positionAddress&#x60;.
      *
      * @return positionIndex
      */
@@ -395,7 +407,13 @@ public class PositionDetailResp {
     }
 
     /**
-     * Redemption record ID (for pending redemptions). Null when not a pending redemption.
+     * Redemption record ID (the withdrawal ticket / record handle) for pending redemptions. For
+     * Solana protocols whose redeem mints a ticket (&#x60;renzo&#x60;, &#x60;marinadefinance&#x60;
+     * liquid, &#x60;jito&#x60;, &#x60;jupiter&#x60; Stake JUP), this mirrors
+     * &#x60;positionIndex&#x60; and is populated only after the cooldown ends
+     * (&#x60;unlockTimeReached &#x3D; true&#x60;); &#x60;null&#x60; while cooling down — poll the
+     * position list until it appears, then pass it to &#x60;claim&#x60; &#x60;REDEMPTION&#x60;.
+     * Null when not a pending redemption.
      *
      * @return redemptionId
      */
@@ -406,6 +424,31 @@ public class PositionDetailResp {
 
     public void setRedemptionId(@jakarta.annotation.Nullable String redemptionId) {
         this.redemptionId = redemptionId;
+    }
+
+    public PositionDetailResp userStakeAccount(
+            @jakarta.annotation.Nullable String userStakeAccount) {
+        this.userStakeAccount = userStakeAccount;
+        return this;
+    }
+
+    /**
+     * Base58 stake account address for Solana native staking (&#x60;sol_staking&#x60;), or the
+     * native stake account a Jupiter jupSOL redeem created (which also surfaces under
+     * &#x60;sol_staking&#x60; in the position list — its &#x60;redemptionId&#x60; equals this
+     * address). Pass it to &#x60;redeem&#x60; / &#x60;claim&#x60; &#x60;REDEMPTION&#x60; as the
+     * single element of &#x60;stakeAccounts&#x60;; for jupSOL either the &#x60;sol_staking&#x60; or
+     * the jupSOL &#x60;investmentId&#x60; works. Null for non-staking positions.
+     *
+     * @return userStakeAccount
+     */
+    @jakarta.annotation.Nullable
+    public String getUserStakeAccount() {
+        return userStakeAccount;
+    }
+
+    public void setUserStakeAccount(@jakarta.annotation.Nullable String userStakeAccount) {
+        this.userStakeAccount = userStakeAccount;
     }
 
     @Override
@@ -427,7 +470,8 @@ public class PositionDetailResp {
                 && Objects.equals(this.proofs, positionDetailResp.proofs)
                 && Objects.equals(this.stakeState, positionDetailResp.stakeState)
                 && Objects.equals(this.claimTypes, positionDetailResp.claimTypes)
-                && Objects.equals(this.redemptionId, positionDetailResp.redemptionId);
+                && Objects.equals(this.redemptionId, positionDetailResp.redemptionId)
+                && Objects.equals(this.userStakeAccount, positionDetailResp.userStakeAccount);
     }
 
     private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
@@ -452,7 +496,8 @@ public class PositionDetailResp {
                 proofs,
                 stakeState,
                 claimTypes,
-                redemptionId);
+                redemptionId,
+                userStakeAccount);
     }
 
     private static <T> int hashCodeNullable(JsonNullable<T> a) {
@@ -477,6 +522,7 @@ public class PositionDetailResp {
         sb.append("		stakeState: ").append(toIndentedString(stakeState)).append("\n");
         sb.append("		claimTypes: ").append(toIndentedString(claimTypes)).append("\n");
         sb.append("		redemptionId: ").append(toIndentedString(redemptionId)).append("\n");
+        sb.append("		userStakeAccount: ").append(toIndentedString(userStakeAccount)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -533,6 +579,10 @@ public class PositionDetailResp {
         String redemptionIdValueAsString = "";
         redemptionIdValueAsString = redemptionIdValue.toString();
         sb.append("redemptionId=").append(urlEncode(redemptionIdValueAsString)).append("");
+        Object userStakeAccountValue = getUserStakeAccount();
+        String userStakeAccountValueAsString = "";
+        userStakeAccountValueAsString = userStakeAccountValue.toString();
+        sb.append("userStakeAccount=").append(urlEncode(userStakeAccountValueAsString)).append("");
         return sb.toString();
     }
 
@@ -572,6 +622,7 @@ public class PositionDetailResp {
         openapiFields.add("stakeState");
         openapiFields.add("claimTypes");
         openapiFields.add("redemptionId");
+        openapiFields.add("userStakeAccount");
 
         // a set of required properties/fields (JSON key names)
         openapiRequiredFields = new HashSet<String>();
@@ -660,6 +711,15 @@ public class PositionDetailResp {
                             "Expected the field `redemptionId` to be a primitive type in the JSON"
                                     + " string but got `%s`",
                             jsonObj.get("redemptionId").toString()));
+        }
+        if ((jsonObj.get("userStakeAccount") != null
+                        && !jsonObj.get("userStakeAccount").isJsonNull())
+                && !jsonObj.get("userStakeAccount").isJsonPrimitive()) {
+            throw new IllegalArgumentException(
+                    String.format(
+                            "Expected the field `userStakeAccount` to be a primitive type in the"
+                                    + " JSON string but got `%s`",
+                            jsonObj.get("userStakeAccount").toString()));
         }
     }
 

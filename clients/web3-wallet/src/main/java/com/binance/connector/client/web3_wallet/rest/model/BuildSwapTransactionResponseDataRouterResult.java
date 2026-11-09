@@ -218,7 +218,10 @@ public class BuildSwapTransactionResponseDataRouterResult {
     }
 
     /**
-     * Estimated network fee in USD.
+     * Estimated network fee in USD. Note: this is an estimate for reference only and may be
+     * inaccurate. For accurate gas values, use the Transaction API &#x60;GET
+     * /api/v1/dex/pre-transaction/gas-price&#x60; and &#x60;POST
+     * /api/v1/dex/pre-transaction/gas-limit&#x60;.
      *
      * @return tradeFee
      */
@@ -238,7 +241,10 @@ public class BuildSwapTransactionResponseDataRouterResult {
     }
 
     /**
-     * Estimated gas in the chain&#39;s smallest unit (e.g. wei).
+     * Estimated gas in the chain&#39;s smallest unit (e.g. wei). Note: this is an estimate for
+     * reference only and may be inaccurate. For accurate gas values, use the Transaction API
+     * &#x60;GET /api/v1/dex/pre-transaction/gas-price&#x60; and &#x60;POST
+     * /api/v1/dex/pre-transaction/gas-limit&#x60;.
      *
      * @return estimateGasFee
      */

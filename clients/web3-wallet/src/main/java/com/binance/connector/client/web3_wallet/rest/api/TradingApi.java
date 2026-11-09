@@ -59,7 +59,7 @@ public class TradingApi {
 
     private static final String USER_AGENT =
             String.format(
-                    "binance-web3-wallet/4.4.0 (Java/%s; %s; %s)",
+                    "binance-web3-wallet/5.0.0 (Java/%s; %s; %s)",
                     SystemUtil.getJavaVersion(), SystemUtil.getOs(), SystemUtil.getArch());
     private static final boolean HAS_TIME_UNIT = false;
 
@@ -2672,6 +2672,7 @@ public class TradingApi {
             String nonce,
             String slippagePercent,
             String excludeDexes,
+            String excludePools,
             EnableRFQ enableRFQ,
             ApproveTransaction approveTransaction,
             String approveAmount,
@@ -2748,6 +2749,11 @@ public class TradingApi {
         if (excludeDexes != null) {
             localVarQueryParams.addAll(
                     localVarApiClient.parameterToPair("excludeDexes", excludeDexes));
+        }
+
+        if (excludePools != null) {
+            localVarQueryParams.addAll(
+                    localVarApiClient.parameterToPair("excludePools", excludePools));
         }
 
         if (enableRFQ != null) {
@@ -2871,6 +2877,7 @@ public class TradingApi {
             String nonce,
             String slippagePercent,
             String excludeDexes,
+            String excludePools,
             EnableRFQ enableRFQ,
             ApproveTransaction approveTransaction,
             String approveAmount,
@@ -2906,6 +2913,7 @@ public class TradingApi {
                 nonce,
                 slippagePercent,
                 excludeDexes,
+                excludePools,
                 enableRFQ,
                 approveTransaction,
                 approveAmount,
@@ -2932,6 +2940,7 @@ public class TradingApi {
                                     String.class,
                                     Vendor.class,
                                     Long.class,
+                                    String.class,
                                     String.class,
                                     String.class,
                                     String.class,
@@ -2964,6 +2973,7 @@ public class TradingApi {
                         nonce,
                         slippagePercent,
                         excludeDexes,
+                        excludePools,
                         enableRFQ,
                         approveTransaction,
                         approveAmount,
@@ -3001,6 +3011,7 @@ public class TradingApi {
             String nonce,
             String slippagePercent,
             String excludeDexes,
+            String excludePools,
             EnableRFQ enableRFQ,
             ApproveTransaction approveTransaction,
             String approveAmount,
@@ -3028,6 +3039,7 @@ public class TradingApi {
                         nonce,
                         slippagePercent,
                         excludeDexes,
+                        excludePools,
                         enableRFQ,
                         approveTransaction,
                         approveAmount,
@@ -3060,6 +3072,7 @@ public class TradingApi {
                 request.getNonce(),
                 request.getSlippagePercent(),
                 request.getExcludeDexes(),
+                request.getExcludePools(),
                 request.getEnableRFQ(),
                 request.getApproveTransaction(),
                 request.getApproveAmount(),
@@ -3087,6 +3100,7 @@ public class TradingApi {
         private String nonce;
         private String slippagePercent;
         private String excludeDexes;
+        private String excludePools;
         private EnableRFQ enableRFQ;
         private ApproveTransaction approveTransaction;
         private String approveAmount;
@@ -3140,6 +3154,10 @@ public class TradingApi {
 
         public String getExcludeDexes() {
             return excludeDexes;
+        }
+
+        public String getExcludePools() {
+            return excludePools;
         }
 
         public EnableRFQ getEnableRFQ() {
@@ -3267,6 +3285,25 @@ public class TradingApi {
          */
         public QuoteAndBuildSwapTransactionRequest excludeDexes(String excludeDexes) {
             this.excludeDexes = excludeDexes;
+            return this;
+        }
+
+        /**
+         * Set excludePools
+         *
+         * @param excludePools Comma-separated list of liquidity pool identifiers to exclude from
+         *     routing (block specific pools). Only effective when
+         *     &#x60;vendor&#x3D;LiquidMesh&#x60; — passed through to the LiquidMesh Flash API
+         *     &#x60;excludePools&#x60; parameter. Pool identifier format: V2/V3 pools use the
+         *     &#x60;0x&#x60; + 40-hex contract address, V4/Infinity pools use the &#x60;0x&#x60; +
+         *     64-hex poolId (&#x60;0x&#x60; prefix optional, case-insensitive). Values are trimmed,
+         *     deduped and passed through as-is; the server only enforces a length cap (2000 chars),
+         *     invalid values are rejected by the gateway. Omit or leave empty to exclude nothing
+         *     (behavior unchanged). (optional)
+         * @return QuoteAndBuildSwapTransactionRequest
+         */
+        public QuoteAndBuildSwapTransactionRequest excludePools(String excludePools) {
+            this.excludePools = excludePools;
             return this;
         }
 
