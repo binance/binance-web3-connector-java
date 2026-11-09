@@ -167,9 +167,6 @@ public class Web3WalletRestApi {
      * <caption>Response Details</caption>
      * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
      * <tr><td> 200 </td><td> Token latest PnL returned successfully. </td><td>  -  </td></tr>
-     * <tr><td> 401 </td><td> Unauthorized. The request is missing or contains an invalid API key. </td><td>  -  </td></tr>
-     * <tr><td> 403 </td><td> Forbidden. The API key does not have permission to access this endpoint. </td><td>  -  </td></tr>
-     * <tr><td> 404 </td><td> Not Found. The requested resource or endpoint does not exist. </td><td>  -  </td></tr>
      * </table>
      *
      * @see <a
@@ -216,9 +213,6 @@ public class Web3WalletRestApi {
      * <caption>Response Details</caption>
      * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
      * <tr><td> 200 </td><td> Portfolio overview returned successfully. </td><td>  -  </td></tr>
-     * <tr><td> 401 </td><td> Unauthorized. The request is missing or contains an invalid API key. </td><td>  -  </td></tr>
-     * <tr><td> 403 </td><td> Forbidden. The API key does not have permission to access this endpoint. </td><td>  -  </td></tr>
-     * <tr><td> 404 </td><td> Not Found. The requested resource or endpoint does not exist. </td><td>  -  </td></tr>
      * </table>
      *
      * @see <a
@@ -263,9 +257,6 @@ public class Web3WalletRestApi {
      * <caption>Response Details</caption>
      * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
      * <tr><td> 200 </td><td> Recent PnL list returned successfully. </td><td>  -  </td></tr>
-     * <tr><td> 401 </td><td> Unauthorized. The request is missing or contains an invalid API key. </td><td>  -  </td></tr>
-     * <tr><td> 403 </td><td> Forbidden. The API key does not have permission to access this endpoint. </td><td>  -  </td></tr>
-     * <tr><td> 404 </td><td> Not Found. The requested resource or endpoint does not exist. </td><td>  -  </td></tr>
      * </table>
      *
      * @see <a
@@ -318,9 +309,6 @@ public class Web3WalletRestApi {
      * <caption>Response Details</caption>
      * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
      * <tr><td> 200 </td><td> DEX history returned successfully. </td><td>  -  </td></tr>
-     * <tr><td> 401 </td><td> Unauthorized. The request is missing or contains an invalid API key. </td><td>  -  </td></tr>
-     * <tr><td> 403 </td><td> Forbidden. The API key does not have permission to access this endpoint. </td><td>  -  </td></tr>
-     * <tr><td> 404 </td><td> Not Found. The requested resource or endpoint does not exist. </td><td>  -  </td></tr>
      * </table>
      *
      * @see <a
@@ -395,9 +383,6 @@ public class Web3WalletRestApi {
      * <caption>Response Details</caption>
      * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
      * <tr><td> 200 </td><td> Leaderboard list returned successfully. </td><td>  -  </td></tr>
-     * <tr><td> 401 </td><td> Unauthorized. The request is missing or contains an invalid API key. </td><td>  -  </td></tr>
-     * <tr><td> 403 </td><td> Forbidden. The API key does not have permission to access this endpoint. </td><td>  -  </td></tr>
-     * <tr><td> 404 </td><td> Not Found. The requested resource or endpoint does not exist. </td><td>  -  </td></tr>
      * </table>
      *
      * @see <a
@@ -462,9 +447,6 @@ public class Web3WalletRestApi {
      * <caption>Response Details</caption>
      * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
      * <tr><td> 200 </td><td> Supported chains returned successfully. </td><td>  -  </td></tr>
-     * <tr><td> 401 </td><td> Unauthorized. The request is missing or contains an invalid API key. </td><td>  -  </td></tr>
-     * <tr><td> 403 </td><td> Forbidden. The API key does not have permission to access this endpoint. </td><td>  -  </td></tr>
-     * <tr><td> 404 </td><td> Not Found. The requested resource or endpoint does not exist. </td><td>  -  </td></tr>
      * </table>
      *
      * @see <a
@@ -515,9 +497,6 @@ public class Web3WalletRestApi {
      * <caption>Response Details</caption>
      * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
      * <tr><td> 200 </td><td> Address tracker trades returned successfully. </td><td>  -  </td></tr>
-     * <tr><td> 401 </td><td> Unauthorized. The request is missing or contains an invalid API key. </td><td>  -  </td></tr>
-     * <tr><td> 403 </td><td> Forbidden. The API key does not have permission to access this endpoint. </td><td>  -  </td></tr>
-     * <tr><td> 404 </td><td> Not Found. The requested resource or endpoint does not exist. </td><td>  -  </td></tr>
      * </table>
      *
      * @see <a
@@ -571,10 +550,6 @@ public class Web3WalletRestApi {
      * <caption>Response Details</caption>
      * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
      * <tr><td> 200 </td><td> Legacy supported configurations or a B402 business error envelope. </td><td>  -  </td></tr>
-     * <tr><td> 401 </td><td> Unauthorized. The request is missing or contains invalid Web3 API credentials. </td><td>  -  </td></tr>
-     * <tr><td> 403 </td><td> Forbidden. Check the API Key&#39;s B402 Payments permission, IP whitelist, and endpoint allowlist. </td><td>  -  </td></tr>
-     * <tr><td> 429 </td><td> Rate limit exceeded. </td><td>  -  </td></tr>
-     * <tr><td> 503 </td><td> B402 is temporarily unavailable. </td><td>  -  </td></tr>
      * </table>
      *
      * @see <a
@@ -609,10 +584,6 @@ public class Web3WalletRestApi {
      * <caption>Response Details</caption>
      * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
      * <tr><td> 200 </td><td> Supported configurations returned, or a B402 business error envelope. </td><td>  -  </td></tr>
-     * <tr><td> 401 </td><td> Unauthorized. The request is missing or contains invalid Web3 API credentials. </td><td>  -  </td></tr>
-     * <tr><td> 403 </td><td> Forbidden. Check the API Key&#39;s B402 Payments permission, IP whitelist, and endpoint allowlist. </td><td>  -  </td></tr>
-     * <tr><td> 429 </td><td> Rate limit exceeded. </td><td>  -  </td></tr>
-     * <tr><td> 503 </td><td> B402 is temporarily unavailable. </td><td>  -  </td></tr>
      * </table>
      *
      * @see <a
@@ -646,10 +617,6 @@ public class Web3WalletRestApi {
      * <caption>Response Details</caption>
      * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
      * <tr><td> 200 </td><td> Legacy settlement result or a B402 business error envelope. </td><td>  -  </td></tr>
-     * <tr><td> 401 </td><td> Unauthorized. The request is missing or contains invalid Web3 API credentials. </td><td>  -  </td></tr>
-     * <tr><td> 403 </td><td> Forbidden. Check the API Key&#39;s B402 Payments permission, IP whitelist, and endpoint allowlist. </td><td>  -  </td></tr>
-     * <tr><td> 429 </td><td> Rate limit exceeded. </td><td>  -  </td></tr>
-     * <tr><td> 503 </td><td> B402 is temporarily unavailable. </td><td>  -  </td></tr>
      * </table>
      *
      * @see <a
@@ -682,10 +649,6 @@ public class Web3WalletRestApi {
      * <caption>Response Details</caption>
      * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
      * <tr><td> 200 </td><td> Settlement result, or a B402 business error envelope. </td><td>  -  </td></tr>
-     * <tr><td> 401 </td><td> Unauthorized. The request is missing or contains invalid Web3 API credentials. </td><td>  -  </td></tr>
-     * <tr><td> 403 </td><td> Forbidden. Check the API Key&#39;s B402 Payments permission, IP whitelist, and endpoint allowlist. </td><td>  -  </td></tr>
-     * <tr><td> 429 </td><td> Rate limit exceeded. </td><td>  -  </td></tr>
-     * <tr><td> 503 </td><td> B402 is temporarily unavailable. </td><td>  -  </td></tr>
      * </table>
      *
      * @see <a
@@ -716,10 +679,6 @@ public class Web3WalletRestApi {
      * <caption>Response Details</caption>
      * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
      * <tr><td> 200 </td><td> Legacy verification result or a B402 business error envelope. </td><td>  -  </td></tr>
-     * <tr><td> 401 </td><td> Unauthorized. The request is missing or contains invalid Web3 API credentials. </td><td>  -  </td></tr>
-     * <tr><td> 403 </td><td> Forbidden. Check the API Key&#39;s B402 Payments permission, IP whitelist, and endpoint allowlist. </td><td>  -  </td></tr>
-     * <tr><td> 429 </td><td> Rate limit exceeded. </td><td>  -  </td></tr>
-     * <tr><td> 503 </td><td> B402 is temporarily unavailable. </td><td>  -  </td></tr>
      * </table>
      *
      * @see <a
@@ -751,10 +710,6 @@ public class Web3WalletRestApi {
      * <caption>Response Details</caption>
      * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
      * <tr><td> 200 </td><td> Verification result, or a B402 business error envelope. </td><td>  -  </td></tr>
-     * <tr><td> 401 </td><td> Unauthorized. The request is missing or contains invalid Web3 API credentials. </td><td>  -  </td></tr>
-     * <tr><td> 403 </td><td> Forbidden. Check the API Key&#39;s B402 Payments permission, IP whitelist, and endpoint allowlist. </td><td>  -  </td></tr>
-     * <tr><td> 429 </td><td> Rate limit exceeded. </td><td>  -  </td></tr>
-     * <tr><td> 503 </td><td> B402 is temporarily unavailable. </td><td>  -  </td></tr>
      * </table>
      *
      * @see <a
@@ -768,11 +723,11 @@ public class Web3WalletRestApi {
     }
 
     /**
-     * Get DeFi Positions Query DeFi positions for one or more wallet addresses on BSC. Returns
-     * protocol-level position summaries with token breakdowns. Optionally filter by specific chains
-     * via &#x60;binanceChainIds&#x60;. Position coverage is wider than the protocol list used by
-     * data queries and transaction building — see [Supported Chains &amp;
-     * Protocols](../supported-chains) for the difference.
+     * Get DeFi Positions Query DeFi positions for one or more wallet addresses across the supported
+     * chains. Returns protocol-level position summaries with token breakdowns. Optionally filter by
+     * specific chains via &#x60;binanceChainIds&#x60;; when omitted, positions across all supported
+     * chains are returned. Position coverage is wider than the protocol list used by data queries
+     * and transaction building — see Supported Chains &amp; Protocols for the difference.
      *
      * @param getDeFiPositionsRequest (required)
      * @param recvWindow Allowed time deviation in milliseconds (default: 5000, max: 60000).
@@ -787,9 +742,6 @@ public class Web3WalletRestApi {
      * <caption>Response Details</caption>
      * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
      * <tr><td> 200 </td><td> DeFi positions returned successfully. </td><td>  -  </td></tr>
-     * <tr><td> 401 </td><td> Unauthorized. The request is missing or contains an invalid API key. </td><td>  -  </td></tr>
-     * <tr><td> 403 </td><td> Forbidden. The API key does not have permission to access this endpoint. </td><td>  -  </td></tr>
-     * <tr><td> 404 </td><td> Not Found. The requested resource or endpoint does not exist. </td><td>  -  </td></tr>
      * </table>
      *
      * @see <a
@@ -820,9 +772,6 @@ public class Web3WalletRestApi {
      * <caption>Response Details</caption>
      * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
      * <tr><td> 200 </td><td> Investment detail returned successfully. </td><td>  -  </td></tr>
-     * <tr><td> 401 </td><td> Unauthorized. The request is missing or contains an invalid API key. </td><td>  -  </td></tr>
-     * <tr><td> 403 </td><td> Forbidden. The API key does not have permission to access this endpoint. </td><td>  -  </td></tr>
-     * <tr><td> 404 </td><td> Not Found. The requested resource or endpoint does not exist. </td><td>  -  </td></tr>
      * </table>
      *
      * @see <a
@@ -852,9 +801,6 @@ public class Web3WalletRestApi {
      * <caption>Response Details</caption>
      * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
      * <tr><td> 200 </td><td> Protocol detail returned successfully. </td><td>  -  </td></tr>
-     * <tr><td> 401 </td><td> Unauthorized. The request is missing or contains an invalid API key. </td><td>  -  </td></tr>
-     * <tr><td> 403 </td><td> Forbidden. The API key does not have permission to access this endpoint. </td><td>  -  </td></tr>
-     * <tr><td> 404 </td><td> Not Found. The requested resource or endpoint does not exist. </td><td>  -  </td></tr>
      * </table>
      *
      * @see <a
@@ -884,9 +830,6 @@ public class Web3WalletRestApi {
      * <caption>Response Details</caption>
      * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
      * <tr><td> 200 </td><td> Investment list returned successfully. </td><td>  -  </td></tr>
-     * <tr><td> 401 </td><td> Unauthorized. The request is missing or contains an invalid API key. </td><td>  -  </td></tr>
-     * <tr><td> 403 </td><td> Forbidden. The API key does not have permission to access this endpoint. </td><td>  -  </td></tr>
-     * <tr><td> 404 </td><td> Not Found. The requested resource or endpoint does not exist. </td><td>  -  </td></tr>
      * </table>
      *
      * @see <a
@@ -921,9 +864,6 @@ public class Web3WalletRestApi {
      * <caption>Response Details</caption>
      * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
      * <tr><td> 200 </td><td> Protocol list returned successfully. </td><td>  -  </td></tr>
-     * <tr><td> 401 </td><td> Unauthorized. The request is missing or contains an invalid API key. </td><td>  -  </td></tr>
-     * <tr><td> 403 </td><td> Forbidden. The API key does not have permission to access this endpoint. </td><td>  -  </td></tr>
-     * <tr><td> 404 </td><td> Not Found. The requested resource or endpoint does not exist. </td><td>  -  </td></tr>
      * </table>
      *
      * @see <a
@@ -964,9 +904,6 @@ public class Web3WalletRestApi {
      * <caption>Response Details</caption>
      * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
      * <tr><td> 200 </td><td> Claim transaction calldata returned successfully. </td><td>  -  </td></tr>
-     * <tr><td> 401 </td><td> Unauthorized. The request is missing or contains an invalid API key. </td><td>  -  </td></tr>
-     * <tr><td> 403 </td><td> Forbidden. The API key does not have permission to access this endpoint. </td><td>  -  </td></tr>
-     * <tr><td> 404 </td><td> Not Found. The requested resource or endpoint does not exist. </td><td>  -  </td></tr>
      * </table>
      *
      * @see <a
@@ -1004,9 +941,6 @@ public class Web3WalletRestApi {
      * <caption>Response Details</caption>
      * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
      * <tr><td> 200 </td><td> Deposit transaction calldata returned successfully. </td><td>  -  </td></tr>
-     * <tr><td> 401 </td><td> Unauthorized. The request is missing or contains an invalid API key. </td><td>  -  </td></tr>
-     * <tr><td> 403 </td><td> Forbidden. The API key does not have permission to access this endpoint. </td><td>  -  </td></tr>
-     * <tr><td> 404 </td><td> Not Found. The requested resource or endpoint does not exist. </td><td>  -  </td></tr>
      * </table>
      *
      * @see <a
@@ -1059,9 +993,6 @@ public class Web3WalletRestApi {
      * <caption>Response Details</caption>
      * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
      * <tr><td> 200 </td><td> Redeem transaction calldata returned successfully. </td><td>  -  </td></tr>
-     * <tr><td> 401 </td><td> Unauthorized. The request is missing or contains an invalid API key. </td><td>  -  </td></tr>
-     * <tr><td> 403 </td><td> Forbidden. The API key does not have permission to access this endpoint. </td><td>  -  </td></tr>
-     * <tr><td> 404 </td><td> Not Found. The requested resource or endpoint does not exist. </td><td>  -  </td></tr>
      * </table>
      *
      * @see <a
@@ -1105,9 +1036,6 @@ public class Web3WalletRestApi {
      * <caption>Response Details</caption>
      * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
      * <tr><td> 200 </td><td> LP add transaction calldata returned successfully. </td><td>  -  </td></tr>
-     * <tr><td> 401 </td><td> Unauthorized. The request is missing or contains an invalid API key. </td><td>  -  </td></tr>
-     * <tr><td> 403 </td><td> Forbidden. The API key does not have permission to access this endpoint. </td><td>  -  </td></tr>
-     * <tr><td> 404 </td><td> Not Found. The requested resource or endpoint does not exist. </td><td>  -  </td></tr>
      * </table>
      *
      * @see <a
@@ -1144,9 +1072,6 @@ public class Web3WalletRestApi {
      * <caption>Response Details</caption>
      * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
      * <tr><td> 200 </td><td> LP remove transaction calldata returned successfully. </td><td>  -  </td></tr>
-     * <tr><td> 401 </td><td> Unauthorized. The request is missing or contains an invalid API key. </td><td>  -  </td></tr>
-     * <tr><td> 403 </td><td> Forbidden. The API key does not have permission to access this endpoint. </td><td>  -  </td></tr>
-     * <tr><td> 404 </td><td> Not Found. The requested resource or endpoint does not exist. </td><td>  -  </td></tr>
      * </table>
      *
      * @see <a
@@ -1187,9 +1112,6 @@ public class Web3WalletRestApi {
      * <caption>Response Details</caption>
      * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
      * <tr><td> 200 </td><td> Paired token amounts returned successfully. </td><td>  -  </td></tr>
-     * <tr><td> 401 </td><td> Unauthorized. The request is missing or contains an invalid API key. </td><td>  -  </td></tr>
-     * <tr><td> 403 </td><td> Forbidden. The API key does not have permission to access this endpoint. </td><td>  -  </td></tr>
-     * <tr><td> 404 </td><td> Not Found. The requested resource or endpoint does not exist. </td><td>  -  </td></tr>
      * </table>
      *
      * @see <a
@@ -1237,9 +1159,6 @@ public class Web3WalletRestApi {
      * <caption>Response Details</caption>
      * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
      * <tr><td> 200 </td><td> Candle data returned successfully. </td><td>  -  </td></tr>
-     * <tr><td> 401 </td><td> Unauthorized. The request is missing or contains an invalid API key. </td><td>  -  </td></tr>
-     * <tr><td> 403 </td><td> Forbidden. The API key does not have permission to access this endpoint. </td><td>  -  </td></tr>
-     * <tr><td> 404 </td><td> Not Found. The requested resource or endpoint does not exist. </td><td>  -  </td></tr>
      * </table>
      *
      * @see <a
@@ -1288,9 +1207,6 @@ public class Web3WalletRestApi {
      * <caption>Response Details</caption>
      * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
      * <tr><td> 200 </td><td> Holders ranking returned successfully. </td><td>  -  </td></tr>
-     * <tr><td> 401 </td><td> Unauthorized. The request is missing or contains an invalid API key. </td><td>  -  </td></tr>
-     * <tr><td> 403 </td><td> Forbidden. The API key does not have permission to access this endpoint. </td><td>  -  </td></tr>
-     * <tr><td> 404 </td><td> Not Found. The requested resource or endpoint does not exist. </td><td>  -  </td></tr>
      * </table>
      *
      * @see <a
@@ -1415,9 +1331,6 @@ public class Web3WalletRestApi {
      * <caption>Response Details</caption>
      * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
      * <tr><td> 200 </td><td> Hot token list returned successfully. </td><td>  -  </td></tr>
-     * <tr><td> 401 </td><td> Unauthorized. The request is missing or contains an invalid API key. </td><td>  -  </td></tr>
-     * <tr><td> 403 </td><td> Forbidden. The API key does not have permission to access this endpoint. </td><td>  -  </td></tr>
-     * <tr><td> 404 </td><td> Not Found. The requested resource or endpoint does not exist. </td><td>  -  </td></tr>
      * </table>
      *
      * @see <a
@@ -1557,9 +1470,6 @@ public class Web3WalletRestApi {
      * <caption>Response Details</caption>
      * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
      * <tr><td> 200 </td><td> Supported chains returned successfully. </td><td>  -  </td></tr>
-     * <tr><td> 401 </td><td> Unauthorized. The request is missing or contains an invalid API key. </td><td>  -  </td></tr>
-     * <tr><td> 403 </td><td> Forbidden. The API key does not have permission to access this endpoint. </td><td>  -  </td></tr>
-     * <tr><td> 404 </td><td> Not Found. The requested resource or endpoint does not exist. </td><td>  -  </td></tr>
      * </table>
      *
      * @see <a
@@ -1595,9 +1505,6 @@ public class Web3WalletRestApi {
      * <caption>Response Details</caption>
      * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
      * <tr><td> 200 </td><td> Advanced token info returned successfully. </td><td>  -  </td></tr>
-     * <tr><td> 401 </td><td> Unauthorized. The request is missing or contains an invalid API key. </td><td>  -  </td></tr>
-     * <tr><td> 403 </td><td> Forbidden. The API key does not have permission to access this endpoint. </td><td>  -  </td></tr>
-     * <tr><td> 404 </td><td> Not Found. The requested resource or endpoint does not exist. </td><td>  -  </td></tr>
      * </table>
      *
      * @see <a
@@ -1635,9 +1542,6 @@ public class Web3WalletRestApi {
      * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
      * <tr><td> 200 </td><td> Token basic info returned successfully. </td><td>  -  </td></tr>
      * <tr><td> 201 </td><td> Created. </td><td>  -  </td></tr>
-     * <tr><td> 401 </td><td> Unauthorized. The request is missing or contains an invalid API key. </td><td>  -  </td></tr>
-     * <tr><td> 403 </td><td> Forbidden. The API key does not have permission to access this endpoint. </td><td>  -  </td></tr>
-     * <tr><td> 404 </td><td> Not Found. The requested resource or endpoint does not exist. </td><td>  -  </td></tr>
      * </table>
      *
      * @see <a
@@ -1676,9 +1580,6 @@ public class Web3WalletRestApi {
      * <caption>Response Details</caption>
      * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
      * <tr><td> 200 </td><td> Token dev info returned successfully. </td><td>  -  </td></tr>
-     * <tr><td> 401 </td><td> Unauthorized. The request is missing or contains an invalid API key. </td><td>  -  </td></tr>
-     * <tr><td> 403 </td><td> Forbidden. The API key does not have permission to access this endpoint. </td><td>  -  </td></tr>
-     * <tr><td> 404 </td><td> Not Found. The requested resource or endpoint does not exist. </td><td>  -  </td></tr>
      * </table>
      *
      * @see <a
@@ -1714,9 +1615,6 @@ public class Web3WalletRestApi {
      * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
      * <tr><td> 200 </td><td> Token prices returned successfully. </td><td>  -  </td></tr>
      * <tr><td> 201 </td><td> Created. </td><td>  -  </td></tr>
-     * <tr><td> 401 </td><td> Unauthorized. The request is missing or contains an invalid API key. </td><td>  -  </td></tr>
-     * <tr><td> 403 </td><td> Forbidden. The API key does not have permission to access this endpoint. </td><td>  -  </td></tr>
-     * <tr><td> 404 </td><td> Not Found. The requested resource or endpoint does not exist. </td><td>  -  </td></tr>
      * </table>
      *
      * @see <a
@@ -1761,9 +1659,6 @@ public class Web3WalletRestApi {
      * <caption>Response Details</caption>
      * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
      * <tr><td> 200 </td><td> Trade history returned successfully. </td><td>  -  </td></tr>
-     * <tr><td> 401 </td><td> Unauthorized. The request is missing or contains an invalid API key. </td><td>  -  </td></tr>
-     * <tr><td> 403 </td><td> Forbidden. The API key does not have permission to access this endpoint. </td><td>  -  </td></tr>
-     * <tr><td> 404 </td><td> Not Found. The requested resource or endpoint does not exist. </td><td>  -  </td></tr>
      * </table>
      *
      * @see <a
@@ -1813,9 +1708,6 @@ public class Web3WalletRestApi {
      * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
      * <tr><td> 200 </td><td> Price info returned successfully. </td><td>  -  </td></tr>
      * <tr><td> 201 </td><td> Created. </td><td>  -  </td></tr>
-     * <tr><td> 401 </td><td> Unauthorized. The request is missing or contains an invalid API key. </td><td>  -  </td></tr>
-     * <tr><td> 403 </td><td> Forbidden. The API key does not have permission to access this endpoint. </td><td>  -  </td></tr>
-     * <tr><td> 404 </td><td> Not Found. The requested resource or endpoint does not exist. </td><td>  -  </td></tr>
      * </table>
      *
      * @see <a
@@ -1850,9 +1742,6 @@ public class Web3WalletRestApi {
      * <caption>Response Details</caption>
      * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
      * <tr><td> 200 </td><td> Top liquidity pools returned successfully. </td><td>  -  </td></tr>
-     * <tr><td> 401 </td><td> Unauthorized. The request is missing or contains an invalid API key. </td><td>  -  </td></tr>
-     * <tr><td> 403 </td><td> Forbidden. The API key does not have permission to access this endpoint. </td><td>  -  </td></tr>
-     * <tr><td> 404 </td><td> Not Found. The requested resource or endpoint does not exist. </td><td>  -  </td></tr>
      * </table>
      *
      * @see <a
@@ -1894,9 +1783,6 @@ public class Web3WalletRestApi {
      * <caption>Response Details</caption>
      * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
      * <tr><td> 200 </td><td> Top traders returned successfully. </td><td>  -  </td></tr>
-     * <tr><td> 401 </td><td> Unauthorized. The request is missing or contains an invalid API key. </td><td>  -  </td></tr>
-     * <tr><td> 403 </td><td> Forbidden. The API key does not have permission to access this endpoint. </td><td>  -  </td></tr>
-     * <tr><td> 404 </td><td> Not Found. The requested resource or endpoint does not exist. </td><td>  -  </td></tr>
      * </table>
      *
      * @see <a
@@ -1935,9 +1821,6 @@ public class Web3WalletRestApi {
      * <caption>Response Details</caption>
      * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
      * <tr><td> 200 </td><td> Search results returned successfully. </td><td>  -  </td></tr>
-     * <tr><td> 401 </td><td> Unauthorized. The request is missing or contains an invalid API key. </td><td>  -  </td></tr>
-     * <tr><td> 403 </td><td> Forbidden. The API key does not have permission to access this endpoint. </td><td>  -  </td></tr>
-     * <tr><td> 404 </td><td> Not Found. The requested resource or endpoint does not exist. </td><td>  -  </td></tr>
      * </table>
      *
      * @see <a
@@ -1972,9 +1855,6 @@ public class Web3WalletRestApi {
      * <caption>Response Details</caption>
      * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
      * <tr><td> 200 </td><td> RWA token issuance platform list returned successfully. </td><td>  -  </td></tr>
-     * <tr><td> 401 </td><td> Unauthorized. The request is missing or contains an invalid API key. </td><td>  -  </td></tr>
-     * <tr><td> 403 </td><td> Forbidden. The API key does not have permission to access this endpoint. </td><td>  -  </td></tr>
-     * <tr><td> 404 </td><td> Not Found. The requested resource or endpoint does not exist. </td><td>  -  </td></tr>
      * </table>
      *
      * @see <a
@@ -2018,9 +1898,6 @@ public class Web3WalletRestApi {
      * <caption>Response Details</caption>
      * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
      * <tr><td> 200 </td><td> RWA token list returned successfully. </td><td>  -  </td></tr>
-     * <tr><td> 401 </td><td> Unauthorized. The request is missing or contains an invalid API key. </td><td>  -  </td></tr>
-     * <tr><td> 403 </td><td> Forbidden. The API key does not have permission to access this endpoint. </td><td>  -  </td></tr>
-     * <tr><td> 404 </td><td> Not Found. The requested resource or endpoint does not exist. </td><td>  -  </td></tr>
      * </table>
      *
      * @see <a
@@ -2061,9 +1938,6 @@ public class Web3WalletRestApi {
      * <caption>Response Details</caption>
      * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
      * <tr><td> 200 </td><td> Quote data returned successfully. </td><td>  -  </td></tr>
-     * <tr><td> 401 </td><td> Unauthorized. The request is missing or contains an invalid API key. </td><td>  -  </td></tr>
-     * <tr><td> 403 </td><td> Forbidden. The API key does not have permission to access this endpoint. </td><td>  -  </td></tr>
-     * <tr><td> 404 </td><td> Not Found. The requested resource or endpoint does not exist. </td><td>  -  </td></tr>
      * </table>
      *
      * @see <a
@@ -2099,9 +1973,6 @@ public class Web3WalletRestApi {
      * <caption>Response Details</caption>
      * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
      * <tr><td> 200 </td><td> Token detail returned successfully. </td><td>  -  </td></tr>
-     * <tr><td> 401 </td><td> Unauthorized. The request is missing or contains an invalid API key. </td><td>  -  </td></tr>
-     * <tr><td> 403 </td><td> Forbidden. The API key does not have permission to access this endpoint. </td><td>  -  </td></tr>
-     * <tr><td> 404 </td><td> Not Found. The requested resource or endpoint does not exist. </td><td>  -  </td></tr>
      * </table>
      *
      * @see <a
@@ -2137,9 +2008,6 @@ public class Web3WalletRestApi {
      * <caption>Response Details</caption>
      * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
      * <tr><td> 200 </td><td> Underlying market data returned successfully. </td><td>  -  </td></tr>
-     * <tr><td> 401 </td><td> Unauthorized. The request is missing or contains an invalid API key. </td><td>  -  </td></tr>
-     * <tr><td> 403 </td><td> Forbidden. The API key does not have permission to access this endpoint. </td><td>  -  </td></tr>
-     * <tr><td> 404 </td><td> Not Found. The requested resource or endpoint does not exist. </td><td>  -  </td></tr>
      * </table>
      *
      * @see <a
@@ -2176,9 +2044,6 @@ public class Web3WalletRestApi {
      * <caption>Response Details</caption>
      * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
      * <tr><td> 200 </td><td> Ticker lookup results returned successfully. </td><td>  -  </td></tr>
-     * <tr><td> 401 </td><td> Unauthorized. The request is missing or contains an invalid API key. </td><td>  -  </td></tr>
-     * <tr><td> 403 </td><td> Forbidden. The API key does not have permission to access this endpoint. </td><td>  -  </td></tr>
-     * <tr><td> 404 </td><td> Not Found. The requested resource or endpoint does not exist. </td><td>  -  </td></tr>
      * </table>
      *
      * @see <a
@@ -2276,9 +2141,6 @@ public class Web3WalletRestApi {
      * <caption>Response Details</caption>
      * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
      * <tr><td> 200 </td><td> Uncompiled Solana instruction list and ALT addresses returned successfully. </td><td>  -  </td></tr>
-     * <tr><td> 401 </td><td> Unauthorized. The request is missing or contains an invalid API key. </td><td>  -  </td></tr>
-     * <tr><td> 403 </td><td> Forbidden. The API key does not have permission to access this endpoint. </td><td>  -  </td></tr>
-     * <tr><td> 404 </td><td> Not Found. The requested resource or endpoint does not exist. </td><td>  -  </td></tr>
      * </table>
      *
      * @see <a
@@ -2423,9 +2285,6 @@ public class Web3WalletRestApi {
      * <caption>Response Details</caption>
      * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
      * <tr><td> 200 </td><td> Swap transaction data returned successfully. </td><td>  -  </td></tr>
-     * <tr><td> 401 </td><td> Unauthorized. The request is missing or contains an invalid API key. </td><td>  -  </td></tr>
-     * <tr><td> 403 </td><td> Forbidden. The API key does not have permission to access this endpoint. </td><td>  -  </td></tr>
-     * <tr><td> 404 </td><td> Not Found. The requested resource or endpoint does not exist. </td><td>  -  </td></tr>
      * </table>
      *
      * @see <a
@@ -2536,9 +2395,6 @@ public class Web3WalletRestApi {
      * <caption>Response Details</caption>
      * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
      * <tr><td> 200 </td><td> Quote routes returned successfully. </td><td>  -  </td></tr>
-     * <tr><td> 401 </td><td> Unauthorized. The request is missing or contains an invalid API key. </td><td>  -  </td></tr>
-     * <tr><td> 403 </td><td> Forbidden. The API key does not have permission to access this endpoint. </td><td>  -  </td></tr>
-     * <tr><td> 404 </td><td> Not Found. The requested resource or endpoint does not exist. </td><td>  -  </td></tr>
      * </table>
      *
      * @see <a
@@ -2595,9 +2451,6 @@ public class Web3WalletRestApi {
      * <caption>Response Details</caption>
      * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
      * <tr><td> 200 </td><td> Supported chains returned successfully. </td><td>  -  </td></tr>
-     * <tr><td> 401 </td><td> Unauthorized. The request is missing or contains an invalid API key. </td><td>  -  </td></tr>
-     * <tr><td> 403 </td><td> Forbidden. The API key does not have permission to access this endpoint. </td><td>  -  </td></tr>
-     * <tr><td> 404 </td><td> Not Found. The requested resource or endpoint does not exist. </td><td>  -  </td></tr>
      * </table>
      *
      * @see <a
@@ -2646,9 +2499,6 @@ public class Web3WalletRestApi {
      * <caption>Response Details</caption>
      * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
      * <tr><td> 200 </td><td> Approve transaction data returned successfully. </td><td>  -  </td></tr>
-     * <tr><td> 401 </td><td> Unauthorized. The request is missing or contains an invalid API key. </td><td>  -  </td></tr>
-     * <tr><td> 403 </td><td> Forbidden. The API key does not have permission to access this endpoint. </td><td>  -  </td></tr>
-     * <tr><td> 404 </td><td> Not Found. The requested resource or endpoint does not exist. </td><td>  -  </td></tr>
      * </table>
      *
      * @see <a
@@ -2691,9 +2541,6 @@ public class Web3WalletRestApi {
      * <caption>Response Details</caption>
      * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
      * <tr><td> 200 </td><td> Order status returned successfully. </td><td>  -  </td></tr>
-     * <tr><td> 401 </td><td> Unauthorized. The request is missing or contains an invalid API key. </td><td>  -  </td></tr>
-     * <tr><td> 403 </td><td> Forbidden. The API key does not have permission to access this endpoint. </td><td>  -  </td></tr>
-     * <tr><td> 404 </td><td> Not Found. The requested resource or endpoint does not exist. </td><td>  -  </td></tr>
      * </table>
      *
      * @see <a
@@ -2734,9 +2581,6 @@ public class Web3WalletRestApi {
      * <caption>Response Details</caption>
      * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
      * <tr><td> 200 </td><td> Transaction details. &#x60;data&#x60; is null when no record is found. </td><td>  -  </td></tr>
-     * <tr><td> 401 </td><td> Unauthorized. The request is missing or contains an invalid API key. </td><td>  -  </td></tr>
-     * <tr><td> 403 </td><td> Forbidden. The API key does not have permission to access this endpoint. </td><td>  -  </td></tr>
-     * <tr><td> 404 </td><td> Not Found. The requested resource or endpoint does not exist. </td><td>  -  </td></tr>
      * </table>
      *
      * @see <a
@@ -2792,6 +2636,14 @@ public class Web3WalletRestApi {
      *     V4,Pancakeswap V3\&quot;&#x60;). On EVM/Sui/Tron chains they are normalized
      *     automatically; on Solana the value is case-sensitive and must match the response exactly.
      *     Omit or leave empty to exclude nothing. (optional)
+     * @param excludePools Comma-separated list of liquidity pool identifiers to exclude from
+     *     routing (block specific pools). Only effective when &#x60;vendor&#x3D;LiquidMesh&#x60; —
+     *     passed through to the LiquidMesh Flash API &#x60;excludePools&#x60; parameter. Pool
+     *     identifier format: V2/V3 pools use the &#x60;0x&#x60; + 40-hex contract address,
+     *     V4/Infinity pools use the &#x60;0x&#x60; + 64-hex poolId (&#x60;0x&#x60; prefix optional,
+     *     case-insensitive). Values are trimmed, deduped and passed through as-is; the server only
+     *     enforces a length cap (2000 chars), invalid values are rejected by the gateway. Omit or
+     *     leave empty to exclude nothing (behavior unchanged). (optional)
      * @param enableRFQ Whether to enable RFQ liquidity sources for routing. Default depends on the
      *     token pair: **BStock pairs default to &#x60;\&quot;true\&quot;&#x60; (RFQ enabled)**; all
      *     other tokens default to &#x60;\&quot;false\&quot;&#x60; (RFQ disabled, AMM-only routing).
@@ -2857,9 +2709,6 @@ public class Web3WalletRestApi {
      * <caption>Response Details</caption>
      * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
      * <tr><td> 200 </td><td> Swap transaction data returned successfully. </td><td>  -  </td></tr>
-     * <tr><td> 401 </td><td> Unauthorized. The request is missing or contains an invalid API key. </td><td>  -  </td></tr>
-     * <tr><td> 403 </td><td> Forbidden. The API key does not have permission to access this endpoint. </td><td>  -  </td></tr>
-     * <tr><td> 404 </td><td> Not Found. The requested resource or endpoint does not exist. </td><td>  -  </td></tr>
      * </table>
      *
      * @see <a
@@ -2877,6 +2726,7 @@ public class Web3WalletRestApi {
             String nonce,
             String slippagePercent,
             String excludeDexes,
+            String excludePools,
             EnableRFQ enableRFQ,
             ApproveTransaction approveTransaction,
             String approveAmount,
@@ -2903,6 +2753,7 @@ public class Web3WalletRestApi {
                 nonce,
                 slippagePercent,
                 excludeDexes,
+                excludePools,
                 enableRFQ,
                 approveTransaction,
                 approveAmount,
@@ -2943,9 +2794,6 @@ public class Web3WalletRestApi {
      * <caption>Response Details</caption>
      * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
      * <tr><td> 200 </td><td> RFQ order submitted successfully. </td><td>  -  </td></tr>
-     * <tr><td> 401 </td><td> Unauthorized. The request is missing or contains an invalid API key. </td><td>  -  </td></tr>
-     * <tr><td> 403 </td><td> Forbidden. The API key does not have permission to access this endpoint. </td><td>  -  </td></tr>
-     * <tr><td> 404 </td><td> Not Found. The requested resource or endpoint does not exist. </td><td>  -  </td></tr>
      * </table>
      *
      * @see <a
@@ -2979,9 +2827,6 @@ public class Web3WalletRestApi {
      * <caption>Response Details</caption>
      * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
      * <tr><td> 200 </td><td> Transaction submitted successfully. </td><td>  -  </td></tr>
-     * <tr><td> 401 </td><td> Unauthorized. The request is missing or contains an invalid API key. </td><td>  -  </td></tr>
-     * <tr><td> 403 </td><td> Forbidden. The API key does not have permission to access this endpoint. </td><td>  -  </td></tr>
-     * <tr><td> 404 </td><td> Not Found. The requested resource or endpoint does not exist. </td><td>  -  </td></tr>
      * </table>
      *
      * @see <a
@@ -3028,9 +2873,6 @@ public class Web3WalletRestApi {
      * <caption>Response Details</caption>
      * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
      * <tr><td> 200 </td><td> Orders returned successfully. </td><td>  -  </td></tr>
-     * <tr><td> 401 </td><td> Unauthorized. The request is missing or contains an invalid API key. </td><td>  -  </td></tr>
-     * <tr><td> 403 </td><td> Forbidden. The API key does not have permission to access this endpoint. </td><td>  -  </td></tr>
-     * <tr><td> 404 </td><td> Not Found. The requested resource or endpoint does not exist. </td><td>  -  </td></tr>
      * </table>
      *
      * @see <a
@@ -3072,9 +2914,6 @@ public class Web3WalletRestApi {
      * <caption>Response Details</caption>
      * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
      * <tr><td> 200 </td><td> Estimated gas limit. </td><td>  -  </td></tr>
-     * <tr><td> 401 </td><td> Unauthorized. The request is missing or contains an invalid API key. </td><td>  -  </td></tr>
-     * <tr><td> 403 </td><td> Forbidden. The API key does not have permission to access this endpoint. </td><td>  -  </td></tr>
-     * <tr><td> 404 </td><td> Not Found. The requested resource or endpoint does not exist. </td><td>  -  </td></tr>
      * </table>
      *
      * @see <a
@@ -3115,9 +2954,6 @@ public class Web3WalletRestApi {
      * <caption>Response Details</caption>
      * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
      * <tr><td> 200 </td><td> Current gas price for the specified chain. </td><td>  -  </td></tr>
-     * <tr><td> 401 </td><td> Unauthorized. The request is missing or contains an invalid API key. </td><td>  -  </td></tr>
-     * <tr><td> 403 </td><td> Forbidden. The API key does not have permission to access this endpoint. </td><td>  -  </td></tr>
-     * <tr><td> 404 </td><td> Not Found. The requested resource or endpoint does not exist. </td><td>  -  </td></tr>
      * </table>
      *
      * @see <a
@@ -3154,9 +2990,6 @@ public class Web3WalletRestApi {
      * <caption>Response Details</caption>
      * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
      * <tr><td> 200 </td><td> Latest block height for the specified chain. </td><td>  -  </td></tr>
-     * <tr><td> 401 </td><td> Unauthorized. The request is missing or contains an invalid API key. </td><td>  -  </td></tr>
-     * <tr><td> 403 </td><td> Forbidden. The API key does not have permission to access this endpoint. </td><td>  -  </td></tr>
-     * <tr><td> 404 </td><td> Not Found. The requested resource or endpoint does not exist. </td><td>  -  </td></tr>
      * </table>
      *
      * @see <a
@@ -3190,9 +3023,6 @@ public class Web3WalletRestApi {
      * <caption>Response Details</caption>
      * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
      * <tr><td> 200 </td><td> Supported chains returned successfully. </td><td>  -  </td></tr>
-     * <tr><td> 401 </td><td> Unauthorized. The request is missing or contains an invalid API key. </td><td>  -  </td></tr>
-     * <tr><td> 403 </td><td> Forbidden. The API key does not have permission to access this endpoint. </td><td>  -  </td></tr>
-     * <tr><td> 404 </td><td> Not Found. The requested resource or endpoint does not exist. </td><td>  -  </td></tr>
      * </table>
      *
      * @see <a
@@ -3226,9 +3056,6 @@ public class Web3WalletRestApi {
      * <caption>Response Details</caption>
      * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
      * <tr><td> 200 </td><td> Simulation result. </td><td>  -  </td></tr>
-     * <tr><td> 401 </td><td> Unauthorized. The request is missing or contains an invalid API key. </td><td>  -  </td></tr>
-     * <tr><td> 403 </td><td> Forbidden. The API key does not have permission to access this endpoint. </td><td>  -  </td></tr>
-     * <tr><td> 404 </td><td> Not Found. The requested resource or endpoint does not exist. </td><td>  -  </td></tr>
      * </table>
      *
      * @see <a
@@ -3270,9 +3097,6 @@ public class Web3WalletRestApi {
      * <caption>Response Details</caption>
      * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
      * <tr><td> 200 </td><td> Token balances returned successfully. </td><td>  -  </td></tr>
-     * <tr><td> 401 </td><td> Unauthorized. The request is missing or contains an invalid API key. </td><td>  -  </td></tr>
-     * <tr><td> 403 </td><td> Forbidden. The API key does not have permission to access this endpoint. </td><td>  -  </td></tr>
-     * <tr><td> 404 </td><td> Not Found. The requested resource or endpoint does not exist. </td><td>  -  </td></tr>
      * </table>
      *
      * @see <a
@@ -3311,9 +3135,6 @@ public class Web3WalletRestApi {
      * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
      * <tr><td> 200 </td><td> Token balances returned successfully. </td><td>  -  </td></tr>
      * <tr><td> 201 </td><td> Created. </td><td>  -  </td></tr>
-     * <tr><td> 401 </td><td> Unauthorized. The request is missing or contains an invalid API key. </td><td>  -  </td></tr>
-     * <tr><td> 403 </td><td> Forbidden. The API key does not have permission to access this endpoint. </td><td>  -  </td></tr>
-     * <tr><td> 404 </td><td> Not Found. The requested resource or endpoint does not exist. </td><td>  -  </td></tr>
      * </table>
      *
      * @see <a
@@ -3357,9 +3178,6 @@ public class Web3WalletRestApi {
      * <caption>Response Details</caption>
      * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
      * <tr><td> 200 </td><td> Transaction details returned successfully. </td><td>  -  </td></tr>
-     * <tr><td> 401 </td><td> Unauthorized. The request is missing or contains an invalid API key. </td><td>  -  </td></tr>
-     * <tr><td> 403 </td><td> Forbidden. The API key does not have permission to access this endpoint. </td><td>  -  </td></tr>
-     * <tr><td> 404 </td><td> Not Found. The requested resource or endpoint does not exist. </td><td>  -  </td></tr>
      * </table>
      *
      * @see <a
@@ -3402,9 +3220,6 @@ public class Web3WalletRestApi {
      * <caption>Response Details</caption>
      * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
      * <tr><td> 200 </td><td> Transaction history returned successfully. </td><td>  -  </td></tr>
-     * <tr><td> 401 </td><td> Unauthorized. The request is missing or contains an invalid API key. </td><td>  -  </td></tr>
-     * <tr><td> 403 </td><td> Forbidden. The API key does not have permission to access this endpoint. </td><td>  -  </td></tr>
-     * <tr><td> 404 </td><td> Not Found. The requested resource or endpoint does not exist. </td><td>  -  </td></tr>
      * </table>
      *
      * @see <a
@@ -3458,9 +3273,6 @@ public class Web3WalletRestApi {
      * <caption>Response Details</caption>
      * <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
      * <tr><td> 200 </td><td> Supported chains returned successfully. </td><td>  -  </td></tr>
-     * <tr><td> 401 </td><td> Unauthorized. The request is missing or contains an invalid API key. </td><td>  -  </td></tr>
-     * <tr><td> 403 </td><td> Forbidden. The API key does not have permission to access this endpoint. </td><td>  -  </td></tr>
-     * <tr><td> 404 </td><td> Not Found. The requested resource or endpoint does not exist. </td><td>  -  </td></tr>
      * </table>
      *
      * @see <a
@@ -3479,8 +3291,7 @@ public class Web3WalletRestApi {
 
     /**
      * Get WebSocket Auth Token Get a WebSocket auth token before connecting to the WebSocket stream
-     * service. For details on WebSocket usage, please refer to the [WebSocket
-     * documentation](/products/websocket-api/introduction).
+     * service. For details on WebSocket usage, please refer to the WebSocket documentation.
      *
      * @param recvWindow Allowed time deviation in milliseconds (default: 5000, max: 60000).
      *     (optional)

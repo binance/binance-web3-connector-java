@@ -1,6 +1,6 @@
 
 
-# SettleB402PaymentV2Response1Data
+# SettleB402PaymentV1ResponseData
 
 
 ## Properties
@@ -8,13 +8,13 @@
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
 |**success** | **Boolean** |  |  |
-|**transaction** | **String** |  |  |
+|**transaction** | **String** |  |  [optional] |
 |**payer** | **String** |  |  [optional] |
-|**network** | **String** |  |  |
+|**network** | **String** |  |  [optional] |
 |**amount** | **String** |  |  [optional] |
+|**confirmations** | **Integer** |  |  [optional] |
 |**errorReason** | **String** |  |  [optional] |
 |**errorMessage** | **String** |  |  [optional] |
-|**extensions** | **Map&lt;String, Object&gt;** |  |  [optional] |
 
 
 

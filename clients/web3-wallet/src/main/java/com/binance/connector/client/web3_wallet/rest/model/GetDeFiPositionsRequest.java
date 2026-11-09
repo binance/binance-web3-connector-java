@@ -52,6 +52,12 @@ public class GetDeFiPositionsRequest {
     @jakarta.annotation.Nullable
     private List<String> binanceChainIds;
 
+    public static final String SERIALIZED_NAME_FORCE_REFRESH = "forceRefresh";
+
+    @SerializedName(SERIALIZED_NAME_FORCE_REFRESH)
+    @jakarta.annotation.Nullable
+    private Boolean forceRefresh;
+
     public GetDeFiPositionsRequest() {}
 
     public GetDeFiPositionsRequest addresses(@jakarta.annotation.Nonnull List<String> addresses) {
@@ -69,7 +75,8 @@ public class GetDeFiPositionsRequest {
 
     /**
      * Wallet addresses to query positions for. Up to 3 addresses per request (server-side
-     * configured and subject to change).
+     * configured and subject to change); the limit is shared across chains — a multi-chain query
+     * consumes the same 3-address budget.
      *
      * @return addresses
      */
@@ -99,8 +106,9 @@ public class GetDeFiPositionsRequest {
     }
 
     /**
-     * Optional chain filter. When set, only positions on the specified chains are returned. This
-     * release supports BSC (\&quot;56\&quot;) only.
+     * Optional chain filter. When set, only positions on the specified chains are returned; when
+     * omitted, positions across all supported chains are returned. See Supported Chains &amp;
+     * Protocols for the supported chain ID values — unsupported values are rejected with 40001.
      *
      * @return binanceChainIds
      */
@@ -113,6 +121,27 @@ public class GetDeFiPositionsRequest {
         this.binanceChainIds = binanceChainIds;
     }
 
+    public GetDeFiPositionsRequest forceRefresh(@jakarta.annotation.Nullable Boolean forceRefresh) {
+        this.forceRefresh = forceRefresh;
+        return this;
+    }
+
+    /**
+     * Force a cache bypass and re-read the latest on-chain state. Defaults to &#x60;false&#x60;
+     * (serves cached data). Set to &#x60;true&#x60; right after a redeem / claim to see the updated
+     * position immediately — the cache otherwise lags by a short window.
+     *
+     * @return forceRefresh
+     */
+    @jakarta.annotation.Nullable
+    public Boolean getForceRefresh() {
+        return forceRefresh;
+    }
+
+    public void setForceRefresh(@jakarta.annotation.Nullable Boolean forceRefresh) {
+        this.forceRefresh = forceRefresh;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -123,12 +152,13 @@ public class GetDeFiPositionsRequest {
         }
         GetDeFiPositionsRequest getDeFiPositionsRequest = (GetDeFiPositionsRequest) o;
         return Objects.equals(this.addresses, getDeFiPositionsRequest.addresses)
-                && Objects.equals(this.binanceChainIds, getDeFiPositionsRequest.binanceChainIds);
+                && Objects.equals(this.binanceChainIds, getDeFiPositionsRequest.binanceChainIds)
+                && Objects.equals(this.forceRefresh, getDeFiPositionsRequest.forceRefresh);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(addresses, binanceChainIds);
+        return Objects.hash(addresses, binanceChainIds, forceRefresh);
     }
 
     @Override
@@ -137,6 +167,7 @@ public class GetDeFiPositionsRequest {
         sb.append("class GetDeFiPositionsRequest {\n");
         sb.append("		addresses: ").append(toIndentedString(addresses)).append("\n");
         sb.append("		binanceChainIds: ").append(toIndentedString(binanceChainIds)).append("\n");
+        sb.append("		forceRefresh: ").append(toIndentedString(forceRefresh)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -158,6 +189,10 @@ public class GetDeFiPositionsRequest {
                         ((Collection) binanceChainIdsValue)
                                 .stream().map(Object::toString).collect(Collectors.joining(","));
         sb.append("binanceChainIds=").append(urlEncode(binanceChainIdsValueAsString)).append("");
+        Object forceRefreshValue = getForceRefresh();
+        String forceRefreshValueAsString = "";
+        forceRefreshValueAsString = forceRefreshValue.toString();
+        sb.append("forceRefresh=").append(urlEncode(forceRefreshValueAsString)).append("");
         return sb.toString();
     }
 
@@ -188,6 +223,7 @@ public class GetDeFiPositionsRequest {
         openapiFields = new HashSet<String>();
         openapiFields.add("addresses");
         openapiFields.add("binanceChainIds");
+        openapiFields.add("forceRefresh");
 
         // a set of required properties/fields (JSON key names)
         openapiRequiredFields = new HashSet<String>();

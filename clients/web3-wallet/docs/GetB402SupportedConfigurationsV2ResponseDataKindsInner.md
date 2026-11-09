@@ -1,6 +1,6 @@
 
 
-# GetB402SupportedConfigurationsV2Response1DataKindsInner
+# GetB402SupportedConfigurationsV2ResponseDataKindsInner
 
 
 ## Properties
@@ -10,7 +10,7 @@
 |**x402Version** | **Integer** |  |  |
 |**scheme** | **String** |  |  |
 |**network** | **String** |  |  |
-|**extra** | [**GetB402SupportedConfigurationsV2Response1DataKindsInnerExtra**](GetB402SupportedConfigurationsV2Response1DataKindsInnerExtra.md) |  |  |
+|**extra** | [**GetB402SupportedConfigurationsV2ResponseDataKindsInnerExtra**](GetB402SupportedConfigurationsV2ResponseDataKindsInnerExtra.md) |  |  |
 
 
 

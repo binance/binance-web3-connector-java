@@ -83,7 +83,10 @@ public class ProtocolResp {
     }
 
     /**
-     * Binance chain ID (e.g. \&quot;56\&quot;&#x3D;BSC).
+     * Binance chain ID. Plain numeric string for EVM chains (e.g. &#x60;\&quot;56\&quot;&#x60;
+     * &#x3D; BNB Smart Chain); non-EVM chains use a &#x60;CT_&#x60;-prefixed string (e.g.
+     * &#x60;\&quot;CT_501\&quot;&#x60; &#x3D; Solana), consistent with the Trading / Transaction
+     * APIs. See Supported Chains &amp; Protocols for the supported values.
      *
      * @return binanceChainId
      */

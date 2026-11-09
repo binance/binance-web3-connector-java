@@ -163,4 +163,24 @@ public class Web3StreamConnectionPoolWrapper implements StreamConnectionInterfac
         }
         isConnected = false;
     }
+
+    @Override
+    public boolean canReconnect() {
+        for (StreamConnectionInterface connectionWrapper : connectionList) {
+            if (!connectionWrapper.canReconnect()) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    @Override
+    public boolean isReady() {
+        for (StreamConnectionInterface connectionWrapper : connectionList) {
+            if (!connectionWrapper.isReady()) {
+                return false;
+            }
+        }
+        return true;
+    }
 }

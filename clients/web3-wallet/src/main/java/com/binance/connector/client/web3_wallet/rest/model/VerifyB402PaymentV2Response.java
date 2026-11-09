@@ -12,233 +12,335 @@
 
 package com.binance.connector.client.web3_wallet.rest.model;
 
-import com.binance.connector.client.common.AbstractOpenApiSchema;
 import com.binance.connector.client.web3_wallet.rest.JSON;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.google.gson.TypeAdapter;
 import com.google.gson.TypeAdapterFactory;
+import com.google.gson.annotations.SerializedName;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.*;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Objects;
 import org.hibernate.validator.constraints.*;
+import org.openapitools.jackson.nullable.JsonNullable;
 
+/** VerifyB402PaymentV2Response */
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
         comments = "Generator version: 7.22.0")
-public class VerifyB402PaymentV2Response extends AbstractOpenApiSchema {
-    private static final Logger log = Logger.getLogger(VerifyB402PaymentV2Response.class.getName());
+public class VerifyB402PaymentV2Response {
+    public static final String SERIALIZED_NAME_STATUS = "status";
 
-    public static class CustomTypeAdapterFactory implements TypeAdapterFactory {
-        @SuppressWarnings("unchecked")
-        @Override
-        public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
-            if (!VerifyB402PaymentV2Response.class.isAssignableFrom(type.getRawType())) {
-                return null; // this class only serializes 'VerifyB402PaymentV2Response' and its
-                // subtypes
-            }
-            final TypeAdapter<JsonElement> elementAdapter = gson.getAdapter(JsonElement.class);
-            final TypeAdapter<VerifyB402PaymentV2Response1> adapterVerifyB402PaymentV2Response1 =
-                    gson.getDelegateAdapter(
-                            this, TypeToken.get(VerifyB402PaymentV2Response1.class));
-            final TypeAdapter<VerifyB402PaymentV2Response2> adapterVerifyB402PaymentV2Response2 =
-                    gson.getDelegateAdapter(
-                            this, TypeToken.get(VerifyB402PaymentV2Response2.class));
+    @SerializedName(SERIALIZED_NAME_STATUS)
+    @jakarta.annotation.Nullable
+    private String status;
 
-            return (TypeAdapter<T>)
-                    new TypeAdapter<VerifyB402PaymentV2Response>() {
-                        @Override
-                        public void write(JsonWriter out, VerifyB402PaymentV2Response value)
-                                throws IOException {
-                            if (value == null || value.getActualInstance() == null) {
-                                elementAdapter.write(out, null);
-                                return;
-                            }
+    public static final String SERIALIZED_NAME_TYPE = "type";
 
-                            // check if the actual instance is of the type
-                            // `VerifyB402PaymentV2Response1`
-                            if (value.getActualInstance() instanceof VerifyB402PaymentV2Response1) {
-                                JsonElement element =
-                                        adapterVerifyB402PaymentV2Response1.toJsonTree(
-                                                (VerifyB402PaymentV2Response1)
-                                                        value.getActualInstance());
-                                elementAdapter.write(out, element);
-                                return;
-                            }
-                            // check if the actual instance is of the type
-                            // `VerifyB402PaymentV2Response2`
-                            if (value.getActualInstance() instanceof VerifyB402PaymentV2Response2) {
-                                JsonElement element =
-                                        adapterVerifyB402PaymentV2Response2.toJsonTree(
-                                                (VerifyB402PaymentV2Response2)
-                                                        value.getActualInstance());
-                                elementAdapter.write(out, element);
-                                return;
-                            }
-                            throw new IOException(
-                                    "Failed to serialize as the type doesn't match oneOf schemas:"
-                                            + " VerifyB402PaymentV2Response1,"
-                                            + " VerifyB402PaymentV2Response2");
-                        }
+    @SerializedName(SERIALIZED_NAME_TYPE)
+    @jakarta.annotation.Nullable
+    private String type;
 
-                        @Override
-                        public VerifyB402PaymentV2Response read(JsonReader in) throws IOException {
-                            Object deserialized = null;
-                            JsonElement jsonElement = elementAdapter.read(in);
+    public static final String SERIALIZED_NAME_CODE = "code";
 
-                            int match = 0;
-                            ArrayList<String> errorMessages = new ArrayList<>();
-                            TypeAdapter actualAdapter = elementAdapter;
+    @SerializedName(SERIALIZED_NAME_CODE)
+    @jakarta.annotation.Nullable
+    private String code;
 
-                            // deserialize VerifyB402PaymentV2Response1
-                            try {
-                                // validate the JSON object to see if any exception is thrown
-                                VerifyB402PaymentV2Response1.validateJsonElement(jsonElement);
-                                actualAdapter = adapterVerifyB402PaymentV2Response1;
-                                match++;
-                                log.log(
-                                        Level.FINER,
-                                        "Input data matches schema 'VerifyB402PaymentV2Response1'");
-                            } catch (Exception e) {
-                                // deserialization failed, continue
-                                errorMessages.add(
-                                        String.format(
-                                                "Deserialization for VerifyB402PaymentV2Response1"
-                                                        + " failed with `%s`.",
-                                                e.getMessage()));
-                                log.log(
-                                        Level.FINER,
-                                        "Input data does not match schema"
-                                                + " 'VerifyB402PaymentV2Response1'",
-                                        e);
-                            }
-                            // deserialize VerifyB402PaymentV2Response2
-                            try {
-                                // validate the JSON object to see if any exception is thrown
-                                VerifyB402PaymentV2Response2.validateJsonElement(jsonElement);
-                                actualAdapter = adapterVerifyB402PaymentV2Response2;
-                                match++;
-                                log.log(
-                                        Level.FINER,
-                                        "Input data matches schema 'VerifyB402PaymentV2Response2'");
-                            } catch (Exception e) {
-                                // deserialization failed, continue
-                                errorMessages.add(
-                                        String.format(
-                                                "Deserialization for VerifyB402PaymentV2Response2"
-                                                        + " failed with `%s`.",
-                                                e.getMessage()));
-                                log.log(
-                                        Level.FINER,
-                                        "Input data does not match schema"
-                                                + " 'VerifyB402PaymentV2Response2'",
-                                        e);
-                            }
+    public static final String SERIALIZED_NAME_ERROR_DATA = "errorData";
 
-                            if (match == 1) {
-                                VerifyB402PaymentV2Response ret = new VerifyB402PaymentV2Response();
-                                ret.setActualInstance(actualAdapter.fromJsonTree(jsonElement));
-                                return ret;
-                            }
+    @SerializedName(SERIALIZED_NAME_ERROR_DATA)
+    @jakarta.annotation.Nullable
+    private String errorData;
 
-                            throw new IOException(
-                                    String.format(
-                                            "Failed deserialization for"
-                                                + " VerifyB402PaymentV2Response: %d classes match"
-                                                + " result, expected 1. Detailed failure message"
-                                                + " for oneOf schemas: %s. JSON: %s",
-                                            match, errorMessages, jsonElement.toString()));
-                        }
-                    }.nullSafe();
+    public static final String SERIALIZED_NAME_DATA = "data";
+
+    @SerializedName(SERIALIZED_NAME_DATA)
+    @jakarta.annotation.Nullable
+    private VerifyB402PaymentV2ResponseData data;
+
+    public static final String SERIALIZED_NAME_SUB_DATA = "subData";
+
+    @SerializedName(SERIALIZED_NAME_SUB_DATA)
+    @jakarta.annotation.Nullable
+    private Object subData;
+
+    public static final String SERIALIZED_NAME_PARAMS = "params";
+
+    @SerializedName(SERIALIZED_NAME_PARAMS)
+    @jakarta.annotation.Nullable
+    private Object params;
+
+    public VerifyB402PaymentV2Response() {}
+
+    public VerifyB402PaymentV2Response status(@jakarta.annotation.Nullable String status) {
+        this.status = status;
+        return this;
+    }
+
+    /**
+     * Get status
+     *
+     * @return status
+     */
+    @jakarta.annotation.Nullable
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(@jakarta.annotation.Nullable String status) {
+        this.status = status;
+    }
+
+    public VerifyB402PaymentV2Response type(@jakarta.annotation.Nullable String type) {
+        this.type = type;
+        return this;
+    }
+
+    /**
+     * Get type
+     *
+     * @return type
+     */
+    @jakarta.annotation.Nullable
+    public String getType() {
+        return type;
+    }
+
+    public void setType(@jakarta.annotation.Nullable String type) {
+        this.type = type;
+    }
+
+    public VerifyB402PaymentV2Response code(@jakarta.annotation.Nullable String code) {
+        this.code = code;
+        return this;
+    }
+
+    /**
+     * Get code
+     *
+     * @return code
+     */
+    @jakarta.annotation.Nullable
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(@jakarta.annotation.Nullable String code) {
+        this.code = code;
+    }
+
+    public VerifyB402PaymentV2Response errorData(@jakarta.annotation.Nullable String errorData) {
+        this.errorData = errorData;
+        return this;
+    }
+
+    /**
+     * Get errorData
+     *
+     * @return errorData
+     */
+    @jakarta.annotation.Nullable
+    public String getErrorData() {
+        return errorData;
+    }
+
+    public void setErrorData(@jakarta.annotation.Nullable String errorData) {
+        this.errorData = errorData;
+    }
+
+    public VerifyB402PaymentV2Response data(
+            @jakarta.annotation.Nullable VerifyB402PaymentV2ResponseData data) {
+        this.data = data;
+        return this;
+    }
+
+    /**
+     * Get data
+     *
+     * @return data
+     */
+    @jakarta.annotation.Nullable
+    @Valid
+    public VerifyB402PaymentV2ResponseData getData() {
+        return data;
+    }
+
+    public void setData(@jakarta.annotation.Nullable VerifyB402PaymentV2ResponseData data) {
+        this.data = data;
+    }
+
+    public VerifyB402PaymentV2Response subData(@jakarta.annotation.Nullable Object subData) {
+        this.subData = subData;
+        return this;
+    }
+
+    /**
+     * Get subData
+     *
+     * @return subData
+     */
+    @jakarta.annotation.Nullable
+    public Object getSubData() {
+        return subData;
+    }
+
+    public void setSubData(@jakarta.annotation.Nullable Object subData) {
+        this.subData = subData;
+    }
+
+    public VerifyB402PaymentV2Response params(@jakarta.annotation.Nullable Object params) {
+        this.params = params;
+        return this;
+    }
+
+    /**
+     * Get params
+     *
+     * @return params
+     */
+    @jakarta.annotation.Nullable
+    public Object getParams() {
+        return params;
+    }
+
+    public void setParams(@jakarta.annotation.Nullable Object params) {
+        this.params = params;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        VerifyB402PaymentV2Response verifyB402PaymentV2Response = (VerifyB402PaymentV2Response) o;
+        return Objects.equals(this.status, verifyB402PaymentV2Response.status)
+                && Objects.equals(this.type, verifyB402PaymentV2Response.type)
+                && Objects.equals(this.code, verifyB402PaymentV2Response.code)
+                && Objects.equals(this.errorData, verifyB402PaymentV2Response.errorData)
+                && Objects.equals(this.data, verifyB402PaymentV2Response.data)
+                && Objects.equals(this.subData, verifyB402PaymentV2Response.subData)
+                && Objects.equals(this.params, verifyB402PaymentV2Response.params);
+    }
+
+    private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
+        return a == b
+                || (a != null
+                        && b != null
+                        && a.isPresent()
+                        && b.isPresent()
+                        && Objects.deepEquals(a.get(), b.get()));
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(status, type, code, errorData, data, subData, params);
+    }
+
+    private static <T> int hashCodeNullable(JsonNullable<T> a) {
+        if (a == null) {
+            return 1;
+        }
+        return a.isPresent() ? Arrays.deepHashCode(new Object[] {a.get()}) : 31;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class VerifyB402PaymentV2Response {\n");
+        sb.append("		status: ").append(toIndentedString(status)).append("\n");
+        sb.append("		type: ").append(toIndentedString(type)).append("\n");
+        sb.append("		code: ").append(toIndentedString(code)).append("\n");
+        sb.append("		errorData: ").append(toIndentedString(errorData)).append("\n");
+        sb.append("		data: ").append(toIndentedString(data)).append("\n");
+        sb.append("		subData: ").append(toIndentedString(subData)).append("\n");
+        sb.append("		params: ").append(toIndentedString(params)).append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    public String toUrlQueryString() {
+        StringBuilder sb = new StringBuilder();
+
+        Object statusValue = getStatus();
+        String statusValueAsString = "";
+        statusValueAsString = statusValue.toString();
+        sb.append("status=").append(urlEncode(statusValueAsString)).append("");
+        Object typeValue = getType();
+        String typeValueAsString = "";
+        typeValueAsString = typeValue.toString();
+        sb.append("type=").append(urlEncode(typeValueAsString)).append("");
+        Object codeValue = getCode();
+        String codeValueAsString = "";
+        codeValueAsString = codeValue.toString();
+        sb.append("code=").append(urlEncode(codeValueAsString)).append("");
+        Object errorDataValue = getErrorData();
+        String errorDataValueAsString = "";
+        errorDataValueAsString = errorDataValue.toString();
+        sb.append("errorData=").append(urlEncode(errorDataValueAsString)).append("");
+        Object dataValue = getData();
+        String dataValueAsString = "";
+        dataValueAsString = dataValue.toString();
+        sb.append("data=").append(urlEncode(dataValueAsString)).append("");
+        Object subDataValue = getSubData();
+        String subDataValueAsString = "";
+        subDataValueAsString = subDataValue.toString();
+        sb.append("subData=").append(urlEncode(subDataValueAsString)).append("");
+        Object paramsValue = getParams();
+        String paramsValueAsString = "";
+        paramsValueAsString = paramsValue.toString();
+        sb.append("params=").append(urlEncode(paramsValueAsString)).append("");
+        return sb.toString();
+    }
+
+    public static String urlEncode(String s) {
+        try {
+            return URLEncoder.encode(s, StandardCharsets.UTF_8.name());
+        } catch (UnsupportedEncodingException e) {
+            throw new RuntimeException(StandardCharsets.UTF_8.name() + " is unsupported", e);
         }
     }
 
-    // store a list of schema names defined in oneOf
-    public static final Map<String, Class<?>> schemas = new HashMap<String, Class<?>>();
-
-    public VerifyB402PaymentV2Response() {
-        super("oneOf", Boolean.FALSE);
+    /**
+     * Convert the given object to string with each line indented by 4 spaces (except the first
+     * line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n		");
     }
 
-    public VerifyB402PaymentV2Response(Object o) {
-        super("oneOf", Boolean.FALSE);
-        setActualInstance(o);
-    }
+    public static HashSet<String> openapiFields;
+    public static HashSet<String> openapiRequiredFields;
 
     static {
-        schemas.put("VerifyB402PaymentV2Response1", VerifyB402PaymentV2Response1.class);
-        schemas.put("VerifyB402PaymentV2Response2", VerifyB402PaymentV2Response2.class);
-    }
+        // a set of all properties/fields (JSON key names)
+        openapiFields = new HashSet<String>();
+        openapiFields.add("status");
+        openapiFields.add("type");
+        openapiFields.add("code");
+        openapiFields.add("errorData");
+        openapiFields.add("data");
+        openapiFields.add("subData");
+        openapiFields.add("params");
 
-    @Override
-    public Map<String, Class<?>> getSchemas() {
-        return VerifyB402PaymentV2Response.schemas;
-    }
-
-    /**
-     * Set the instance that matches the oneOf child schema, check the instance parameter is valid
-     * against the oneOf child schemas: VerifyB402PaymentV2Response1, VerifyB402PaymentV2Response2
-     *
-     * <p>It could be an instance of the 'oneOf' schemas.
-     */
-    @Override
-    public void setActualInstance(Object instance) {
-        if (instance instanceof VerifyB402PaymentV2Response1) {
-            super.setActualInstance(instance);
-            return;
-        }
-
-        if (instance instanceof VerifyB402PaymentV2Response2) {
-            super.setActualInstance(instance);
-            return;
-        }
-
-        throw new RuntimeException(
-                "Invalid instance type. Must be VerifyB402PaymentV2Response1,"
-                        + " VerifyB402PaymentV2Response2");
-    }
-
-    /**
-     * Get the actual instance, which can be the following: VerifyB402PaymentV2Response1,
-     * VerifyB402PaymentV2Response2
-     *
-     * @return The actual instance (VerifyB402PaymentV2Response1, VerifyB402PaymentV2Response2)
-     */
-    @SuppressWarnings("unchecked")
-    @Override
-    public Object getActualInstance() {
-        return super.getActualInstance();
-    }
-
-    /**
-     * Get the actual instance of `VerifyB402PaymentV2Response1`. If the actual instance is not
-     * `VerifyB402PaymentV2Response1`, the ClassCastException will be thrown.
-     *
-     * @return The actual instance of `VerifyB402PaymentV2Response1`
-     * @throws ClassCastException if the instance is not `VerifyB402PaymentV2Response1`
-     */
-    public VerifyB402PaymentV2Response1 getVerifyB402PaymentV2Response1()
-            throws ClassCastException {
-        return (VerifyB402PaymentV2Response1) super.getActualInstance();
-    }
-
-    /**
-     * Get the actual instance of `VerifyB402PaymentV2Response2`. If the actual instance is not
-     * `VerifyB402PaymentV2Response2`, the ClassCastException will be thrown.
-     *
-     * @return The actual instance of `VerifyB402PaymentV2Response2`
-     * @throws ClassCastException if the instance is not `VerifyB402PaymentV2Response2`
-     */
-    public VerifyB402PaymentV2Response2 getVerifyB402PaymentV2Response2()
-            throws ClassCastException {
-        return (VerifyB402PaymentV2Response2) super.getActualInstance();
+        // a set of required properties/fields (JSON key names)
+        openapiRequiredFields = new HashSet<String>();
     }
 
     /**
@@ -249,40 +351,83 @@ public class VerifyB402PaymentV2Response extends AbstractOpenApiSchema {
      *     VerifyB402PaymentV2Response
      */
     public static void validateJsonElement(JsonElement jsonElement) throws IOException {
-        // validate oneOf schemas one by one
-        int validCount = 0;
-        ArrayList<String> errorMessages = new ArrayList<>();
-        // validate the json string with VerifyB402PaymentV2Response1
-        try {
-            VerifyB402PaymentV2Response1.validateJsonElement(jsonElement);
-            validCount++;
-        } catch (Exception e) {
-            errorMessages.add(
-                    String.format(
-                            "Deserialization for VerifyB402PaymentV2Response1 failed with `%s`.",
-                            e.getMessage()));
-            // continue to the next one
+        if (jsonElement == null) {
+            if (!VerifyB402PaymentV2Response.openapiRequiredFields
+                    .isEmpty()) { // has required fields but JSON element is null
+                throw new IllegalArgumentException(
+                        String.format(
+                                "The required field(s) %s in VerifyB402PaymentV2Response is not"
+                                        + " found in the empty JSON string",
+                                VerifyB402PaymentV2Response.openapiRequiredFields.toString()));
+            }
         }
-        // validate the json string with VerifyB402PaymentV2Response2
-        try {
-            VerifyB402PaymentV2Response2.validateJsonElement(jsonElement);
-            validCount++;
-        } catch (Exception e) {
-            errorMessages.add(
+        JsonObject jsonObj = jsonElement.getAsJsonObject();
+        if ((jsonObj.get("status") != null && !jsonObj.get("status").isJsonNull())
+                && !jsonObj.get("status").isJsonPrimitive()) {
+            throw new IllegalArgumentException(
                     String.format(
-                            "Deserialization for VerifyB402PaymentV2Response2 failed with `%s`.",
-                            e.getMessage()));
-            // continue to the next one
+                            "Expected the field `status` to be a primitive type in the JSON string"
+                                    + " but got `%s`",
+                            jsonObj.get("status").toString()));
         }
-        if (validCount != 1) {
-            throw new IOException(
+        if ((jsonObj.get("type") != null && !jsonObj.get("type").isJsonNull())
+                && !jsonObj.get("type").isJsonPrimitive()) {
+            throw new IllegalArgumentException(
                     String.format(
-                            "The JSON string is invalid for VerifyB402PaymentV2Response with oneOf"
-                                + " schemas: VerifyB402PaymentV2Response1,"
-                                + " VerifyB402PaymentV2Response2. %d class(es) match the result,"
-                                + " expected 1. Detailed failure message for oneOf schemas: %s."
-                                + " JSON: %s",
-                            validCount, errorMessages, jsonElement.toString()));
+                            "Expected the field `type` to be a primitive type in the JSON string"
+                                    + " but got `%s`",
+                            jsonObj.get("type").toString()));
+        }
+        if ((jsonObj.get("code") != null && !jsonObj.get("code").isJsonNull())
+                && !jsonObj.get("code").isJsonPrimitive()) {
+            throw new IllegalArgumentException(
+                    String.format(
+                            "Expected the field `code` to be a primitive type in the JSON string"
+                                    + " but got `%s`",
+                            jsonObj.get("code").toString()));
+        }
+        if ((jsonObj.get("errorData") != null && !jsonObj.get("errorData").isJsonNull())
+                && !jsonObj.get("errorData").isJsonPrimitive()) {
+            throw new IllegalArgumentException(
+                    String.format(
+                            "Expected the field `errorData` to be a primitive type in the JSON"
+                                    + " string but got `%s`",
+                            jsonObj.get("errorData").toString()));
+        }
+        // validate the optional field `data`
+        if (jsonObj.get("data") != null && !jsonObj.get("data").isJsonNull()) {
+            VerifyB402PaymentV2ResponseData.validateJsonElement(jsonObj.get("data"));
+        }
+    }
+
+    public static class CustomTypeAdapterFactory implements TypeAdapterFactory {
+        @SuppressWarnings("unchecked")
+        @Override
+        public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
+            if (!VerifyB402PaymentV2Response.class.isAssignableFrom(type.getRawType())) {
+                return null; // this class only serializes 'VerifyB402PaymentV2Response' and its
+                // subtypes
+            }
+            final TypeAdapter<JsonElement> elementAdapter = gson.getAdapter(JsonElement.class);
+            final TypeAdapter<VerifyB402PaymentV2Response> thisAdapter =
+                    gson.getDelegateAdapter(this, TypeToken.get(VerifyB402PaymentV2Response.class));
+
+            return (TypeAdapter<T>)
+                    new TypeAdapter<VerifyB402PaymentV2Response>() {
+                        @Override
+                        public void write(JsonWriter out, VerifyB402PaymentV2Response value)
+                                throws IOException {
+                            JsonElement obj = thisAdapter.toJsonTree(value).getAsJsonObject();
+                            elementAdapter.write(out, obj);
+                        }
+
+                        @Override
+                        public VerifyB402PaymentV2Response read(JsonReader in) throws IOException {
+                            JsonElement jsonElement = elementAdapter.read(in);
+                            // validateJsonElement(jsonElement);
+                            return thisAdapter.fromJsonTree(jsonElement);
+                        }
+                    }.nullSafe();
         }
     }
 

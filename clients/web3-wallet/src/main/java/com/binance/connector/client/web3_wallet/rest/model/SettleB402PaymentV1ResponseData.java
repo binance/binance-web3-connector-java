@@ -28,18 +28,16 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Objects;
 import org.hibernate.validator.constraints.*;
 import org.openapitools.jackson.nullable.JsonNullable;
 
-/** SettleB402PaymentV2Response1Data */
+/** SettleB402PaymentV1ResponseData */
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
         comments = "Generator version: 7.22.0")
-public class SettleB402PaymentV2Response1Data {
+public class SettleB402PaymentV1ResponseData {
     public static final String SERIALIZED_NAME_SUCCESS = "success";
 
     @SerializedName(SERIALIZED_NAME_SUCCESS)
@@ -49,7 +47,7 @@ public class SettleB402PaymentV2Response1Data {
     public static final String SERIALIZED_NAME_TRANSACTION = "transaction";
 
     @SerializedName(SERIALIZED_NAME_TRANSACTION)
-    @jakarta.annotation.Nonnull
+    @jakarta.annotation.Nullable
     private String transaction;
 
     public static final String SERIALIZED_NAME_PAYER = "payer";
@@ -61,7 +59,7 @@ public class SettleB402PaymentV2Response1Data {
     public static final String SERIALIZED_NAME_NETWORK = "network";
 
     @SerializedName(SERIALIZED_NAME_NETWORK)
-    @jakarta.annotation.Nonnull
+    @jakarta.annotation.Nullable
     private String network;
 
     public static final String SERIALIZED_NAME_AMOUNT = "amount";
@@ -69,6 +67,12 @@ public class SettleB402PaymentV2Response1Data {
     @SerializedName(SERIALIZED_NAME_AMOUNT)
     @jakarta.annotation.Nullable
     private String amount;
+
+    public static final String SERIALIZED_NAME_CONFIRMATIONS = "confirmations";
+
+    @SerializedName(SERIALIZED_NAME_CONFIRMATIONS)
+    @jakarta.annotation.Nullable
+    private Integer confirmations;
 
     public static final String SERIALIZED_NAME_ERROR_REASON = "errorReason";
 
@@ -82,15 +86,9 @@ public class SettleB402PaymentV2Response1Data {
     @jakarta.annotation.Nullable
     private String errorMessage;
 
-    public static final String SERIALIZED_NAME_EXTENSIONS = "extensions";
+    public SettleB402PaymentV1ResponseData() {}
 
-    @SerializedName(SERIALIZED_NAME_EXTENSIONS)
-    @jakarta.annotation.Nullable
-    private Map<String, Object> extensions;
-
-    public SettleB402PaymentV2Response1Data() {}
-
-    public SettleB402PaymentV2Response1Data success(@jakarta.annotation.Nonnull Boolean success) {
+    public SettleB402PaymentV1ResponseData success(@jakarta.annotation.Nonnull Boolean success) {
         this.success = success;
         return this;
     }
@@ -110,8 +108,8 @@ public class SettleB402PaymentV2Response1Data {
         this.success = success;
     }
 
-    public SettleB402PaymentV2Response1Data transaction(
-            @jakarta.annotation.Nonnull String transaction) {
+    public SettleB402PaymentV1ResponseData transaction(
+            @jakarta.annotation.Nullable String transaction) {
         this.transaction = transaction;
         return this;
     }
@@ -121,17 +119,16 @@ public class SettleB402PaymentV2Response1Data {
      *
      * @return transaction
      */
-    @jakarta.annotation.Nonnull
-    @NotNull
+    @jakarta.annotation.Nullable
     public String getTransaction() {
         return transaction;
     }
 
-    public void setTransaction(@jakarta.annotation.Nonnull String transaction) {
+    public void setTransaction(@jakarta.annotation.Nullable String transaction) {
         this.transaction = transaction;
     }
 
-    public SettleB402PaymentV2Response1Data payer(@jakarta.annotation.Nullable String payer) {
+    public SettleB402PaymentV1ResponseData payer(@jakarta.annotation.Nullable String payer) {
         this.payer = payer;
         return this;
     }
@@ -150,7 +147,7 @@ public class SettleB402PaymentV2Response1Data {
         this.payer = payer;
     }
 
-    public SettleB402PaymentV2Response1Data network(@jakarta.annotation.Nonnull String network) {
+    public SettleB402PaymentV1ResponseData network(@jakarta.annotation.Nullable String network) {
         this.network = network;
         return this;
     }
@@ -160,17 +157,16 @@ public class SettleB402PaymentV2Response1Data {
      *
      * @return network
      */
-    @jakarta.annotation.Nonnull
-    @NotNull
+    @jakarta.annotation.Nullable
     public String getNetwork() {
         return network;
     }
 
-    public void setNetwork(@jakarta.annotation.Nonnull String network) {
+    public void setNetwork(@jakarta.annotation.Nullable String network) {
         this.network = network;
     }
 
-    public SettleB402PaymentV2Response1Data amount(@jakarta.annotation.Nullable String amount) {
+    public SettleB402PaymentV1ResponseData amount(@jakarta.annotation.Nullable String amount) {
         this.amount = amount;
         return this;
     }
@@ -189,7 +185,27 @@ public class SettleB402PaymentV2Response1Data {
         this.amount = amount;
     }
 
-    public SettleB402PaymentV2Response1Data errorReason(
+    public SettleB402PaymentV1ResponseData confirmations(
+            @jakarta.annotation.Nullable Integer confirmations) {
+        this.confirmations = confirmations;
+        return this;
+    }
+
+    /**
+     * Get confirmations
+     *
+     * @return confirmations
+     */
+    @jakarta.annotation.Nullable
+    public Integer getConfirmations() {
+        return confirmations;
+    }
+
+    public void setConfirmations(@jakarta.annotation.Nullable Integer confirmations) {
+        this.confirmations = confirmations;
+    }
+
+    public SettleB402PaymentV1ResponseData errorReason(
             @jakarta.annotation.Nullable String errorReason) {
         this.errorReason = errorReason;
         return this;
@@ -209,7 +225,7 @@ public class SettleB402PaymentV2Response1Data {
         this.errorReason = errorReason;
     }
 
-    public SettleB402PaymentV2Response1Data errorMessage(
+    public SettleB402PaymentV1ResponseData errorMessage(
             @jakarta.annotation.Nullable String errorMessage) {
         this.errorMessage = errorMessage;
         return this;
@@ -229,34 +245,6 @@ public class SettleB402PaymentV2Response1Data {
         this.errorMessage = errorMessage;
     }
 
-    public SettleB402PaymentV2Response1Data extensions(
-            @jakarta.annotation.Nullable Map<String, Object> extensions) {
-        this.extensions = extensions;
-        return this;
-    }
-
-    public SettleB402PaymentV2Response1Data putExtensionsItem(String key, Object extensionsItem) {
-        if (this.extensions == null) {
-            this.extensions = new HashMap<>();
-        }
-        this.extensions.put(key, extensionsItem);
-        return this;
-    }
-
-    /**
-     * Get extensions
-     *
-     * @return extensions
-     */
-    @jakarta.annotation.Nullable
-    public Map<String, Object> getExtensions() {
-        return extensions;
-    }
-
-    public void setExtensions(@jakarta.annotation.Nullable Map<String, Object> extensions) {
-        this.extensions = extensions;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -265,16 +253,16 @@ public class SettleB402PaymentV2Response1Data {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        SettleB402PaymentV2Response1Data settleB402PaymentV2Response1Data =
-                (SettleB402PaymentV2Response1Data) o;
-        return Objects.equals(this.success, settleB402PaymentV2Response1Data.success)
-                && Objects.equals(this.transaction, settleB402PaymentV2Response1Data.transaction)
-                && Objects.equals(this.payer, settleB402PaymentV2Response1Data.payer)
-                && Objects.equals(this.network, settleB402PaymentV2Response1Data.network)
-                && Objects.equals(this.amount, settleB402PaymentV2Response1Data.amount)
-                && Objects.equals(this.errorReason, settleB402PaymentV2Response1Data.errorReason)
-                && Objects.equals(this.errorMessage, settleB402PaymentV2Response1Data.errorMessage)
-                && Objects.equals(this.extensions, settleB402PaymentV2Response1Data.extensions);
+        SettleB402PaymentV1ResponseData settleB402PaymentV1ResponseData =
+                (SettleB402PaymentV1ResponseData) o;
+        return Objects.equals(this.success, settleB402PaymentV1ResponseData.success)
+                && Objects.equals(this.transaction, settleB402PaymentV1ResponseData.transaction)
+                && Objects.equals(this.payer, settleB402PaymentV1ResponseData.payer)
+                && Objects.equals(this.network, settleB402PaymentV1ResponseData.network)
+                && Objects.equals(this.amount, settleB402PaymentV1ResponseData.amount)
+                && Objects.equals(this.confirmations, settleB402PaymentV1ResponseData.confirmations)
+                && Objects.equals(this.errorReason, settleB402PaymentV1ResponseData.errorReason)
+                && Objects.equals(this.errorMessage, settleB402PaymentV1ResponseData.errorMessage);
     }
 
     private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
@@ -294,9 +282,9 @@ public class SettleB402PaymentV2Response1Data {
                 payer,
                 network,
                 amount,
+                confirmations,
                 errorReason,
-                errorMessage,
-                extensions);
+                errorMessage);
     }
 
     private static <T> int hashCodeNullable(JsonNullable<T> a) {
@@ -309,15 +297,15 @@ public class SettleB402PaymentV2Response1Data {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("class SettleB402PaymentV2Response1Data {\n");
+        sb.append("class SettleB402PaymentV1ResponseData {\n");
         sb.append("		success: ").append(toIndentedString(success)).append("\n");
         sb.append("		transaction: ").append(toIndentedString(transaction)).append("\n");
         sb.append("		payer: ").append(toIndentedString(payer)).append("\n");
         sb.append("		network: ").append(toIndentedString(network)).append("\n");
         sb.append("		amount: ").append(toIndentedString(amount)).append("\n");
+        sb.append("		confirmations: ").append(toIndentedString(confirmations)).append("\n");
         sb.append("		errorReason: ").append(toIndentedString(errorReason)).append("\n");
         sb.append("		errorMessage: ").append(toIndentedString(errorMessage)).append("\n");
-        sb.append("		extensions: ").append(toIndentedString(extensions)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -345,6 +333,10 @@ public class SettleB402PaymentV2Response1Data {
         String amountValueAsString = "";
         amountValueAsString = amountValue.toString();
         sb.append("amount=").append(urlEncode(amountValueAsString)).append("");
+        Object confirmationsValue = getConfirmations();
+        String confirmationsValueAsString = "";
+        confirmationsValueAsString = confirmationsValue.toString();
+        sb.append("confirmations=").append(urlEncode(confirmationsValueAsString)).append("");
         Object errorReasonValue = getErrorReason();
         String errorReasonValueAsString = "";
         errorReasonValueAsString = errorReasonValue.toString();
@@ -353,10 +345,6 @@ public class SettleB402PaymentV2Response1Data {
         String errorMessageValueAsString = "";
         errorMessageValueAsString = errorMessageValue.toString();
         sb.append("errorMessage=").append(urlEncode(errorMessageValueAsString)).append("");
-        Object extensionsValue = getExtensions();
-        String extensionsValueAsString = "";
-        extensionsValueAsString = extensionsValue.toString();
-        sb.append("extensions=").append(urlEncode(extensionsValueAsString)).append("");
         return sb.toString();
     }
 
@@ -390,15 +378,13 @@ public class SettleB402PaymentV2Response1Data {
         openapiFields.add("payer");
         openapiFields.add("network");
         openapiFields.add("amount");
+        openapiFields.add("confirmations");
         openapiFields.add("errorReason");
         openapiFields.add("errorMessage");
-        openapiFields.add("extensions");
 
         // a set of required properties/fields (JSON key names)
         openapiRequiredFields = new HashSet<String>();
         openapiRequiredFields.add("success");
-        openapiRequiredFields.add("transaction");
-        openapiRequiredFields.add("network");
     }
 
     /**
@@ -406,22 +392,22 @@ public class SettleB402PaymentV2Response1Data {
      *
      * @param jsonElement JSON Element
      * @throws IOException if the JSON Element is invalid with respect to
-     *     SettleB402PaymentV2Response1Data
+     *     SettleB402PaymentV1ResponseData
      */
     public static void validateJsonElement(JsonElement jsonElement) throws IOException {
         if (jsonElement == null) {
-            if (!SettleB402PaymentV2Response1Data.openapiRequiredFields
+            if (!SettleB402PaymentV1ResponseData.openapiRequiredFields
                     .isEmpty()) { // has required fields but JSON element is null
                 throw new IllegalArgumentException(
                         String.format(
-                                "The required field(s) %s in SettleB402PaymentV2Response1Data is"
-                                        + " not found in the empty JSON string",
-                                SettleB402PaymentV2Response1Data.openapiRequiredFields.toString()));
+                                "The required field(s) %s in SettleB402PaymentV1ResponseData is not"
+                                        + " found in the empty JSON string",
+                                SettleB402PaymentV1ResponseData.openapiRequiredFields.toString()));
             }
         }
 
         // check to make sure all required properties/fields are present in the JSON string
-        for (String requiredField : SettleB402PaymentV2Response1Data.openapiRequiredFields) {
+        for (String requiredField : SettleB402PaymentV1ResponseData.openapiRequiredFields) {
             if (jsonElement.getAsJsonObject().get(requiredField) == null) {
                 throw new IllegalArgumentException(
                         String.format(
@@ -430,7 +416,8 @@ public class SettleB402PaymentV2Response1Data {
             }
         }
         JsonObject jsonObj = jsonElement.getAsJsonObject();
-        if (!jsonObj.get("transaction").isJsonPrimitive()) {
+        if ((jsonObj.get("transaction") != null && !jsonObj.get("transaction").isJsonNull())
+                && !jsonObj.get("transaction").isJsonPrimitive()) {
             throw new IllegalArgumentException(
                     String.format(
                             "Expected the field `transaction` to be a primitive type in the JSON"
@@ -445,7 +432,8 @@ public class SettleB402PaymentV2Response1Data {
                                     + " but got `%s`",
                             jsonObj.get("payer").toString()));
         }
-        if (!jsonObj.get("network").isJsonPrimitive()) {
+        if ((jsonObj.get("network") != null && !jsonObj.get("network").isJsonNull())
+                && !jsonObj.get("network").isJsonPrimitive()) {
             throw new IllegalArgumentException(
                     String.format(
                             "Expected the field `network` to be a primitive type in the JSON string"
@@ -482,26 +470,26 @@ public class SettleB402PaymentV2Response1Data {
         @SuppressWarnings("unchecked")
         @Override
         public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
-            if (!SettleB402PaymentV2Response1Data.class.isAssignableFrom(type.getRawType())) {
-                return null; // this class only serializes 'SettleB402PaymentV2Response1Data' and
-                // its subtypes
+            if (!SettleB402PaymentV1ResponseData.class.isAssignableFrom(type.getRawType())) {
+                return null; // this class only serializes 'SettleB402PaymentV1ResponseData' and its
+                // subtypes
             }
             final TypeAdapter<JsonElement> elementAdapter = gson.getAdapter(JsonElement.class);
-            final TypeAdapter<SettleB402PaymentV2Response1Data> thisAdapter =
+            final TypeAdapter<SettleB402PaymentV1ResponseData> thisAdapter =
                     gson.getDelegateAdapter(
-                            this, TypeToken.get(SettleB402PaymentV2Response1Data.class));
+                            this, TypeToken.get(SettleB402PaymentV1ResponseData.class));
 
             return (TypeAdapter<T>)
-                    new TypeAdapter<SettleB402PaymentV2Response1Data>() {
+                    new TypeAdapter<SettleB402PaymentV1ResponseData>() {
                         @Override
-                        public void write(JsonWriter out, SettleB402PaymentV2Response1Data value)
+                        public void write(JsonWriter out, SettleB402PaymentV1ResponseData value)
                                 throws IOException {
                             JsonElement obj = thisAdapter.toJsonTree(value).getAsJsonObject();
                             elementAdapter.write(out, obj);
                         }
 
                         @Override
-                        public SettleB402PaymentV2Response1Data read(JsonReader in)
+                        public SettleB402PaymentV1ResponseData read(JsonReader in)
                                 throws IOException {
                             JsonElement jsonElement = elementAdapter.read(in);
                             // validateJsonElement(jsonElement);
@@ -512,19 +500,19 @@ public class SettleB402PaymentV2Response1Data {
     }
 
     /**
-     * Create an instance of SettleB402PaymentV2Response1Data given an JSON string
+     * Create an instance of SettleB402PaymentV1ResponseData given an JSON string
      *
      * @param jsonString JSON string
-     * @return An instance of SettleB402PaymentV2Response1Data
+     * @return An instance of SettleB402PaymentV1ResponseData
      * @throws IOException if the JSON string is invalid with respect to
-     *     SettleB402PaymentV2Response1Data
+     *     SettleB402PaymentV1ResponseData
      */
-    public static SettleB402PaymentV2Response1Data fromJson(String jsonString) throws IOException {
-        return JSON.getGson().fromJson(jsonString, SettleB402PaymentV2Response1Data.class);
+    public static SettleB402PaymentV1ResponseData fromJson(String jsonString) throws IOException {
+        return JSON.getGson().fromJson(jsonString, SettleB402PaymentV1ResponseData.class);
     }
 
     /**
-     * Convert an instance of SettleB402PaymentV2Response1Data to an JSON string
+     * Convert an instance of SettleB402PaymentV1ResponseData to an JSON string
      *
      * @return JSON string
      */

@@ -33,11 +33,11 @@ import java.util.Objects;
 import org.hibernate.validator.constraints.*;
 import org.openapitools.jackson.nullable.JsonNullable;
 
-/** GetB402SupportedConfigurationsV2Response1DataKindsInnerExtra */
+/** GetB402SupportedConfigurationsV2ResponseDataKindsInnerExtra */
 @jakarta.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
         comments = "Generator version: 7.22.0")
-public class GetB402SupportedConfigurationsV2Response1DataKindsInnerExtra {
+public class GetB402SupportedConfigurationsV2ResponseDataKindsInnerExtra {
     public static final String SERIALIZED_NAME_NAME = "name";
 
     @SerializedName(SERIALIZED_NAME_NAME)
@@ -68,9 +68,9 @@ public class GetB402SupportedConfigurationsV2Response1DataKindsInnerExtra {
     @jakarta.annotation.Nullable
     private String spenderAddress;
 
-    public GetB402SupportedConfigurationsV2Response1DataKindsInnerExtra() {}
+    public GetB402SupportedConfigurationsV2ResponseDataKindsInnerExtra() {}
 
-    public GetB402SupportedConfigurationsV2Response1DataKindsInnerExtra name(
+    public GetB402SupportedConfigurationsV2ResponseDataKindsInnerExtra name(
             @jakarta.annotation.Nonnull String name) {
         this.name = name;
         return this;
@@ -91,7 +91,7 @@ public class GetB402SupportedConfigurationsV2Response1DataKindsInnerExtra {
         this.name = name;
     }
 
-    public GetB402SupportedConfigurationsV2Response1DataKindsInnerExtra version(
+    public GetB402SupportedConfigurationsV2ResponseDataKindsInnerExtra version(
             @jakarta.annotation.Nonnull String version) {
         this.version = version;
         return this;
@@ -112,7 +112,7 @@ public class GetB402SupportedConfigurationsV2Response1DataKindsInnerExtra {
         this.version = version;
     }
 
-    public GetB402SupportedConfigurationsV2Response1DataKindsInnerExtra assetTransferMethod(
+    public GetB402SupportedConfigurationsV2ResponseDataKindsInnerExtra assetTransferMethod(
             @jakarta.annotation.Nonnull String assetTransferMethod) {
         this.assetTransferMethod = assetTransferMethod;
         return this;
@@ -133,7 +133,7 @@ public class GetB402SupportedConfigurationsV2Response1DataKindsInnerExtra {
         this.assetTransferMethod = assetTransferMethod;
     }
 
-    public GetB402SupportedConfigurationsV2Response1DataKindsInnerExtra signerAddress(
+    public GetB402SupportedConfigurationsV2ResponseDataKindsInnerExtra signerAddress(
             @jakarta.annotation.Nonnull String signerAddress) {
         this.signerAddress = signerAddress;
         return this;
@@ -154,7 +154,7 @@ public class GetB402SupportedConfigurationsV2Response1DataKindsInnerExtra {
         this.signerAddress = signerAddress;
     }
 
-    public GetB402SupportedConfigurationsV2Response1DataKindsInnerExtra spenderAddress(
+    public GetB402SupportedConfigurationsV2ResponseDataKindsInnerExtra spenderAddress(
             @jakarta.annotation.Nullable String spenderAddress) {
         this.spenderAddress = spenderAddress;
         return this;
@@ -182,26 +182,24 @@ public class GetB402SupportedConfigurationsV2Response1DataKindsInnerExtra {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        GetB402SupportedConfigurationsV2Response1DataKindsInnerExtra
-                getB402SupportedConfigurationsV2Response1DataKindsInnerExtra =
-                        (GetB402SupportedConfigurationsV2Response1DataKindsInnerExtra) o;
+        GetB402SupportedConfigurationsV2ResponseDataKindsInnerExtra
+                getB402SupportedConfigurationsV2ResponseDataKindsInnerExtra =
+                        (GetB402SupportedConfigurationsV2ResponseDataKindsInnerExtra) o;
         return Objects.equals(
-                        this.name,
-                        getB402SupportedConfigurationsV2Response1DataKindsInnerExtra.name)
+                        this.name, getB402SupportedConfigurationsV2ResponseDataKindsInnerExtra.name)
                 && Objects.equals(
                         this.version,
-                        getB402SupportedConfigurationsV2Response1DataKindsInnerExtra.version)
+                        getB402SupportedConfigurationsV2ResponseDataKindsInnerExtra.version)
                 && Objects.equals(
                         this.assetTransferMethod,
-                        getB402SupportedConfigurationsV2Response1DataKindsInnerExtra
+                        getB402SupportedConfigurationsV2ResponseDataKindsInnerExtra
                                 .assetTransferMethod)
                 && Objects.equals(
                         this.signerAddress,
-                        getB402SupportedConfigurationsV2Response1DataKindsInnerExtra.signerAddress)
+                        getB402SupportedConfigurationsV2ResponseDataKindsInnerExtra.signerAddress)
                 && Objects.equals(
                         this.spenderAddress,
-                        getB402SupportedConfigurationsV2Response1DataKindsInnerExtra
-                                .spenderAddress);
+                        getB402SupportedConfigurationsV2ResponseDataKindsInnerExtra.spenderAddress);
     }
 
     private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
@@ -228,7 +226,7 @@ public class GetB402SupportedConfigurationsV2Response1DataKindsInnerExtra {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("class GetB402SupportedConfigurationsV2Response1DataKindsInnerExtra {\n");
+        sb.append("class GetB402SupportedConfigurationsV2ResponseDataKindsInnerExtra {\n");
         sb.append("		name: ").append(toIndentedString(name)).append("\n");
         sb.append("		version: ").append(toIndentedString(version)).append("\n");
         sb.append("		assetTransferMethod: ")
@@ -312,18 +310,18 @@ public class GetB402SupportedConfigurationsV2Response1DataKindsInnerExtra {
      *
      * @param jsonElement JSON Element
      * @throws IOException if the JSON Element is invalid with respect to
-     *     GetB402SupportedConfigurationsV2Response1DataKindsInnerExtra
+     *     GetB402SupportedConfigurationsV2ResponseDataKindsInnerExtra
      */
     public static void validateJsonElement(JsonElement jsonElement) throws IOException {
         if (jsonElement == null) {
-            if (!GetB402SupportedConfigurationsV2Response1DataKindsInnerExtra.openapiRequiredFields
+            if (!GetB402SupportedConfigurationsV2ResponseDataKindsInnerExtra.openapiRequiredFields
                     .isEmpty()) { // has required fields but JSON element is null
                 throw new IllegalArgumentException(
                         String.format(
                                 "The required field(s) %s in"
-                                    + " GetB402SupportedConfigurationsV2Response1DataKindsInnerExtra"
+                                    + " GetB402SupportedConfigurationsV2ResponseDataKindsInnerExtra"
                                     + " is not found in the empty JSON string",
-                                GetB402SupportedConfigurationsV2Response1DataKindsInnerExtra
+                                GetB402SupportedConfigurationsV2ResponseDataKindsInnerExtra
                                         .openapiRequiredFields
                                         .toString()));
             }
@@ -331,8 +329,7 @@ public class GetB402SupportedConfigurationsV2Response1DataKindsInnerExtra {
 
         // check to make sure all required properties/fields are present in the JSON string
         for (String requiredField :
-                GetB402SupportedConfigurationsV2Response1DataKindsInnerExtra
-                        .openapiRequiredFields) {
+                GetB402SupportedConfigurationsV2ResponseDataKindsInnerExtra.openapiRequiredFields) {
             if (jsonElement.getAsJsonObject().get(requiredField) == null) {
                 throw new IllegalArgumentException(
                         String.format(
@@ -383,35 +380,34 @@ public class GetB402SupportedConfigurationsV2Response1DataKindsInnerExtra {
         @SuppressWarnings("unchecked")
         @Override
         public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
-            if (!GetB402SupportedConfigurationsV2Response1DataKindsInnerExtra.class
-                    .isAssignableFrom(type.getRawType())) {
+            if (!GetB402SupportedConfigurationsV2ResponseDataKindsInnerExtra.class.isAssignableFrom(
+                    type.getRawType())) {
                 return null; // this class only serializes
-                // 'GetB402SupportedConfigurationsV2Response1DataKindsInnerExtra' and
+                // 'GetB402SupportedConfigurationsV2ResponseDataKindsInnerExtra' and
                 // its subtypes
             }
             final TypeAdapter<JsonElement> elementAdapter = gson.getAdapter(JsonElement.class);
-            final TypeAdapter<GetB402SupportedConfigurationsV2Response1DataKindsInnerExtra>
+            final TypeAdapter<GetB402SupportedConfigurationsV2ResponseDataKindsInnerExtra>
                     thisAdapter =
                             gson.getDelegateAdapter(
                                     this,
                                     TypeToken.get(
-                                            GetB402SupportedConfigurationsV2Response1DataKindsInnerExtra
+                                            GetB402SupportedConfigurationsV2ResponseDataKindsInnerExtra
                                                     .class));
 
             return (TypeAdapter<T>)
-                    new TypeAdapter<
-                            GetB402SupportedConfigurationsV2Response1DataKindsInnerExtra>() {
+                    new TypeAdapter<GetB402SupportedConfigurationsV2ResponseDataKindsInnerExtra>() {
                         @Override
                         public void write(
                                 JsonWriter out,
-                                GetB402SupportedConfigurationsV2Response1DataKindsInnerExtra value)
+                                GetB402SupportedConfigurationsV2ResponseDataKindsInnerExtra value)
                                 throws IOException {
                             JsonElement obj = thisAdapter.toJsonTree(value).getAsJsonObject();
                             elementAdapter.write(out, obj);
                         }
 
                         @Override
-                        public GetB402SupportedConfigurationsV2Response1DataKindsInnerExtra read(
+                        public GetB402SupportedConfigurationsV2ResponseDataKindsInnerExtra read(
                                 JsonReader in) throws IOException {
                             JsonElement jsonElement = elementAdapter.read(in);
                             // validateJsonElement(jsonElement);
@@ -422,25 +418,25 @@ public class GetB402SupportedConfigurationsV2Response1DataKindsInnerExtra {
     }
 
     /**
-     * Create an instance of GetB402SupportedConfigurationsV2Response1DataKindsInnerExtra given an
+     * Create an instance of GetB402SupportedConfigurationsV2ResponseDataKindsInnerExtra given an
      * JSON string
      *
      * @param jsonString JSON string
-     * @return An instance of GetB402SupportedConfigurationsV2Response1DataKindsInnerExtra
+     * @return An instance of GetB402SupportedConfigurationsV2ResponseDataKindsInnerExtra
      * @throws IOException if the JSON string is invalid with respect to
-     *     GetB402SupportedConfigurationsV2Response1DataKindsInnerExtra
+     *     GetB402SupportedConfigurationsV2ResponseDataKindsInnerExtra
      */
-    public static GetB402SupportedConfigurationsV2Response1DataKindsInnerExtra fromJson(
+    public static GetB402SupportedConfigurationsV2ResponseDataKindsInnerExtra fromJson(
             String jsonString) throws IOException {
         return JSON.getGson()
                 .fromJson(
                         jsonString,
-                        GetB402SupportedConfigurationsV2Response1DataKindsInnerExtra.class);
+                        GetB402SupportedConfigurationsV2ResponseDataKindsInnerExtra.class);
     }
 
     /**
-     * Convert an instance of GetB402SupportedConfigurationsV2Response1DataKindsInnerExtra to an
-     * JSON string
+     * Convert an instance of GetB402SupportedConfigurationsV2ResponseDataKindsInnerExtra to an JSON
+     * string
      *
      * @return JSON string
      */

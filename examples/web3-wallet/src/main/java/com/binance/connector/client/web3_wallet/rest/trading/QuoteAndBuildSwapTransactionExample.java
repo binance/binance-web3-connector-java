@@ -55,6 +55,7 @@ public class QuoteAndBuildSwapTransactionExample {
         String nonce = "unique-nonce-string";
         String slippagePercent = "0.5";
         String excludeDexes = "Pancakeswap V4,Pancakeswap V3";
+        String excludePools = "0x1fb9d973a8381752611a4e17d0de21ff95a1dbd5";
         EnableRFQ enableRFQ = EnableRFQ.TRUE;
         ApproveTransaction approveTransaction = ApproveTransaction.TRUE;
         String approveAmount = "1000000";

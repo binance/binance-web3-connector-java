@@ -1,6 +1,6 @@
 
 
-# GetB402SupportedConfigurationsV2Response1DataKindsInnerExtra
+# GetB402SupportedConfigurationsV2ResponseDataKindsInnerExtra
 
 
 ## Properties

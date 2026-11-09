@@ -43,7 +43,7 @@ public class QuoteAndBuildSwapTransactionResponseData {
 
     @SerializedName(SERIALIZED_NAME_ROUTER_RESULT)
     @jakarta.annotation.Nullable
-    private BuildSwapTransactionResponseDataRouterResult routerResult;
+    private QuoteAndBuildSwapTransactionResponseDataRouterResult routerResult;
 
     public static final String SERIALIZED_NAME_TX = "tx";
 
@@ -67,7 +67,7 @@ public class QuoteAndBuildSwapTransactionResponseData {
 
     public QuoteAndBuildSwapTransactionResponseData routerResult(
             @jakarta.annotation.Nullable
-                    BuildSwapTransactionResponseDataRouterResult routerResult) {
+                    QuoteAndBuildSwapTransactionResponseDataRouterResult routerResult) {
         this.routerResult = routerResult;
         return this;
     }
@@ -79,13 +79,13 @@ public class QuoteAndBuildSwapTransactionResponseData {
      */
     @jakarta.annotation.Nullable
     @Valid
-    public BuildSwapTransactionResponseDataRouterResult getRouterResult() {
+    public QuoteAndBuildSwapTransactionResponseDataRouterResult getRouterResult() {
         return routerResult;
     }
 
     public void setRouterResult(
             @jakarta.annotation.Nullable
-                    BuildSwapTransactionResponseDataRouterResult routerResult) {
+                    QuoteAndBuildSwapTransactionResponseDataRouterResult routerResult) {
         this.routerResult = routerResult;
     }
 
@@ -283,7 +283,7 @@ public class QuoteAndBuildSwapTransactionResponseData {
         JsonObject jsonObj = jsonElement.getAsJsonObject();
         // validate the optional field `routerResult`
         if (jsonObj.get("routerResult") != null && !jsonObj.get("routerResult").isJsonNull()) {
-            BuildSwapTransactionResponseDataRouterResult.validateJsonElement(
+            QuoteAndBuildSwapTransactionResponseDataRouterResult.validateJsonElement(
                     jsonObj.get("routerResult"));
         }
         // validate the optional field `tx`

@@ -146,5 +146,5 @@
 
 ## WebSocket
 
-[GET /api/v1/dex/market/wss/auth/token](https://web3.binance.com/en/dev-docs/catalog/web3-wallet/api/rest-api/web-socket-api#get-web-socket-auth-token) - getWebSocketAuthToken - [GetWebSocketAuthTokenExample.java:38](/examples/web3-wallet/src/main/java/com/binance/connector/client/web3_wallet/rest/websocket/GetWebSocketAuthTokenExample.java#L38)
+[GET /api/v1/dex/market/wss/auth/token](https://web3.binance.com/en/dev-docs/catalog/web3-wallet/api/rest-api/web-socket-api#get-web-socket-auth-token) - getWebSocketAuthToken - [GetWebSocketAuthTokenExample.java:37](/examples/web3-wallet/src/main/java/com/binance/connector/client/web3_wallet/rest/websocket/GetWebSocketAuthTokenExample.java#L37)
 

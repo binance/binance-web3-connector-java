@@ -81,9 +81,6 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Transaction submitted successfully. |  -  |
-| **401** | Unauthorized. The request is missing or contains an invalid API key. |  -  |
-| **403** | Forbidden. The API key does not have permission to access this endpoint. |  -  |
-| **404** | Not Found. The requested resource or endpoint does not exist. |  -  |
 
 <a id="getBroadcastOrders"></a>
 # **getBroadcastOrders**
@@ -167,9 +164,6 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Orders returned successfully. |  -  |
-| **401** | Unauthorized. The request is missing or contains an invalid API key. |  -  |
-| **403** | Forbidden. The API key does not have permission to access this endpoint. |  -  |
-| **404** | Not Found. The requested resource or endpoint does not exist. |  -  |
 
 <a id="getGasLimit"></a>
 # **getGasLimit**
@@ -239,9 +233,6 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Estimated gas limit. |  -  |
-| **401** | Unauthorized. The request is missing or contains an invalid API key. |  -  |
-| **403** | Forbidden. The API key does not have permission to access this endpoint. |  -  |
-| **404** | Not Found. The requested resource or endpoint does not exist. |  -  |
 
 <a id="getGasPrice"></a>
 # **getGasPrice**
@@ -311,9 +302,6 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Current gas price for the specified chain. |  -  |
-| **401** | Unauthorized. The request is missing or contains an invalid API key. |  -  |
-| **403** | Forbidden. The API key does not have permission to access this endpoint. |  -  |
-| **404** | Not Found. The requested resource or endpoint does not exist. |  -  |
 
 <a id="getLatestBlockHeight"></a>
 # **getLatestBlockHeight**
@@ -383,9 +371,6 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Latest block height for the specified chain. |  -  |
-| **401** | Unauthorized. The request is missing or contains an invalid API key. |  -  |
-| **403** | Forbidden. The API key does not have permission to access this endpoint. |  -  |
-| **404** | Not Found. The requested resource or endpoint does not exist. |  -  |
 
 <a id="getTransactionSupportedChains"></a>
 # **getTransactionSupportedChains**
@@ -453,9 +438,6 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Supported chains returned successfully. |  -  |
-| **401** | Unauthorized. The request is missing or contains an invalid API key. |  -  |
-| **403** | Forbidden. The API key does not have permission to access this endpoint. |  -  |
-| **404** | Not Found. The requested resource or endpoint does not exist. |  -  |
 
 <a id="simulateTransactions"></a>
 # **simulateTransactions**
@@ -525,7 +507,4 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 | **200** | Simulation result. |  -  |
-| **401** | Unauthorized. The request is missing or contains an invalid API key. |  -  |
-| **403** | Forbidden. The API key does not have permission to access this endpoint. |  -  |
-| **404** | Not Found. The requested resource or endpoint does not exist. |  -  |
 

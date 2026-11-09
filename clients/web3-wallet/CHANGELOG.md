@@ -1,8 +1,503 @@
 # Changelog
 
-## 4.4.1 - 2026-09-28
+## 5.0.0 - 2026-11-09
 
-- Fix signature generation for POST requests.
+### Changed (238)
+
+#### REST API
+
+- Added parameter `excludePools`
+  - affected methods:
+    - `quoteAndBuildSwapTransaction()` (`GET /api/v1/dex/aggregator/quote-and-swap`)
+- Added parameter `forceRefresh`
+  - affected methods:
+    - `getDeFiPositions()` (`POST /api/v1/defi/data/position/list`)
+- Added parameter `positionAddress`
+  - affected methods:
+    - `buildDeFiRedeemTransaction()` (`POST /api/v1/defi/transaction/redeem`)
+- Added parameter `stakeAccounts`
+  - affected methods:
+    - `buildDeFiClaimTransaction()` (`POST /api/v1/defi/transaction/claim`)
+    - `buildDeFiRedeemTransaction()` (`POST /api/v1/defi/transaction/redeem`)
+- Modified response for `settleB402PaymentV1()` (`POST /api/v1/b402/settle`):
+  - property `code` added
+  - property `data` added
+  - property `errorData` added
+  - property `params` added
+  - property `status` added
+  - property `subData` added
+  - property `type` added
+  - oneOf removed 2 schema(s)
+
+- Modified response for `getB402SupportedConfigurationsV1()` (`POST /api/v1/b402/supported`):
+  - property `code` added
+  - property `data` added
+  - property `errorData` added
+  - property `params` added
+  - property `status` added
+  - property `subData` added
+  - property `type` added
+  - oneOf removed 2 schema(s)
+
+- Modified response for `getDeFiPositions()` (`POST /api/v1/defi/data/position/list`):
+  - `data`.`addressList`.items.`protocolList`.items.`poolList`.items.`positionCollectionList`.items.`positionList`.items.`positionDetail`: property `userStakeAccount` added
+  - `data`.`addressList`.items.`protocolList`.items.`poolList`.items.`positionCollectionList`.items.`positionList`.items.`positionDetail`: property `userStakeAccount` added
+  - `data`.`addressList`.items.`protocolList`.items.`poolList`.items.`positionCollectionList`.items.`positionList`.items.`positionDetail`: property `userStakeAccount` added
+  - `data`.`addressList`.items.`protocolList`.items.`poolList`.items.`positionCollectionList`.items.`positionList`.items.`positionDetail`: property `userStakeAccount` added
+  - `data`.`addressList`.items.`protocolList`.items.`poolList`.items.`positionCollectionList`.items.`positionList`.items.`positionDetail`: property `userStakeAccount` added
+  - `data`.`addressList`.items.`protocolList`.items.`poolList`.items.`positionCollectionList`.items.`positionList`.items.`positionDetail`: property `userStakeAccount` added
+  - `data`.`addressList`.items.`protocolList`.items.`poolList`.items.`positionCollectionList`.items.`positionList`.items.`positionDetail`: property `userStakeAccount` added
+  - `data`.`addressList`.items.`protocolList`.items.`poolList`.items.`positionCollectionList`.items.`positionList`.items.`positionDetail`: property `userStakeAccount` added
+  - `data`.`addressList`.items.`protocolList`.items.`poolList`.items.`positionCollectionList`.items.`positionList`.items.`positionDetail`: property `userStakeAccount` added
+  - `data`.`addressList`.items.`protocolList`.items.`poolList`.items.`positionCollectionList`.items.`positionList`.items.`positionDetail`: property `userStakeAccount` added
+  - `data`.`addressList`.items.`protocolList`.items.`poolList`.items.`positionCollectionList`.items.`positionList`.items.`positionDetail`: property `userStakeAccount` added
+  - `data`.`addressList`.items.`protocolList`.items.`poolList`.items.`positionCollectionList`.items.`positionList`.items.`positionDetail`: property `userStakeAccount` added
+  - `data`.`addressList`.items.`protocolList`.items.`poolList`.items.`positionCollectionList`.items.`positionList`.items.`positionDetail`: property `userStakeAccount` added
+  - `data`.`addressList`.items.`protocolList`.items.`poolList`.items.`positionCollectionList`.items.`positionList`.items.`positionDetail`: property `userStakeAccount` added
+  - `data`.`addressList`.items.`protocolList`.items.`poolList`.items.`positionCollectionList`.items.`positionList`.items.`positionDetail`: property `userStakeAccount` added
+  - `data`.`addressList`.items.`protocolList`.items.`poolList`.items.`positionCollectionList`.items.`positionList`.items.`positionDetail`: property `userStakeAccount` added
+  - `data`.`addressList`.items.`protocolList`.items.`poolList`.items.`positionCollectionList`.items.`positionList`.items.`positionDetail`: property `userStakeAccount` added
+  - `data`.`addressList`.items.`protocolList`.items.`poolList`.items.`positionCollectionList`.items.`positionList`.items.`positionDetail`: property `userStakeAccount` added
+  - `data`.`addressList`.items.`protocolList`.items.`poolList`.items.`positionCollectionList`.items.`positionList`.items.`positionDetail`: property `userStakeAccount` added
+  - `data`.`addressList`.items.`protocolList`.items.`poolList`.items.`positionCollectionList`.items.`positionList`.items.`positionDetail`: property `userStakeAccount` added
+  - `data`.`addressList`.items.`protocolList`.items.`poolList`.items.`positionCollectionList`.items.`positionList`.items.`positionDetail`: property `userStakeAccount` added
+  - `data`.`addressList`.items.`protocolList`.items.`poolList`.items.`positionCollectionList`.items.`positionList`.items.`positionDetail`: property `userStakeAccount` added
+  - `data`.`addressList`.items.`protocolList`.items.`poolList`.items.`positionCollectionList`.items.`positionList`.items.`positionDetail`: property `userStakeAccount` added
+  - `data`.`addressList`.items.`protocolList`.items.`poolList`.items.`positionCollectionList`.items.`positionList`.items.`positionDetail`: property `userStakeAccount` added
+  - `data`.`addressList`.items.`protocolList`.items.`poolList`.items.`positionCollectionList`.items.`positionList`.items.`positionDetail`: property `userStakeAccount` added
+  - `data`.`addressList`.items.`protocolList`.items.`poolList`.items.`positionCollectionList`.items.`positionList`.items.`positionDetail`: property `userStakeAccount` added
+  - `data`.`addressList`.items.`protocolList`.items.`poolList`.items.`positionCollectionList`.items.`positionList`.items.`positionDetail`: property `userStakeAccount` added
+  - `data`.`addressList`.items.`protocolList`.items.`poolList`.items.`positionCollectionList`.items.`positionList`.items.`positionDetail`: property `userStakeAccount` added
+  - `data`.`addressList`.items.`protocolList`.items.`poolList`.items.`positionCollectionList`.items.`positionList`.items.`positionDetail`: property `userStakeAccount` added
+  - `data`.`addressList`.items.`protocolList`.items.`poolList`.items.`positionCollectionList`.items.`positionList`.items.`positionDetail`: property `userStakeAccount` added
+  - `data`.`addressList`.items.`protocolList`.items.`poolList`.items.`positionCollectionList`.items.`positionList`.items.`positionDetail`: property `userStakeAccount` added
+  - `data`.`addressList`.items.`protocolList`.items.`poolList`.items.`positionCollectionList`.items.`positionList`.items.`positionDetail`: property `userStakeAccount` added
+
+- Modified response for `quoteAndBuildSwapTransaction()` (`GET /api/v1/dex/aggregator/quote-and-swap`):
+  - `data`.`routerResult`.`dexRouterList`.items: property `poolAddress` added
+  - `data`.`routerResult`.`dexRouterList`.items: item property `poolAddress` added
+
+- Modified response for `settleB402PaymentV2()` (`POST /api/v2/b402/settle`):
+  - property `code` added
+  - property `data` added
+  - property `errorData` added
+  - property `params` added
+  - property `status` added
+  - property `subData` added
+  - property `type` added
+  - oneOf removed 2 schema(s)
+
+- Modified response for `getB402SupportedConfigurationsV2()` (`POST /api/v2/b402/supported`):
+  - property `code` added
+  - property `data` added
+  - property `errorData` added
+  - property `params` added
+  - property `status` added
+  - property `subData` added
+  - property `type` added
+  - oneOf removed 2 schema(s)
+
+- Modified response for `verifyB402PaymentV2()` (`POST /api/v2/b402/verify`):
+  - property `code` added
+  - property `data` added
+  - property `errorData` added
+  - property `params` added
+  - property `status` added
+  - property `subData` added
+  - property `type` added
+  - oneOf removed 2 schema(s)
+
+- Added response field `userStakeAccount`
+  - affected events:
+    - `PositionDetailResp`
+- Added response field `stakeAccounts`
+  - affected events:
+    - `buildDeFiClaimTransactionRequest`
+    - `buildDeFiRedeemTransactionRequest`
+- Added response field `positionAddress`
+  - affected events:
+    - `buildDeFiRedeemTransactionRequest`
+- Added response field `code`
+  - affected events:
+    - `getB402SupportedConfigurationsV1Response`
+    - `getB402SupportedConfigurationsV2Response`
+    - `settleB402PaymentV1Response`
+    - `settleB402PaymentV2Response`
+    - `verifyB402PaymentV2Response`
+- Added response field `data`
+  - affected events:
+    - `getB402SupportedConfigurationsV1Response`
+    - `getB402SupportedConfigurationsV2Response`
+    - `settleB402PaymentV1Response`
+    - `settleB402PaymentV2Response`
+    - `verifyB402PaymentV2Response`
+- Added response field `errorData`
+  - affected events:
+    - `getB402SupportedConfigurationsV1Response`
+    - `getB402SupportedConfigurationsV2Response`
+    - `settleB402PaymentV1Response`
+    - `settleB402PaymentV2Response`
+    - `verifyB402PaymentV2Response`
+- Added response field `params`
+  - affected events:
+    - `getB402SupportedConfigurationsV1Response`
+    - `getB402SupportedConfigurationsV2Response`
+    - `settleB402PaymentV1Response`
+    - `settleB402PaymentV2Response`
+    - `verifyB402PaymentV2Response`
+- Added response field `status`
+  - affected events:
+    - `getB402SupportedConfigurationsV1Response`
+    - `getB402SupportedConfigurationsV2Response`
+    - `settleB402PaymentV1Response`
+    - `settleB402PaymentV2Response`
+    - `verifyB402PaymentV2Response`
+- Added response field `subData`
+  - affected events:
+    - `getB402SupportedConfigurationsV1Response`
+    - `getB402SupportedConfigurationsV2Response`
+    - `settleB402PaymentV1Response`
+    - `settleB402PaymentV2Response`
+    - `verifyB402PaymentV2Response`
+- Added response field `type`
+  - affected events:
+    - `getB402SupportedConfigurationsV1Response`
+    - `getB402SupportedConfigurationsV2Response`
+    - `settleB402PaymentV1Response`
+    - `settleB402PaymentV2Response`
+    - `verifyB402PaymentV2Response`
+- Added response field `forceRefresh`
+  - affected events:
+    - `getDeFiPositionsRequest`
+- Modified response field `protocolList`:
+  - items.`poolList`.items.`positionCollectionList`.items.`positionList`.items.`positionDetail`: property `userStakeAccount` added
+  - items.`poolList`.items.`positionCollectionList`.items.`positionList`.items.`positionDetail`: property `userStakeAccount` added
+  - items.`poolList`.items.`positionCollectionList`.items.`positionList`.items.`positionDetail`: property `userStakeAccount` added
+  - items.`poolList`.items.`positionCollectionList`.items.`positionList`.items.`positionDetail`: property `userStakeAccount` added
+  - items.`poolList`.items.`positionCollectionList`.items.`positionList`.items.`positionDetail`: property `userStakeAccount` added
+  - items.`poolList`.items.`positionCollectionList`.items.`positionList`.items.`positionDetail`: property `userStakeAccount` added
+  - items.`poolList`.items.`positionCollectionList`.items.`positionList`.items.`positionDetail`: property `userStakeAccount` added
+  - items.`poolList`.items.`positionCollectionList`.items.`positionList`.items.`positionDetail`: property `userStakeAccount` added
+  - items.`poolList`.items.`positionCollectionList`.items.`positionList`.items.`positionDetail`: property `userStakeAccount` added
+  - items.`poolList`.items.`positionCollectionList`.items.`positionList`.items.`positionDetail`: property `userStakeAccount` added
+  - items.`poolList`.items.`positionCollectionList`.items.`positionList`.items.`positionDetail`: property `userStakeAccount` added
+  - items.`poolList`.items.`positionCollectionList`.items.`positionList`.items.`positionDetail`: property `userStakeAccount` added
+  - items.`poolList`.items.`positionCollectionList`.items.`positionList`.items.`positionDetail`: property `userStakeAccount` added
+  - items.`poolList`.items.`positionCollectionList`.items.`positionList`.items.`positionDetail`: property `userStakeAccount` added
+  - items.`poolList`.items.`positionCollectionList`.items.`positionList`.items.`positionDetail`: property `userStakeAccount` added
+  - items.`poolList`.items.`positionCollectionList`.items.`positionList`.items.`positionDetail`: property `userStakeAccount` added
+  - affected events:
+    - `AddressResp`
+- Modified response field `positionCollectionList`:
+  - items.`positionList`.items.`positionDetail`: property `userStakeAccount` added
+  - items.`positionList`.items.`positionDetail`: property `userStakeAccount` added
+  - items.`positionList`.items.`positionDetail`: property `userStakeAccount` added
+  - items.`positionList`.items.`positionDetail`: property `userStakeAccount` added
+  - affected events:
+    - `PoolResp`
+- Modified response field `positionList`:
+  - items.`positionDetail`: property `userStakeAccount` added
+  - items.`positionDetail`: property `userStakeAccount` added
+  - affected events:
+    - `PositionCollectionResp`
+- Modified response field `addressList`:
+  - items.`protocolList`.items.`poolList`.items.`positionCollectionList`.items.`positionList`.items.`positionDetail`: property `userStakeAccount` added
+  - items.`protocolList`.items.`poolList`.items.`positionCollectionList`.items.`positionList`.items.`positionDetail`: property `userStakeAccount` added
+  - items.`protocolList`.items.`poolList`.items.`positionCollectionList`.items.`positionList`.items.`positionDetail`: property `userStakeAccount` added
+  - items.`protocolList`.items.`poolList`.items.`positionCollectionList`.items.`positionList`.items.`positionDetail`: property `userStakeAccount` added
+  - items.`protocolList`.items.`poolList`.items.`positionCollectionList`.items.`positionList`.items.`positionDetail`: property `userStakeAccount` added
+  - items.`protocolList`.items.`poolList`.items.`positionCollectionList`.items.`positionList`.items.`positionDetail`: property `userStakeAccount` added
+  - items.`protocolList`.items.`poolList`.items.`positionCollectionList`.items.`positionList`.items.`positionDetail`: property `userStakeAccount` added
+  - items.`protocolList`.items.`poolList`.items.`positionCollectionList`.items.`positionList`.items.`positionDetail`: property `userStakeAccount` added
+  - items.`protocolList`.items.`poolList`.items.`positionCollectionList`.items.`positionList`.items.`positionDetail`: property `userStakeAccount` added
+  - items.`protocolList`.items.`poolList`.items.`positionCollectionList`.items.`positionList`.items.`positionDetail`: property `userStakeAccount` added
+  - items.`protocolList`.items.`poolList`.items.`positionCollectionList`.items.`positionList`.items.`positionDetail`: property `userStakeAccount` added
+  - items.`protocolList`.items.`poolList`.items.`positionCollectionList`.items.`positionList`.items.`positionDetail`: property `userStakeAccount` added
+  - items.`protocolList`.items.`poolList`.items.`positionCollectionList`.items.`positionList`.items.`positionDetail`: property `userStakeAccount` added
+  - items.`protocolList`.items.`poolList`.items.`positionCollectionList`.items.`positionList`.items.`positionDetail`: property `userStakeAccount` added
+  - items.`protocolList`.items.`poolList`.items.`positionCollectionList`.items.`positionList`.items.`positionDetail`: property `userStakeAccount` added
+  - items.`protocolList`.items.`poolList`.items.`positionCollectionList`.items.`positionList`.items.`positionDetail`: property `userStakeAccount` added
+  - items.`protocolList`.items.`poolList`.items.`positionCollectionList`.items.`positionList`.items.`positionDetail`: property `userStakeAccount` added
+  - items.`protocolList`.items.`poolList`.items.`positionCollectionList`.items.`positionList`.items.`positionDetail`: property `userStakeAccount` added
+  - items.`protocolList`.items.`poolList`.items.`positionCollectionList`.items.`positionList`.items.`positionDetail`: property `userStakeAccount` added
+  - items.`protocolList`.items.`poolList`.items.`positionCollectionList`.items.`positionList`.items.`positionDetail`: property `userStakeAccount` added
+  - items.`protocolList`.items.`poolList`.items.`positionCollectionList`.items.`positionList`.items.`positionDetail`: property `userStakeAccount` added
+  - items.`protocolList`.items.`poolList`.items.`positionCollectionList`.items.`positionList`.items.`positionDetail`: property `userStakeAccount` added
+  - items.`protocolList`.items.`poolList`.items.`positionCollectionList`.items.`positionList`.items.`positionDetail`: property `userStakeAccount` added
+  - items.`protocolList`.items.`poolList`.items.`positionCollectionList`.items.`positionList`.items.`positionDetail`: property `userStakeAccount` added
+  - items.`protocolList`.items.`poolList`.items.`positionCollectionList`.items.`positionList`.items.`positionDetail`: property `userStakeAccount` added
+  - items.`protocolList`.items.`poolList`.items.`positionCollectionList`.items.`positionList`.items.`positionDetail`: property `userStakeAccount` added
+  - items.`protocolList`.items.`poolList`.items.`positionCollectionList`.items.`positionList`.items.`positionDetail`: property `userStakeAccount` added
+  - items.`protocolList`.items.`poolList`.items.`positionCollectionList`.items.`positionList`.items.`positionDetail`: property `userStakeAccount` added
+  - items.`protocolList`.items.`poolList`.items.`positionCollectionList`.items.`positionList`.items.`positionDetail`: property `userStakeAccount` added
+  - items.`protocolList`.items.`poolList`.items.`positionCollectionList`.items.`positionList`.items.`positionDetail`: property `userStakeAccount` added
+  - items.`protocolList`.items.`poolList`.items.`positionCollectionList`.items.`positionList`.items.`positionDetail`: property `userStakeAccount` added
+  - items.`protocolList`.items.`poolList`.items.`positionCollectionList`.items.`positionList`.items.`positionDetail`: property `userStakeAccount` added
+  - affected events:
+    - `PositionListResp`
+- Modified response field `positionDetail`:
+  - property `userStakeAccount` added
+  - affected events:
+    - `PositionResp`
+- Modified response field `poolList`:
+  - items.`positionCollectionList`.items.`positionList`.items.`positionDetail`: property `userStakeAccount` added
+  - items.`positionCollectionList`.items.`positionList`.items.`positionDetail`: property `userStakeAccount` added
+  - items.`positionCollectionList`.items.`positionList`.items.`positionDetail`: property `userStakeAccount` added
+  - items.`positionCollectionList`.items.`positionList`.items.`positionDetail`: property `userStakeAccount` added
+  - items.`positionCollectionList`.items.`positionList`.items.`positionDetail`: property `userStakeAccount` added
+  - items.`positionCollectionList`.items.`positionList`.items.`positionDetail`: property `userStakeAccount` added
+  - items.`positionCollectionList`.items.`positionList`.items.`positionDetail`: property `userStakeAccount` added
+  - items.`positionCollectionList`.items.`positionList`.items.`positionDetail`: property `userStakeAccount` added
+  - affected events:
+    - `ProtocolResp`
+- Modified response field `data`:
+  - `addressList`.items.`protocolList`.items.`poolList`.items.`positionCollectionList`.items.`positionList`.items.`positionDetail`: property `userStakeAccount` added
+  - `addressList`.items.`protocolList`.items.`poolList`.items.`positionCollectionList`.items.`positionList`.items.`positionDetail`: property `userStakeAccount` added
+  - `addressList`.items.`protocolList`.items.`poolList`.items.`positionCollectionList`.items.`positionList`.items.`positionDetail`: property `userStakeAccount` added
+  - `addressList`.items.`protocolList`.items.`poolList`.items.`positionCollectionList`.items.`positionList`.items.`positionDetail`: property `userStakeAccount` added
+  - `addressList`.items.`protocolList`.items.`poolList`.items.`positionCollectionList`.items.`positionList`.items.`positionDetail`: property `userStakeAccount` added
+  - `addressList`.items.`protocolList`.items.`poolList`.items.`positionCollectionList`.items.`positionList`.items.`positionDetail`: property `userStakeAccount` added
+  - `addressList`.items.`protocolList`.items.`poolList`.items.`positionCollectionList`.items.`positionList`.items.`positionDetail`: property `userStakeAccount` added
+  - `addressList`.items.`protocolList`.items.`poolList`.items.`positionCollectionList`.items.`positionList`.items.`positionDetail`: property `userStakeAccount` added
+  - `addressList`.items.`protocolList`.items.`poolList`.items.`positionCollectionList`.items.`positionList`.items.`positionDetail`: property `userStakeAccount` added
+  - `addressList`.items.`protocolList`.items.`poolList`.items.`positionCollectionList`.items.`positionList`.items.`positionDetail`: property `userStakeAccount` added
+  - `addressList`.items.`protocolList`.items.`poolList`.items.`positionCollectionList`.items.`positionList`.items.`positionDetail`: property `userStakeAccount` added
+  - `addressList`.items.`protocolList`.items.`poolList`.items.`positionCollectionList`.items.`positionList`.items.`positionDetail`: property `userStakeAccount` added
+  - `addressList`.items.`protocolList`.items.`poolList`.items.`positionCollectionList`.items.`positionList`.items.`positionDetail`: property `userStakeAccount` added
+  - `addressList`.items.`protocolList`.items.`poolList`.items.`positionCollectionList`.items.`positionList`.items.`positionDetail`: property `userStakeAccount` added
+  - `addressList`.items.`protocolList`.items.`poolList`.items.`positionCollectionList`.items.`positionList`.items.`positionDetail`: property `userStakeAccount` added
+  - `addressList`.items.`protocolList`.items.`poolList`.items.`positionCollectionList`.items.`positionList`.items.`positionDetail`: property `userStakeAccount` added
+  - `addressList`.items.`protocolList`.items.`poolList`.items.`positionCollectionList`.items.`positionList`.items.`positionDetail`: property `userStakeAccount` added
+  - `addressList`.items.`protocolList`.items.`poolList`.items.`positionCollectionList`.items.`positionList`.items.`positionDetail`: property `userStakeAccount` added
+  - `addressList`.items.`protocolList`.items.`poolList`.items.`positionCollectionList`.items.`positionList`.items.`positionDetail`: property `userStakeAccount` added
+  - `addressList`.items.`protocolList`.items.`poolList`.items.`positionCollectionList`.items.`positionList`.items.`positionDetail`: property `userStakeAccount` added
+  - `addressList`.items.`protocolList`.items.`poolList`.items.`positionCollectionList`.items.`positionList`.items.`positionDetail`: property `userStakeAccount` added
+  - `addressList`.items.`protocolList`.items.`poolList`.items.`positionCollectionList`.items.`positionList`.items.`positionDetail`: property `userStakeAccount` added
+  - `addressList`.items.`protocolList`.items.`poolList`.items.`positionCollectionList`.items.`positionList`.items.`positionDetail`: property `userStakeAccount` added
+  - `addressList`.items.`protocolList`.items.`poolList`.items.`positionCollectionList`.items.`positionList`.items.`positionDetail`: property `userStakeAccount` added
+  - `addressList`.items.`protocolList`.items.`poolList`.items.`positionCollectionList`.items.`positionList`.items.`positionDetail`: property `userStakeAccount` added
+  - `addressList`.items.`protocolList`.items.`poolList`.items.`positionCollectionList`.items.`positionList`.items.`positionDetail`: property `userStakeAccount` added
+  - `addressList`.items.`protocolList`.items.`poolList`.items.`positionCollectionList`.items.`positionList`.items.`positionDetail`: property `userStakeAccount` added
+  - `addressList`.items.`protocolList`.items.`poolList`.items.`positionCollectionList`.items.`positionList`.items.`positionDetail`: property `userStakeAccount` added
+  - `addressList`.items.`protocolList`.items.`poolList`.items.`positionCollectionList`.items.`positionList`.items.`positionDetail`: property `userStakeAccount` added
+  - `addressList`.items.`protocolList`.items.`poolList`.items.`positionCollectionList`.items.`positionList`.items.`positionDetail`: property `userStakeAccount` added
+  - `addressList`.items.`protocolList`.items.`poolList`.items.`positionCollectionList`.items.`positionList`.items.`positionDetail`: property `userStakeAccount` added
+  - `addressList`.items.`protocolList`.items.`poolList`.items.`positionCollectionList`.items.`positionList`.items.`positionDetail`: property `userStakeAccount` added
+  - affected events:
+    - `getDeFiPositionsResponse`
+- Modified response field `data`:
+  - `routerResult`.`dexRouterList`.items: property `poolAddress` added
+  - `routerResult`.`dexRouterList`.items: item property `poolAddress` added
+  - affected events:
+    - `quoteAndBuildSwapTransactionResponse`
+- Removed response schema `broadcastTransactionsResponse401`
+- Removed response schema `broadcastTransactionsResponse403`
+- Removed response schema `broadcastTransactionsResponse404`
+- Removed response schema `buildDeFiClaimTransactionResponse401`
+- Removed response schema `buildDeFiClaimTransactionResponse403`
+- Removed response schema `buildDeFiClaimTransactionResponse404`
+- Removed response schema `buildDeFiDepositTransactionResponse401`
+- Removed response schema `buildDeFiDepositTransactionResponse403`
+- Removed response schema `buildDeFiDepositTransactionResponse404`
+- Removed response schema `buildDeFiRedeemTransactionResponse401`
+- Removed response schema `buildDeFiRedeemTransactionResponse403`
+- Removed response schema `buildDeFiRedeemTransactionResponse404`
+- Removed response schema `buildLpAddTransactionResponse401`
+- Removed response schema `buildLpAddTransactionResponse403`
+- Removed response schema `buildLpAddTransactionResponse404`
+- Removed response schema `buildLpRemoveTransactionResponse401`
+- Removed response schema `buildLpRemoveTransactionResponse403`
+- Removed response schema `buildLpRemoveTransactionResponse404`
+- Removed response schema `buildSolanaSwapInstructionsResponse401`
+- Removed response schema `buildSolanaSwapInstructionsResponse403`
+- Removed response schema `buildSolanaSwapInstructionsResponse404`
+- Removed response schema `buildSwapTransactionResponse401`
+- Removed response schema `buildSwapTransactionResponse403`
+- Removed response schema `buildSwapTransactionResponse404`
+- Removed response schema `calculateLpAddPairedAmountsResponse401`
+- Removed response schema `calculateLpAddPairedAmountsResponse403`
+- Removed response schema `calculateLpAddPairedAmountsResponse404`
+- Removed response schema `getAddressPnLForSpecificTokenResponse401`
+- Removed response schema `getAddressPnLForSpecificTokenResponse403`
+- Removed response schema `getAddressPnLForSpecificTokenResponse404`
+- Removed response schema `getAddressPortfolioOverviewResponse401`
+- Removed response schema `getAddressPortfolioOverviewResponse403`
+- Removed response schema `getAddressPortfolioOverviewResponse404`
+- Removed response schema `getAddressRecentPnLResponse401`
+- Removed response schema `getAddressRecentPnLResponse403`
+- Removed response schema `getAddressRecentPnLResponse404`
+- Removed response schema `getAggregatedQuoteResponse401`
+- Removed response schema `getAggregatedQuoteResponse403`
+- Removed response schema `getAggregatedQuoteResponse404`
+- Removed response schema `getAggregatorSupportedChainsResponse401`
+- Removed response schema `getAggregatorSupportedChainsResponse403`
+- Removed response schema `getAggregatorSupportedChainsResponse404`
+- Removed response schema `getAllTokenBalancesByAddressResponse401`
+- Removed response schema `getAllTokenBalancesByAddressResponse403`
+- Removed response schema `getAllTokenBalancesByAddressResponse404`
+- Removed response schema `getB402SupportedConfigurationsV1Response1`
+- Removed response schema `getB402SupportedConfigurationsV1Response2`
+- Removed response schema `getB402SupportedConfigurationsV1Response401`
+- Removed response schema `getB402SupportedConfigurationsV1Response403`
+- Removed response schema `getB402SupportedConfigurationsV1Response429`
+- Removed response schema `getB402SupportedConfigurationsV1Response503`
+- Removed response schema `getB402SupportedConfigurationsV2Response1`
+- Removed response schema `getB402SupportedConfigurationsV2Response2`
+- Removed response schema `getB402SupportedConfigurationsV2Response401`
+- Removed response schema `getB402SupportedConfigurationsV2Response403`
+- Removed response schema `getB402SupportedConfigurationsV2Response429`
+- Removed response schema `getB402SupportedConfigurationsV2Response503`
+- Removed response schema `getBroadcastOrdersResponse401`
+- Removed response schema `getBroadcastOrdersResponse403`
+- Removed response schema `getBroadcastOrdersResponse404`
+- Removed response schema `getCandlesResponse401`
+- Removed response schema `getCandlesResponse403`
+- Removed response schema `getCandlesResponse404`
+- Removed response schema `getDeFiPositionsResponse401`
+- Removed response schema `getDeFiPositionsResponse403`
+- Removed response schema `getDeFiPositionsResponse404`
+- Removed response schema `getDexTradeHistoryResponse401`
+- Removed response schema `getDexTradeHistoryResponse403`
+- Removed response schema `getDexTradeHistoryResponse404`
+- Removed response schema `getErc20ApproveTransactionResponse401`
+- Removed response schema `getErc20ApproveTransactionResponse403`
+- Removed response schema `getErc20ApproveTransactionResponse404`
+- Removed response schema `getGasLimitResponse401`
+- Removed response schema `getGasLimitResponse403`
+- Removed response schema `getGasLimitResponse404`
+- Removed response schema `getGasPriceResponse401`
+- Removed response schema `getGasPriceResponse403`
+- Removed response schema `getGasPriceResponse404`
+- Removed response schema `getHoldersRankingResponse401`
+- Removed response schema `getHoldersRankingResponse403`
+- Removed response schema `getHoldersRankingResponse404`
+- Removed response schema `getHotTokenListResponse401`
+- Removed response schema `getHotTokenListResponse403`
+- Removed response schema `getHotTokenListResponse404`
+- Removed response schema `getInvestmentDetailResponse401`
+- Removed response schema `getInvestmentDetailResponse403`
+- Removed response schema `getInvestmentDetailResponse404`
+- Removed response schema `getLatestBlockHeightResponse401`
+- Removed response schema `getLatestBlockHeightResponse403`
+- Removed response schema `getLatestBlockHeightResponse404`
+- Removed response schema `getLeaderboardResponse401`
+- Removed response schema `getLeaderboardResponse403`
+- Removed response schema `getLeaderboardResponse404`
+- Removed response schema `getPortfolioSupportedChainsResponse401`
+- Removed response schema `getPortfolioSupportedChainsResponse403`
+- Removed response schema `getPortfolioSupportedChainsResponse404`
+- Removed response schema `getProtocolDetailResponse401`
+- Removed response schema `getProtocolDetailResponse403`
+- Removed response schema `getProtocolDetailResponse404`
+- Removed response schema `getRfqOrderStatusResponse401`
+- Removed response schema `getRfqOrderStatusResponse403`
+- Removed response schema `getRfqOrderStatusResponse404`
+- Removed response schema `getRwaTokenIssuancePlatformsResponse401`
+- Removed response schema `getRwaTokenIssuancePlatformsResponse403`
+- Removed response schema `getRwaTokenIssuancePlatformsResponse404`
+- Removed response schema `getRwaTokenListResponse401`
+- Removed response schema `getRwaTokenListResponse403`
+- Removed response schema `getRwaTokenListResponse404`
+- Removed response schema `getRwaTokenPriceResponse401`
+- Removed response schema `getRwaTokenPriceResponse403`
+- Removed response schema `getRwaTokenPriceResponse404`
+- Removed response schema `getRwaUnderlyingInfoResponse401`
+- Removed response schema `getRwaUnderlyingInfoResponse403`
+- Removed response schema `getRwaUnderlyingInfoResponse404`
+- Removed response schema `getRwaUnderlyingMarketDataResponse401`
+- Removed response schema `getRwaUnderlyingMarketDataResponse403`
+- Removed response schema `getRwaUnderlyingMarketDataResponse404`
+- Removed response schema `getSupportedChainsResponse401`
+- Removed response schema `getSupportedChainsResponse403`
+- Removed response schema `getSupportedChainsResponse404`
+- Removed response schema `getTokenAdvancedInfoResponse401`
+- Removed response schema `getTokenAdvancedInfoResponse403`
+- Removed response schema `getTokenAdvancedInfoResponse404`
+- Removed response schema `getTokenBalancesByAddressResponse401`
+- Removed response schema `getTokenBalancesByAddressResponse403`
+- Removed response schema `getTokenBalancesByAddressResponse404`
+- Removed response schema `getTokenBasicInfoResponse401`
+- Removed response schema `getTokenBasicInfoResponse403`
+- Removed response schema `getTokenBasicInfoResponse404`
+- Removed response schema `getTokenDevInfoResponse401`
+- Removed response schema `getTokenDevInfoResponse403`
+- Removed response schema `getTokenDevInfoResponse404`
+- Removed response schema `getTokenPriceResponse401`
+- Removed response schema `getTokenPriceResponse403`
+- Removed response schema `getTokenPriceResponse404`
+- Removed response schema `getTokenTradesResponse401`
+- Removed response schema `getTokenTradesResponse403`
+- Removed response schema `getTokenTradesResponse404`
+- Removed response schema `getTokenTradingInfoResponse401`
+- Removed response schema `getTokenTradingInfoResponse403`
+- Removed response schema `getTokenTradingInfoResponse404`
+- Removed response schema `getTopLiquidityPoolsResponse401`
+- Removed response schema `getTopLiquidityPoolsResponse403`
+- Removed response schema `getTopLiquidityPoolsResponse404`
+- Removed response schema `getTopTradersResponse401`
+- Removed response schema `getTopTradersResponse403`
+- Removed response schema `getTopTradersResponse404`
+- Removed response schema `getTrackedTradesResponse401`
+- Removed response schema `getTrackedTradesResponse403`
+- Removed response schema `getTrackedTradesResponse404`
+- Removed response schema `getTransactionDetailByHashResponse401`
+- Removed response schema `getTransactionDetailByHashResponse403`
+- Removed response schema `getTransactionDetailByHashResponse404`
+- Removed response schema `getTransactionStatusResponse401`
+- Removed response schema `getTransactionStatusResponse403`
+- Removed response schema `getTransactionStatusResponse404`
+- Removed response schema `getTransactionSupportedChainsResponse401`
+- Removed response schema `getTransactionSupportedChainsResponse403`
+- Removed response schema `getTransactionSupportedChainsResponse404`
+- Removed response schema `getTransactionsByAddressResponse401`
+- Removed response schema `getTransactionsByAddressResponse403`
+- Removed response schema `getTransactionsByAddressResponse404`
+- Removed response schema `getWalletSupportedChainsResponse401`
+- Removed response schema `getWalletSupportedChainsResponse403`
+- Removed response schema `getWalletSupportedChainsResponse404`
+- Removed response schema `listDeFiInvestmentsResponse401`
+- Removed response schema `listDeFiInvestmentsResponse403`
+- Removed response schema `listDeFiInvestmentsResponse404`
+- Removed response schema `listDeFiProtocolsResponse401`
+- Removed response schema `listDeFiProtocolsResponse403`
+- Removed response schema `listDeFiProtocolsResponse404`
+- Removed response schema `quoteAndBuildSwapTransactionResponse401`
+- Removed response schema `quoteAndBuildSwapTransactionResponse403`
+- Removed response schema `quoteAndBuildSwapTransactionResponse404`
+- Removed response schema `searchRwaTokenResponse401`
+- Removed response schema `searchRwaTokenResponse403`
+- Removed response schema `searchRwaTokenResponse404`
+- Removed response schema `searchTokenResponse401`
+- Removed response schema `searchTokenResponse403`
+- Removed response schema `searchTokenResponse404`
+- Removed response schema `settleB402PaymentV1Response1`
+- Removed response schema `settleB402PaymentV1Response2`
+- Removed response schema `settleB402PaymentV1Response401`
+- Removed response schema `settleB402PaymentV1Response403`
+- Removed response schema `settleB402PaymentV1Response429`
+- Removed response schema `settleB402PaymentV1Response503`
+- Removed response schema `settleB402PaymentV2Response1`
+- Removed response schema `settleB402PaymentV2Response2`
+- Removed response schema `settleB402PaymentV2Response401`
+- Removed response schema `settleB402PaymentV2Response403`
+- Removed response schema `settleB402PaymentV2Response429`
+- Removed response schema `settleB402PaymentV2Response503`
+- Removed response schema `simulateTransactionsResponse401`
+- Removed response schema `simulateTransactionsResponse403`
+- Removed response schema `simulateTransactionsResponse404`
+- Removed response schema `submitRfqOrderResponse401`
+- Removed response schema `submitRfqOrderResponse403`
+- Removed response schema `submitRfqOrderResponse404`
+- Removed response schema `verifyB402PaymentV1Response401`
+- Removed response schema `verifyB402PaymentV1Response403`
+- Removed response schema `verifyB402PaymentV1Response429`
+- Removed response schema `verifyB402PaymentV1Response503`
+- Removed response schema `verifyB402PaymentV2Response1`
+- Removed response schema `verifyB402PaymentV2Response2`
+- Removed response schema `verifyB402PaymentV2Response401`
+- Removed response schema `verifyB402PaymentV2Response403`
+- Removed response schema `verifyB402PaymentV2Response429`
+- Removed response schema `verifyB402PaymentV2Response503`
 
 ## 4.4.0 - 2026-09-21
 

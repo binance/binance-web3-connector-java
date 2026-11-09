@@ -28,9 +28,15 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 import org.hibernate.validator.constraints.*;
+import org.openapitools.jackson.nullable.JsonNullable;
 
 /** BuildDeFiRedeemTransactionRequest */
 @jakarta.annotation.Generated(
@@ -66,6 +72,18 @@ public class BuildDeFiRedeemTransactionRequest {
     @SerializedName(SERIALIZED_NAME_SLIPPAGE_BPS)
     @jakarta.annotation.Nullable
     private String slippageBps;
+
+    public static final String SERIALIZED_NAME_STAKE_ACCOUNTS = "stakeAccounts";
+
+    @SerializedName(SERIALIZED_NAME_STAKE_ACCOUNTS)
+    @jakarta.annotation.Nullable
+    private List<String> stakeAccounts;
+
+    public static final String SERIALIZED_NAME_POSITION_ADDRESS = "positionAddress";
+
+    @SerializedName(SERIALIZED_NAME_POSITION_ADDRESS)
+    @jakarta.annotation.Nullable
+    private String positionAddress;
 
     public static final String SERIALIZED_NAME_SIMULATE = "simulate";
 
@@ -182,6 +200,63 @@ public class BuildDeFiRedeemTransactionRequest {
         this.slippageBps = slippageBps;
     }
 
+    public BuildDeFiRedeemTransactionRequest stakeAccounts(
+            @jakarta.annotation.Nullable List<String> stakeAccounts) {
+        this.stakeAccounts = stakeAccounts;
+        return this;
+    }
+
+    public BuildDeFiRedeemTransactionRequest addStakeAccountsItem(String stakeAccountsItem) {
+        if (this.stakeAccounts == null) {
+            this.stakeAccounts = new ArrayList<>();
+        }
+        this.stakeAccounts.add(stakeAccountsItem);
+        return this;
+    }
+
+    /**
+     * Base58 stake account address(es) — the account(s) to deactivate. Required for Solana native
+     * staking (&#x60;sol_staking&#x60;) redeem only; the whole stake account is redeemed and
+     * &#x60;token&#x60; / &#x60;ratio&#x60; are ignored in this mode. Passing
+     * &#x60;stakeAccounts&#x60; for any other protocol (EVM chains, LP, or other Solana protocols)
+     * is a parameter error. This release supports exactly one element (length at most 1).
+     *
+     * @return stakeAccounts
+     */
+    @jakarta.annotation.Nullable
+    public List<String> getStakeAccounts() {
+        return stakeAccounts;
+    }
+
+    public void setStakeAccounts(@jakarta.annotation.Nullable List<String> stakeAccounts) {
+        this.stakeAccounts = stakeAccounts;
+    }
+
+    public BuildDeFiRedeemTransactionRequest positionAddress(
+            @jakarta.annotation.Nullable String positionAddress) {
+        this.positionAddress = positionAddress;
+        return this;
+    }
+
+    /**
+     * Base58 position PDA for Jupiter Lend Borrow (&#x60;jupiter&#x60;, surface
+     * &#x60;lend_borrow_supply&#x60;) redeem — one vault may hold several positions for the same
+     * address, so the caller must name which to withdraw. Take it from
+     * &#x60;position/list&#x60;&#39;s &#x60;positionDetail.positionIndex&#x60;. Required for a Lend
+     * Borrow redeem; &#x60;token&#x60; / &#x60;ratio&#x60; still decide the amount to withdraw.
+     * Passing &#x60;positionAddress&#x60; for any other protocol is a parameter error.
+     *
+     * @return positionAddress
+     */
+    @jakarta.annotation.Nullable
+    public String getPositionAddress() {
+        return positionAddress;
+    }
+
+    public void setPositionAddress(@jakarta.annotation.Nullable String positionAddress) {
+        this.positionAddress = positionAddress;
+    }
+
     public BuildDeFiRedeemTransactionRequest simulate(
             @jakarta.annotation.Nullable Boolean simulate) {
         this.simulate = simulate;
@@ -221,12 +296,40 @@ public class BuildDeFiRedeemTransactionRequest {
                 && Objects.equals(this.token, buildDeFiRedeemTransactionRequest.token)
                 && Objects.equals(this.ratio, buildDeFiRedeemTransactionRequest.ratio)
                 && Objects.equals(this.slippageBps, buildDeFiRedeemTransactionRequest.slippageBps)
+                && Objects.equals(
+                        this.stakeAccounts, buildDeFiRedeemTransactionRequest.stakeAccounts)
+                && Objects.equals(
+                        this.positionAddress, buildDeFiRedeemTransactionRequest.positionAddress)
                 && Objects.equals(this.simulate, buildDeFiRedeemTransactionRequest.simulate);
+    }
+
+    private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
+        return a == b
+                || (a != null
+                        && b != null
+                        && a.isPresent()
+                        && b.isPresent()
+                        && Objects.deepEquals(a.get(), b.get()));
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(address, investmentId, token, ratio, slippageBps, simulate);
+        return Objects.hash(
+                address,
+                investmentId,
+                token,
+                ratio,
+                slippageBps,
+                stakeAccounts,
+                positionAddress,
+                simulate);
+    }
+
+    private static <T> int hashCodeNullable(JsonNullable<T> a) {
+        if (a == null) {
+            return 1;
+        }
+        return a.isPresent() ? Arrays.deepHashCode(new Object[] {a.get()}) : 31;
     }
 
     @Override
@@ -238,6 +341,8 @@ public class BuildDeFiRedeemTransactionRequest {
         sb.append("		token: ").append(toIndentedString(token)).append("\n");
         sb.append("		ratio: ").append(toIndentedString(ratio)).append("\n");
         sb.append("		slippageBps: ").append(toIndentedString(slippageBps)).append("\n");
+        sb.append("		stakeAccounts: ").append(toIndentedString(stakeAccounts)).append("\n");
+        sb.append("		positionAddress: ").append(toIndentedString(positionAddress)).append("\n");
         sb.append("		simulate: ").append(toIndentedString(simulate)).append("\n");
         sb.append("}");
         return sb.toString();
@@ -266,6 +371,17 @@ public class BuildDeFiRedeemTransactionRequest {
         String slippageBpsValueAsString = "";
         slippageBpsValueAsString = slippageBpsValue.toString();
         sb.append("slippageBps=").append(urlEncode(slippageBpsValueAsString)).append("");
+        Object stakeAccountsValue = getStakeAccounts();
+        String stakeAccountsValueAsString = "";
+        stakeAccountsValueAsString =
+                (String)
+                        ((Collection) stakeAccountsValue)
+                                .stream().map(Object::toString).collect(Collectors.joining(","));
+        sb.append("stakeAccounts=").append(urlEncode(stakeAccountsValueAsString)).append("");
+        Object positionAddressValue = getPositionAddress();
+        String positionAddressValueAsString = "";
+        positionAddressValueAsString = positionAddressValue.toString();
+        sb.append("positionAddress=").append(urlEncode(positionAddressValueAsString)).append("");
         Object simulateValue = getSimulate();
         String simulateValueAsString = "";
         simulateValueAsString = simulateValue.toString();
@@ -303,6 +419,8 @@ public class BuildDeFiRedeemTransactionRequest {
         openapiFields.add("token");
         openapiFields.add("ratio");
         openapiFields.add("slippageBps");
+        openapiFields.add("stakeAccounts");
+        openapiFields.add("positionAddress");
         openapiFields.add("simulate");
 
         // a set of required properties/fields (JSON key names)
@@ -374,6 +492,24 @@ public class BuildDeFiRedeemTransactionRequest {
                             "Expected the field `slippageBps` to be a primitive type in the JSON"
                                     + " string but got `%s`",
                             jsonObj.get("slippageBps").toString()));
+        }
+        // ensure the optional json data is an array if present
+        if (jsonObj.get("stakeAccounts") != null
+                && !jsonObj.get("stakeAccounts").isJsonNull()
+                && !jsonObj.get("stakeAccounts").isJsonArray()) {
+            throw new IllegalArgumentException(
+                    String.format(
+                            "Expected the field `stakeAccounts` to be an array in the JSON string"
+                                    + " but got `%s`",
+                            jsonObj.get("stakeAccounts").toString()));
+        }
+        if ((jsonObj.get("positionAddress") != null && !jsonObj.get("positionAddress").isJsonNull())
+                && !jsonObj.get("positionAddress").isJsonPrimitive()) {
+            throw new IllegalArgumentException(
+                    String.format(
+                            "Expected the field `positionAddress` to be a primitive type in the"
+                                    + " JSON string but got `%s`",
+                            jsonObj.get("positionAddress").toString()));
         }
     }
 
