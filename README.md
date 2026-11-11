@@ -1,4 +1,4 @@
-# Binance Java Connectors
+https://github.com/binance/binance-web3-connector-java.git# Binance Java Connectors
 
 [![Build Status](https://img.shields.io/github/actions/workflow/status/binance/binance-web3-connector-java/java.yml)](https://github.com/binance/binance-web3-connector-java/actions)
 [![Open Issues](https://img.shields.io/github/issues/binance/binance-web3-connector-java)](https://github.com/binance/binance-web3-connector-java/issues)
